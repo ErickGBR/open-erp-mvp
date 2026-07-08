@@ -10,6 +10,7 @@ const navLinks = [
   { href: '/dashboard/products', label: 'Products' },
   { href: '/dashboard/customers', label: 'Customers' },
   { href: '/dashboard/sales', label: 'Sales' },
+  { href: '/dashboard/settings', label: 'Settings' },
 ];
 
 /**
