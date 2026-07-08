@@ -2,9 +2,20 @@ node_modules/
 dist/
 .next/
 .env
-.env.local
+.env.*
 *.log
 .DS_Store
 coverage/
 .turbo/
 .cache/
+*.tsbuildinfo
+
+# AI agent configs
+.agents/
+.opencode/
+.claude/
+AGENTS.md
+CLAUDE.md
+skills-lock.json
+.cursor/
+.continue/
