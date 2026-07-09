@@ -10,6 +10,8 @@ coverage/
 .cache/
 *.tsbuildinfo
 
+test-results/
+
 # AI agent configs
 .agents/
 .opencode/

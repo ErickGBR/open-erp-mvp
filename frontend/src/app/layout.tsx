@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RunMVP ERP",
-  description: "Enterprise Resource Planning system powered by RunMVP",
+  title: "Open ERP",
+  description: "Open-source Enterprise Resource Planning system",
 };
 
 export default function RootLayout({
@@ -28,7 +28,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full bg-[#0a0a12] text-[#e2e8f0]">
         <Providers>{children}</Providers>
       </body>
     </html>

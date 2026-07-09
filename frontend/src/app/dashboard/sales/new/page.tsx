@@ -303,14 +303,14 @@ export default function NewSalePage() {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">New Sale</h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-[#e2e8f0]">New Sale</h1>
+          <p className="mt-1 text-sm text-slate-400">
             Create a new invoice with line items.
           </p>
         </div>
         <Link
           href="/dashboard/sales"
-          className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+          className="text-sm font-medium text-cyan-400 hover:text-cyan-300"
         >
           &larr; Back to sales
         </Link>
@@ -320,7 +320,7 @@ export default function NewSalePage() {
       {submitError && (
         <div
           role="alert"
-          className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700"
+          className="mb-6 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300"
         >
           {submitError}
         </div>
@@ -328,8 +328,8 @@ export default function NewSalePage() {
 
       <form onSubmit={handleSubmit} noValidate>
         {/* ── Section 1: Customer Selection ───────────────────────── */}
-        <div className="mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-gray-900">
+        <div className="mb-6 rounded-xl border border-cyan-500/10 bg-[#12121e] p-6 shadow-sm">
+          <h2 className="mb-4 text-lg font-semibold text-[#e2e8f0]">
             Customer
           </h2>
 
@@ -345,17 +345,17 @@ export default function NewSalePage() {
               onFocus={() => setCustomerDropdownOpen(true)}
               placeholder="Search customer… (leave empty for walk-in)"
               aria-label="Search customer"
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:w-96"
+              className="block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 sm:w-96"
             />
 
             {customerDropdownOpen && !selectedCustomer && (
-              <div className="absolute left-0 right-0 z-10 mt-1 max-h-48 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg sm:w-96">
+              <div className="absolute left-0 right-0 z-10 mt-1 max-h-56 overflow-y-auto rounded-lg border border-cyan-500/20 bg-[#1a1a2e] shadow-lg sm:w-96">
                 {customersLoading ? (
-                  <div className="px-3 py-2 text-sm text-gray-500">
+                  <div className="px-3 py-2 text-sm text-slate-400">
                     Loading customers…
                   </div>
                 ) : filteredCustomers.length === 0 ? (
-                  <div className="px-3 py-2 text-sm text-gray-500">
+                  <div className="px-3 py-2 text-sm text-slate-400">
                     {customerSearch
                       ? 'No customers match your search.'
                       : 'No customers found.'}
@@ -366,11 +366,11 @@ export default function NewSalePage() {
                       key={customer.id}
                       type="button"
                       onClick={() => handleSelectCustomer(customer)}
-                      className="flex w-full items-center justify-between px-3 py-2 text-left text-sm text-gray-700 transition-colors hover:bg-indigo-50"
+                      className="flex w-full items-center justify-between px-3 py-2 text-left text-sm text-slate-300 transition-colors hover:bg-cyan-500/10"
                     >
                       <span className="font-medium">{customer.name}</span>
                       {customer.company && (
-                        <span className="text-xs text-gray-400">
+                        <span className="text-xs text-slate-500">
                           {customer.company}
                         </span>
                       )}
@@ -383,13 +383,13 @@ export default function NewSalePage() {
 
           {selectedCustomer && (
             <div className="mt-2 flex items-center gap-2">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-slate-400">
                 Selected:{' '}
-                <span className="font-medium text-gray-900">
+                <span className="font-medium text-[#e2e8f0]">
                   {selectedCustomer.name}
                 </span>
                 {selectedCustomer.company && (
-                  <span className="text-gray-400">
+                  <span className="text-slate-500">
                     {' '}— {selectedCustomer.company}
                   </span>
                 )}
@@ -397,7 +397,7 @@ export default function NewSalePage() {
               <button
                 type="button"
                 onClick={handleClearCustomer}
-                className="text-xs font-medium text-red-600 hover:text-red-500"
+                className="text-xs font-medium text-red-400 hover:text-red-300"
               >
                 Clear
               </button>
@@ -406,8 +406,8 @@ export default function NewSalePage() {
         </div>
 
         {/* ── Section 2: Line Items ───────────────────────────────── */}
-        <div className="mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-gray-900">
+        <div className="mb-6 rounded-xl border border-cyan-500/10 bg-[#12121e] p-6 shadow-sm">
+          <h2 className="mb-4 text-lg font-semibold text-[#e2e8f0]">
             Items
           </h2>
 
@@ -421,18 +421,18 @@ export default function NewSalePage() {
               onFocus={() => productSearch.trim() && setProductDropdownOpen(true)}
               placeholder="Search and add products…"
               aria-label="Search products to add"
-              className="block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:w-96"
+              className="block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 sm:w-96"
             />
 
             {productDropdownOpen && productSearch.trim() && (
-              <div className="absolute left-0 right-0 z-10 mt-1 max-h-56 overflow-y-auto rounded-lg border border-gray-200 bg-white shadow-lg sm:w-96">
+              <div className="absolute left-0 right-0 z-10 mt-1 max-h-56 overflow-y-auto rounded-lg border border-cyan-500/20 bg-[#1a1a2e] shadow-lg sm:w-96">
                 {productSearching ? (
-                  <div className="flex items-center gap-2 px-3 py-2 text-sm text-gray-500">
-                    <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-indigo-600 border-t-transparent" />
+                  <div className="flex items-center gap-2 px-3 py-2 text-sm text-slate-400">
+                    <span className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-cyan-400 border-t-transparent" />
                     Searching…
                   </div>
                 ) : productResults.length === 0 ? (
-                  <div className="px-3 py-2 text-sm text-gray-500">
+                  <div className="px-3 py-2 text-sm text-slate-400">
                     No products found.
                   </div>
                 ) : (
@@ -445,18 +445,18 @@ export default function NewSalePage() {
                         key={product.id}
                         type="button"
                         onClick={() => addProduct(product)}
-                        className="flex w-full items-center justify-between px-3 py-2 text-left text-sm text-gray-700 transition-colors hover:bg-indigo-50"
+                        className="flex w-full items-center justify-between px-3 py-2 text-left text-sm text-slate-300 transition-colors hover:bg-cyan-500/10"
                       >
                         <div>
                           <span className="font-medium">{product.name}</span>
                           {product.sku && (
-                            <span className="ml-2 text-xs text-gray-400">
+                            <span className="ml-2 text-xs text-slate-500">
                               ({product.sku})
                             </span>
                           )}
                         </div>
                         <div className="flex items-center gap-3">
-                          <span className="text-xs text-gray-500">
+                          <span className="text-xs text-slate-400">
                             {formatCurrency(product.price)}
                           </span>
                           {alreadyAdded && (
@@ -475,46 +475,46 @@ export default function NewSalePage() {
 
           {/* Line item error */}
           {lineItemError && (
-            <p className="mb-3 text-xs text-red-600" role="alert">
+            <p className="mb-3 text-xs text-red-400" role="alert">
               {lineItemError}
             </p>
           )}
 
           {/* Items table */}
           {lineItems.length === 0 ? (
-            <div className="rounded-lg border border-dashed border-gray-300 px-4 py-8 text-center">
-              <p className="text-sm text-gray-500">
+            <div className="rounded-lg border border-dashed border-cyan-500/15 px-4 py-8 text-center">
+              <p className="text-sm text-slate-400">
                 No items yet. Search and add products above.
               </p>
             </div>
           ) : (
-            <div className="overflow-hidden rounded-lg border border-gray-200">
+            <div className="overflow-hidden rounded-lg border border-cyan-500/10">
               <table className="w-full text-left text-sm">
-                <thead className="bg-gray-50">
+                <thead className="bg-white/[0.02]">
                   <tr>
-                    <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-slate-400">
                       Product
                     </th>
-                    <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-slate-400">
                       Price
                     </th>
-                    <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-slate-400">
                       Qty
                     </th>
-                    <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
                       Total
                     </th>
-                    <th className="px-4 py-2.5 text-center text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    <th className="px-4 py-2.5 text-center text-xs font-semibold uppercase tracking-wider text-slate-400">
                       Action
                     </th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-cyan-500/5">
                   {lineItems.map((item) => {
                     const lineTotal = item.price * item.quantity;
                     return (
-                      <tr key={item.key} className="hover:bg-gray-50">
-                        <td className="px-4 py-2.5 font-medium text-gray-900">
+                      <tr key={item.key} className="hover:bg-white/[0.02]">
+                        <td className="px-4 py-2.5 font-medium text-[#e2e8f0]">
                           {item.product.name}
                         </td>
                         <td className="px-4 py-2.5">
@@ -530,7 +530,7 @@ export default function NewSalePage() {
                               )
                             }
                             aria-label={`Unit price for ${item.product.name}`}
-                            className="w-24 rounded border border-gray-300 px-2 py-1 text-sm text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                            className="w-24 rounded border border-cyan-500/15 px-2 py-1 text-sm text-[#e2e8f0] focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
                           />
                         </td>
                         <td className="px-4 py-2.5">
@@ -546,10 +546,10 @@ export default function NewSalePage() {
                               )
                             }
                             aria-label={`Quantity for ${item.product.name}`}
-                            className="w-20 rounded border border-gray-300 px-2 py-1 text-sm text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                            className="w-20 rounded border border-cyan-500/15 px-2 py-1 text-sm text-[#e2e8f0] focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
                           />
                         </td>
-                        <td className="px-4 py-2.5 text-right font-medium text-gray-900">
+                        <td className="px-4 py-2.5 text-right font-medium text-[#e2e8f0]">
                           {formatCurrency(lineTotal)}
                         </td>
                         <td className="px-4 py-2.5 text-center">
@@ -557,7 +557,7 @@ export default function NewSalePage() {
                             type="button"
                             onClick={() => removeItem(item.key)}
                             aria-label={`Remove ${item.product.name}`}
-                            className="text-sm font-medium text-red-600 transition-colors hover:text-red-700"
+                            className="text-sm font-medium text-red-400 transition-colors hover:text-red-300"
                           >
                             Remove
                           </button>
@@ -572,20 +572,20 @@ export default function NewSalePage() {
 
           {/* Running totals */}
           {lineItems.length > 0 && (
-            <div className="mt-4 space-y-1 border-t border-gray-100 pt-4 text-right">
-              <div className="flex justify-end gap-8 text-sm text-gray-600">
+            <div className="mt-4 space-y-1 border-t border-cyan-500/5 pt-4 text-right">
+              <div className="flex justify-end gap-8 text-sm text-slate-400">
                 <span>Subtotal:</span>
-                <span className="w-24 text-right font-medium text-gray-900">
+                <span className="w-24 text-right font-medium text-[#e2e8f0]">
                   {formatCurrency(subtotal)}
                 </span>
               </div>
-              <div className="flex justify-end gap-8 text-sm text-gray-600">
+              <div className="flex justify-end gap-8 text-sm text-slate-400">
                 <span>Tax (0%):</span>
-                <span className="w-24 text-right font-medium text-gray-900">
+                <span className="w-24 text-right font-medium text-[#e2e8f0]">
                   {formatCurrency(tax)}
                 </span>
               </div>
-              <div className="flex justify-end gap-8 text-base font-semibold text-gray-900">
+              <div className="flex justify-end gap-8 text-base font-semibold text-[#e2e8f0]">
                 <span>Total:</span>
                 <span className="w-24 text-right">
                   {formatCurrency(total)}
@@ -596,15 +596,15 @@ export default function NewSalePage() {
         </div>
 
         {/* ── Section 3: Notes ────────────────────────────────────── */}
-        <div className="mb-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h2 className="mb-4 text-lg font-semibold text-gray-900">Notes</h2>
+        <div className="mb-6 rounded-xl border border-cyan-500/10 bg-[#12121e] p-6 shadow-sm">
+          <h2 className="mb-4 text-lg font-semibold text-[#e2e8f0]">Notes</h2>
           <textarea
             id="notes"
             rows={3}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Optional notes or comments…"
-            className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+            className="mt-1 block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
           />
         </div>
 
@@ -612,14 +612,14 @@ export default function NewSalePage() {
         <div className="flex items-center justify-end gap-3">
           <Link
             href="/dashboard/sales"
-            className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50"
+            className="rounded-lg border border-cyan-500/15 bg-[#12121e] px-4 py-2 text-sm font-medium text-slate-300 shadow-sm transition-colors hover:bg-white/[0.02]"
           >
             Cancel
           </Link>
           <button
             type="submit"
             disabled={submitting}
-            className="rounded-lg bg-indigo-600 px-6 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             {submitting ? (
               <span className="flex items-center gap-2">

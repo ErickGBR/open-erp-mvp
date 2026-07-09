@@ -25,12 +25,12 @@ interface DashboardStats {
 }
 
 /**
- * Status badge color map.
+ * Status badge color map for dark theme.
  */
 const STATUS_STYLES: Record<string, string> = {
-  pending: 'bg-amber-100 text-amber-700',
-  paid: 'bg-emerald-100 text-emerald-700',
-  cancelled: 'bg-red-100 text-red-700',
+  pending: 'badge-pending',
+  paid: 'badge-paid',
+  cancelled: 'badge-cancelled',
 };
 
 /**
@@ -45,6 +45,7 @@ const STATUS_LABEL: Record<string, string> = {
 /**
  * Dashboard home page — fetches real stats from the API and displays
  * stat cards, a recent sales table, and handles loading / error / empty states.
+ * Styled with the neon cyan/blue dark theme.
  */
 export default function DashboardPage() {
   const { user } = useAuth();
@@ -91,35 +92,35 @@ export default function DashboardPage() {
     return (
       <div>
         <div className="mb-8">
-          <div className="mb-1 h-8 w-64 animate-pulse rounded bg-gray-200" />
-          <div className="h-5 w-96 animate-pulse rounded bg-gray-200" />
+          <div className="mb-1 h-8 w-64 animate-pulse rounded bg-cyan-500/10" />
+          <div className="h-5 w-96 animate-pulse rounded bg-cyan-500/5" />
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
+              className="glass-card rounded-xl overflow-hidden"
             >
-              <div className="h-1.5 animate-pulse bg-gray-200" />
+              <div className="h-1.5 animate-pulse bg-gradient-to-r from-cyan-500/30 to-blue-500/30" />
               <div className="p-5">
-                <div className="mb-2 h-4 w-24 animate-pulse rounded bg-gray-200" />
-                <div className="h-8 w-32 animate-pulse rounded bg-gray-200" />
+                <div className="mb-2 h-4 w-24 animate-pulse rounded bg-cyan-500/10" />
+                <div className="h-8 w-32 animate-pulse rounded bg-cyan-500/10" />
               </div>
             </div>
           ))}
         </div>
 
-        <div className="mt-8 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <div className="border-b border-gray-100 px-6 py-4">
-            <div className="h-5 w-40 animate-pulse rounded bg-gray-200" />
+        <div className="mt-8 glass-card rounded-xl overflow-hidden">
+          <div className="border-b border-cyan-500/10 px-6 py-4">
+            <div className="h-5 w-40 animate-pulse rounded bg-cyan-500/10" />
           </div>
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-cyan-500/5">
             {Array.from({ length: 5 }).map((_, i) => (
               <div key={i} className="flex items-center gap-4 px-6 py-4">
-                <div className="h-4 w-24 animate-pulse rounded bg-gray-200" />
-                <div className="h-4 w-32 animate-pulse rounded bg-gray-200" />
-                <div className="ml-auto h-4 w-20 animate-pulse rounded bg-gray-200" />
+                <div className="h-4 w-24 animate-pulse rounded bg-cyan-500/10" />
+                <div className="h-4 w-32 animate-pulse rounded bg-cyan-500/10" />
+                <div className="ml-auto h-4 w-20 animate-pulse rounded bg-cyan-500/10" />
               </div>
             ))}
           </div>
@@ -132,14 +133,14 @@ export default function DashboardPage() {
   if (error) {
     return (
       <div>
-        <h1 className="mb-1 text-2xl font-bold text-gray-900">
+        <h1 className="mb-1 text-2xl font-bold text-[#e2e8f0]">
           Welcome{user ? `, ${user.name}` : ''}!
         </h1>
-        <p className="mb-8 text-gray-500">
+        <p className="mb-8 text-slate-400">
           Here&apos;s what&apos;s happening with your business today.
         </p>
 
-        <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center">
+        <div className="glass-card rounded-xl p-8 text-center border-red-500/20">
           <svg
             className="mx-auto h-12 w-12 text-red-400"
             fill="none"
@@ -153,10 +154,10 @@ export default function DashboardPage() {
               d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
             />
           </svg>
-          <p className="mt-4 text-sm font-medium text-red-600">{error}</p>
+          <p className="mt-4 text-sm font-medium text-red-400">{error}</p>
           <button
             onClick={fetchStats}
-            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            className="mt-4 inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
           >
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182" />
@@ -174,10 +175,10 @@ export default function DashboardPage() {
   if (isEmpty) {
     return (
       <div>
-        <h1 className="mb-1 text-2xl font-bold text-gray-900">
+        <h1 className="mb-1 text-2xl font-bold text-[#e2e8f0]">
           Welcome{user ? `, ${user.name}` : ''}!
         </h1>
-        <p className="mb-8 text-gray-500">
+        <p className="mb-8 text-slate-400">
           Here&apos;s what&apos;s happening with your business today.
         </p>
 
@@ -188,31 +189,31 @@ export default function DashboardPage() {
             value="0"
             sub="0 active"
             icon={<ProductIcon />}
-            color="bg-blue-500"
+            gradient="from-cyan-400 to-blue-500"
           />
           <StatCard
             label="Customers"
             value="0"
             icon={<CustomersIcon />}
-            color="bg-emerald-500"
+            gradient="from-blue-400 to-purple-500"
           />
           <StatCard
             label="Total Revenue"
             value="$0.00"
             icon={<RevenueIcon />}
-            color="bg-indigo-500"
+            gradient="from-cyan-400 to-teal-500"
           />
           <StatCard
             label="Sales"
             value="0"
             icon={<SalesIcon />}
-            color="bg-amber-500"
+            gradient="from-blue-400 to-cyan-500"
           />
         </div>
 
-        <div className="mt-8 rounded-xl border border-dashed border-gray-300 bg-white p-12 text-center shadow-sm">
+        <div className="mt-8 glass-card rounded-xl p-12 text-center border-dashed border-cyan-500/20">
           <svg
-            className="mx-auto h-16 w-16 text-gray-300"
+            className="mx-auto h-16 w-16 text-slate-500"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1}
@@ -224,27 +225,27 @@ export default function DashboardPage() {
               d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5m.75-9l3-3 2.148 2.148A12.061 12.061 0 0116.5 7.605"
             />
           </svg>
-          <h2 className="mt-4 text-lg font-semibold text-gray-900">Welcome to RunMVP ERP!</h2>
-          <p className="mt-2 max-w-md mx-auto text-sm text-gray-500">
+          <h2 className="mt-4 text-lg font-semibold text-white">Welcome to Open ERP!</h2>
+          <p className="mt-2 max-w-md mx-auto text-sm text-slate-400">
             Your dashboard is ready. Start by adding products, customers, and creating your first sale.
             All your key metrics will appear here in real time.
           </p>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <a
               href="/dashboard/products/new"
-              className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25 transition-all"
             >
               Add Product
             </a>
             <a
               href="/dashboard/customers/new"
-              className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="btn-outline px-4 py-2 text-sm"
             >
               Add Customer
             </a>
             <a
               href="/dashboard/sales/new"
-              className="rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+              className="btn-outline px-4 py-2 text-sm"
             >
               Create Sale
             </a>
@@ -257,10 +258,10 @@ export default function DashboardPage() {
   // ── Data loaded state ─────────────────────────────────────────────
   return (
     <div>
-      <h1 className="mb-1 text-2xl font-bold text-gray-900">
+      <h1 className="mb-1 text-2xl font-bold text-[#e2e8f0]">
         Welcome{user ? `, ${user.name}` : ''}!
       </h1>
-      <p className="mb-8 text-gray-500">
+      <p className="mb-8 text-slate-400">
         Here&apos;s what&apos;s happening with your business today.
       </p>
 
@@ -271,37 +272,37 @@ export default function DashboardPage() {
           value={String(stats!.totalProducts)}
           sub={`${stats!.activeProducts} active`}
           icon={<ProductIcon />}
-          color="bg-blue-500"
+          gradient="from-cyan-400 to-blue-500"
         />
         <StatCard
           label="Customers"
           value={String(stats!.totalCustomers)}
           icon={<CustomersIcon />}
-          color="bg-emerald-500"
+          gradient="from-blue-400 to-purple-500"
         />
         <StatCard
           label="Total Revenue"
           value={formatCurrency(stats!.totalRevenue)}
           sub={`${formatCurrency(stats!.paidRevenue)} paid`}
           icon={<RevenueIcon />}
-          color="bg-indigo-500"
+          gradient="from-cyan-400 to-teal-500"
         />
         <StatCard
           label="Sales"
           value={String(stats!.totalSales)}
           icon={<SalesIcon />}
-          color="bg-amber-500"
+          gradient="from-blue-400 to-cyan-500"
         />
       </div>
 
       {/* Recent Sales table */}
       <div className="mt-8">
-        <h2 className="mb-4 text-lg font-semibold text-gray-900">Recent Sales</h2>
+        <h2 className="mb-4 text-lg font-semibold text-[#e2e8f0]">Recent Sales</h2>
 
         {stats!.recentSales.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-gray-300 bg-white px-6 py-12 text-center shadow-sm">
+          <div className="glass-card rounded-xl px-6 py-12 text-center border-dashed border-cyan-500/20">
             <svg
-              className="mx-auto h-10 w-10 text-gray-400"
+              className="mx-auto h-10 w-10 text-slate-500"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1}
@@ -313,12 +314,12 @@ export default function DashboardPage() {
                 d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125V9M3.75 6v6m0 0v3m0-3h.75c.414 0 .75.336.75.75v.75c0 .414-.336.75-.75.75H3.75m0 0h-.75"
               />
             </svg>
-            <p className="mt-3 text-sm text-gray-500">
+            <p className="mt-3 text-sm text-slate-400">
               No sales yet. Create your first sale to see it here.
             </p>
             <a
               href="/dashboard/sales/new"
-              className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+              className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-cyan-400 hover:text-cyan-300"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -327,45 +328,45 @@ export default function DashboardPage() {
             </a>
           </div>
         ) : (
-          <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <div className="glass-card rounded-xl overflow-hidden">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-gray-200 bg-gray-50 text-xs uppercase text-gray-500">
+              <thead className="border-b border-cyan-500/10 bg-white/[0.02]">
                 <tr>
-                  <th className="px-6 py-3 font-medium">Invoice #</th>
-                  <th className="px-6 py-3 font-medium">Customer</th>
-                  <th className="px-6 py-3 text-right font-medium">Total</th>
-                  <th className="px-6 py-3 text-center font-medium">Status</th>
-                  <th className="px-6 py-3 font-medium">Date</th>
+                  <th className="px-6 py-3 font-medium text-cyan-400">Invoice #</th>
+                  <th className="px-6 py-3 font-medium text-cyan-400">Customer</th>
+                  <th className="px-6 py-3 text-right font-medium text-cyan-400">Total</th>
+                  <th className="px-6 py-3 text-center font-medium text-cyan-400">Status</th>
+                  <th className="px-6 py-3 font-medium text-cyan-400">Date</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-cyan-500/5">
                 {stats!.recentSales.map((sale) => (
-                  <tr key={sale.id} className="transition-colors hover:bg-gray-50">
-                    <td className="px-6 py-4 font-medium text-gray-900">
+                  <tr key={sale.id} className="transition-colors hover:bg-white/[0.02]">
+                    <td className="px-6 py-4 font-medium text-[#e2e8f0]">
                       {sale.invoiceNumber}
                     </td>
-                    <td className="px-6 py-4 text-gray-600">{sale.customer}</td>
-                    <td className="px-6 py-4 text-right font-medium text-gray-900">
+                    <td className="px-6 py-4 text-slate-300">{sale.customer}</td>
+                    <td className="px-6 py-4 text-right font-medium text-[#e2e8f0]">
                       {formatCurrency(sale.total)}
                     </td>
                     <td className="px-6 py-4 text-center">
                       <span
                         className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
-                          STATUS_STYLES[sale.status] || 'bg-gray-100 text-gray-600'
+                          STATUS_STYLES[sale.status] || 'bg-slate-500/20 text-slate-300'
                         }`}
                       >
                         {STATUS_LABEL[sale.status] || sale.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-gray-500">{formatDate(sale.createdAt)}</td>
+                    <td className="px-6 py-4 text-slate-400">{formatDate(sale.createdAt)}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
-            <div className="border-t border-gray-100 px-6 py-3 text-right">
+            <div className="border-t border-cyan-500/10 px-6 py-3 text-right">
               <a
                 href="/dashboard/sales"
-                className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                className="text-sm font-medium text-cyan-400 hover:text-cyan-300"
               >
                 View all sales &rarr;
               </a>
@@ -381,30 +382,31 @@ export default function DashboardPage() {
 
 /**
  * Stat card with icon, label, value and optional sub-text.
+ * Styled with glass-card and gradient accent.
  */
 function StatCard({
   label,
   value,
   sub,
   icon,
-  color,
+  gradient,
 }: {
   label: string;
   value: string;
   sub?: string;
   icon: React.ReactNode;
-  color: string;
+  gradient: string;
 }) {
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-shadow hover:shadow-md">
-      <div className={`h-1.5 ${color}`} />
+    <div className="glass-card rounded-xl overflow-hidden transition-all hover:glow-cyan-sm">
+      <div className={`h-1.5 bg-gradient-to-r ${gradient}`} />
       <div className="p-5">
         <div className="flex items-center justify-between">
-          <p className="text-sm font-medium text-gray-500">{label}</p>
-          <span className="text-gray-400">{icon}</span>
+          <p className="text-sm font-medium text-slate-400">{label}</p>
+          <span className="text-cyan-400">{icon}</span>
         </div>
-        <p className="mt-1 text-3xl font-bold text-gray-900">{value}</p>
-        {sub && <p className="mt-1 text-xs text-gray-400">{sub}</p>}
+        <p className="mt-1 text-3xl font-bold text-[#e2e8f0]">{value}</p>
+        {sub && <p className="mt-1 text-xs text-slate-500">{sub}</p>}
       </div>
     </div>
   );

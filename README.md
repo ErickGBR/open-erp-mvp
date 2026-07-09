@@ -1,6 +1,6 @@
-# RunMVP ERP Free
+# Open ERP
 
-Minimum Viable Product ERP — simplified ERP system.
+Open-source Enterprise Resource Planning system.
 
 ## Stack
 - **Backend:** NestJS + TypeScript + PostgreSQL

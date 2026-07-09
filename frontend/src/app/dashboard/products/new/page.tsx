@@ -107,30 +107,30 @@ export default function NewProductPage() {
       <div className="mb-6 flex items-center gap-4">
         <Link
           href="/dashboard/products"
-          className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+          className="text-sm font-medium text-cyan-400 hover:text-cyan-300"
         >
           &larr; Back to Products
         </Link>
       </div>
 
       <div className="mx-auto max-w-lg">
-        <h1 className="mb-6 text-2xl font-bold text-gray-900">New Product</h1>
+        <h1 className="mb-6 text-2xl font-bold text-[#e2e8f0]">New Product</h1>
 
         <form
           onSubmit={handleSubmit}
-          className="space-y-5 rounded-xl border border-gray-200 bg-white p-6 shadow-sm"
+          className="space-y-5 rounded-xl border border-cyan-500/10 bg-[#12121e] p-6 shadow-sm"
           noValidate
         >
           {/* Global API error */}
           {apiError && (
-            <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600" role="alert">
+            <div className="rounded-lg bg-red-900/20 p-3 text-sm text-red-400" role="alert">
               {apiError}
             </div>
           )}
 
           {/* Name */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="name" className="block text-sm font-medium text-slate-300">
               Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -139,15 +139,15 @@ export default function NewProductPage() {
               required
               value={form.name}
               onChange={(e) => updateField('name', e.target.value)}
-              className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 ${
+              className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
                 errors.name
-                  ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
-                  : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                  ? 'border-red-400 focus:border-red-500 focus:ring-red-500/50'
+                  : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
               }`}
               placeholder="Product name"
             />
             {errors.name && (
-              <p className="mt-1 text-xs text-red-600">{errors.name}</p>
+              <p className="mt-1 text-xs text-red-400">{errors.name}</p>
             )}
           </div>
 
@@ -155,7 +155,7 @@ export default function NewProductPage() {
           <div>
             <label
               htmlFor="description"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-slate-300"
             >
               Description
             </label>
@@ -164,7 +164,7 @@ export default function NewProductPage() {
               rows={3}
               value={form.description}
               onChange={(e) => updateField('description', e.target.value)}
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              className="mt-1 block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm shadow-sm placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
               placeholder="Optional description"
             />
           </div>
@@ -172,7 +172,7 @@ export default function NewProductPage() {
           {/* Price & Cost row */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="price" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="price" className="block text-sm font-medium text-slate-300">
                 Price <span className="text-red-500">*</span>
               </label>
               <input
@@ -183,20 +183,20 @@ export default function NewProductPage() {
                 required
                 value={form.price}
                 onChange={(e) => updateField('price', e.target.value)}
-                className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 ${
+                className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
                   errors.price
-                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
-                    : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500/50'
+                    : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
                 }`}
                 placeholder="0.00"
               />
               {errors.price && (
-                <p className="mt-1 text-xs text-red-600">{errors.price}</p>
+                <p className="mt-1 text-xs text-red-400">{errors.price}</p>
               )}
             </div>
 
             <div>
-              <label htmlFor="cost" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="cost" className="block text-sm font-medium text-slate-300">
                 Cost
               </label>
               <input
@@ -206,15 +206,15 @@ export default function NewProductPage() {
                 min="0"
                 value={form.cost}
                 onChange={(e) => updateField('cost', e.target.value)}
-                className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 ${
+                className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
                   errors.cost
-                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
-                    : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500/50'
+                    : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
                 }`}
                 placeholder="0.00"
               />
               {errors.cost && (
-                <p className="mt-1 text-xs text-red-600">{errors.cost}</p>
+                <p className="mt-1 text-xs text-red-400">{errors.cost}</p>
               )}
             </div>
           </div>
@@ -222,7 +222,7 @@ export default function NewProductPage() {
           {/* SKU & Stock row */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label htmlFor="sku" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="sku" className="block text-sm font-medium text-slate-300">
                 SKU
               </label>
               <input
@@ -230,13 +230,13 @@ export default function NewProductPage() {
                 type="text"
                 value={form.sku}
                 onChange={(e) => updateField('sku', e.target.value)}
-                className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                className="mt-1 block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm shadow-sm placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
                 placeholder="e.g. PROD-001"
               />
             </div>
 
             <div>
-              <label htmlFor="stock" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="stock" className="block text-sm font-medium text-slate-300">
                 Stock
               </label>
               <input
@@ -246,15 +246,15 @@ export default function NewProductPage() {
                 step="1"
                 value={form.stock}
                 onChange={(e) => updateField('stock', e.target.value)}
-                className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 ${
+                className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
                   errors.stock
-                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500'
-                    : 'border-gray-300 focus:border-indigo-500 focus:ring-indigo-500'
+                    ? 'border-red-400 focus:border-red-500 focus:ring-red-500/50'
+                    : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
                 }`}
                 placeholder="0"
               />
               {errors.stock && (
-                <p className="mt-1 text-xs text-red-600">{errors.stock}</p>
+                <p className="mt-1 text-xs text-red-400">{errors.stock}</p>
               )}
             </div>
           </div>
@@ -264,7 +264,7 @@ export default function NewProductPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="flex items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex items-center justify-center rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {submitting ? (
                 <span className="flex items-center gap-2">
@@ -278,7 +278,7 @@ export default function NewProductPage() {
 
             <Link
               href="/dashboard/products"
-              className="rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
+              className="rounded-lg border border-cyan-500/15 px-4 py-2.5 text-sm font-medium text-slate-300 shadow-sm hover:bg-white/[0.02]"
             >
               Cancel
             </Link>

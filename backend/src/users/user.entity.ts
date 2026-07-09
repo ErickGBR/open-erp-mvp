@@ -11,11 +11,20 @@ export class User {
   @Column({ unique: true, length: 150 })
   email!: string;
 
-  @Column()
-  password!: string;
+  /** Nullable for OAuth users who don't set a password. */
+  @Column({ nullable: true })
+  password?: string;
 
   @Column({ default: 'admin' })
   role!: string;
+
+  /** Google OAuth identifier. Unique when present. */
+  @Column({ nullable: true, unique: true })
+  googleId?: string;
+
+  /** Microsoft OAuth identifier — unique when present. */
+  @Column({ nullable: true, unique: true })
+  microsoftId?: string;
 
   @CreateDateColumn()
   createdAt!: Date;

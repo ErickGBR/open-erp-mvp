@@ -32,7 +32,7 @@ export class Sale {
   @Column({ type: 'text', nullable: true })
   notes!: string | null;
 
-  @Column({ nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   paidAt!: Date | null;
 
   @OneToMany(() => SaleItem, item => item.sale, { cascade: true, eager: true })

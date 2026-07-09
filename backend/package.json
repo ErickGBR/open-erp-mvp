@@ -1,7 +1,7 @@
 {
-  "name": "runmvp-backend",
+  "name": "open-erp-backend",
   "version": "1.0.0",
-  "description": "RunMVP ERP Free - Backend API",
+  "description": "Open ERP - Backend API",
   "private": true,
   "scripts": {
     "build": "nest build",
@@ -28,7 +28,9 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
     "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.1",
+    "passport-microsoft": "^2.1.0",
     "pg": "^8.22.0",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^1.0.0"
@@ -40,7 +42,9 @@
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.1.1",
+    "@types/passport-google-oauth20": "^2.0.17",
     "@types/passport-jwt": "^4.0.1",
+    "@types/passport-microsoft": "^2.1.1",
     "jest": "^30.4.2",
     "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",

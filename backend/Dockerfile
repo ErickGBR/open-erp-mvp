@@ -8,6 +8,9 @@ RUN npm ci
 
 COPY . .
 
+# Clean any cached build info to ensure fresh compilation
+RUN rm -f tsconfig.tsbuildinfo
+
 RUN npm run build
 
 FROM node:22-alpine AS runner

@@ -11,14 +11,14 @@ export default function SettingsPage() {
 
   return (
     <div className="max-w-2xl">
-      <h1 className="mb-1 text-2xl font-bold text-gray-900">Settings</h1>
-      <p className="mb-8 text-gray-500">Manage your account and view application information.</p>
+      <h1 className="mb-1 text-2xl font-bold text-[#e2e8f0]">Settings</h1>
+      <p className="mb-8 text-slate-400">Manage your account and view application information.</p>
 
       {/* User Profile */}
       <section className="mb-8">
-        <h2 className="mb-4 text-lg font-semibold text-gray-900">User Profile</h2>
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <div className="divide-y divide-gray-100">
+        <h2 className="mb-4 text-lg font-semibold text-[#e2e8f0]">User Profile</h2>
+        <div className="overflow-hidden rounded-xl border border-cyan-500/10 bg-[#12121e] shadow-sm ">
+          <div className="divide-y divide-cyan-500/5">
             <InfoRow label="Name" value={user?.name || '—'} />
             <InfoRow label="Email" value={user?.email || '—'} />
             <InfoRow label="Role" value={user?.role || '—'} />
@@ -28,9 +28,9 @@ export default function SettingsPage() {
 
       {/* Application Info */}
       <section>
-        <h2 className="mb-4 text-lg font-semibold text-gray-900">Application</h2>
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
-          <div className="divide-y divide-gray-100">
+        <h2 className="mb-4 text-lg font-semibold text-[#e2e8f0]">Application</h2>
+        <div className="overflow-hidden rounded-xl border border-cyan-500/10 bg-[#12121e] shadow-sm ">
+          <div className="divide-y divide-cyan-500/5">
             <InfoRow label="Version" value="1.0.0" />
             <InfoRow label="Frontend" value="Next.js 16 + React 19 + Tailwind CSS 4" />
             <InfoRow label="Backend" value="NestJS + TypeORM + PostgreSQL" />
@@ -48,8 +48,8 @@ export default function SettingsPage() {
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between px-6 py-4">
-      <dt className="text-sm font-medium text-gray-500">{label}</dt>
-      <dd className="text-sm text-gray-900">{value}</dd>
+      <dt className="text-sm font-medium text-slate-400">{label}</dt>
+      <dd className="text-sm text-[#e2e8f0]">{value}</dd>
     </div>
   );
 }

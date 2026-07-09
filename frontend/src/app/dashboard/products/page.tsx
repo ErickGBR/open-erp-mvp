@@ -5,6 +5,11 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 
+/**
+ * Dark-mode badge classes for stock levels and active/inactive status.
+ * Replaces the legacy bg-emerald-100/text-emerald-700 pattern.
+ */
+
 interface Product {
   id: number;
   name: string;
@@ -104,10 +109,10 @@ export default function ProductsPage() {
       <div>
         <HeaderBar onNew={() => router.push('/dashboard/products/new')} />
 
-        <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="rounded-xl border border-cyan-500/10 bg-[#12121e]  shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-gray-200 bg-gray-50 text-xs uppercase text-gray-500">
+              <thead className="border-b border-cyan-500/10 bg-white/[0.02] text-xs uppercase text-slate-400">
                 <tr>
                   <Th>Name</Th>
                   <Th>SKU</Th>
@@ -120,10 +125,10 @@ export default function ProductsPage() {
               </thead>
               <tbody>
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <tr key={i} className="border-b border-gray-100">
+                  <tr key={i} className="border-b border-cyan-500/5">
                     {Array.from({ length: 7 }).map((_, j) => (
                       <td key={j} className="px-4 py-3">
-                        <div className="h-4 w-20 animate-pulse rounded bg-gray-200" />
+                        <div className="h-4 w-20 animate-pulse rounded bg-cyan-500/10" />
                       </td>
                     ))}
                   </tr>
@@ -142,11 +147,11 @@ export default function ProductsPage() {
       <div>
         <HeaderBar onNew={() => router.push('/dashboard/products/new')} />
 
-        <div className="rounded-xl border border-red-200 bg-red-50 p-8 text-center">
-          <p className="text-sm font-medium text-red-600">{error}</p>
+        <div className="rounded-xl border border-red-500/20 bg-red-900/20 p-8 text-center">
+          <p className="text-sm font-medium text-red-400">{error}</p>
           <button
             onClick={fetchProducts}
-            className="mt-4 rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500"
+            className="mt-4 rounded-lg bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-red-500/25"
           >
             Retry
           </button>
@@ -167,14 +172,14 @@ export default function ProductsPage() {
           onChange={(e) => handleSearchChange(e.target.value)}
           placeholder="Search products by name…"
           aria-label="Search products"
-          className="block w-full max-w-sm rounded-lg border border-gray-300 px-3 py-2 text-sm shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+          className="block w-full max-w-sm rounded-lg border border-cyan-500/15 px-3 py-2 text-sm shadow-sm placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
         />
       </div>
 
       {/* Error alert (non-blocking, shown above the table) */}
       {error && (
         <div
-          className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-600"
+          className="mb-4 rounded-lg bg-red-900/20 p-3 text-sm text-red-400"
           role="alert"
         >
           {error}
@@ -188,16 +193,16 @@ export default function ProductsPage() {
       )}
 
       {/* Table */}
-      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+      <div className="rounded-xl border border-cyan-500/10 bg-[#12121e]  shadow-sm">
         {products.length === 0 ? (
           <div className="p-8 text-center">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-slate-400">
               {search ? 'No products match your search.' : 'No products found.'}
             </p>
             {!search && (
               <Link
                 href="/dashboard/products/new"
-                className="mt-3 inline-block rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+                className="mt-3 inline-block rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25"
               >
                 Add your first product
               </Link>
@@ -206,7 +211,7 @@ export default function ProductsPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-gray-200 bg-gray-50 text-xs uppercase text-gray-500">
+              <thead className="border-b border-cyan-500/10 bg-white/[0.02] text-xs uppercase text-slate-400">
                 <tr>
                   <Th>Name</Th>
                   <Th>SKU</Th>
@@ -221,18 +226,18 @@ export default function ProductsPage() {
                 {products.map((product) => (
                   <tr
                     key={product.id}
-                    className="border-b border-gray-100 transition-colors hover:bg-gray-50"
+                    className="border-b border-cyan-500/5 transition-colors hover:bg-white/[0.02]"
                   >
-                    <td className="px-4 py-3 font-medium text-gray-900">
+                    <td className="px-4 py-3 font-medium text-[#e2e8f0]">
                       {product.name}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-slate-400">
                       {product.sku || '—'}
                     </td>
-                    <td className="px-4 py-3 text-gray-900">
+                    <td className="px-4 py-3 text-[#e2e8f0]">
                       {formatCurrency(product.price)}
                     </td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 text-slate-400">
                       {formatCurrency(product.cost)}
                     </td>
                     <td className="px-4 py-3">
@@ -245,14 +250,14 @@ export default function ProductsPage() {
                       <div className="flex items-center gap-3">
                         <Link
                           href={`/dashboard/products/${product.id}`}
-                          className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                          className="text-sm font-medium text-cyan-400 hover:text-cyan-300"
                         >
                           Edit
                         </Link>
                         <button
                           onClick={() => handleDelete(product)}
                           disabled={deletingId === product.id}
-                          className="text-sm font-medium text-red-600 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-50"
+                          className="text-sm font-medium text-red-400 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           {deletingId === product.id ? 'Deleting…' : 'Delete'}
                         </button>
@@ -288,10 +293,10 @@ export default function ProductsPage() {
 function HeaderBar({ onNew }: { onNew: () => void }) {
   return (
     <div className="mb-6 flex items-center justify-between">
-      <h1 className="text-2xl font-bold text-gray-900">Products</h1>
+          <h1 className="text-2xl font-bold text-[#e2e8f0]">Products</h1>
       <button
         onClick={onNew}
-        className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2 focus:ring-offset-[#0a0a12]"
       >
         + New Product
       </button>
@@ -312,11 +317,11 @@ function Th({ children }: { children: React.ReactNode }) {
 function StockBadge({ stock }: { stock: number }) {
   let colorClass: string;
   if (stock <= 0) {
-    colorClass = 'bg-red-100 text-red-700';
+    colorClass = 'bg-red-900/20 text-red-400';
   } else if (stock < 10) {
-    colorClass = 'bg-amber-100 text-amber-700';
+    colorClass = 'bg-amber-900/20 text-amber-400';
   } else {
-    colorClass = 'bg-emerald-100 text-emerald-700';
+    colorClass = 'bg-emerald-900/20 text-emerald-400';
   }
 
   return (
@@ -336,8 +341,8 @@ function StatusBadge({ isActive }: { isActive: boolean }) {
     <span
       className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
         isActive
-          ? 'bg-emerald-100 text-emerald-700'
-          : 'bg-gray-100 text-gray-600'
+          ? 'bg-emerald-900/20 text-emerald-400'
+          : 'bg-slate-500/20 text-slate-300'
       }`}
     >
       {isActive ? 'Active' : 'Inactive'}
@@ -362,7 +367,7 @@ function PaginationBar({
   onNext: () => void;
 }) {
   return (
-    <div className="mt-4 flex items-center justify-between text-sm text-gray-500">
+    <div className="mt-4 flex items-center justify-between text-sm text-slate-400">
       <p>
         Showing page {page} of {totalPages} ({total} total products)
       </p>
@@ -370,14 +375,14 @@ function PaginationBar({
         <button
           onClick={onPrev}
           disabled={page <= 1}
-          className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-lg border border-cyan-500/15 px-3 py-1.5 text-sm font-medium text-slate-300 shadow-sm hover:bg-white/[0.02] focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
           ← Previous
         </button>
         <button
           onClick={onNext}
           disabled={page >= totalPages}
-          className="rounded-lg border border-gray-300 px-3 py-1.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-lg border border-cyan-500/15 px-3 py-1.5 text-sm font-medium text-slate-300 shadow-sm hover:bg-white/[0.02] focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Next →
         </button>
