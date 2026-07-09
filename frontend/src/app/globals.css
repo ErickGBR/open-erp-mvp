@@ -134,6 +134,13 @@ body {
   box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
 }
 
+/* ── Dropdown fade-in animation ──────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Floating orbs animation ─────────────────────────────────────── */
 
 @keyframes orbFloat {

@@ -10,34 +10,34 @@ export default function Footer() {
     {
       title: 'Products',
       links: [
-        { label: 'Dashboard', href: '/dashboard' },
-        { label: 'Inventory', href: '#' },
-        { label: 'Sales', href: '/dashboard/sales' },
-        { label: 'Reports', href: '#' },
+        { label: 'Dashboard', href: '/products' },
+        { label: 'Inventory', href: '/products#inventory' },
+        { label: 'Sales', href: '/products#sales' },
+        { label: 'Reports', href: '/products#reports' },
       ],
     },
     {
       title: 'Customers',
       links: [
-        { label: 'All Customers', href: '/dashboard/customers' },
-        { label: 'Analytics', href: '#' },
-        { label: 'Support', href: '#' },
+        { label: 'All Customers', href: '/customers' },
+        { label: 'Analytics', href: '/customers#analytics' },
+        { label: 'Support', href: '/customers#support' },
       ],
     },
     {
       title: 'Sales',
       links: [
-        { label: 'New Sale', href: '/dashboard/sales/new' },
-        { label: 'Invoices', href: '#' },
-        { label: 'Payments', href: '#' },
+        { label: 'New Sale', href: '/sales' },
+        { label: 'Invoices', href: '/sales#invoices' },
+        { label: 'Payments', href: '/sales#payments' },
       ],
     },
     {
       title: 'About',
       links: [
-        { label: 'Our Story', href: '#' },
-        { label: 'Blog', href: '#' },
-        { label: 'Contact', href: '#' },
+        { label: 'Our Story', href: '/about' },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Contact', href: '/about#contact' },
       ],
     },
   ];
