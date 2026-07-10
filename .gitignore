@@ -11,6 +11,8 @@ coverage/
 *.tsbuildinfo
 
 test-results/
+*.bak
+.playwright-mcp/
 
 # AI agent configs
 .agents/

@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UsersService } from '../users/users.service';
+import { UserRole } from '../users/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -44,7 +45,7 @@ export class AuthService {
       name,
       email,
       password: hashedPassword,
-      role: 'admin',
+      role: UserRole.USER,
     });
 
     const payload = { sub: user.id, email: user.email, role: user.role };
@@ -105,7 +106,12 @@ export class AuthService {
     }
 
     // 3 — completely new user: create from OAuth profile
-    const oauthData: { name: string; email: string; googleId?: string; microsoftId?: string } =
+    const oauthData: {
+      name: string;
+      email: string;
+      googleId?: string;
+      microsoftId?: string;
+    } =
       provider === 'google'
         ? { name, email, googleId: id }
         : { name, email, microsoftId: id };
@@ -119,7 +125,12 @@ export class AuthService {
    * @param user — the persisted user
    * @returns access_token and user payload (same shape as login / register)
    */
-  private buildAuthResponse(user: { id: number; name: string; email: string; role: string }) {
+  private buildAuthResponse(user: {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+  }) {
     const payload = { sub: user.id, email: user.email, role: user.role };
     return {
       access_token: this.jwtService.sign(payload),

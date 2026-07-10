@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+if command -v docker &>/dev/null && [ -f /opt/openerp/docker-compose.yml ]; then
+    cd /opt/openerp
+    docker compose down 2>/dev/null || true
+fi
+
+systemctl stop openerp 2>/dev/null || true

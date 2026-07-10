@@ -1,9 +1,16 @@
 'use client';
 
-import { Suspense, useEffect } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import AuthTabs from '@/components/AuthTabs';
 import Footer from '@/components/Footer';
+import { api } from '@/lib/api';
+
+/** Shape returned by GET /api/setup/status. */
+interface SetupStatus {
+  setupComplete: boolean;
+  hasRootUser: boolean;
+}
 
 /**
  * Loading fallback for the auth page while search params resolve.
@@ -17,20 +24,48 @@ function AuthFallback() {
 }
 
 /**
- * Auth page content that reads search params for tab selection and OAuth token.
- * Wrapped in Suspense because it uses useSearchParams.
+ * Auth page content that reads search params for OAuth token and checks
+ * setup status. Redirects to /setup if the ERP has not been initialized.
  */
 function AuthPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [checkingSetup, setCheckingSetup] = useState(true);
 
   useEffect(() => {
+    // 1. Handle OAuth callback token
     const token = searchParams.get('token');
     if (token) {
       localStorage.setItem('token', token);
       router.replace('/dashboard');
+      return;
     }
+
+    // 2. Check setup status — redirect to /setup if not initialized
+    const checkSetup = async () => {
+      try {
+        const status = await api.get<SetupStatus>('/setup/status');
+        if (!status.setupComplete) {
+          router.replace('/setup');
+          return;
+        }
+      } catch {
+        // API unavailable — show login anyway (likely dev mode)
+      } finally {
+        setCheckingSetup(false);
+      }
+    };
+    checkSetup();
   }, [searchParams, router]);
+
+  // Show loader while checking setup
+  if (checkingSetup) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#0a0a12]">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-[#0a0a12]">
@@ -43,8 +78,9 @@ function AuthPageContent() {
 }
 
 /**
- * Combined authentication page with login/register tabs and OAuth token handling.
- * Tab selection is driven by the `?tab=login` or `?tab=register` URL search param.
+ * Combined authentication page with login-only form and OAuth token handling.
+ * Checks /api/setup/status on mount and redirects to /setup if the
+ * ERP has not been initialized (no root user).
  * OAuth callback passes `?token=JWT` which is detected and stored automatically.
  * Wraps the content in Suspense because it uses useSearchParams.
  */

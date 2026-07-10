@@ -1,5 +1,17 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
+export enum UserRole {
+  ROOT = 'root',
+  ADMIN = 'admin',
+  USER = 'user',
+  VIEWER = 'viewer',
+}
+
+export enum UserStatus {
+  ACTIVE = 'active',
+  INACTIVE = 'inactive',
+}
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn()
@@ -15,8 +27,11 @@ export class User {
   @Column({ nullable: true })
   password?: string;
 
-  @Column({ default: 'admin' })
-  role!: string;
+  @Column({ type: 'varchar', length: 20, default: UserRole.ADMIN })
+  role!: UserRole;
+
+  @Column({ type: 'varchar', length: 20, default: UserStatus.ACTIVE })
+  status!: UserStatus;
 
   /** Google OAuth identifier. Unique when present. */
   @Column({ nullable: true, unique: true })

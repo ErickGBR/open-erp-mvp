@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+
+echo ""
+echo "╔══════════════════════════════════════╗"
+echo "║       Open ERP v1.0.0                ║"
+echo "║       Post-Installation              ║"
+echo "╚══════════════════════════════════════╝"
+echo ""
+
+if [ ! -f /opt/openerp/.env ]; then
+    echo "Run the setup wizard to configure your installation:"
+    echo ""
+    echo "  sudo openerp-install"
+    echo ""
+    echo "Or run the interactive installer:"
+    echo ""
+    echo "  sudo bash /usr/share/openerp/install-wizard.sh"
+    echo ""
+fi
+
+echo "📖 Documentation: https://github.com/ErickGBR/run-mvp"
+echo ""
+
+exit 0

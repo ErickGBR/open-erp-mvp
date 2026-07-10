@@ -1,7 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ConflictException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { User } from './user.entity';
+import * as bcrypt from 'bcrypt';
+import { User, UserRole, UserStatus } from './user.entity';
 
 @Injectable()
 export class UsersService {
@@ -87,9 +93,95 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
+  /**
+   * Retrieve all users with a safe subset of fields.
+   * @returns array of users (id, name, email, role, status, createdAt)
+   */
   async findAll(): Promise<User[]> {
     return this.usersRepository.find({
-      select: { id: true, name: true, email: true, role: true, createdAt: true },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        role: true,
+        status: true,
+        createdAt: true,
+      },
     });
+  }
+
+  /**
+   * Create a user on behalf of the root administrator.
+   * Root users themselves cannot be created through this method.
+   *
+   * @param data — name, email, password, and optional role
+   * @returns the persisted user
+   * @throws ConflictException if the email is already taken
+   */
+  async createByRoot(data: {
+    name: string;
+    email: string;
+    password: string;
+    role?: UserRole;
+  }): Promise<User> {
+    const existing = await this.usersRepository.findOne({
+      where: { email: data.email },
+    });
+    if (existing) {
+      throw new ConflictException('Email already registered');
+    }
+
+    const hashedPassword = await bcrypt.hash(data.password, 10);
+    const user = this.usersRepository.create({
+      name: data.name,
+      email: data.email,
+      password: hashedPassword,
+      role: data.role || UserRole.USER,
+      status: UserStatus.ACTIVE,
+    });
+    return this.usersRepository.save(user);
+  }
+
+  /**
+   * Update a user's role or status (root-only operation).
+   *
+   * @param id   — user primary key
+   * @param data — fields to update (role, status)
+   * @returns the updated user
+   * @throws NotFoundException if the user does not exist
+   * @throws ForbiddenException if the target user is a root user
+   */
+  async updateByRoot(
+    id: number,
+    data: { role?: UserRole; status?: UserStatus },
+  ): Promise<User> {
+    const user = await this.findById(id);
+
+    if (user.role === UserRole.ROOT) {
+      throw new ForbiddenException('Cannot modify root user');
+    }
+
+    if (data.role) user.role = data.role;
+    if (data.status) user.status = data.status;
+
+    return this.usersRepository.save(user);
+  }
+
+  /**
+   * Soft-delete a user by setting their status to inactive.
+   *
+   * @param id — user primary key
+   * @throws NotFoundException if the user does not exist
+   * @throws ForbiddenException if the target user is a root user
+   */
+  async deactivate(id: number): Promise<User> {
+    const user = await this.findById(id);
+
+    if (user.role === UserRole.ROOT) {
+      throw new ForbiddenException('Cannot deactivate root user');
+    }
+
+    user.status = UserStatus.INACTIVE;
+    return this.usersRepository.save(user);
   }
 }

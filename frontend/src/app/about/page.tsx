@@ -272,7 +272,7 @@ export default function AboutPage() {
               <div className="w-20 h-20 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center mx-auto mb-5">
                 <Package className="w-10 h-10 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-white mb-2">Built by kdh</h3>
+              <h3 className="text-2xl font-bold text-white mb-2">Built by Erick Burgos</h3>
               <p className="text-slate-400 max-w-md mx-auto mb-6">
                 A passionate developer creating open-source tools to empower businesses worldwide.
                 Open ERP is built with love, late nights, and lots of coffee.

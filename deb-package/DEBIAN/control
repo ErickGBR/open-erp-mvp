@@ -1,0 +1,16 @@
+Package: openerp
+Version: 1.0.0
+Section: web
+Priority: optional
+Architecture: all
+Depends: docker.io (>= 20.0), docker-compose-v2 | docker-compose (>= 2.0), git, curl, openssl
+Maintainer: kdh <https://github.com/ErickGBR>
+Description: Open ERP — Open-source Enterprise Resource Planning
+ Open ERP is a modern, open-source ERP system built with NestJS, Next.js,
+ and PostgreSQL. Features include product management, customer management,
+ sales/invoicing, dashboard analytics, and OAuth authentication.
+ .
+ Stack: NestJS | Next.js | React | Tailwind CSS | PostgreSQL | Docker
+ Theme: Neon Cyan/Blue dark mode with glassmorphism effects
+ .
+ Homepage: https://github.com/ErickGBR/run-mvp

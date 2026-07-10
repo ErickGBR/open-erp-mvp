@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-import { Package, Users, Receipt, BarChart3, ArrowRight, Sparkles, TrendingUp, Shield, Zap, Globe } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Package, Users, Receipt, BarChart3, Sparkles, TrendingUp, Shield, Zap, Globe, Download, Terminal, Copy, Check, Container } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -47,13 +47,57 @@ const FEATURES: Feature[] = [
  * floating orb background, features grid, and a glassmorphism CTA.
  */
 export default function LandingPage() {
+  const [copied, setCopied] = useState<string | null>(null);
+  const [scrollY, setScrollY] = useState(0);
+
+  // Parallax scroll effect — actualiza posición de orbes y barrido luminoso
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleCopy = async (text: string, id: string) => {
+    await navigator.clipboard.writeText(text);
+    setCopied(id);
+    setTimeout(() => setCopied(null), 2000);
+  };
+
+
   return (
     <div className="min-h-screen bg-[#0a0a12] overflow-hidden">
-      {/* Floating orbs background */}
+
+      {/* Floating orbs background con parallax scroll */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="orb-cyan w-[500px] h-[500px] -top-48 -right-48 animate-[orbFloat_12s_ease-in-out_infinite]" />
-        <div className="orb-blue w-[400px] h-[400px] -bottom-32 -left-32 animate-[orbFloat_15s_ease-in-out_infinite_reverse]" />
-        <div className="orb-cyan w-[300px] h-[300px] top-1/2 left-1/3 animate-[orbFloat_10s_ease-in-out_infinite_2s]" />
+        <div
+          className="orb-cyan w-[500px] h-[500px] -top-48 -right-48 animate-[orbFloat_12s_ease-in-out_infinite]"
+          style={{ transform: `translateY(${scrollY * 0.15}px)` }}
+        />
+        <div
+          className="orb-blue w-[400px] h-[400px] -bottom-32 -left-32 animate-[orbFloat_15s_ease-in-out_infinite_reverse]"
+          style={{ transform: `translateY(${scrollY * -0.1}px)` }}
+        />
+        <div
+          className="orb-cyan w-[300px] h-[300px] top-1/2 left-1/3 animate-[orbFloat_10s_ease-in-out_infinite_2s]"
+          style={{ transform: `translateY(${scrollY * 0.05}px)` }}
+        />
+        {/* Barrido luminoso que sigue el scroll */}
+        <div
+          className="absolute inset-0 opacity-[0.04]"
+          style={{
+            background: `linear-gradient(180deg, transparent 0%, rgba(34,211,238,1) ${50 + scrollY * 0.05}%, transparent 100%)`,
+            transform: `translateY(${scrollY * -0.3}px)`,
+          }}
+        />
       </div>
 
       <main className="relative z-10">
@@ -82,10 +126,10 @@ export default function LandingPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/auth?tab=register" className="btn-cyan inline-flex items-center gap-2 text-base">
-                Get Started Free
-                <ArrowRight className="w-5 h-5" />
-              </Link>
+              <a href="#download" className="btn-cyan inline-flex items-center gap-2 text-base">
+                <Download className="w-5 h-5" />
+                Download Now
+              </a>
               <a href="#features" className="btn-outline text-base">
                 Learn More
               </a>
@@ -254,13 +298,13 @@ export default function LandingPage() {
                 Join thousands of businesses using Open ERP to streamline their operations.
                 It&apos;s free, open-source, and built for you.
               </p>
-              <Link
-                href="/auth?tab=register"
+              <a
+                href="#download"
                 className="btn-cyan inline-flex items-center gap-2 text-base"
               >
-                Get Started Free
-                <ArrowRight className="w-5 h-5" />
-              </Link>
+                <Download className="w-5 h-5" />
+                Download Open ERP
+              </a>
             </div>
           </div>
         </section>
@@ -286,9 +330,179 @@ export default function LandingPage() {
             ))}
           </div>
         </section>
+
+        {/* DOWNLOAD & INSTALL SECTION */}
+        <section id="download" className="py-24 px-4 relative">
+          {/* Background glow */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-cyan-500/5 blur-[120px]" />
+          </div>
+
+          <div className="relative max-w-5xl mx-auto">
+            {/* Section Header */}
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-sm mb-6">
+                <Download className="w-4 h-4" />
+                <span>Installation</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                Get Started with Open ERP
+              </h2>
+              <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto glow-cyan-sm" />
+              <p className="mt-4 text-slate-400 text-lg max-w-xl mx-auto">
+                Choose your installation method
+              </p>
+            </div>
+
+            {/* Two columns grid */}
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              {/* Docker Column */}
+              <div className="glass-card rounded-xl p-8 glow-cyan group hover:glow-blue transition-all duration-500">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+                    <Container className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">
+                      Docker{' '}
+                      <span className="text-[10px] align-top px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                        Recommended
+                      </span>
+                    </h3>
+                    <p className="text-sm text-slate-400">Quick &amp; consistent setup</p>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Requirements</p>
+                  <ul className="space-y-1">
+                    <li className="flex items-center gap-2 text-sm text-slate-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      Docker
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-slate-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      Docker Compose
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-slate-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      Git
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="relative">
+                  <pre className="bg-[#0a0e1a] border border-cyan-500/10 rounded-lg p-4 overflow-x-auto">
+                    <code className="text-sm text-slate-300 font-mono">
+                      {`git clone https://github.com/ErickGBR/run-mvp.git\ncd run-mvp\ndocker compose up --build -d`}
+                    </code>
+                  </pre>
+                  <button
+                    onClick={() => handleCopy(`git clone https://github.com/ErickGBR/run-mvp.git\ncd run-mvp\ndocker compose up --build -d`, 'docker')}
+                    className="absolute top-3 right-3 btn-outline p-2"
+                    aria-label="Copy Docker installation command"
+                  >
+                    {copied === 'docker' ? (
+                      <Check className="w-4 h-4 text-green-400" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Ubuntu Column */}
+              <div className="glass-card rounded-xl p-8 glow-cyan group hover:glow-blue transition-all duration-500">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center flex-shrink-0">
+                    <Terminal className="w-6 h-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-white">Ubuntu Server Installer</h3>
+                    <p className="text-sm text-slate-400">Linux server setup</p>
+                  </div>
+                </div>
+
+                <div className="mb-4">
+                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Requirements</p>
+                  <ul className="space-y-1">
+                    <li className="flex items-center gap-2 text-sm text-slate-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      Ubuntu 22.04+
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-slate-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      sudo access
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-slate-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      curl
+                    </li>
+                    <li className="flex items-center gap-2 text-sm text-slate-400">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                      openssl
+                    </li>
+                  </ul>
+                </div>
+
+                <div className="relative">
+                  <pre className="bg-[#0a0e1a] border border-cyan-500/10 rounded-lg p-4 overflow-x-auto">
+                    <code className="text-sm text-slate-300 font-mono">
+                      {`sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/ErickGBR/run-mvp/main/install.sh)"`}
+                    </code>
+                  </pre>
+                  <button
+                    onClick={() => handleCopy(`sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/ErickGBR/run-mvp/main/install.sh)"`, 'ubuntu')}
+                    className="absolute top-3 right-3 btn-outline p-2"
+                    aria-label="Copy Ubuntu installation command"
+                  >
+                    {copied === 'ubuntu' ? (
+                      <Check className="w-4 h-4 text-green-400" />
+                    ) : (
+                      <Copy className="w-4 h-4" />
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Start Guide */}
+            <div className="glass-card rounded-xl p-8 glow-cyan group hover:glow-blue transition-all duration-500">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+                  <Zap className="w-5 h-5 text-white" />
+                </div>
+                <h3 className="text-xl font-semibold text-white">Quick Start Guide</h3>
+              </div>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[
+                  { step: 1, title: 'Clone Repository', desc: 'Get the source code', code: 'git clone https://github.com/ErickGBR/run-mvp.git' },
+                  { step: 2, title: 'Configure', desc: 'Set up environment', code: 'cp .env.example .env' },
+                  { step: 3, title: 'Run', desc: 'Start Docker containers', code: 'docker compose up --build -d' },
+                  { step: 4, title: 'Open', desc: 'Access your ERP instance', code: 'http://localhost:3000' },
+                ].map((item) => (
+                  <div key={item.step} className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-sm font-bold text-white">{item.step}</span>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-semibold text-sm mb-1">{item.title}</h4>
+                      <p className="text-xs text-slate-400 mb-2">{item.desc}</p>
+                      <code className="text-xs text-cyan-400 font-mono bg-[#0a0e1a] px-2 py-1 rounded border border-cyan-500/10 block truncate">
+                        {item.code}
+                      </code>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       <Footer />
+
     </div>
   );
 }

@@ -129,21 +129,23 @@ export default function Header({ landing = false }: HeaderProps) {
           </nav>
         )}
 
-        {/* Desktop auth buttons */}
-        <div className="hidden items-center gap-3 md:flex">
-          <Link
-            href="/auth?tab=login"
-            className="rounded-lg px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:text-white hover:bg-white/5"
-          >
-            Log In
-          </Link>
-          <Link
-            href="/auth?tab=register"
-            className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-cyan-500/25"
-          >
-            Sign Up
-          </Link>
-        </div>
+        {/* Desktop auth buttons — hidden on landing page */}
+        {!landing && (
+          <div className="hidden items-center gap-3 md:flex">
+            <Link
+              href="/auth?tab=login"
+              className="rounded-lg px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:text-white hover:bg-white/5"
+            >
+              Log In
+            </Link>
+            <Link
+              href="/auth?tab=register"
+              className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-cyan-500/25"
+            >
+              Sign Up
+            </Link>
+          </div>
+        )}
 
         {/* Mobile hamburger */}
         <button
@@ -195,21 +197,25 @@ export default function Header({ landing = false }: HeaderProps) {
                   )}
                 </div>
               ))}
-            <hr className="my-2 border-cyan-500/10" />
-            <Link
-              href="/auth?tab=login"
-              onClick={() => setMobileOpen(false)}
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white"
-            >
-              Log In
-            </Link>
-            <Link
-              href="/auth?tab=register"
-              onClick={() => setMobileOpen(false)}
-              className="block rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-3 py-2 text-sm font-semibold text-white text-center"
-            >
-              Sign Up
-            </Link>
+            {!landing && (
+              <>
+                <hr className="my-2 border-cyan-500/10" />
+                <Link
+                  href="/auth?tab=login"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-lg px-3 py-2 text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white"
+                >
+                  Log In
+                </Link>
+                <Link
+                  href="/auth?tab=register"
+                  onClick={() => setMobileOpen(false)}
+                  className="block rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-3 py-2 text-sm font-semibold text-white text-center"
+                >
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

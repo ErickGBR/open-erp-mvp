@@ -20,6 +20,23 @@ services:
     networks:
       - openerp
 
+  redis:
+    image: redis:7-alpine
+    container_name: openerp_redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD:-openerp}
+    ports:
+      - "127.0.0.1:6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - openerp
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-openerp}", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
   api:
     build:
       context: ./backend
@@ -29,6 +46,7 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      # redis not required — backend does not use Redis yet
     env_file:
       - .env
     environment:
@@ -87,3 +105,5 @@ networks:
 volumes:
   postgres_data:
     name: openerp_postgres_data
+  redis_data:
+    name: openerp_redis_data

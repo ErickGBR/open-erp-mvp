@@ -134,13 +134,61 @@ Microsoft 365 login is coming soon. Stay tuned.
 | `openerp_api` | 3001 | NestJS REST API |
 | `openerp_frontend` | 3000 | Next.js frontend |
 
-## 📸 Screenshots
+## 📸 Screenshots & Demos
 
-> *(Coming soon)*
+<div align="center">
+
+### 🎬 Interactive Demos
+
+| Feature | GIF Demo |
+|---------|----------|
+| **Landing Page Scroll** | ![Landing Scroll](screenshots/landing-scroll.gif) |
+| **Auth Tab Switching** | ![Auth Tabs](screenshots/auth-tabs.gif) |
+| **Dashboard Navigation** | ![Dashboard Nav](screenshots/dashboard-nav.gif) |
+
+### Landing Page
+
+![Hero Section](screenshots/landing-hero.png)
+*Hero section with gradient effects and floating orbs*
+
+![Features Section](screenshots/landing-features.png)
+*Feature cards with glassmorphism design*
+
+![Download & Install](screenshots/landing-download.png)
+*Docker and Ubuntu installation options*
+
+### Authentication
+
+![Login Page](screenshots/login-page.png)
+*Login page with neon dark theme*
+
+### Blog
+
+![Blog Listing](screenshots/blog-page.png)
+*Blog with glassmorphism cards and tag system*
+
+### Dashboard
+
+![Dashboard Overview](screenshots/dashboard-overview.png)
+*Main dashboard with key metrics and recent activity*
+
+![Products Management](screenshots/dashboard-products.png)
+*Product listing with CRUD operations and stock tracking*
+
+![Customer Registry](screenshots/dashboard-customers.png)
+*Customer management with purchase history*
+
+![Sales & Invoices](screenshots/dashboard-sales.png)
+*Sales management with invoice creation and payment tracking*
+
+![Settings & Profile](screenshots/dashboard-settings.png)
+*User settings and profile management*
+
+</div>
 
 ## 👨‍💻 Author
 
-**kdh** — [GitHub](https://github.com/ErickGBR)
+**Erick Burgos** — [GitHub](https://github.com/ErickGBR)
 
 ## 📄 License
 

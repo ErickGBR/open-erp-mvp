@@ -1,7 +1,16 @@
 import Link from 'next/link';
 import { ArrowLeft, CalendarDays, Clock, Tag, Package } from 'lucide-react';
 import { notFound } from 'next/navigation';
-import { getPostBySlug } from '@/data/blog-posts';
+import { getPostBySlug, blogPosts } from '@/data/blog-posts';
+
+/**
+ * Generate static params for all blog posts — required for static export.
+ */
+export async function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 /**
  * Props for the individual blog post page.
@@ -197,7 +206,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 rel="noopener noreferrer"
                 className="text-slate-300 hover:text-cyan-400 transition-colors"
               >
-                kdh
+                Erick Burgos
               </a>
             </p>
           </div>

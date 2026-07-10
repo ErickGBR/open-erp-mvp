@@ -123,7 +123,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="font-medium text-slate-300 hover:text-cyan-400 transition-colors"
             >
-              kdh
+              Erick Burgos
             </a>
             {' '}|{' '}
             <a 

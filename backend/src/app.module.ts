@@ -7,6 +7,7 @@ import { ProductsModule } from './products/products.module';
 import { CustomersModule } from './customers/customers.module';
 import { SalesModule } from './sales/sales.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import { SetupModule } from './setup/setup.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     }),
     AuthModule,
     UsersModule,
+    SetupModule,
     ProductsModule,
     CustomersModule,
     SalesModule,
