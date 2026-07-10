@@ -25,14 +25,14 @@ export class AccountsService {
     return this.accountsRepository.find({
       where,
       order: { code: 'ASC' },
-      relations: ['parent'],
+      relations: { parent: true },
     });
   }
 
   async findById(id: number): Promise<Account> {
     const account = await this.accountsRepository.findOne({
       where: { id },
-      relations: ['parent'],
+      relations: { parent: true },
     });
     if (!account) {
       throw new NotFoundException(`Account with id ${id} not found`);
@@ -58,7 +58,8 @@ export class AccountsService {
     }
 
     const account = this.accountsRepository.create(dto as any);
-    return this.accountsRepository.save(account);
+    const [saved] = await this.accountsRepository.save(account);
+    return saved;
   }
 
   async update(id: number, dto: UpdateAccountDto): Promise<Account> {
@@ -91,7 +92,7 @@ export class AccountsService {
     const accounts = await this.accountsRepository.find({
       where: { isActive: true },
       order: { code: 'ASC' },
-      relations: ['parent'],
+      relations: { parent: true },
     });
     return accounts;
   }

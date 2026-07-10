@@ -8,6 +8,8 @@ import {
   Users,
   Receipt,
   Settings,
+  ShoppingCart,
+  BookOpen,
   ChevronDown,
   type LucideIcon,
 } from 'lucide-react';
@@ -66,6 +68,14 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { label: 'All Sales', href: '/dashboard/sales' },
       { label: 'New Sale', href: '/dashboard/sales/new' },
+      { label: 'Point of Sale', href: '/dashboard/pos' },
+    ],
+  },
+  {
+    label: 'Accounting',
+    icon: BookOpen,
+    children: [
+      { label: 'Chart of Accounts', href: '/dashboard/accounts' },
     ],
   },
   { label: 'Settings', icon: Settings, href: '/dashboard/settings' },
