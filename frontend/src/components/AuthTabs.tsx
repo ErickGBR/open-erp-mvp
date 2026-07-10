@@ -154,6 +154,14 @@ export default function AuthTabs() {
             )}
           </button>
         </form>
+
+        {/* Demo credentials hint */}
+        <div className="mt-6 rounded-lg border border-cyan-500/15 bg-cyan-500/5 p-3 text-center">
+          <p className="text-xs font-medium text-cyan-400 mb-1">Demo Credentials</p>
+          <p className="text-xs text-slate-400">
+            demo@openerp.com / <span className="font-mono text-slate-300">Demo123!</span>
+          </p>
+        </div>
       </div>
     </div>
   );
