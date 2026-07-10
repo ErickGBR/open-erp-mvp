@@ -108,6 +108,9 @@ export class SalesService {
 
       await this.productsService.updateStock(itemDto.productId, {
         quantity: -itemDto.quantity,
+        unitCost: itemDto.price,
+        referenceType: 'sale',
+        referenceId: savedSale.id,
       });
     }
 
@@ -127,6 +130,9 @@ export class SalesService {
       for (const item of sale.items) {
         await this.productsService.updateStock(item.productId, {
           quantity: item.quantity,
+          referenceType: 'adjustment',
+          referenceId: sale.id,
+          notes: 'Sale cancelled — stock restored',
         });
       }
     }
@@ -146,6 +152,9 @@ export class SalesService {
       for (const item of sale.items) {
         await this.productsService.updateStock(item.productId, {
           quantity: item.quantity,
+          referenceType: 'adjustment',
+          referenceId: sale.id,
+          notes: 'Sale deleted — stock restored',
         });
       }
     }

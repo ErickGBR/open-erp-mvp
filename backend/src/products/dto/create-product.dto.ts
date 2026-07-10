@@ -22,6 +22,10 @@ export class CreateProductDto {
   sku?: string;
 
   @IsOptional()
+  @IsString()
+  category?: string;
+
+  @IsOptional()
   @IsNumber()
   @Min(0)
   stock?: number;

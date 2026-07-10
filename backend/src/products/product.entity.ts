@@ -20,6 +20,9 @@ export class Product {
   @Column({ length: 50, nullable: true })
   sku!: string;
 
+  @Column({ length: 100, nullable: true })
+  category!: string | null;
+
   @Column({ default: 0 })
   stock!: number;
 

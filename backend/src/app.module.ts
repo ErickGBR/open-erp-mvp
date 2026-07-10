@@ -9,6 +9,7 @@ import { SalesModule } from './sales/sales.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { SetupModule } from './setup/setup.module';
 import { AccountsModule } from './accounts/accounts.module';
+import { KardexModule } from './kardex/kardex.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { AccountsModule } from './accounts/accounts.module';
     CustomersModule,
     SalesModule,
     AccountsModule,
+    KardexModule,
     DashboardModule,
   ],
 })

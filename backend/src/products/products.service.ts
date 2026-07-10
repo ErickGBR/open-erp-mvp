@@ -1,19 +1,22 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Like } from 'typeorm';
 import { Product } from './product.entity';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { UpdateStockDto } from './dto/update-stock.dto';
+import { KardexService } from '../kardex/kardex.service';
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Product)
     private readonly productsRepository: Repository<Product>,
+    @Inject(forwardRef(() => KardexService))
+    private readonly kardexService: KardexService,
   ) {}
 
-  async findAll(query?: { search?: string; page?: number; limit?: number }): Promise<{ data: Product[]; total: number; page: number; limit: number }> {
+  async findAll(query?: { search?: string; page?: number; limit?: number; category?: string }): Promise<{ data: Product[]; total: number; page: number; limit: number }> {
     const page = query?.page ?? 1;
     const limit = query?.limit ?? 10;
     const search = query?.search;
@@ -22,6 +25,9 @@ export class ProductsService {
 
     if (search) {
       where.name = Like(`%${search}%`);
+    }
+    if (query?.category) {
+      where.category = query.category;
     }
 
     const [data, total] = await this.productsRepository.findAndCount({
@@ -43,8 +49,28 @@ export class ProductsService {
   }
 
   async create(dto: CreateProductDto): Promise<Product> {
-    const product = this.productsRepository.create(dto);
-    return this.productsRepository.save(product);
+    const product = this.productsRepository.create(dto as any);
+    const saved = await this.productsRepository.save(product);
+
+    // Record initial kardex entry if initial stock > 0
+    if ((dto.stock ?? 0) > 0 || (dto.cost ?? 0) > 0) {
+      const initialStock = dto.stock ?? 0;
+      const cost = dto.cost ?? 0;
+      await this.kardexService.record({
+        productId: saved.id,
+        type: 'entry',
+        quantity: initialStock,
+        unitCost: cost || 0,
+        referenceType: 'initial',
+        previousStock: 0,
+        newStock: initialStock,
+        previousAvgCost: 0,
+        newAvgCost: cost || 0,
+        notes: 'Initial stock',
+      });
+    }
+
+    return saved;
   }
 
   async update(id: number, dto: UpdateProductDto): Promise<Product> {
@@ -67,7 +93,33 @@ export class ProductsService {
         `Insufficient stock. Current: ${product.stock}, requested change: ${dto.quantity}`,
       );
     }
+
+    const isEntry = dto.quantity > 0;
+    const currentAvgCost = await this.kardexService.getCurrentAvgCost(id);
+    const unitCost = dto.unitCost ?? (isEntry ? (dto.cost ?? currentAvgCost) : currentAvgCost);
+    const totalValue = product.stock * currentAvgCost;
+    const entryValue = isEntry ? dto.quantity * unitCost : 0;
+    const newAvgCost = isEntry && (product.stock + dto.quantity) > 0
+      ? (totalValue + entryValue) / (product.stock + dto.quantity)
+      : currentAvgCost;
+
     product.stock = newStock;
-    return this.productsRepository.save(product);
+    const saved = await this.productsRepository.save(product);
+
+    await this.kardexService.record({
+      productId: id,
+      type: isEntry ? 'entry' : 'exit',
+      quantity: Math.abs(dto.quantity),
+      unitCost,
+      referenceType: dto.referenceType ?? 'adjustment',
+      referenceId: dto.referenceId ?? null,
+      previousStock: product.stock - dto.quantity,
+      newStock: product.stock,
+      previousAvgCost: currentAvgCost,
+      newAvgCost,
+      notes: dto.notes ?? null,
+    });
+
+    return saved;
   }
 }
