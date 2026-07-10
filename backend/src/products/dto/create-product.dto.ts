@@ -1,4 +1,6 @@
-import { IsString, IsOptional, IsNumber, Min, IsBoolean } from 'class-validator';
+import { IsString, IsOptional, IsNumber, Min, IsBoolean, IsIn } from 'class-validator';
+
+const UNITS = ['unit', 'dozen', 'kg', 'lb', 'ft', 'inch', 'm', 'cm', 'l', 'ml', 'box', 'pack'];
 
 export class CreateProductDto {
   @IsString()
@@ -20,6 +22,19 @@ export class CreateProductDto {
   @IsOptional()
   @IsString()
   sku?: string;
+
+  @IsOptional()
+  @IsString()
+  barcode?: string;
+
+  @IsOptional()
+  @IsString()
+  imageUrl?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsIn(UNITS)
+  unitOfMeasure?: string;
 
   @IsOptional()
   @IsString()

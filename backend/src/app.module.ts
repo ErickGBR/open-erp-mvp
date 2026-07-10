@@ -10,6 +10,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { SetupModule } from './setup/setup.module';
 import { AccountsModule } from './accounts/accounts.module';
 import { KardexModule } from './kardex/kardex.module';
+import { WarehouseModule } from './warehouse/warehouse.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
@@ -39,6 +41,8 @@ import { KardexModule } from './kardex/kardex.module';
     SalesModule,
     AccountsModule,
     KardexModule,
+    WarehouseModule,
+    CompanyModule,
     DashboardModule,
   ],
 })

@@ -10,6 +10,35 @@ export class Sale {
   @Column({ type: 'varchar', unique: true, length: 20 })
   invoiceNumber!: string;
 
+  // --- DTE fields ---
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  dteType!: string | null;       // '01' = Factura Electrónica
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  generationCode!: string | null; // UUID v4
+
+  @Column({ type: 'varchar', length: 20, nullable: true })
+  receiverNit!: string | null;
+
+  @Column({ type: 'varchar', length: 20, nullable: true })
+  receiverNrc!: string | null;
+
+  @Column({ type: 'varchar', length: 200, nullable: true })
+  receiverName!: string | null;
+
+  @Column({ type: 'varchar', length: 200, nullable: true })
+  receiverAddress!: string | null;
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  receiverPhone!: string | null;
+
+  @Column({ type: 'varchar', length: 50, nullable: true })
+  receiverEmail!: string | null;
+
+  @Column({ type: 'text', nullable: true })
+  qrData!: string | null;        // DTE data encoded for QR
+
+  // --- Standard fields ---
   @ManyToOne(() => Customer)
   @JoinColumn({ name: 'customerId' })
   customer!: Customer | null;

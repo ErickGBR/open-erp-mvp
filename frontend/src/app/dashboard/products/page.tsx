@@ -17,11 +17,19 @@ interface Product {
   price: number;
   cost: number;
   sku: string | null;
+  barcode: string | null;
+  imageUrl: string | null;
+  unitOfMeasure: string;
   stock: number;
   isActive: boolean;
   createdAt: string;
   updatedAt: string;
 }
+
+const UNITS: Record<string, string> = {
+  unit: 'Unidad', dozen: 'Docena', kg: 'Kg', lb: 'Lb', ft: 'Pie',
+  inch: 'Pulgada', m: 'Metro', cm: 'Cm', l: 'Litro', ml: 'Ml', box: 'Caja', pack: 'Paquete',
+};
 
 interface ProductsResponse {
   data: Product[];
@@ -114,11 +122,13 @@ export default function ProductsPage() {
             <table className="w-full text-left text-sm">
               <thead className="border-b border-cyan-500/10 bg-white/[0.02] text-xs uppercase text-slate-400">
                 <tr>
+                  <Th></Th>
                   <Th>Name</Th>
                   <Th>SKU</Th>
+                  <Th>Barcode</Th>
                   <Th>Price</Th>
-                  <Th>Cost</Th>
                   <Th>Stock</Th>
+                  <Th>Unit</Th>
                   <Th>Status</Th>
                   <Th>Actions</Th>
                 </tr>
@@ -126,7 +136,7 @@ export default function ProductsPage() {
               <tbody>
                 {Array.from({ length: 5 }).map((_, i) => (
                   <tr key={i} className="border-b border-cyan-500/5">
-                    {Array.from({ length: 7 }).map((_, j) => (
+                    {Array.from({ length: 9 }).map((_, j) => (
                       <td key={j} className="px-4 py-3">
                         <div className="h-4 w-20 animate-pulse rounded bg-cyan-500/10" />
                       </td>
@@ -213,11 +223,13 @@ export default function ProductsPage() {
             <table className="w-full text-left text-sm">
               <thead className="border-b border-cyan-500/10 bg-white/[0.02] text-xs uppercase text-slate-400">
                 <tr>
+                  <Th></Th>
                   <Th>Name</Th>
                   <Th>SKU</Th>
+                  <Th>Barcode</Th>
                   <Th>Price</Th>
-                  <Th>Cost</Th>
                   <Th>Stock</Th>
+                  <Th>Unit</Th>
                   <Th>Status</Th>
                   <Th>Actions</Th>
                 </tr>
@@ -228,20 +240,36 @@ export default function ProductsPage() {
                     key={product.id}
                     className="border-b border-cyan-500/5 transition-colors hover:bg-white/[0.02]"
                   >
-                    <td className="px-4 py-3 font-medium text-[#e2e8f0]">
-                      {product.name}
+                    <td className="px-2 py-3">
+                      {product.imageUrl ? (
+                        <img src={product.imageUrl} alt="" className="w-8 h-8 rounded object-cover" />
+                      ) : (
+                        <div className="w-8 h-8 rounded bg-white/5" />
+                      )}
                     </td>
-                    <td className="px-4 py-3 text-slate-400">
+                    <td className="px-4 py-3 font-medium text-[#e2e8f0]">
+                      <Link href={`/dashboard/products/${product.id}`} className="hover:text-cyan-400">
+                        {product.name}
+                      </Link>
+                    </td>
+                    <td className="px-4 py-3 text-slate-400 font-mono text-xs">
                       {product.sku || '—'}
+                    </td>
+                    <td className="px-4 py-3">
+                      {product.barcode ? (
+                        <span className="font-mono text-xs text-cyan-400">{product.barcode}</span>
+                      ) : (
+                        <span className="text-slate-600">—</span>
+                      )}
                     </td>
                     <td className="px-4 py-3 text-[#e2e8f0]">
                       {formatCurrency(product.price)}
                     </td>
-                    <td className="px-4 py-3 text-slate-400">
-                      {formatCurrency(product.cost)}
-                    </td>
                     <td className="px-4 py-3">
                       <StockBadge stock={product.stock} />
+                    </td>
+                    <td className="px-4 py-3 text-xs text-slate-400">
+                      {UNITS[product.unitOfMeasure] || product.unitOfMeasure}
                     </td>
                     <td className="px-4 py-3">
                       <StatusBadge isActive={product.isActive} />
@@ -305,7 +333,7 @@ function HeaderBar({ onNew }: { onNew: () => void }) {
 }
 
 /** Table header cell with consistent padding and text styling. */
-function Th({ children }: { children: React.ReactNode }) {
+function Th({ children }: { children?: React.ReactNode }) {
   return (
     <th className="px-4 py-3 font-medium">{children}</th>
   );

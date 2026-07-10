@@ -19,6 +19,31 @@ export class CreateSaleDto {
   @IsNumber()
   customerId?: number;
 
+  // --- DTE receiver fields ---
+  @IsOptional()
+  @IsString()
+  receiverNit?: string;
+
+  @IsOptional()
+  @IsString()
+  receiverNrc?: string;
+
+  @IsOptional()
+  @IsString()
+  receiverName?: string;
+
+  @IsOptional()
+  @IsString()
+  receiverAddress?: string;
+
+  @IsOptional()
+  @IsString()
+  receiverPhone?: string;
+
+  @IsOptional()
+  @IsString()
+  receiverEmail?: string;
+
   @IsArray()
   @ValidateNested({ each: true })
   @ArrayMinSize(1)

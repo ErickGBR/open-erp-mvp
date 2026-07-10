@@ -1,10 +1,12 @@
 import { Injectable, NotFoundException, BadRequestException, Inject, forwardRef } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, MoreThanOrEqual } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Sale } from './sale.entity';
 import { SaleItem } from './sale-item.entity';
 import { CreateSaleDto } from './dto/create-sale.dto';
 import { ProductsService } from '../products/products.service';
+import { CompanyService } from '../company/company.service';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class SalesService {
@@ -15,6 +17,7 @@ export class SalesService {
     private readonly saleItemsRepository: Repository<SaleItem>,
     @Inject(forwardRef(() => ProductsService))
     private readonly productsService: ProductsService,
+    private readonly companyService: CompanyService,
   ) {}
 
   async findAll(query?: {
@@ -71,26 +74,55 @@ export class SalesService {
   }
 
   async create(dto: CreateSaleDto): Promise<Sale> {
-    const invoiceNumber = await this.generateInvoiceNumber();
+    const invoiceNumber = await this.companyService.getNextInvoiceNumber();
 
     let subtotal = 0;
     for (const item of dto.items) {
       subtotal += item.price * item.quantity;
     }
-    const tax = 0; // MVP: flat 0% tax — no complex tax regimes
-    const total = subtotal + tax;
+    const taxRate = 13; // IVA 13%
+    const tax = +(subtotal * taxRate / 100).toFixed(2);
+    const total = +(subtotal + tax).toFixed(2);
+
+    // Generate DTE data
+    const generationCode = crypto.randomUUID();
+    const company = await this.companyService.getSettings();
+
+    // Build QR data string
+    const qrData = JSON.stringify({
+      nit: company.nit,
+      nrc: company.nrc,
+      invoice: invoiceNumber,
+      generationCode,
+      date: new Date().toISOString(),
+      subtotal,
+      tax,
+      total,
+      receiverNit: dto.receiverNit || null,
+      receiverName: dto.receiverName || null,
+    });
 
     const sale = this.salesRepository.create({
       invoiceNumber,
+      dteType: '01',
+      generationCode,
+      receiverNit: dto.receiverNit || null,
+      receiverNrc: dto.receiverNrc || null,
+      receiverName: dto.receiverName || null,
+      receiverAddress: dto.receiverAddress || null,
+      receiverPhone: dto.receiverPhone || null,
+      receiverEmail: dto.receiverEmail || null,
+      qrData,
       customerId: dto.customerId ?? null,
       subtotal,
       tax,
       total,
       notes: dto.notes ?? null,
-      status: 'pending',
+      status: 'paid',
+      paidAt: new Date(),
     });
 
-    const savedSale = await this.salesRepository.save(sale);
+    const savedSale = await this.salesRepository.save(sale) as unknown as Sale;
 
     const saleItems: SaleItem[] = [];
     for (const itemDto of dto.items) {
@@ -102,7 +134,7 @@ export class SalesService {
         productName: product.name,
         price: itemDto.price,
         quantity: itemDto.quantity,
-        total: itemDto.price * itemDto.quantity,
+        total: +(itemDto.price * itemDto.quantity).toFixed(2),
       });
       saleItems.push(saleItem);
 
@@ -160,24 +192,5 @@ export class SalesService {
     }
 
     await this.salesRepository.remove(sale);
-  }
-
-  private async generateInvoiceNumber(): Promise<string> {
-    const now = new Date();
-    const y = now.getFullYear();
-    const m = String(now.getMonth() + 1).padStart(2, '0');
-    const d = String(now.getDate()).padStart(2, '0');
-    const dateStr = `${y}${m}${d}`;
-
-    const startOfDay = new Date(y, now.getMonth(), now.getDate());
-
-    const count = await this.salesRepository.count({
-      where: {
-        createdAt: MoreThanOrEqual(startOfDay),
-      },
-    });
-
-    const sequential = String(count + 1).padStart(4, '0');
-    return `INV-${dateStr}-${sequential}`;
   }
 }

@@ -10,6 +10,8 @@ import {
   Settings,
   ShoppingCart,
   BookOpen,
+  Warehouse,
+  Building2,
   ChevronDown,
   type LucideIcon,
 } from 'lucide-react';
@@ -72,12 +74,21 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   {
+    label: 'Warehouses',
+    icon: Warehouse,
+    children: [
+      { label: 'All Warehouses', href: '/dashboard/warehouses' },
+      { label: 'Add Warehouse', href: '/dashboard/warehouses/new' },
+    ],
+  },
+  {
     label: 'Accounting',
     icon: BookOpen,
     children: [
       { label: 'Chart of Accounts', href: '/dashboard/accounts' },
     ],
   },
+  { label: 'Company', icon: Building2, href: '/dashboard/company' },
   { label: 'Settings', icon: Settings, href: '/dashboard/settings' },
 ];
 

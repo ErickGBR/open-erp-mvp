@@ -25,6 +25,8 @@ RUN npm ci --omit=dev && npm cache clean --force
 
 COPY --from=builder /app/dist ./dist
 
+RUN mkdir -p /app/uploads/products && chown -R nestjs:nodejs /app/uploads
+
 USER nestjs
 
 EXPOSE 3001
