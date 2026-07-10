@@ -5,7 +5,7 @@ export class Product {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ length: 150 })
+  @Column({ type: 'varchar', length: 150 })
   name!: string;
 
   @Column({ type: 'text', nullable: true })
@@ -17,10 +17,10 @@ export class Product {
   @Column({ type: 'decimal', precision: 10, scale: 2, default: 0 })
   cost!: number;
 
-  @Column({ length: 50, nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   sku!: string;
 
-  @Column({ length: 100, nullable: true })
+  @Column({ type: 'varchar', length: 100, nullable: true })
   category!: string | null;
 
   @Column({ default: 0 })

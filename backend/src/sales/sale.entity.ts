@@ -7,14 +7,14 @@ export class Sale {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ unique: true, length: 20 })
+  @Column({ type: 'varchar', unique: true, length: 20 })
   invoiceNumber!: string;
 
   @ManyToOne(() => Customer)
   @JoinColumn({ name: 'customerId' })
   customer!: Customer | null;
 
-  @Column({ nullable: true })
+  @Column({ type: 'int', nullable: true })
   customerId!: number | null;
 
   @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
@@ -26,7 +26,7 @@ export class Sale {
   @Column({ type: 'decimal', precision: 12, scale: 2, default: 0 })
   total!: number;
 
-  @Column({ length: 20, default: 'pending' })
+  @Column({ type: 'varchar', length: 20, default: 'pending' })
   status!: string;
 
   @Column({ type: 'text', nullable: true })

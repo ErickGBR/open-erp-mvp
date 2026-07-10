@@ -50,7 +50,7 @@ export class ProductsService {
 
   async create(dto: CreateProductDto): Promise<Product> {
     const product = this.productsRepository.create(dto as any);
-    const [saved] = await this.productsRepository.save(product);
+    const saved = await this.productsRepository.save(product) as unknown as Product;
 
     // Record initial kardex entry if initial stock > 0
     if ((dto.stock ?? 0) > 0 || (dto.cost ?? 0) > 0) {

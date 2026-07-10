@@ -5,19 +5,19 @@ export class Customer {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ length: 150 })
+  @Column({ type: 'varchar', length: 150 })
   name!: string;
 
-  @Column({ length: 200, nullable: true })
+  @Column({ type: 'varchar', length: 200, nullable: true })
   company?: string;
 
-  @Column({ length: 20, nullable: true })
+  @Column({ type: 'varchar', length: 20, nullable: true })
   document?: string;
 
-  @Column({ length: 150, nullable: true })
+  @Column({ type: 'varchar', length: 150, nullable: true })
   email?: string;
 
-  @Column({ length: 20, nullable: true })
+  @Column({ type: 'varchar', length: 20, nullable: true })
   phone?: string;
 
   @Column({ type: 'text', nullable: true })

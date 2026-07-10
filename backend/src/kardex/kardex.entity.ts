@@ -9,7 +9,7 @@ export class KardexEntry {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ type: 'int' })
   productId!: number;
 
   @ManyToOne(() => Product)
@@ -31,7 +31,7 @@ export class KardexEntry {
   @Column({ type: 'varchar', length: 20 })
   referenceType!: KardexReference;
 
-  @Column({ nullable: true })
+  @Column({ type: 'int', nullable: true })
   referenceId!: number | null;
 
   @Column({ type: 'int', default: 0 })

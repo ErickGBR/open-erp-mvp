@@ -17,14 +17,14 @@ export class User {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ length: 100 })
+  @Column({ type: 'varchar', length: 100 })
   name!: string;
 
-  @Column({ unique: true, length: 150 })
+  @Column({ type: 'varchar', unique: true, length: 150 })
   email!: string;
 
   /** Nullable for OAuth users who don't set a password. */
-  @Column({ nullable: true })
+  @Column({ type: 'varchar', length: 200, nullable: true })
   password?: string;
 
   @Column({ type: 'varchar', length: 20, default: UserRole.ADMIN })
@@ -34,11 +34,11 @@ export class User {
   status!: UserStatus;
 
   /** Google OAuth identifier. Unique when present. */
-  @Column({ nullable: true, unique: true })
+  @Column({ type: 'varchar', length: 255, nullable: true, unique: true })
   googleId?: string;
 
   /** Microsoft OAuth identifier — unique when present. */
-  @Column({ nullable: true, unique: true })
+  @Column({ type: 'varchar', length: 255, nullable: true, unique: true })
   microsoftId?: string;
 
   @CreateDateColumn()

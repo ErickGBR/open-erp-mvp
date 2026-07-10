@@ -13,10 +13,10 @@ export class Account {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ length: 20, unique: true })
+  @Column({ type: 'varchar', length: 20, unique: true })
   code!: string;
 
-  @Column({ length: 200 })
+  @Column({ type: 'varchar', length: 200 })
   name!: string;
 
   @Column({ type: 'varchar', length: 20 })
@@ -25,7 +25,7 @@ export class Account {
   @Column({ type: 'varchar', length: 30, nullable: true })
   subType!: AccountSubType | null;
 
-  @Column({ nullable: true })
+  @Column({ type: 'int', nullable: true })
   parentId!: number | null;
 
   @ManyToOne(() => Account, { nullable: true })
@@ -35,7 +35,7 @@ export class Account {
   @Column({ type: 'decimal', precision: 15, scale: 2, default: 0 })
   balance!: number;
 
-  @Column({ length: 500, nullable: true })
+  @Column({ type: 'varchar', length: 500, nullable: true })
   description!: string | null;
 
   @Column({ default: true })

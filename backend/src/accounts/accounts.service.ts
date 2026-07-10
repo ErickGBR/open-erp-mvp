@@ -58,8 +58,8 @@ export class AccountsService {
     }
 
     const account = this.accountsRepository.create(dto as any);
-    const [saved] = await this.accountsRepository.save(account);
-    return saved;
+    const saved = await this.accountsRepository.save(account);
+    return saved as unknown as Account;
   }
 
   async update(id: number, dto: UpdateAccountDto): Promise<Account> {

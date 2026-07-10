@@ -11,23 +11,23 @@ export class SaleItem {
   @JoinColumn({ name: 'saleId' })
   sale!: Sale;
 
-  @Column()
+  @Column({ type: 'int' })
   saleId!: number;
 
   @ManyToOne(() => Product)
   @JoinColumn({ name: 'productId' })
   product!: Product;
 
-  @Column()
+  @Column({ type: 'int' })
   productId!: number;
 
-  @Column({ length: 150 })
+  @Column({ type: 'varchar', length: 150 })
   productName!: string;
 
   @Column({ type: 'decimal', precision: 10, scale: 2 })
   price!: number;
 
-  @Column()
+  @Column({ type: 'int' })
   quantity!: number;
 
   @Column({ type: 'decimal', precision: 12, scale: 2 })
