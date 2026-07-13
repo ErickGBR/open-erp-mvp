@@ -287,7 +287,7 @@ export default function POSPage() {
           {/* QR Code */}
           {qrUrl && (
             <div className="qr flex justify-center my-3">
-              <img src={qrUrl} alt="QR DTE" className="w-24 h-24" />
+              <img src={qrUrl} alt="QR DTE" className="w-48 h-48" />
             </div>
           )}
 

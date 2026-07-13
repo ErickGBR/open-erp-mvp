@@ -76,6 +76,7 @@ export default function ProductDetailPage() {
   });
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const barcodeRef = useRef<SVGSVGElement>(null);
   const [avgCost, setAvgCost] = useState<string>('0');
 
   useEffect(() => {
@@ -85,6 +86,27 @@ export default function ProductDetailPage() {
     loadKardex();
     api.get<Warehouse[]>('/warehouses').then(setWarehouses).catch(() => {});
   }, [productId]);
+
+  /** Render barcode via jsbarcode when product data is available */
+  useEffect(() => {
+    if (barcodeRef.current && product?.barcode) {
+      import('jsbarcode').then((mod) => {
+        const JsBarcode = (mod as any).default || mod;
+        try {
+          JsBarcode(barcodeRef.current, product.barcode, {
+            format: 'EAN8',
+            width: 2,
+            height: 60,
+            displayValue: false,
+            background: 'transparent',
+            lineColor: '#22d3ee',
+          });
+        } catch {
+          // Swallow rendering errors for invalid barcodes
+        }
+      });
+    }
+  }, [product?.barcode]);
 
   const loadProduct = async () => {
     const p = await api.get<Product>(`/products/${productId}`);
@@ -156,9 +178,6 @@ export default function ProductDetailPage() {
 
   if (!product) return <div className="text-slate-400 p-8">Cargando…</div>;
 
-  const barcodeUrl = product.barcode
-    ? `https://barcode.tec-it.com/barcode.ashx?data=${product.barcode}&code=EAN8&translate-esc=true&dpi=96&imagetype=png`
-    : null;
   const qrUrl = product.barcode
     ? `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(JSON.stringify({ id: product.id, name: product.name, barcode: product.barcode, code: product.sku }))}`
     : null;
@@ -197,17 +216,17 @@ export default function ProductDetailPage() {
 
             {/* Barcodes & QR */}
             <div className="flex gap-4 mt-3">
-              {barcodeUrl && (
+              {product.barcode && (
                 <div className="text-center">
                   <Barcode className="w-4 h-4 text-cyan-400 mx-auto mb-1" />
-                  <img src={barcodeUrl} alt={product.barcode!} className="h-10" />
+                  <svg ref={barcodeRef} className="h-16 mx-auto"></svg>
                   <p className="text-[9px] text-slate-500 font-mono mt-0.5">{product.barcode}</p>
                 </div>
               )}
               {qrUrl && (
                 <div className="text-center">
                   <QrCode className="w-4 h-4 text-cyan-400 mx-auto mb-1" />
-                  <img src={qrUrl} alt="QR" className="w-12 h-12" />
+                  <img src={qrUrl} alt="QR" className="w-24 h-24" />
                 </div>
               )}
             </div>
