@@ -20,12 +20,17 @@ interface WarehouseType {
 export default function WarehousesPage() {
   const [warehouses, setWarehouses] = useState<WarehouseType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const load = async () => {
     try {
       const data = await api.get<WarehouseType[]>('/warehouses');
       setWarehouses(data);
-    } catch {}
+    } catch (err) {
+      setError('Error al cargar almacenes');
+      console.error(err);
+    }
     setLoading(false);
   };
 
@@ -34,8 +39,15 @@ export default function WarehousesPage() {
   const handleDelete = async (id: number, name: string) => {
     const confirmed = await confirmDelete(name);
     if (!confirmed) return;
-    await api.delete(`/warehouses/${id}`);
-    await load();
+    setDeletingId(id);
+    try {
+      await api.delete(`/warehouses/${id}`);
+      await load();
+    } catch (err) {
+      setError('Error al eliminar almacén');
+      console.error(err);
+    }
+    setDeletingId(null);
   };
 
   return (
@@ -47,6 +59,9 @@ export default function WarehousesPage() {
         </Link>
       </div>
 
+      {error && (
+        <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">{error}</div>
+      )}
       {loading ? (
         <div className="text-slate-400">Cargando…</div>
       ) : warehouses.length === 0 ? (
@@ -80,9 +95,9 @@ export default function WarehousesPage() {
                     className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
                     <Edit2 className="w-3 h-3" /> Editar
                   </Link>
-                  <button onClick={() => handleDelete(wh.id, wh.name)}
-                    className="text-xs text-red-400 hover:text-red-300 flex items-center gap-1">
-                    <Trash2 className="w-3 h-3" /> Eliminar
+                  <button onClick={() => handleDelete(wh.id, wh.name)} disabled={deletingId === wh.id}
+                    className="text-xs text-red-400 hover:text-red-300 disabled:text-slate-600 disabled:cursor-not-allowed flex items-center gap-1">
+                    <Trash2 className="w-3 h-3" /> {deletingId === wh.id ? 'Eliminando…' : 'Eliminar'}
                   </button>
                 </div>
               </div>

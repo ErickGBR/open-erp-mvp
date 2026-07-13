@@ -91,10 +91,12 @@ export default function ProductDetailPage() {
   useEffect(() => {
     if (barcodeRef.current && product?.barcode) {
       import('jsbarcode').then((mod) => {
-        const JsBarcode = (mod as any).default || mod;
+        // Dynamic import of CJS jsbarcode module — needs unknown assertion
+        type JsBarcodeFn = (el: SVGSVGElement | null, text: string, opts?: Record<string, unknown>) => void;
+        const JsBarcode = (mod as unknown as { default: JsBarcodeFn }).default ?? (mod as unknown as JsBarcodeFn);
         try {
           JsBarcode(barcodeRef.current, product.barcode, {
-            format: 'EAN8',
+            format: 'CODE128',
             width: 2,
             height: 60,
             displayValue: false,
