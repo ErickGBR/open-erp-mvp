@@ -95,7 +95,7 @@ export default function ProductDetailPage() {
         type JsBarcodeFn = (el: SVGSVGElement | null, text: string, opts?: Record<string, unknown>) => void;
         const JsBarcode = (mod as unknown as { default: JsBarcodeFn }).default ?? (mod as unknown as JsBarcodeFn);
         try {
-          JsBarcode(barcodeRef.current, product.barcode, {
+          JsBarcode(barcodeRef.current, product.barcode!, {
             format: 'CODE128',
             width: 2,
             height: 60,
