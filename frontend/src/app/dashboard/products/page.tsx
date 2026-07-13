@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { confirmDelete } from '@/lib/confirm';
 
 /**
  * Dark-mode badge classes for stock levels and active/inactive status.
@@ -88,9 +89,8 @@ export default function ProductsPage() {
   };
 
   const handleDelete = async (product: Product) => {
-    if (!window.confirm(`Are you sure you want to delete "${product.name}"?`)) {
-      return;
-    }
+    const confirmed = await confirmDelete(product.name);
+    if (!confirmed) return;
 
     setDeletingId(product.id);
     try {

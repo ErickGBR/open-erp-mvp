@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { confirmDelete } from '@/lib/confirm';
 import { Warehouse, MapPin, Plus, Edit2, Trash2 } from 'lucide-react';
 
 interface WarehouseType {
@@ -30,8 +31,9 @@ export default function WarehousesPage() {
 
   useEffect(() => { load(); }, []);
 
-  const handleDelete = async (id: number) => {
-    if (!confirm('¿Eliminar este almacén?')) return;
+  const handleDelete = async (id: number, name: string) => {
+    const confirmed = await confirmDelete(name);
+    if (!confirmed) return;
     await api.delete(`/warehouses/${id}`);
     await load();
   };
@@ -78,7 +80,7 @@ export default function WarehousesPage() {
                     className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
                     <Edit2 className="w-3 h-3" /> Editar
                   </Link>
-                  <button onClick={() => handleDelete(wh.id)}
+                  <button onClick={() => handleDelete(wh.id, wh.name)}
                     className="text-xs text-red-400 hover:text-red-300 flex items-center gap-1">
                     <Trash2 className="w-3 h-3" /> Eliminar
                   </button>

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { confirmDelete } from '@/lib/confirm';
 
 /** @interface {@link SaleItem} — individual line item within a sale */
 interface SaleItem {
@@ -55,7 +56,6 @@ export default function SaleDetailPage() {
 
   // ── Action states ────────────────────────────────────────────────
   const [updating, setUpdating] = useState(false);
-  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
   const [deleting, setDeleting] = useState(false);
 
   /** Fetch the sale by ID */
@@ -117,6 +117,8 @@ export default function SaleDetailPage() {
   /** Delete sale */
   const handleDelete = useCallback(async () => {
     if (!sale) return;
+    const confirmed = await confirmDelete(`Factura ${sale.invoiceNumber}`);
+    if (!confirmed) return;
     setDeleting(true);
     try {
       await api.delete(`/sales/${sale.id}`);
@@ -124,7 +126,6 @@ export default function SaleDetailPage() {
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to delete sale');
       setDeleting(false);
-      setShowDeleteDialog(false);
     }
   }, [sale, router]);
 
@@ -395,56 +396,15 @@ export default function SaleDetailPage() {
         )}
         <button
           type="button"
-          onClick={() => setShowDeleteDialog(true)}
-          className="rounded-lg border border-cyan-500/15 bg-[#12121e] px-4 py-2 text-sm font-medium text-slate-300 shadow-sm transition-colors hover:bg-red-500/10 hover:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2"
+          onClick={handleDelete}
+          disabled={deleting}
+          className="rounded-lg border border-cyan-500/15 bg-[#12121e] px-4 py-2 text-sm font-medium text-slate-300 shadow-sm transition-colors hover:bg-red-500/10 hover:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          Delete
+          {deleting ? 'Deleting…' : 'Delete'}
         </button>
       </div>
 
-      {/* Delete confirmation dialog */}
-      {showDeleteDialog && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="delete-dialog-title"
-        >
-          <div className="w-full max-w-sm rounded-xl bg-[#12121e] p-6 shadow-xl border border-cyan-500/10">
-            <h2 id="delete-dialog-title" className="text-lg font-semibold text-[#e2e8f0]">
-              Delete Sale
-            </h2>
-            <p className="mt-2 text-sm text-slate-400">
-              Are you sure you want to delete invoice{' '}
-              <span className="font-medium text-slate-300">
-                {sale.invoiceNumber}
-              </span>
-              ? This action cannot be undone.
-            </p>
-            <div className="mt-6 flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => {
-                  setShowDeleteDialog(false);
-                  setError(null);
-                }}
-                disabled={deleting}
-                className="rounded-lg border border-cyan-500/15 bg-[#12121e] px-4 py-2 text-sm font-medium text-slate-300 shadow-sm transition-colors hover:bg-white/[0.02] disabled:opacity-50"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={handleDelete}
-                disabled={deleting}
-                className="rounded-lg bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:shadow-lg hover:shadow-red-500/25 disabled:opacity-50"
-              >
-                {deleting ? 'Deleting…' : 'Delete'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Delete is handled via SweetAlert2 in handleDelete() */}
     </div>
   );
 }

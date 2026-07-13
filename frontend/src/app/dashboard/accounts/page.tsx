@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { confirmDelete } from '@/lib/confirm';
 
 interface Account {
   id: number;
@@ -62,14 +63,15 @@ export default function AccountsPage() {
     fetchAccounts();
   }, [fetchAccounts]);
 
-  const handleDelete = async (id: number) => {
-    if (!confirm('Deactivate this account?')) return;
+  const handleDelete = async (id: number, name: string) => {
+    const confirmed = await confirmDelete(name);
+    if (!confirmed) return;
     setDeletingId(id);
     try {
       await api.delete(`/accounts/${id}`);
       fetchAccounts();
     } catch (err) {
-      alert(err instanceof Error ? err.message : 'Failed to deactivate');
+      setError(err instanceof Error ? err.message : 'Failed to deactivate');
     } finally {
       setDeletingId(null);
     }
@@ -172,7 +174,7 @@ export default function AccountsPage() {
                       Edit
                     </Link>
                     <button
-                      onClick={() => handleDelete(acc.id)}
+                      onClick={() => handleDelete(acc.id, acc.name)}
                       disabled={deletingId === acc.id}
                       className="text-red-400 hover:text-red-300 text-xs disabled:opacity-50"
                     >

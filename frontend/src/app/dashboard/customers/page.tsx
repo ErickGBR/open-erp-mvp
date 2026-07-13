@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { api } from '@/lib/api';
+import { confirmDelete } from '@/lib/confirm';
 
 /** @interface {@link Customer} — shape returned by the GET /customers endpoint */
 interface Customer {
@@ -41,9 +42,8 @@ export default function CustomersPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  /** Customer being confirmed for deletion — null means no dialog shown */
-  const [deleteTarget, setDeleteTarget] = useState<Customer | null>(null);
-  const [deleting, setDeleting] = useState(false);
+  /** Customer being deleted */
+  const [deletingId, setDeletingId] = useState<number | null>(null);
 
   /** Fetch paginated customer list */
   const fetchCustomers = useCallback(async () => {
@@ -80,19 +80,19 @@ export default function CustomersPage() {
   );
 
   /** Confirm and execute deletion */
-  const handleDelete = useCallback(async () => {
-    if (!deleteTarget) return;
-    setDeleting(true);
+  const handleDelete = useCallback(async (customer: Customer) => {
+    const confirmed = await confirmDelete(customer.name);
+    if (!confirmed) return;
+    setDeletingId(customer.id);
     try {
-      await api.delete(`/customers/${deleteTarget.id}`);
-      setDeleteTarget(null);
+      await api.delete(`/customers/${customer.id}`);
       fetchCustomers();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to delete customer');
     } finally {
-      setDeleting(false);
+      setDeletingId(null);
     }
-  }, [deleteTarget, fetchCustomers]);
+  }, [fetchCustomers]);
 
   const totalPages = Math.ceil(total / limit);
 
@@ -266,11 +266,12 @@ export default function CustomersPage() {
                         </button>
                         <button
                           type="button"
-                          onClick={() => setDeleteTarget(customer)}
-                          className="rounded-md px-2.5 py-1.5 text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-500/50"
+                          onClick={() => handleDelete(customer)}
+                          disabled={deletingId === customer.id}
+                          className="rounded-md px-2.5 py-1.5 text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-500/50 disabled:cursor-not-allowed disabled:opacity-50"
                           aria-label={`Delete ${customer.name}`}
                         >
-                          Delete
+                          {deletingId === customer.id ? '…' : 'Delete'}
                         </button>
                       </div>
                     </td>
@@ -312,42 +313,7 @@ export default function CustomersPage() {
         </div>
       )}
 
-      {/* Delete confirmation dialog */}
-      {deleteTarget && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="delete-dialog-title"
-        >
-          <div className="w-full max-w-sm rounded-xl bg-[#12121e] p-6 shadow-xl border border-cyan-500/10">
-            <h2 id="delete-dialog-title" className="text-lg font-semibold text-[#e2e8f0]">
-              Delete Customer
-            </h2>
-            <p className="mt-2 text-sm text-slate-400">
-              Are you sure you want to delete <span className="font-medium text-slate-300">{deleteTarget.name}</span>? This action cannot be undone.
-            </p>
-            <div className="mt-6 flex justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => setDeleteTarget(null)}
-                disabled={deleting}
-                className="rounded-lg border border-cyan-500/15 bg-[#12121e] px-4 py-2 text-sm font-medium text-slate-300 shadow-sm transition-colors hover:bg-white/[0.02] disabled:opacity-50"
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                onClick={handleDelete}
-                disabled={deleting}
-                className="rounded-lg bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:shadow-lg hover:shadow-red-500/25 disabled:opacity-50"
-              >
-                {deleting ? 'Deleting…' : 'Delete'}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Delete is handled via SweetAlert2 in handleDelete() */}
     </div>
   );
 }
