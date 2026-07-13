@@ -51,7 +51,7 @@ export default function CustomersPage() {
               Everything you need to nurture relationships and grow your business.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/auth?tab=register" className="btn-cyan inline-flex items-center gap-2 text-base">
+              <Link href="/auth" className="btn-cyan inline-flex items-center gap-2 text-base">
                 Get Started Free
                 <ArrowRight className="w-5 h-5" />
               </Link>
@@ -268,7 +268,7 @@ export default function CustomersPage() {
                 Start managing your customers with powerful tools. Free, open-source, and ready to use.
               </p>
               <Link
-                href="/auth?tab=register"
+                href="/auth"
                 className="btn-cyan inline-flex items-center gap-2 text-base"
               >
                 Get Started Free

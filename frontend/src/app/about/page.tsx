@@ -65,7 +65,7 @@ export default function AboutPage() {
               our values, and the technology that makes Open ERP possible.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/auth?tab=register" className="btn-cyan inline-flex items-center gap-2 text-base">
+              <Link href="/auth" className="btn-cyan inline-flex items-center gap-2 text-base">
                 Get Started Free
                 <ArrowRight className="w-5 h-5" />
               </Link>
@@ -312,7 +312,7 @@ export default function AboutPage() {
                 Start using Open ERP today. It&apos;s free, open-source, and built for businesses like yours.
               </p>
               <Link
-                href="/auth?tab=register"
+                href="/auth"
                 className="btn-cyan inline-flex items-center gap-2 text-base"
               >
                 Get Started Free

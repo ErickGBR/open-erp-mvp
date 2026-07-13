@@ -51,7 +51,7 @@ export default function SalesPage() {
               From quote to payment, manage your entire sales pipeline effortlessly.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/auth?tab=register" className="btn-cyan inline-flex items-center gap-2 text-base">
+              <Link href="/auth" className="btn-cyan inline-flex items-center gap-2 text-base">
                 Get Started Free
                 <ArrowRight className="w-5 h-5" />
               </Link>
@@ -268,7 +268,7 @@ export default function SalesPage() {
                 Create invoices, accept payments, and track your revenue — all with open-source freedom.
               </p>
               <Link
-                href="/auth?tab=register"
+                href="/auth"
                 className="btn-cyan inline-flex items-center gap-2 text-base"
               >
                 Get Started Free

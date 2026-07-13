@@ -23,3 +23,11 @@ CLAUDE.md
 skills-lock.json
 .cursor/
 .continue/
+
+# Debug artifacts
+customer-edit.md
+customers-list.md
+pos-page.md
+products-fixed.md
+products-error.png
+products-working.png

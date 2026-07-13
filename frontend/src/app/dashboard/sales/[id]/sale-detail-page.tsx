@@ -86,7 +86,7 @@ export default function SaleDetailPage() {
     setUpdating(true);
     setError(null);
     try {
-      const updated = await api.patch<Sale>(`/sales/${sale.id}`, {
+      const updated = await api.patch<Sale>(`/sales/${sale.id}/status`, {
         status: 'paid',
       });
       setSale(updated);
@@ -103,7 +103,7 @@ export default function SaleDetailPage() {
     setUpdating(true);
     setError(null);
     try {
-      const updated = await api.patch<Sale>(`/sales/${sale.id}`, {
+      const updated = await api.patch<Sale>(`/sales/${sale.id}/status`, {
         status: 'cancelled',
       });
       setSale(updated);

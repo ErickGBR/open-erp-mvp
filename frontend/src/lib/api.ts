@@ -33,7 +33,8 @@ async function request<T>(endpoint: string, options: ApiOptions = {}): Promise<T
     throw new Error(error.message || `HTTP ${response.status}`);
   }
 
-  return response.json();
+  const text = await response.text();
+  return text ? JSON.parse(text) : (null as T);
 }
 
 export const api = {

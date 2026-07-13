@@ -12,6 +12,10 @@ interface Product {
   price: number;
   cost: number;
   sku: string | null;
+  barcode: string | null;
+  imageUrl: string | null;
+  unitOfMeasure: string | null;
+  category: string | null;
   stock: number;
   isActive: boolean;
   createdAt: string;
@@ -24,6 +28,9 @@ interface FormData {
   price: string;
   cost: string;
   sku: string;
+  barcode: string;
+  unitOfMeasure: string;
+  imageUrl: string;
   stock: string;
   isActive: boolean;
 }
@@ -34,6 +41,11 @@ interface FormErrors {
   cost?: string;
   stock?: string;
 }
+
+const UNITS: Record<string, string> = {
+  unit: 'Unidad', dozen: 'Docena', kg: 'Kg', lb: 'Lb',
+  m: 'Metro', cm: 'Cm', l: 'Litro', ml: 'Ml', box: 'Caja', pack: 'Paquete',
+};
 
 /**
  * Edit Product form page — fetches existing product via GET /products/:id,
@@ -50,6 +62,9 @@ export default function EditProductPage() {
     price: '',
     cost: '',
     sku: '',
+    barcode: '',
+    unitOfMeasure: 'unit',
+    imageUrl: '',
     stock: '',
     isActive: true,
   });
@@ -73,6 +88,9 @@ export default function EditProductPage() {
           price: String(product.price),
           cost: String(product.cost),
           sku: product.sku ?? '',
+          barcode: product.barcode ?? '',
+          unitOfMeasure: product.unitOfMeasure ?? 'unit',
+          imageUrl: product.imageUrl ?? '',
           stock: String(product.stock),
           isActive: product.isActive,
         });
@@ -151,6 +169,9 @@ export default function EditProductPage() {
         price: parseFloat(form.price),
         cost: form.cost ? parseFloat(form.cost) : 0,
         sku: form.sku.trim() || null,
+        barcode: form.barcode.trim() || null,
+        unitOfMeasure: form.unitOfMeasure || null,
+        imageUrl: form.imageUrl.trim() || null,
         stock: form.stock ? parseInt(form.stock, 10) : 0,
         isActive: form.isActive,
       });
@@ -312,7 +333,7 @@ export default function EditProductPage() {
             </div>
           </div>
 
-          {/* SKU & Stock row */}
+          {/* SKU & Barcode row */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label htmlFor="sku" className="block text-sm font-medium text-slate-300">
@@ -326,6 +347,39 @@ export default function EditProductPage() {
                 className="mt-1 block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm shadow-sm placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
                 placeholder="e.g. PROD-001"
               />
+            </div>
+
+            <div>
+              <label htmlFor="barcode" className="block text-sm font-medium text-slate-300">
+                Barcode
+              </label>
+              <input
+                id="barcode"
+                type="text"
+                value={form.barcode}
+                onChange={(e) => updateField('barcode', e.target.value)}
+                className="mt-1 block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm shadow-sm placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+                placeholder="e.g. 12345670"
+              />
+            </div>
+          </div>
+
+          {/* Unit of Measure & Stock row */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="unitOfMeasure" className="block text-sm font-medium text-slate-300">
+                Unit of Measure
+              </label>
+              <select
+                id="unitOfMeasure"
+                value={form.unitOfMeasure}
+                onChange={(e) => updateField('unitOfMeasure', e.target.value)}
+                className="mt-1 block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+              >
+                {Object.entries(UNITS).map(([value, label]) => (
+                  <option key={value} value={value}>{label}</option>
+                ))}
+              </select>
             </div>
 
             <div>

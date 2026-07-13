@@ -26,3 +26,4 @@ export class UpdateStockDto {
   @IsString()
   notes?: string;
 }
+

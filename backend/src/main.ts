@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
+import { SerializeInterceptor } from './common/serialize.interceptor';
 import { join } from 'path';
 
 async function bootstrap() {
@@ -25,6 +26,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useGlobalInterceptors(new SerializeInterceptor());
 
   const port = process.env.PORT || 3001;
   await app.listen(port);

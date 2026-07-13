@@ -1,9 +1,5 @@
-import { Metadata } from 'next';
-
-export async function generateStaticParams(): Promise<{ id: string }[]> {
-  return [];
-}
-
+'use client';
+import SaleDetailPage from './sale-detail-page';
 export default function Page() {
-  return <div />;
+  return <SaleDetailPage />;
 }

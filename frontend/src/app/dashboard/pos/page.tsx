@@ -94,8 +94,8 @@ export default function POSPage() {
     api.get<{ data: Product[]; total: number }>('/products?limit=200')
       .then(r => setProducts(r.data))
       .catch(() => {});
-    api.get<Customer[]>('/customers')
-      .then(setCustomers)
+    api.get<{ data: Customer[] }>('/customers')
+      .then(r => setCustomers(r.data))
       .catch(() => {});
     api.get<Company>('/company')
       .then(setCompany)
@@ -146,8 +146,8 @@ export default function POSPage() {
     setCart(prev => prev.filter(item => item.productId !== productId));
   };
 
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const taxRate = company?.taxRate ?? 13;
+  const subtotal = cart.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
+  const taxRate = Number(company?.taxRate ?? 13);
   const tax = +(subtotal * taxRate / 100).toFixed(2);
   const total = +(subtotal + tax).toFixed(2);
 
@@ -461,7 +461,7 @@ export default function POSPage() {
                   </button>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-cyan-400 font-mono">${(item.price * item.quantity).toFixed(2)}</p>
+                  <p className="text-xs text-cyan-400 font-mono">${(Number(item.price) * item.quantity).toFixed(2)}</p>
                   <p className="text-[9px] text-slate-500">${Number(item.price).toFixed(2)} c/u</p>
                 </div>
               </div>

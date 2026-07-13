@@ -132,7 +132,7 @@ export default function SalesPage() {
     async (sale: Sale) => {
       setPayingId(sale.id);
       try {
-        await api.patch(`/sales/${sale.id}`, { status: 'paid' });
+        await api.patch(`/sales/${sale.id}/status`, { status: 'paid' });
         await fetchSales();
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to mark as paid');

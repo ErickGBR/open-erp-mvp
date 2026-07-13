@@ -51,7 +51,7 @@ export default function ProductsPage() {
               unified product dashboard. Stay in control of every item in your catalog.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/auth?tab=register" className="btn-cyan inline-flex items-center gap-2 text-base">
+              <Link href="/auth" className="btn-cyan inline-flex items-center gap-2 text-base">
                 Get Started Free
                 <ArrowRight className="w-5 h-5" />
               </Link>
@@ -286,7 +286,7 @@ export default function ProductsPage() {
                 Start tracking inventory, creating sales, and generating reports — all free and open-source.
               </p>
               <Link
-                href="/auth?tab=register"
+                href="/auth"
                 className="btn-cyan inline-flex items-center gap-2 text-base"
               >
                 Get Started Free
