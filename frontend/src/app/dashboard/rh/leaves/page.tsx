@@ -38,13 +38,13 @@ interface LeaveForm {
 }
 
 const LEAVE_TYPES = [
-  { value: 'vacation', label: 'Vacaciones' },
-  { value: 'sick', label: 'Enfermedad' },
+  { value: 'vacation', label: 'Vacation' },
+  { value: 'sick', label: 'Sick Leave' },
   { value: 'personal', label: 'Personal' },
-  { value: 'maternity', label: 'Maternidad' },
-  { value: 'paternity', label: 'Paternidad' },
-  { value: 'bereavement', label: 'Luto' },
-  { value: 'other', label: 'Otro' },
+  { value: 'maternity', label: 'Maternity' },
+  { value: 'paternity', label: 'Paternity' },
+  { value: 'bereavement', label: 'Bereavement' },
+  { value: 'other', label: 'Other' },
 ];
 
 const INITIAL_FORM: LeaveForm = {
@@ -78,7 +78,7 @@ export default function LeavesPage() {
       const result = await api.get<LeaveRecord[] | { data: LeaveRecord[] }>(`/rh/leaves?${params.toString()}`);
       setLeaves(unwrapList(result));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cargar permisos');
+      setError(err instanceof Error ? err.message : 'Error loading leaves');
     } finally {
       setLoading(false);
     }
@@ -97,7 +97,7 @@ export default function LeavesPage() {
       await api.patch(`/rh/leaves/${id}/status`, { status });
       await fetchLeaves();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al actualizar estado');
+      setError(err instanceof Error ? err.message : 'Error updating status');
     }
   };
 
@@ -120,7 +120,7 @@ export default function LeavesPage() {
       setShowModal(false);
       await fetchLeaves();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al crear permiso');
+      setError(err instanceof Error ? err.message : 'Error creating leave');
     } finally {
       setSaving(false);
     }
@@ -131,9 +131,9 @@ export default function LeavesPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Permisos</h1>
+        <h1 className="text-2xl font-bold text-white">Leave</h1>
         <button onClick={openNew} className="btn-cyan text-sm flex items-center gap-1.5">
-          <Plus className="w-4 h-4" /> Solicitar Permiso
+          <Plus className="w-4 h-4" /> Request Leave
         </button>
       </div>
 
@@ -144,10 +144,10 @@ export default function LeavesPage() {
           onChange={(e) => setStatusFilter(e.target.value)}
           className="rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-slate-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
         >
-          <option value="">Todos los estados</option>
-          <option value="pending">Pendientes</option>
-          <option value="approved">Aprobados</option>
-          <option value="rejected">Rechazados</option>
+          <option value="">All statuses</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
         </select>
       </div>
 
@@ -164,9 +164,9 @@ export default function LeavesPage() {
       ) : leaves.length === 0 ? (
         <div className="glass-card rounded-xl p-12 text-center">
           <CalendarCheck className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400">No hay solicitudes de permiso</p>
+          <p className="text-slate-400">No leave requests found</p>
           <button onClick={openNew} className="text-cyan-400 hover:text-cyan-300 text-sm mt-2">
-            Crear solicitud
+            Create request
           </button>
         </div>
       ) : (
@@ -174,13 +174,13 @@ export default function LeavesPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-cyan-500/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Empleado</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Tipo</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Inicio</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Fin</th>
-                <th className="px-4 py-3 text-center font-medium text-slate-400">Estado</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Motivo</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Acciones</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Employee</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Type</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Start</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">End</th>
+                <th className="px-4 py-3 text-center font-medium text-slate-400">Status</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Reason</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -206,16 +206,16 @@ export default function LeavesPage() {
                         <button
                           onClick={() => handleStatusChange(leave.id, 'approved')}
                           className="text-emerald-400 hover:text-emerald-300 text-xs flex items-center gap-1"
-                          title="Aprobar"
+                          title="Approve"
                         >
-                          <Check className="w-3 h-3" /> Aprobar
+                          <Check className="w-3 h-3" /> Approve
                         </button>
                         <button
                           onClick={() => handleStatusChange(leave.id, 'rejected')}
                           className="text-red-400 hover:text-red-300 text-xs flex items-center gap-1 ml-2"
-                          title="Rechazar"
+                          title="Reject"
                         >
-                          <Ban className="w-3 h-3" /> Rechazar
+                          <Ban className="w-3 h-3" /> Reject
                         </button>
                       </div>
                     ) : (
@@ -234,7 +234,7 @@ export default function LeavesPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div className="glass-card rounded-xl p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Nueva Solicitud de Permiso</h2>
+              <h2 className="text-lg font-semibold text-white">New Leave Request</h2>
               <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-white">
                 <X className="w-5 h-5" />
               </button>
@@ -242,13 +242,13 @@ export default function LeavesPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300">Empleado *</label>
+                <label className="block text-sm font-medium text-slate-300">Employee *</label>
                 <select
                   value={form.employeeId}
                   onChange={(e) => setForm({ ...form, employeeId: e.target.value })}
                   className={inputClass}
                 >
-                  <option value="">Seleccionar empleado</option>
+                  <option value="">Select employee</option>
                   {employees.map((emp) => (
                     <option key={emp.id} value={emp.id}>
                       {emp.firstName} {emp.lastName} ({emp.code})
@@ -258,7 +258,7 @@ export default function LeavesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Tipo *</label>
+                <label className="block text-sm font-medium text-slate-300">Type *</label>
                 <select
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value })}
@@ -272,14 +272,14 @@ export default function LeavesPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Fecha Inicio *</label>
+                  <label className="block text-sm font-medium text-slate-300">Start Date *</label>
                   <input
                     type="date" value={form.startDate}
                     onChange={(e) => setForm({ ...form, startDate: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Fecha Fin *</label>
+                  <label className="block text-sm font-medium text-slate-300">End Date *</label>
                   <input
                     type="date" value={form.endDate}
                     onChange={(e) => setForm({ ...form, endDate: e.target.value })}
@@ -288,12 +288,12 @@ export default function LeavesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Motivo</label>
+                <label className="block text-sm font-medium text-slate-300">Reason</label>
                 <textarea
                   rows={3} value={form.reason}
                   onChange={(e) => setForm({ ...form, reason: e.target.value })}
                   className={inputClass}
-                  placeholder="Razón del permiso…" />
+                  placeholder="Reason for leave…" />
               </div>
             </div>
 
@@ -303,13 +303,13 @@ export default function LeavesPage() {
                 disabled={saving || !form.employeeId || !form.startDate || !form.endDate}
                 className="btn-cyan flex-1 text-sm"
               >
-                {saving ? 'Guardando…' : 'Crear Solicitud'}
+                {saving ? 'Saving…' : 'Create Request'}
               </button>
               <button
                 onClick={() => setShowModal(false)}
                 className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
               >
-                Cancelar
+                Cancel
               </button>
             </div>
           </div>

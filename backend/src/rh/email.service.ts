@@ -46,8 +46,8 @@ export class EmailService {
   ): Promise<boolean> {
     const safeEmployeeName = this.sanitize(employeeName);
     const safePeriodName = this.sanitize(periodName);
-    const subject = `Comprobante de Pago - ${safePeriodName}`;
-    const text = `Estimado/a ${safeEmployeeName},\n\nAdjunto encontrará su comprobante de pago correspondiente al período ${safePeriodName}.\n\nSaludos cordiales,\nDepartamento de Recursos Humanos`;
+    const subject = `Payslip - ${safePeriodName}`;
+    const text = `Dear ${safeEmployeeName},\n\nPlease find attached your payment receipt for the period ${safePeriodName}.\n\nBest regards,\nHuman Resources Department`;
 
     return this.sendMail(to, subject, text, pdfBuffer, `payslip-${safePeriodName.replace(/\s+/g, '-').toLowerCase()}.pdf`);
   }

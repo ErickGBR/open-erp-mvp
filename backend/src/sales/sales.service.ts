@@ -80,7 +80,7 @@ export class SalesService {
     for (const item of dto.items) {
       subtotal += item.price * item.quantity;
     }
-    const taxRate = 13; // IVA 13%
+    const taxRate = 13; // 13% VAT (IVA)
     const tax = +(subtotal * taxRate / 100).toFixed(2);
     const total = +(subtotal + tax).toFixed(2);
 

@@ -1,5 +1,5 @@
 /**
- * Shared utilities for RH (Recursos Humanos) pages.
+ * Shared utilities for RH (Human Resources) pages.
  * Consolidates formatting functions, status mappings, and API response helpers
  * to eliminate duplication across employees, payroll, leaves, loans, bonuses, and attendance.
  */
@@ -64,28 +64,28 @@ export function formatDateShort(iso: string): string {
 // ──────────────────────────────────────────────
 
 export const EMPLOYEE_STATUS: Record<string, { label: string; badge: string }> = {
-  active: { label: 'Activo', badge: 'badge-active' },
-  inactive: { label: 'Inactivo', badge: 'badge-inactive' },
-  suspended: { label: 'Suspendido', badge: 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/20' },
+  active: { label: 'Active', badge: 'badge-active' },
+  inactive: { label: 'Inactive', badge: 'badge-inactive' },
+  suspended: { label: 'Suspended', badge: 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/20' },
 };
 
 export const PAYROLL_STATUS: Record<string, { label: string; badge: string }> = {
-  draft: { label: 'Borrador', badge: 'bg-slate-500/15 text-slate-400 border border-slate-500/20' },
-  calculated: { label: 'Calculado', badge: 'bg-blue-500/15 text-blue-400 border border-blue-500/20' },
-  approved: { label: 'Aprobado', badge: 'badge-active' },
-  paid: { label: 'Pagado', badge: 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/20' },
+  draft: { label: 'Draft', badge: 'bg-slate-500/15 text-slate-400 border border-slate-500/20' },
+  calculated: { label: 'Calculated', badge: 'bg-blue-500/15 text-blue-400 border border-blue-500/20' },
+  approved: { label: 'Approved', badge: 'badge-active' },
+  paid: { label: 'Paid', badge: 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/20' },
 };
 
 export const LEAVE_STATUS: Record<string, { label: string; badge: string }> = {
-  pending: { label: 'Pendiente', badge: 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/20' },
-  approved: { label: 'Aprobado', badge: 'badge-active' },
-  rejected: { label: 'Rechazado', badge: 'badge-cancelled' },
+  pending: { label: 'Pending', badge: 'bg-yellow-500/15 text-yellow-400 border border-yellow-500/20' },
+  approved: { label: 'Approved', badge: 'badge-active' },
+  rejected: { label: 'Rejected', badge: 'badge-cancelled' },
 };
 
 export const LOAN_STATUS: Record<string, { label: string; badge: string }> = {
-  active: { label: 'Activo', badge: 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/20' },
-  completed: { label: 'Pagado', badge: 'badge-active' },
-  defaulted: { label: 'Vencido', badge: 'badge-cancelled' },
+  active: { label: 'Active', badge: 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/20' },
+  completed: { label: 'Paid', badge: 'badge-active' },
+  defaulted: { label: 'Defaulted', badge: 'badge-cancelled' },
 };
 
 // ──────────────────────────────────────────────
@@ -93,25 +93,25 @@ export const LOAN_STATUS: Record<string, { label: string; badge: string }> = {
 // ──────────────────────────────────────────────
 
 export const LEAVE_TYPE: Record<string, string> = {
-  vacation: 'Vacaciones',
-  sick: 'Enfermedad',
-  personal: 'Personal',
-  maternity: 'Maternidad',
-  paternity: 'Paternidad',
-  bereavement: 'Luto',
-  other: 'Otro',
+  vacation: 'Vacation',
+  sick: 'Sick',
+  personal: 'Personal Leave',
+  maternity: 'Maternity',
+  paternity: 'Paternity',
+  bereavement: 'Bereavement',
+  other: 'Other',
 };
 
 export const BONUS_TYPE: Record<string, string> = {
-  productivity: 'Productividad',
-  performance: 'Rendimiento',
-  commission: 'Comisión',
-  attendance: 'Asistencia',
-  holiday: 'Aguinaldo',
-  other: 'Otro',
+  productivity: 'Productivity',
+  performance: 'Performance',
+  commission: 'Commission',
+  attendance: 'Attendance',
+  holiday: 'Holiday Bonus',
+  other: 'Other',
 };
 
 export const LOAN_TYPE: Record<string, string> = {
-  loan: 'Préstamo',
-  advance: 'Adelanto',
+  loan: 'Loan',
+  advance: 'Advance',
 };

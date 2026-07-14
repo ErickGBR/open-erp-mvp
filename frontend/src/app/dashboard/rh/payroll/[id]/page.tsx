@@ -67,7 +67,7 @@ export default function PayrollDetailPage() {
       setPeriod(periodData);
       setEntries(unwrapList(entriesData));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cargar detalle de planilla');
+      setError(err instanceof Error ? err.message : 'Error loading payroll details');
     } finally {
       setLoading(false);
     }
@@ -82,7 +82,7 @@ export default function PayrollDetailPage() {
       await api.post(endpoint, {});
       await fetchDetail();
     } catch (err) {
-      setError(err instanceof Error ? err.message : `Error al ejecutar ${action}`);
+      setError(err instanceof Error ? err.message : `Error executing ${action}`);
     } finally {
       setActionLoading(null);
     }
@@ -114,7 +114,7 @@ export default function PayrollDetailPage() {
     return (
       <div className="flex items-center justify-center py-20">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
-        <span className="ml-3 text-sm text-slate-400">Cargando planilla…</span>
+        <span className="ml-3 text-sm text-slate-400">Loading payroll…</span>
       </div>
     );
   }
@@ -125,7 +125,7 @@ export default function PayrollDetailPage() {
         <ClipboardList className="mx-auto mb-3 h-12 w-12 text-slate-600" />
         <p className="text-sm text-red-400">{error}</p>
         <Link href="/dashboard/rh/payroll" className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300">
-          &larr; Volver a planillas
+          &larr; Back to payroll
         </Link>
       </div>
     );
@@ -135,10 +135,10 @@ export default function PayrollDetailPage() {
     return (
       <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center">
         <ClipboardList className="mx-auto mb-3 h-12 w-12 text-slate-600" />
-        <p className="text-lg font-semibold text-[#e2e8f0]">Planilla no encontrada</p>
-        <p className="mt-1 text-sm text-slate-400">El período de planilla no existe o ha sido eliminado.</p>
+        <p className="text-lg font-semibold text-[#e2e8f0]">Payroll not found</p>
+        <p className="mt-1 text-sm text-slate-400">This payroll period does not exist or was deleted.</p>
         <Link href="/dashboard/rh/payroll" className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300">
-          &larr; Volver a planillas
+          &larr; Back to payroll
         </Link>
       </div>
     );
@@ -151,7 +151,7 @@ export default function PayrollDetailPage() {
         href="/dashboard/rh/payroll"
         className="inline-flex items-center gap-1 text-sm text-cyan-400 hover:text-cyan-300 mb-4"
       >
-        <ArrowLeft className="w-4 h-4" /> Volver a planillas
+        <ArrowLeft className="w-4 h-4" /> Back to payroll
       </Link>
 
       {/* Period Info Header */}
@@ -172,10 +172,10 @@ export default function PayrollDetailPage() {
 
         {/* Summary Row */}
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-6 pt-4 border-t border-cyan-500/10">
-          <SummaryBox label="Empleados" value={String(period.employeeCount ?? entries.length)} />
-          <SummaryBox label="Salario Bruto" value={formatCurrency(period.grossPay ?? totals.grossPay)} color="text-white" />
-          <SummaryBox label="Deducciones" value={formatCurrency(period.totalDeductions ?? totals.totalDeductions)} color="text-red-400" />
-          <SummaryBox label="Neto a Pagar" value={formatCurrency(period.netPay ?? totals.netPay)} color="text-emerald-400" />
+          <SummaryBox label="Employees" value={String(period.employeeCount ?? entries.length)} />
+          <SummaryBox label="Gross Salary" value={formatCurrency(period.grossPay ?? totals.grossPay)} color="text-white" />
+          <SummaryBox label="Deductions" value={formatCurrency(period.totalDeductions ?? totals.totalDeductions)} color="text-red-400" />
+          <SummaryBox label="Net Pay" value={formatCurrency(period.netPay ?? totals.netPay)} color="text-emerald-400" />
         </div>
 
         {/* Action buttons based on status */}
@@ -183,7 +183,7 @@ export default function PayrollDetailPage() {
           {period.status === 'draft' && (
             <ActionButton
               icon={<Calculator className="w-4 h-4" />}
-              label="Calcular Planilla"
+              label="Calculate Payroll"
               loading={actionLoading === 'calculate'}
               onClick={() => handleAction('calculate', `/rh/payroll/periods/${periodId}/calculate`)}
             />
@@ -191,7 +191,7 @@ export default function PayrollDetailPage() {
           {period.status === 'calculated' && (
             <ActionButton
               icon={<CheckCircle className="w-4 h-4" />}
-              label="Aprobar Planilla"
+              label="Approve Payroll"
               loading={actionLoading === 'approve'}
               onClick={() => handleAction('approve', `/rh/payroll/periods/${periodId}/approve`)}
             />
@@ -200,13 +200,13 @@ export default function PayrollDetailPage() {
             <>
               <ActionButton
                 icon={<CreditCard className="w-4 h-4" />}
-                label="Marcar como Pagado"
+                label="Mark as Paid"
                 loading={actionLoading === 'pay'}
                 onClick={() => handleAction('pay', `/rh/payroll/periods/${periodId}/pay`)}
               />
               <ActionButton
                 icon={<Send className="w-4 h-4" />}
-                label="Enviar Correos"
+                label="Send Emails"
                 loading={actionLoading === 'send-emails'}
                 onClick={() => handleAction('send-emails', `/rh/payroll/periods/${periodId}/send-emails`)}
                 variant="outline"
@@ -217,7 +217,7 @@ export default function PayrollDetailPage() {
             <button
               className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-2"
             >
-              <Download className="w-4 h-4" /> Exportar (Pronto)
+              <Download className="w-4 h-4" /> Export (Soon)
             </button>
           )}
         </div>
@@ -235,28 +235,28 @@ export default function PayrollDetailPage() {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-cyan-500/10 bg-white/5">
-              <th className="px-3 py-3 text-left font-medium text-slate-400">Empleado</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">Salario Base</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">H. Reg.</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">H. Extra</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">Bonos</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400 text-cyan-400">Bruto</th>
+              <th className="px-3 py-3 text-left font-medium text-slate-400">Employee</th>
+              <th className="px-3 py-3 text-right font-medium text-slate-400">Base Salary</th>
+              <th className="px-3 py-3 text-right font-medium text-slate-400">Reg. Hrs</th>
+              <th className="px-3 py-3 text-right font-medium text-slate-400">Overtime</th>
+              <th className="px-3 py-3 text-right font-medium text-slate-400">Bonuses</th>
+              <th className="px-3 py-3 text-right font-medium text-slate-400 text-cyan-400">Gross</th>
               <th className="px-3 py-3 text-right font-medium text-slate-400">ISSS</th>
               <th className="px-3 py-3 text-right font-medium text-slate-400">AFP</th>
               <th className="px-3 py-3 text-right font-medium text-slate-400">ISR</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">Préstamo</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400 text-red-400">Deducciones</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400 text-emerald-400">Neto</th>
+              <th className="px-3 py-3 text-right font-medium text-slate-400">Loan</th>
+              <th className="px-3 py-3 text-right font-medium text-slate-400 text-red-400">Deductions</th>
+              <th className="px-3 py-3 text-right font-medium text-slate-400 text-emerald-400">Net</th>
             </tr>
           </thead>
           <tbody>
             {entries.length === 0 ? (
               <tr>
                 <td colSpan={12} className="px-3 py-12 text-center text-slate-400">
-                  No hay empleados en este período
+                  No employees in this period
                   {period.status === 'draft' && (
                     <p className="mt-2 text-xs text-slate-500">
-                      Use &quot;Calcular Planilla&quot; para generar los detalles
+                      Use &quot;Calculate Payroll&quot; to generate the details
                     </p>
                   )}
                 </td>
@@ -287,7 +287,7 @@ export default function PayrollDetailPage() {
             {/* Totals row */}
             {entries.length > 0 && (
               <tr className="bg-white/5 border-t-2 border-cyan-500/20">
-                <td className="px-3 py-3 text-sm font-semibold text-cyan-400">TOTALES</td>
+                <td className="px-3 py-3 text-sm font-semibold text-cyan-400">TOTALS</td>
                 <td className="px-3 py-3 text-right text-white font-mono font-semibold">{formatCurrency(totals.baseSalary)}</td>
                 <td className="px-3 py-3 text-right text-slate-300 font-semibold">{totals.regularHours.toFixed(1)}</td>
                 <td className="px-3 py-3 text-right text-amber-400 font-semibold">{totals.overtimeHours.toFixed(1)}</td>
@@ -346,7 +346,7 @@ function ActionButton({
         className={`${base} border border-cyan-500/20 text-slate-300 hover:text-white hover:bg-white/5`}
       >
         {loading ? <Spinner /> : icon}
-        {loading ? 'Procesando…' : label}
+        {loading ? 'Processing…' : label}
       </button>
     );
   }
@@ -358,7 +358,7 @@ function ActionButton({
       className={`${base} bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25`}
     >
       {loading ? <Spinner /> : icon}
-      {loading ? 'Procesando…' : label}
+      {loading ? 'Processing…' : label}
     </button>
   );
 }

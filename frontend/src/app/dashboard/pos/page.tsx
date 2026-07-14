@@ -69,9 +69,9 @@ interface SaleResult {
 }
 
 const UNITS: Record<string, string> = {
-  unit: 'Unidad', dozen: 'Docena', kg: 'Kg', lb: 'Lb',
-  ft: 'Pie', inch: 'Pulgada', m: 'Metro', cm: 'Cm',
-  l: 'Litro', ml: 'Ml', box: 'Caja', pack: 'Paquete',
+  unit: 'Unit', dozen: 'Dozen', kg: 'Kg', lb: 'Lb',
+  ft: 'Ft', inch: 'Inch', m: 'Meter', cm: 'Cm',
+  l: 'Liter', ml: 'Ml', box: 'Box', pack: 'Pack',
 };
 
 export default function POSPage() {
@@ -200,7 +200,7 @@ export default function POSPage() {
     
     const content = invoiceRef.current.innerHTML;
     printWindow.document.write(`
-      <html><head><title>Factura</title>
+      <html><head><title>Invoice</title>
       <style>
         body { font-family: 'Courier New', monospace; font-size: 12px; width: 80mm; margin: 0 auto; padding: 10px; }
         table { width: 100%; border-collapse: collapse; font-size: 11px; }
@@ -235,21 +235,21 @@ export default function POSPage() {
         <div ref={invoiceRef} className="bg-white text-black rounded-xl p-6 max-w-sm w-full mb-4 shadow-lg" style={{ fontFamily: "'Courier New', monospace" }}>
           {/* Header */}
           <div className="text-center border-b-2 border-dashed border-gray-300 pb-3 mb-3">
-            <h2 className="font-bold text-lg">{company?.commercialName || company?.name || 'MI EMPRESA'}</h2>
+            <h2 className="font-bold text-lg">{company?.commercialName || company?.name || 'MY COMPANY'}</h2>
             <p className="text-xs">{company?.address}</p>
             <p className="text-xs">NIT: {company?.nit || '______'}</p>
             <p className="text-xs">NRC: {company?.nrc || '______'}</p>
-            <p className="text-xs">Tel: {company?.phone || ''}</p>
+            <p className="text-xs">Phone: {company?.phone || ''}</p>
             <hr className="my-2" />
-            <h3 className="font-bold text-base">FACTURA</h3>
+            <h3 className="font-bold text-base">INVOICE</h3>
             <p className="text-xs">No. {result.invoiceNumber}</p>
-            <p className="text-xs">Fecha: {new Date(result.createdAt).toLocaleDateString('es-SV', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
-            <p className="text-xs">DOCUMENTO TRIBUTARIO ELECTRÓNICO (DTE)</p>
+            <p className="text-xs">Date: {new Date(result.createdAt).toLocaleDateString('es-SV', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' })}</p>
+            <p className="text-xs">Electronic Tax Document (DTE)</p>
           </div>
 
           {/* Customer */}
           <div className="border-b border-dashed border-gray-300 pb-2 mb-2 text-xs">
-            <p><span className="font-bold">Cliente:</span> {result.receiverName || 'Consumidor Final'}</p>
+            <p><span className="font-bold">Customer:</span> {result.receiverName || 'Final Consumer'}</p>
             {result.receiverNit && <p><span className="font-bold">NIT:</span> {result.receiverNit}</p>}
             {result.receiverNrc && <p><span className="font-bold">NRC:</span> {result.receiverNrc}</p>}
           </div>
@@ -258,9 +258,9 @@ export default function POSPage() {
           <table className="mb-2">
             <thead>
               <tr className="text-xs">
-                <th>Cant</th>
-                <th>Descripción</th>
-                <th className="text-right">P.Unit</th>
+                <th>Qty</th>
+                <th>Description</th>
+                <th className="text-right">Price</th>
                 <th className="text-right">Total</th>
               </tr>
             </thead>
@@ -280,7 +280,7 @@ export default function POSPage() {
           <hr className="my-1" />
           <div className="text-xs">
             <div className="flex justify-between"><span>Subtotal:</span><span>${result.subtotal.toFixed(2)}</span></div>
-            <div className="flex justify-between"><span>IVA {taxRate}%:</span><span>${result.tax.toFixed(2)}</span></div>
+            <div className="flex justify-between"><span>VAT {taxRate}%:</span><span>${result.tax.toFixed(2)}</span></div>
             <div className="flex justify-between font-bold text-sm mt-1"><span>TOTAL:</span><span>${result.total.toFixed(2)}</span></div>
           </div>
 
@@ -293,9 +293,9 @@ export default function POSPage() {
 
           {/* Footer */}
           <div className="footer text-center text-xs mt-3 pt-3 border-t border-dashed border-gray-300">
-            <p className="font-bold">¡Gracias por su compra!</p>
-            <p>Código de Generación: {result.generationCode?.slice(0, 20)}...</p>
-            <p>Conserve esta factura para efectos fiscales</p>
+            <p className="font-bold">Thank you for your purchase!</p>
+            <p>Generation Code: {result.generationCode?.slice(0, 20)}...</p>
+            <p>Keep this invoice for tax purposes</p>
             <p className="mt-1">---</p>
           </div>
         </div>
@@ -303,10 +303,10 @@ export default function POSPage() {
         {/* Actions */}
         <div className="flex gap-3 max-w-sm w-full">
           <button onClick={handlePrint} className="btn-cyan flex-1 flex items-center justify-center gap-2">
-            <Printer className="w-4 h-4" /> Imprimir
+            <Printer className="w-4 h-4" /> Print
           </button>
           <button onClick={() => setResult(null)} className="btn-cyan flex-1">
-            Nueva Venta
+            New Sale
           </button>
         </div>
       </div>
@@ -324,7 +324,7 @@ export default function POSPage() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar por nombre, código o código de barras…"
+            placeholder="Search by name, code or barcode…"
             className="w-full rounded-lg bg-white/5 border border-cyan-500/15 pl-10 pr-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
             autoFocus
           />
@@ -353,17 +353,17 @@ export default function POSPage() {
               <p className="text-sm font-bold text-cyan-400 mt-0.5">${Number(product.price).toFixed(2)}</p>
               <div className="flex items-center justify-between mt-1">
                 <span className={`text-[10px] ${product.stock > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
-                  {product.stock > 0 ? `Stock: ${product.stock}` : 'Agotado'}
+                  {product.stock > 0 ? `Stock: ${product.stock}` : 'Out of Stock'}
                 </span>
                 <span className="text-[10px] text-slate-500">{UNITS[product.unitOfMeasure] || product.unitOfMeasure}</span>
               </div>
               {product.barcode && (
-                <p className="text-[8px] text-slate-600 mt-0.5 font-mono">Código: {product.barcode}</p>
+                <p className="text-[8px] text-slate-600 mt-0.5 font-mono">Code: {product.barcode}</p>
               )}
             </button>
           ))}
           {filteredProducts.length === 0 && (
-            <p className="col-span-full text-center text-slate-500 py-8">No se encontraron productos</p>
+            <p className="col-span-full text-center text-slate-500 py-8">No products found</p>
           )}
         </div>
       </div>
@@ -373,7 +373,7 @@ export default function POSPage() {
         <div className="p-3 border-b border-cyan-500/10">
           <div className="flex items-center gap-2 text-white font-semibold text-sm">
             <ShoppingCart className="w-4 h-4 text-cyan-400" />
-            Venta ({cart.length} items)
+            Sale ({cart.length} items)
           </div>
         </div>
 
@@ -384,10 +384,10 @@ export default function POSPage() {
             className="text-xs text-slate-400 hover:text-cyan-400 transition-colors w-full text-left"
           >
             {selectedCustomer
-              ? `Cliente: ${selectedCustomer.name}`
+              ? `Customer: ${selectedCustomer.name}`
               : showReceiverForm
-                ? 'Datos manuales'
-                : '+ Agregar Cliente'}
+                ? 'Manual data'
+                : '+ Add Customer'}
           </button>
 
           {showCustomerSelect && (
@@ -396,20 +396,20 @@ export default function POSPage() {
                 type="text"
                 value={customerSearch}
                 onChange={(e) => setCustomerSearch(e.target.value)}
-                placeholder="Buscar cliente…"
+                placeholder="Search customer…"
                 className="w-full rounded bg-white/5 border border-cyan-500/10 px-2 py-1 text-xs text-white placeholder:text-slate-500"
               />
               <button
                 onClick={() => { setSelectedCustomerId(null); setShowCustomerSelect(false); }}
                 className="block w-full text-left text-xs text-slate-500 hover:text-white py-1"
               >
-                — Consumidor Final —
+                — Final Consumer —
               </button>
               <button
                 onClick={() => { setShowCustomerSelect(false); setShowReceiverForm(true); }}
                 className="block w-full text-left text-xs text-cyan-400 hover:text-cyan-300 py-1"
               >
-                + Ingresar datos manualmente
+                + Enter data manually
               </button>
               {customers.filter(c => !customerSearch || c.name.toLowerCase().includes(customerSearch.toLowerCase())).map(c => (
                 <button key={c.id} onClick={() => { setSelectedCustomerId(c.id); setShowCustomerSelect(false); }}
@@ -426,9 +426,9 @@ export default function POSPage() {
                 className="w-full rounded bg-white/5 border border-cyan-500/10 px-2 py-1 text-white placeholder:text-slate-500" />
               <input placeholder="NRC" value={receiverForm.nrc} onChange={e => setReceiverForm(p => ({...p, nrc: e.target.value}))}
                 className="w-full rounded bg-white/5 border border-cyan-500/10 px-2 py-1 text-white placeholder:text-slate-500" />
-              <input placeholder="Nombre / Razón Social" value={receiverForm.name} onChange={e => setReceiverForm(p => ({...p, name: e.target.value}))}
+              <input placeholder="Name / Business Name" value={receiverForm.name} onChange={e => setReceiverForm(p => ({...p, name: e.target.value}))}
                 className="w-full rounded bg-white/5 border border-cyan-500/10 px-2 py-1 text-white placeholder:text-slate-500" />
-              <input placeholder="Dirección" value={receiverForm.address} onChange={e => setReceiverForm(p => ({...p, address: e.target.value}))}
+              <input placeholder="Address" value={receiverForm.address} onChange={e => setReceiverForm(p => ({...p, address: e.target.value}))}
                 className="w-full rounded bg-white/5 border border-cyan-500/10 px-2 py-1 text-white placeholder:text-slate-500" />
             </div>
           )}
@@ -437,7 +437,7 @@ export default function POSPage() {
         {/* Cart items */}
         <div className="flex-1 overflow-y-auto p-3 space-y-2">
           {cart.length === 0 && (
-            <p className="text-center text-slate-500 text-sm py-8">Seleccione productos</p>
+            <p className="text-center text-slate-500 text-sm py-8">Select products</p>
           )}
           {cart.map(item => (
             <div key={item.productId} className="bg-white/5 rounded-lg p-2">
@@ -462,7 +462,7 @@ export default function POSPage() {
                 </div>
                 <div className="text-right">
                   <p className="text-xs text-cyan-400 font-mono">${(Number(item.price) * item.quantity).toFixed(2)}</p>
-                  <p className="text-[9px] text-slate-500">${Number(item.price).toFixed(2)} c/u</p>
+                  <p className="text-[9px] text-slate-500">${Number(item.price).toFixed(2)} each</p>
                 </div>
               </div>
             </div>
@@ -479,7 +479,7 @@ export default function POSPage() {
             <span className="text-white font-mono">${subtotal.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-xs text-slate-400">
-            <span>IVA ({taxRate}%)</span>
+            <span>VAT ({taxRate}%)</span>
             <span className="text-white font-mono">${tax.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-base font-bold">
@@ -489,7 +489,7 @@ export default function POSPage() {
           <button onClick={handleCheckout}
             disabled={cart.length === 0 || submitting}
             className="btn-cyan w-full text-sm">
-            {submitting ? 'Procesando…' : `Cobrar $${total.toFixed(2)}`}
+            {submitting ? 'Processing…' : `Charge $${total.toFixed(2)}`}
           </button>
         </div>
       </div>

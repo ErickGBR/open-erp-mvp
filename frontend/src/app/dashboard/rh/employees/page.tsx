@@ -42,7 +42,7 @@ export default function EmployeesPage() {
       const result = await api.get<Employee[] | { data: Employee[] }>(`/rh/employees?${params.toString()}`);
       setEmployees(unwrapList(result));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cargar empleados');
+      setError(err instanceof Error ? err.message : 'Error loading employees');
       setEmployees([]);
     } finally {
       setLoading(false);
@@ -61,7 +61,7 @@ export default function EmployeesPage() {
       await api.delete(`/rh/employees/${id}`);
       await fetchEmployees();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al eliminar empleado');
+      setError(err instanceof Error ? err.message : 'Error deleting employee');
     } finally {
       setDeletingId(null);
     }
@@ -71,12 +71,12 @@ export default function EmployeesPage() {
     <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Empleados</h1>
+        <h1 className="text-2xl font-bold text-white">Employees</h1>
         <Link
           href="/dashboard/rh/employees/new"
           className="btn-cyan text-sm flex items-center gap-1.5"
         >
-          <Plus className="w-4 h-4" /> Nuevo Empleado
+          <Plus className="w-4 h-4" /> New Employee
         </Link>
       </div>
 
@@ -88,7 +88,7 @@ export default function EmployeesPage() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar por nombre o código…"
+            placeholder="Search by name or code…"
             className="w-full rounded-lg bg-white/5 border border-cyan-500/15 pl-9 pr-3 py-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
           />
         </div>
@@ -112,12 +112,12 @@ export default function EmployeesPage() {
       {!loading && !error && employees.length === 0 && (
         <div className="glass-card rounded-xl p-12 text-center">
           <Users className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400 mb-2">No hay empleados registrados</p>
+          <p className="text-slate-400 mb-2">No employees found</p>
           <Link
             href="/dashboard/rh/employees/new"
             className="text-cyan-400 hover:text-cyan-300 text-sm"
           >
-            Crear primer empleado
+            Create first employee
           </Link>
         </div>
       )}
@@ -128,13 +128,13 @@ export default function EmployeesPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-cyan-500/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Código</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Nombre</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Departamento</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Cargo</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Salario</th>
-                <th className="px-4 py-3 text-center font-medium text-slate-400">Estado</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Acciones</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Code</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Name</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Department</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Position</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Salary</th>
+                <th className="px-4 py-3 text-center font-medium text-slate-400">Status</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -159,14 +159,14 @@ export default function EmployeesPage() {
                       href={`/dashboard/rh/employees/${emp.id}`}
                       className="text-cyan-400 hover:text-cyan-300 mr-3 text-xs"
                     >
-                      Editar
+                      Edit
                     </Link>
                     <button
                       onClick={() => handleDelete(emp.id, `${emp.firstName} ${emp.lastName}`)}
                       disabled={deletingId === emp.id}
                       className="text-red-400 hover:text-red-300 text-xs disabled:opacity-50"
                     >
-                      {deletingId === emp.id ? '…' : 'Eliminar'}
+                      {deletingId === emp.id ? '…' : 'Delete'}
                     </button>
                   </td>
                 </tr>

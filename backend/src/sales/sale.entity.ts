@@ -12,7 +12,7 @@ export class Sale {
 
   // --- DTE fields ---
   @Column({ type: 'varchar', length: 50, nullable: true })
-  dteType!: string | null;       // '01' = Factura Electrónica
+  dteType!: string | null;       // '01' = Electronic Invoice
 
   @Column({ type: 'varchar', length: 50, nullable: true })
   generationCode!: string | null; // UUID v4

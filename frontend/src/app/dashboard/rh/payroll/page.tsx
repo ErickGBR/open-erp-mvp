@@ -52,7 +52,7 @@ export default function PayrollPage() {
       const result = await api.get<PayrollPeriod[] | { data: PayrollPeriod[] }>('/rh/payroll/periods');
       setPeriods(unwrapList(result));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cargar períodos');
+      setError(err instanceof Error ? err.message : 'Error loading periods');
     } finally {
       setLoading(false);
     }
@@ -77,7 +77,7 @@ export default function PayrollPage() {
       setShowModal(false);
       await fetchPeriods();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al crear período');
+      setError(err instanceof Error ? err.message : 'Error creating period');
     } finally {
       setSaving(false);
     }
@@ -88,9 +88,9 @@ export default function PayrollPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Períodos de Planilla</h1>
+        <h1 className="text-2xl font-bold text-white">Payroll Periods</h1>
         <button onClick={openNew} className="btn-cyan text-sm flex items-center gap-1.5">
-          <Plus className="w-4 h-4" /> Nuevo Período
+          <Plus className="w-4 h-4" /> New Period
         </button>
       </div>
 
@@ -107,9 +107,9 @@ export default function PayrollPage() {
       ) : periods.length === 0 ? (
         <div className="glass-card rounded-xl p-12 text-center">
           <ClipboardList className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400">No hay períodos de planilla</p>
+          <p className="text-slate-400">No payroll periods found</p>
           <button onClick={openNew} className="text-cyan-400 hover:text-cyan-300 text-sm mt-2">
-            Crear primer período
+            Create first period
           </button>
         </div>
       ) : (
@@ -117,14 +117,14 @@ export default function PayrollPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-cyan-500/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Período</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Inicio</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Fin</th>
-                <th className="px-4 py-3 text-center font-medium text-slate-400">Estado</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Empleados</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Bruto</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Deducciones</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Neto</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Period</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Start</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">End</th>
+                <th className="px-4 py-3 text-center font-medium text-slate-400">Status</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Employees</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Gross</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Deductions</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Net</th>
               </tr>
             </thead>
             <tbody>
@@ -161,7 +161,7 @@ export default function PayrollPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div className="glass-card rounded-xl p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Nuevo Período de Planilla</h2>
+              <h2 className="text-lg font-semibold text-white">New Payroll Period</h2>
               <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-white">
                 <X className="w-5 h-5" />
               </button>
@@ -169,24 +169,24 @@ export default function PayrollPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300">Nombre del Período *</label>
+                <label className="block text-sm font-medium text-slate-300">Period Name *</label>
                 <input
                   type="text" value={form.periodName}
                   onChange={(e) => setForm({ ...form, periodName: e.target.value })}
-                  placeholder="Ej: Julio 2026 - Primera Quincena"
+                  placeholder="E.g.: July 2026 - First Half"
                   className={inputClass} />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Fecha Inicio *</label>
+                  <label className="block text-sm font-medium text-slate-300">Start Date *</label>
                   <input
                     type="date" value={form.startDate}
                     onChange={(e) => setForm({ ...form, startDate: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Fecha Fin *</label>
+                  <label className="block text-sm font-medium text-slate-300">End Date *</label>
                   <input
                     type="date" value={form.endDate}
                     onChange={(e) => setForm({ ...form, endDate: e.target.value })}
@@ -201,13 +201,13 @@ export default function PayrollPage() {
                 disabled={saving || !form.periodName || !form.startDate || !form.endDate}
                 className="btn-cyan flex-1 text-sm"
               >
-                {saving ? 'Guardando…' : 'Crear Período'}
+                {saving ? 'Saving…' : 'Create Period'}
               </button>
               <button
                 onClick={() => setShowModal(false)}
                 className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
               >
-                Cancelar
+                Cancel
               </button>
             </div>
           </div>

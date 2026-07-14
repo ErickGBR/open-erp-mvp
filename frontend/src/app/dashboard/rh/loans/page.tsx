@@ -49,8 +49,8 @@ interface LoanForm {
 }
 
 const LOAN_TYPES = [
-  { value: 'loan', label: 'Préstamo' },
-  { value: 'advance', label: 'Adelanto' },
+  { value: 'loan', label: 'Loan' },
+  { value: 'advance', label: 'Advance' },
 ];
 
 const INITIAL_FORM: LoanForm = {
@@ -97,7 +97,7 @@ export default function LoansPage() {
       const result = await api.get<LoanRecord[] | { data: LoanRecord[] }>('/rh/loans');
       setLoans(unwrapList(result));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cargar préstamos');
+      setError(err instanceof Error ? err.message : 'Error loading loans');
     } finally {
       setLoading(false);
     }
@@ -131,7 +131,7 @@ export default function LoansPage() {
       setShowModal(false);
       await fetchLoans();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al crear préstamo');
+      setError(err instanceof Error ? err.message : 'Error creating loan');
     } finally {
       setSaving(false);
     }
@@ -145,7 +145,7 @@ export default function LoansPage() {
       await api.delete(`/rh/loans/${id}`);
       await fetchLoans();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al eliminar préstamo');
+      setError(err instanceof Error ? err.message : 'Error deleting loan');
     } finally {
       setDeletingId(null);
     }
@@ -159,7 +159,7 @@ export default function LoansPage() {
       setPayments(unwrapList(result));
       setShowPayments(true);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cargar pagos');
+      setError(err instanceof Error ? err.message : 'Error loading payments');
     } finally {
       setPaymentsLoading(false);
     }
@@ -185,7 +185,7 @@ export default function LoansPage() {
       setShowPayments(false); // Close payments modal to refresh
       await fetchLoans();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al registrar pago');
+      setError(err instanceof Error ? err.message : 'Error recording payment');
     } finally {
       setPaymentSaving(false);
     }
@@ -196,9 +196,9 @@ export default function LoansPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Préstamos y Adelantos</h1>
+        <h1 className="text-2xl font-bold text-white">Loans and Advances</h1>
         <button onClick={openNew} className="btn-cyan text-sm flex items-center gap-1.5">
-          <Plus className="w-4 h-4" /> Nuevo Préstamo
+          <Plus className="w-4 h-4" /> New Loan
         </button>
       </div>
 
@@ -215,9 +215,9 @@ export default function LoansPage() {
       ) : loans.length === 0 ? (
         <div className="glass-card rounded-xl p-12 text-center">
           <Banknote className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400">No hay préstamos registrados</p>
+          <p className="text-slate-400">No loans found</p>
           <button onClick={openNew} className="text-cyan-400 hover:text-cyan-300 text-sm mt-2">
-            Crear préstamo
+            Create loan
           </button>
         </div>
       ) : (
@@ -225,13 +225,13 @@ export default function LoansPage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-cyan-500/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Empleado</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Tipo</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Employee</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Type</th>
                 <th className="px-4 py-3 text-right font-medium text-slate-400">Total</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Saldo</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Cuota</th>
-                <th className="px-4 py-3 text-center font-medium text-slate-400">Estado</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Acciones</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Balance</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Installment</th>
+                <th className="px-4 py-3 text-center font-medium text-slate-400">Status</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -260,17 +260,17 @@ export default function LoansPage() {
                       <button
                         onClick={() => viewPayments(loan.id)}
                         className="text-cyan-400 hover:text-cyan-300 text-xs flex items-center gap-1"
-                        title="Ver pagos"
+                        title="View payments"
                       >
-                        <Eye className="w-3 h-3" /> Pagos
+                        <Eye className="w-3 h-3" /> Payments
                       </button>
                       {loan.status === 'active' && (
                         <button
                           onClick={() => openPaymentForm(loan.id)}
                           className="text-emerald-400 hover:text-emerald-300 text-xs flex items-center gap-1"
-                          title="Registrar pago"
+                          title="Record payment"
                         >
-                          <DollarSign className="w-3 h-3" /> Pagar
+                          <DollarSign className="w-3 h-3" /> Pay
                         </button>
                       )}
                       <button
@@ -278,7 +278,7 @@ export default function LoansPage() {
                         disabled={deletingId === loan.id}
                         className="text-red-400 hover:text-red-300 text-xs disabled:opacity-50"
                       >
-                        {deletingId === loan.id ? '…' : 'Eliminar'}
+                        {deletingId === loan.id ? '…' : 'Delete'}
                       </button>
                     </div>
                   </td>
@@ -294,7 +294,7 @@ export default function LoansPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div className="glass-card rounded-xl p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Nuevo Préstamo / Adelanto</h2>
+              <h2 className="text-lg font-semibold text-white">New Loan / Advance</h2>
               <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-white">
                 <X className="w-5 h-5" />
               </button>
@@ -302,13 +302,13 @@ export default function LoansPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300">Empleado *</label>
+                <label className="block text-sm font-medium text-slate-300">Employee *</label>
                 <select
                   value={form.employeeId}
                   onChange={(e) => setForm({ ...form, employeeId: e.target.value })}
                   className={inputClass}
                 >
-                  <option value="">Seleccionar empleado</option>
+                  <option value="">Select employee</option>
                   {employees.map((emp) => (
                     <option key={emp.id} value={emp.id}>
                       {emp.firstName} {emp.lastName} ({emp.code})
@@ -318,7 +318,7 @@ export default function LoansPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Tipo *</label>
+                <label className="block text-sm font-medium text-slate-300">Type *</label>
                 <select
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value })}
@@ -332,14 +332,14 @@ export default function LoansPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Monto Total *</label>
+                  <label className="block text-sm font-medium text-slate-300">Total Amount *</label>
                   <input
                     type="number" step="0.01" min="0" value={form.totalAmount}
                     onChange={(e) => setForm({ ...form, totalAmount: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Cuota *</label>
+                  <label className="block text-sm font-medium text-slate-300">Installment *</label>
                   <input
                     type="number" step="0.01" min="0" value={form.installmentAmount}
                     onChange={(e) => setForm({ ...form, installmentAmount: e.target.value })}
@@ -348,7 +348,7 @@ export default function LoansPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Fecha Inicio *</label>
+                <label className="block text-sm font-medium text-slate-300">Start Date *</label>
                 <input
                   type="date" value={form.startDate}
                   onChange={(e) => setForm({ ...form, startDate: e.target.value })}
@@ -356,7 +356,7 @@ export default function LoansPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Motivo</label>
+                <label className="block text-sm font-medium text-slate-300">Reason</label>
                 <textarea
                   rows={2} value={form.reason}
                   onChange={(e) => setForm({ ...form, reason: e.target.value })}
@@ -370,13 +370,13 @@ export default function LoansPage() {
                 disabled={saving || !form.employeeId || !form.totalAmount || !form.installmentAmount || !form.startDate}
                 className="btn-cyan flex-1 text-sm"
               >
-                {saving ? 'Guardando…' : 'Crear'}
+                {saving ? 'Saving…' : 'Create'}
               </button>
               <button
                 onClick={() => setShowModal(false)}
                 className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
               >
-                Cancelar
+                Cancel
               </button>
             </div>
           </div>
@@ -389,7 +389,7 @@ export default function LoansPage() {
           <div className="glass-card rounded-xl p-6 w-full max-w-lg mx-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-white">
-                Historial de Pagos {paymentsLoanId ? `#${paymentsLoanId}` : ''}
+                Payment History {paymentsLoanId ? `#${paymentsLoanId}` : ''}
               </h2>
               <button onClick={() => setShowPayments(false)} className="text-slate-400 hover:text-white">
                 <X className="w-5 h-5" />
@@ -401,15 +401,15 @@ export default function LoansPage() {
                 <div className="h-6 w-6 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
               </div>
             ) : payments.length === 0 ? (
-              <p className="text-slate-400 text-center py-8">No hay pagos registrados</p>
+              <p className="text-slate-400 text-center py-8">No payments found</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b border-cyan-500/10">
-                      <th className="px-3 py-2 text-left font-medium text-slate-400">Fecha</th>
-                      <th className="px-3 py-2 text-right font-medium text-slate-400">Monto</th>
-                      <th className="px-3 py-2 text-left font-medium text-slate-400">Notas</th>
+                      <th className="px-3 py-2 text-left font-medium text-slate-400">Date</th>
+                      <th className="px-3 py-2 text-right font-medium text-slate-400">Amount</th>
+                      <th className="px-3 py-2 text-left font-medium text-slate-400">Notes</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -430,7 +430,7 @@ export default function LoansPage() {
                 onClick={() => setShowPayments(false)}
                 className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
               >
-                Cerrar
+                Close
               </button>
             </div>
           </div>
@@ -442,7 +442,7 @@ export default function LoansPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
           <div className="glass-card rounded-xl p-6 w-full max-w-sm mx-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Registrar Pago</h2>
+              <h2 className="text-lg font-semibold text-white">Record Payment</h2>
               <button onClick={() => setShowPaymentForm(false)} className="text-slate-400 hover:text-white">
                 <X className="w-5 h-5" />
               </button>
@@ -450,14 +450,14 @@ export default function LoansPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300">Monto *</label>
+                <label className="block text-sm font-medium text-slate-300">Amount *</label>
                 <input
                   type="number" step="0.01" min="0" value={paymentAmount}
                   onChange={(e) => setPaymentAmount(e.target.value)}
                   className={inputClass} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-300">Notas</label>
+                <label className="block text-sm font-medium text-slate-300">Notes</label>
                 <textarea
                   rows={2} value={paymentNotes}
                   onChange={(e) => setPaymentNotes(e.target.value)}
@@ -471,13 +471,13 @@ export default function LoansPage() {
                 disabled={paymentSaving || !paymentAmount || Number(paymentAmount) <= 0}
                 className="btn-cyan flex-1 text-sm"
               >
-                {paymentSaving ? 'Guardando…' : 'Registrar Pago'}
+                {paymentSaving ? 'Saving…' : 'Record Payment'}
               </button>
               <button
                 onClick={() => setShowPaymentForm(false)}
                 className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
               >
-                Cancelar
+                Cancel
               </button>
             </div>
           </div>

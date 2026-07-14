@@ -74,26 +74,26 @@ export default function CompanyPage() {
     setSaving(false);
   };
 
-  if (!company) return <div className="text-slate-400 p-8">Cargando…</div>;
+  if (!company) return <div className="text-slate-400 p-8">Loading…</div>;
 
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center gap-3 mb-6">
         <Building2 className="w-6 h-6 text-cyan-400" />
-        <h1 className="text-xl font-bold text-white">Configuración de la Empresa (DTE)</h1>
+        <h1 className="text-xl font-bold text-white">Company Settings (DTE)</h1>
       </div>
 
       <div className="glass-card rounded-xl p-6 space-y-4">
-        <p className="text-xs text-slate-400">Estos datos se usarán en la facturación electrónica DTE de El Salvador.</p>
+        <p className="text-xs text-slate-400">This data will be used for El Salvador DTE electronic invoicing.</p>
 
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="text-xs text-slate-400 mb-1 block">Nombre de la Empresa *</label>
+            <label className="text-xs text-slate-400 mb-1 block">Company Name *</label>
             <input value={form.name} onChange={e => setForm({...form, name: e.target.value})}
               className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
           </div>
           <div>
-            <label className="text-xs text-slate-400 mb-1 block">Nombre Comercial</label>
+            <label className="text-xs text-slate-400 mb-1 block">Commercial Name</label>
             <input value={form.commercialName} onChange={e => setForm({...form, commercialName: e.target.value})}
               className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
           </div>
@@ -113,7 +113,7 @@ export default function CompanyPage() {
               className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white font-mono" />
           </div>
           <div>
-            <label className="text-xs text-slate-400 mb-1 block">NPE (Punto de Emisión)</label>
+            <label className="text-xs text-slate-400 mb-1 block">NPE (Emission Point)</label>
             <input value={form.npe} onChange={e => setForm({...form, npe: e.target.value})}
               placeholder="001"
               className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white font-mono" />
@@ -121,20 +121,20 @@ export default function CompanyPage() {
         </div>
 
         <div>
-          <label className="text-xs text-slate-400 mb-1 block">Actividad Económica</label>
+          <label className="text-xs text-slate-400 mb-1 block">Economic Activity</label>
           <input value={form.economicActivity} onChange={e => setForm({...form, economicActivity: e.target.value})}
             className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
         </div>
 
         <div>
-          <label className="text-xs text-slate-400 mb-1 block">Dirección (Sucursal / Casa Matriz)</label>
+          <label className="text-xs text-slate-400 mb-1 block">Address (Branch / Headquarters)</label>
           <input value={form.address} onChange={e => setForm({...form, address: e.target.value})}
             className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
         </div>
 
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="text-xs text-slate-400 mb-1 block">Teléfono</label>
+            <label className="text-xs text-slate-400 mb-1 block">Phone</label>
             <input value={form.phone} onChange={e => setForm({...form, phone: e.target.value})}
               className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
           </div>
@@ -144,16 +144,16 @@ export default function CompanyPage() {
               className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
           </div>
           <div>
-            <label className="text-xs text-slate-400 mb-1 block">IVA (%)</label>
+            <label className="text-xs text-slate-400 mb-1 block">VAT (%)</label>
             <input type="number" step="0.01" value={form.taxRate} onChange={e => setForm({...form, taxRate: Number(e.target.value) || 0})}
               className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
           </div>
         </div>
 
         <button onClick={handleSave} disabled={saving} className="btn-cyan flex items-center gap-2">
-          <Save className="w-4 h-4" /> {saving ? 'Guardando…' : 'Guardar Configuración'}
+          <Save className="w-4 h-4" /> {saving ? 'Saving…' : 'Save Configuration'}
         </button>
-        {saved && <p className="text-xs text-emerald-400">Configuración guardada</p>}
+        {saved && <p className="text-xs text-emerald-400">Configuration saved</p>}
       </div>
     </div>
   );

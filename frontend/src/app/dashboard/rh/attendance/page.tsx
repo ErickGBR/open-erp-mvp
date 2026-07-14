@@ -79,7 +79,7 @@ export default function AttendancePage() {
       const result = await api.get<AttendanceRecord[] | { data: AttendanceRecord[] }>(`/rh/attendance?${params.toString()}`);
       setRecords(unwrapList(result));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cargar asistencia');
+      setError(err instanceof Error ? err.message : 'Error loading attendance');
     } finally {
       setLoading(false);
     }
@@ -135,21 +135,21 @@ export default function AttendancePage() {
       setShowModal(false);
       await fetchRecords();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al guardar registro');
+      setError(err instanceof Error ? err.message : 'Error saving record');
     } finally {
       setSaving(false);
     }
   };
 
   const handleDelete = async (id: number, label: string) => {
-    const confirmed = await confirmDelete(`Registro de ${label}`);
+    const confirmed = await confirmDelete(`Record for ${label}`);
     if (!confirmed) return;
     setDeletingId(id);
     try {
       await api.delete(`/rh/attendance/${id}`);
       await fetchRecords();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al eliminar registro');
+      setError(err instanceof Error ? err.message : 'Error deleting record');
     } finally {
       setDeletingId(null);
     }
@@ -171,16 +171,16 @@ export default function AttendancePage() {
     <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Asistencia</h1>
+        <h1 className="text-2xl font-bold text-white">Attendance</h1>
         <button onClick={openNew} className="btn-cyan text-sm flex items-center gap-1.5">
-          <Plus className="w-4 h-4" /> Nuevo Registro
+          <Plus className="w-4 h-4" /> New Record
         </button>
       </div>
 
       {/* Filter */}
       <div className="flex gap-4 mb-6 items-end">
         <div>
-          <label className="block text-xs text-slate-400 mb-1">Fecha</label>
+          <label className="block text-xs text-slate-400 mb-1">Date</label>
           <div className="relative">
             <Filter className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
             <input
@@ -206,9 +206,9 @@ export default function AttendancePage() {
       ) : records.length === 0 ? (
         <div className="glass-card rounded-xl p-12 text-center">
           <Clock className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400">No hay registros de asistencia para esta fecha</p>
+          <p className="text-slate-400">No attendance records for this date</p>
           <button onClick={openNew} className="text-cyan-400 hover:text-cyan-300 text-sm mt-2">
-            Crear registro
+            Create record
           </button>
         </div>
       ) : (
@@ -216,13 +216,13 @@ export default function AttendancePage() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-cyan-500/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Empleado</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Entrada</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Salida</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">H. Regulares</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">H. Extra</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Notas</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Acciones</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Employee</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Check-in</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Check-out</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Reg. Hours</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Overtime</th>
+                <th className="px-4 py-3 text-left font-medium text-slate-400">Notes</th>
+                <th className="px-4 py-3 text-right font-medium text-slate-400">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -236,14 +236,14 @@ export default function AttendancePage() {
                   <td className="px-4 py-3 text-slate-400 max-w-[200px] truncate">{rec.notes || '—'}</td>
                   <td className="px-4 py-3 text-right">
                     <button onClick={() => openEdit(rec)} className="text-cyan-400 hover:text-cyan-300 mr-3 text-xs">
-                      <Edit2 className="w-3 h-3 inline" /> Editar
+                      <Edit2 className="w-3 h-3 inline" /> Edit
                     </button>
                     <button
                       onClick={() => handleDelete(rec.id, formatEmployeeName(rec))}
                       disabled={deletingId === rec.id}
                       className="text-red-400 hover:text-red-300 text-xs disabled:opacity-50"
                     >
-                      <Trash2 className="w-3 h-3 inline" /> {deletingId === rec.id ? '…' : 'Eliminar'}
+                      <Trash2 className="w-3 h-3 inline" /> {deletingId === rec.id ? '…' : 'Delete'}
                     </button>
                   </td>
                 </tr>
@@ -259,7 +259,7 @@ export default function AttendancePage() {
           <div className="glass-card rounded-xl p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-white">
-                {editId ? 'Editar Registro' : 'Nuevo Registro'}
+                {editId ? 'Edit Record' : 'New Record'}
               </h2>
               <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-white">
                 <X className="w-5 h-5" />
@@ -268,14 +268,14 @@ export default function AttendancePage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300">Empleado *</label>
+                <label className="block text-sm font-medium text-slate-300">Employee *</label>
                 <select
                   value={form.employeeId}
                   onChange={(e) => setForm({ ...form, employeeId: e.target.value })}
                   className={inputClass}
                   disabled={!!editId}
                 >
-                  <option value="">Seleccionar empleado</option>
+                  <option value="">Select employee</option>
                   {employees.map((emp) => (
                     <option key={emp.id} value={emp.id}>
                       {emp.firstName} {emp.lastName} ({emp.code})
@@ -285,7 +285,7 @@ export default function AttendancePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Fecha *</label>
+                <label className="block text-sm font-medium text-slate-300">Date *</label>
                 <input
                   type="date" value={form.date}
                   onChange={(e) => setForm({ ...form, date: e.target.value })}
@@ -294,14 +294,14 @@ export default function AttendancePage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Entrada</label>
+                  <label className="block text-sm font-medium text-slate-300">Check-in</label>
                   <input
                     type="time" value={form.clockIn}
                     onChange={(e) => setForm({ ...form, clockIn: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Salida</label>
+                  <label className="block text-sm font-medium text-slate-300">Check-out</label>
                   <input
                     type="time" value={form.clockOut}
                     onChange={(e) => setForm({ ...form, clockOut: e.target.value })}
@@ -310,7 +310,7 @@ export default function AttendancePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Minutos de Descanso</label>
+                <label className="block text-sm font-medium text-slate-300">Break Minutes</label>
                 <input
                   type="number" value={form.breakMinutes}
                   onChange={(e) => setForm({ ...form, breakMinutes: e.target.value })}
@@ -318,7 +318,7 @@ export default function AttendancePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Notas</label>
+                <label className="block text-sm font-medium text-slate-300">Notes</label>
                 <textarea
                   rows={2} value={form.notes}
                   onChange={(e) => setForm({ ...form, notes: e.target.value })}
@@ -332,13 +332,13 @@ export default function AttendancePage() {
                 disabled={saving || !form.employeeId || !form.date}
                 className="btn-cyan flex-1 text-sm"
               >
-                {saving ? 'Guardando…' : editId ? 'Actualizar' : 'Crear'}
+                {saving ? 'Saving…' : editId ? 'Update' : 'Create'}
               </button>
               <button
                 onClick={() => setShowModal(false)}
                 className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
               >
-                Cancelar
+                Cancel
               </button>
             </div>
           </div>

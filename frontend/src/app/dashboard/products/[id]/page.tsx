@@ -57,8 +57,8 @@ interface Warehouse {
 }
 
 const UNITS: Record<string, string> = {
-  unit: 'Unidad', dozen: 'Docena', kg: 'Kg', lb: 'Lb', ft: 'Pie',
-  inch: 'Pulgada', m: 'Metro', cm: 'Cm', l: 'Litro', ml: 'Ml', box: 'Caja', pack: 'Paquete',
+  unit: 'Unit', dozen: 'Dozen', kg: 'Kg', lb: 'Lb', ft: 'Foot',
+  inch: 'Inch', m: 'Meter', cm: 'Cm', l: 'Liter', ml: 'Ml', box: 'Box', pack: 'Pack',
 };
 const UNIT_OPTIONS = Object.keys(UNITS);
 
@@ -178,7 +178,7 @@ export default function ProductDetailPage() {
     await loadStock();
   };
 
-  if (!product) return <div className="text-slate-400 p-8">Cargando…</div>;
+  if (!product) return <div className="text-slate-400 p-8">Loading…</div>;
 
   const qrUrl = product.barcode
     ? `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(JSON.stringify({ id: product.id, name: product.name, barcode: product.barcode, code: product.sku }))}`
@@ -212,7 +212,7 @@ export default function ProductDetailPage() {
             <div className="flex items-start justify-between">
               <h1 className="text-2xl font-bold text-white truncate">{product.name}</h1>
               <button onClick={() => setEditMode(!editMode)} className="text-xs text-cyan-400 hover:text-cyan-300 shrink-0 ml-2">
-                {editMode ? 'Cancelar' : 'Editar'}
+                {editMode ? 'Cancel' : 'Edit'}
               </button>
             </div>
 
@@ -236,19 +236,19 @@ export default function ProductDetailPage() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-3 mt-4">
               <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">Precio</p>
+                <p className="text-xs text-slate-400">Price</p>
                 <p className="text-lg font-bold text-cyan-400">${Number(product.price).toFixed(2)}</p>
               </div>
               <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">Costo</p>
+                <p className="text-xs text-slate-400">Cost</p>
                 <p className="text-lg font-bold text-emerald-400">${Number(product.cost).toFixed(2)}</p>
               </div>
               <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">Stock Total</p>
+                <p className="text-xs text-slate-400">Total Stock</p>
                 <p className={`text-lg font-bold ${product.stock > 0 ? 'text-white' : 'text-red-400'}`}>{product.stock}</p>
               </div>
               <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">Unidad</p>
+                <p className="text-xs text-slate-400">Unit</p>
                 <p className="text-sm font-bold text-white">{UNITS[product.unitOfMeasure] || product.unitOfMeasure}</p>
               </div>
               <div className="bg-white/5 rounded-lg p-2.5 text-center">
@@ -256,7 +256,7 @@ export default function ProductDetailPage() {
                 <p className="text-sm font-mono text-white truncate">{product.sku || '—'}</p>
               </div>
               <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">Costo Prom.</p>
+                <p className="text-xs text-slate-400">Avg. Cost</p>
                 <p className="text-sm font-bold text-emerald-400">${Number(avgCost).toFixed(2)}</p>
               </div>
             </div>
@@ -271,7 +271,7 @@ export default function ProductDetailPage() {
             className={`px-4 py-2 rounded-lg transition-colors ${
               activeTab === tab ? 'bg-cyan-500/20 text-cyan-400' : 'text-slate-400 hover:text-white'
             }`}>
-            {tab === 'info' ? 'Info / Editar' : tab === 'stock' ? 'Ubicación en Almacén' : 'Kardex'}
+            {tab === 'info' ? 'Info / Edit' : tab === 'stock' ? 'Warehouse Location' : 'Kardex'}
           </button>
         ))}
       </div>
@@ -282,18 +282,18 @@ export default function ProductDetailPage() {
           {editMode ? (
             <div className="space-y-4 max-w-lg">
               <div>
-                <label className="text-xs text-slate-400 mb-1 block">Nombre</label>
+                <label className="text-xs text-slate-400 mb-1 block">Name</label>
                 <input value={form.name} onChange={e => setForm({...form, name: e.target.value})}
                   className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">Precio</label>
+                  <label className="text-xs text-slate-400 mb-1 block">Price</label>
                   <input type="number" step="0.01" value={form.price} onChange={e => setForm({...form, price: Number(e.target.value) || 0})}
                     className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
                 </div>
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">Costo</label>
+                  <label className="text-xs text-slate-400 mb-1 block">Cost</label>
                   <input type="number" step="0.01" value={form.cost} onChange={e => setForm({...form, cost: Number(e.target.value) || 0})}
                     className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
                 </div>
@@ -305,39 +305,39 @@ export default function ProductDetailPage() {
                     className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
                 </div>
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">Código de Barras (EAN-8)</label>
+                  <label className="text-xs text-slate-400 mb-1 block">Barcode (EAN-8)</label>
                   <input value={form.barcode} onChange={e => setForm({...form, barcode: e.target.value})}
-                    placeholder="Ej: 12345670"
+                    placeholder="E.g.: 12345670"
                     className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">Unidad de Medida</label>
+                  <label className="text-xs text-slate-400 mb-1 block">Unit of Measure</label>
                   <select value={form.unitOfMeasure} onChange={e => setForm({...form, unitOfMeasure: e.target.value})}
                     className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white">
                     {UNIT_OPTIONS.map(u => <option key={u} value={u}>{UNITS[u]}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">Categoría</label>
+                  <label className="text-xs text-slate-400 mb-1 block">Category</label>
                   <input value={form.category} onChange={e => setForm({...form, category: e.target.value})}
                     className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
                 </div>
               </div>
               <div>
-                <label className="text-xs text-slate-400 mb-1 block">Descripción</label>
+                <label className="text-xs text-slate-400 mb-1 block">Description</label>
                 <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows={3}
                   className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
               </div>
-              <button onClick={handleSave} className="btn-cyan">Guardar Cambios</button>
+              <button onClick={handleSave} className="btn-cyan">Save Changes</button>
             </div>
           ) : (
             <div className="text-sm text-slate-300 space-y-2">
-              <p><span className="text-slate-500">Descripción:</span> {product.description || 'Sin descripción'}</p>
-              <p><span className="text-slate-500">Categoría:</span> {product.category || 'Sin categoría'}</p>
-              <p><span className="text-slate-500">Código de Barras:</span> <span className="font-mono text-cyan-400">{product.barcode || '—'}</span></p>
-              <p><span className="text-slate-500">Unidad de Medida:</span> {UNITS[product.unitOfMeasure] || product.unitOfMeasure}</p>
+              <p><span className="text-slate-500">Description:</span> {product.description || 'No description'}</p>
+              <p><span className="text-slate-500">Category:</span> {product.category || 'No category'}</p>
+              <p><span className="text-slate-500">Barcode:</span> <span className="font-mono text-cyan-400">{product.barcode || '—'}</span></p>
+              <p><span className="text-slate-500">Unit of Measure:</span> {UNITS[product.unitOfMeasure] || product.unitOfMeasure}</p>
             </div>
           )}
         </div>
@@ -348,11 +348,11 @@ export default function ProductDetailPage() {
         <div className="glass-card rounded-xl p-6">
           <div className="flex items-center gap-2 mb-4">
             <Warehouse className="w-5 h-5 text-cyan-400" />
-            <h2 className="text-lg font-bold text-white">Ubicación en Almacén</h2>
+            <h2 className="text-lg font-bold text-white">Warehouse Location</h2>
           </div>
 
           {warehouses.length === 0 && (
-            <p className="text-slate-500 text-sm">No hay almacenes configurados.</p>
+            <p className="text-slate-500 text-sm">No warehouses configured.</p>
           )}
 
           {warehouses.map(wh => (
@@ -369,16 +369,16 @@ export default function ProductDetailPage() {
                     <div key={loc.id} className="flex items-center justify-between bg-white/5 rounded-lg px-3 py-2">
                       <div>
                         <p className="text-sm text-white">{loc.name}</p>
-                        {loc.section && <p className="text-xs text-slate-500">Sección: {loc.section}</p>}
+                        {loc.section && <p className="text-xs text-slate-500">Section: {loc.section}</p>}
                       </div>
                       <div className="flex items-center gap-2">
                         <span className={`text-sm font-mono ${(stockHere?.quantity || 0) > 0 ? 'text-emerald-400' : 'text-slate-500'}`}>
                           {stockHere?.quantity || 0} {UNITS[product.unitOfMeasure] || ''}
                         </span>
                         <button onClick={() => {
-                          const q = prompt('Cantidad:', String(stockHere?.quantity || 0));
+                          const q = prompt('Quantity:', String(stockHere?.quantity || 0));
                           if (q !== null) handleSetStock(loc.id, parseInt(q) || 0);
-                        }} className="text-xs text-cyan-400 hover:text-cyan-300">Cambiar</button>
+                        }} className="text-xs text-cyan-400 hover:text-cyan-300">Change</button>
                       </div>
                     </div>
                   );
@@ -392,22 +392,22 @@ export default function ProductDetailPage() {
       {/* Tab: Kardex */}
       {activeTab === 'kardex' && (
         <div className="glass-card rounded-xl p-6">
-          <h2 className="text-lg font-bold text-white mb-4">Kardex / Movimientos</h2>
+          <h2 className="text-lg font-bold text-white mb-4">Kardex / Movements</h2>
           {kardex.length === 0 ? (
-            <p className="text-slate-500 text-sm">Sin movimientos registrados.</p>
+            <p className="text-slate-500 text-sm">No movements recorded.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="text-xs text-slate-400 border-b border-cyan-500/10">
-                    <th className="text-left py-2">Fecha</th>
-                    <th className="text-left py-2">Tipo</th>
-                    <th className="text-right py-2">Cant.</th>
-                    <th className="text-right py-2">Costo Unit.</th>
-                    <th className="text-right py-2">Costo Total</th>
-                    <th className="text-right py-2">Stock Anterior</th>
-                    <th className="text-right py-2">Stock Nuevo</th>
-                    <th className="text-right py-2">Costo Prom.</th>
+                    <th className="text-left py-2">Date</th>
+                    <th className="text-left py-2">Type</th>
+                    <th className="text-right py-2">Qty</th>
+                    <th className="text-right py-2">Unit Cost</th>
+                    <th className="text-right py-2">Total Cost</th>
+                    <th className="text-right py-2">Previous Stock</th>
+                    <th className="text-right py-2">New Stock</th>
+                    <th className="text-right py-2">Avg. Cost</th>
                     <th className="text-left py-2">Ref.</th>
                   </tr>
                 </thead>
@@ -420,7 +420,7 @@ export default function ProductDetailPage() {
                           entry.type === 'entry' ? 'bg-emerald-500/20 text-emerald-400' :
                           entry.type === 'exit' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'
                         }`}>
-                          {entry.type === 'entry' ? 'Entrada' : entry.type === 'exit' ? 'Salida' : 'Ajuste'}
+                          {entry.type === 'entry' ? 'Entry' : entry.type === 'exit' ? 'Exit' : 'Adjustment'}
                         </span>
                       </td>
                       <td className="py-2 text-right font-mono">{entry.quantity}</td>

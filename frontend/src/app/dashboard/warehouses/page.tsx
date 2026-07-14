@@ -28,7 +28,7 @@ export default function WarehousesPage() {
       const data = await api.get<WarehouseType[]>('/warehouses');
       setWarehouses(data);
     } catch (err) {
-      setError('Error al cargar almacenes');
+      setError('Error loading warehouses');
       console.error(err);
     }
     setLoading(false);
@@ -44,7 +44,7 @@ export default function WarehousesPage() {
       await api.delete(`/warehouses/${id}`);
       await load();
     } catch (err) {
-      setError('Error al eliminar almacén');
+      setError('Error deleting warehouse');
       console.error(err);
     }
     setDeletingId(null);
@@ -53,9 +53,9 @@ export default function WarehousesPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-xl font-bold text-white">Almacenes</h1>
+        <h1 className="text-xl font-bold text-white">Warehouses</h1>
         <Link href="/dashboard/warehouses/new" className="btn-cyan text-sm flex items-center gap-1.5">
-          <Plus className="w-4 h-4" /> Nuevo Almacén
+          <Plus className="w-4 h-4" /> New Warehouse
         </Link>
       </div>
 
@@ -63,13 +63,13 @@ export default function WarehousesPage() {
         <div className="mb-4 p-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-400 text-sm">{error}</div>
       )}
       {loading ? (
-        <div className="text-slate-400">Cargando…</div>
+        <div className="text-slate-400">Loading…</div>
       ) : warehouses.length === 0 ? (
         <div className="glass-card rounded-xl p-8 text-center text-slate-500">
           <Warehouse className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p>No hay almacenes configurados</p>
+          <p>No warehouses configured</p>
           <Link href="/dashboard/warehouses/new" className="text-cyan-400 hover:text-cyan-300 text-sm mt-2 inline-block">
-            Crear primer almacén
+            Create first warehouse
           </Link>
         </div>
       ) : (
@@ -93,17 +93,17 @@ export default function WarehousesPage() {
                 <div className="flex gap-2">
                   <Link href={`/dashboard/warehouses/${wh.id}`}
                     className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1">
-                    <Edit2 className="w-3 h-3" /> Editar
+                    <Edit2 className="w-3 h-3" /> Edit
                   </Link>
                   <button onClick={() => handleDelete(wh.id, wh.name)} disabled={deletingId === wh.id}
                     className="text-xs text-red-400 hover:text-red-300 disabled:text-slate-600 disabled:cursor-not-allowed flex items-center gap-1">
-                    <Trash2 className="w-3 h-3" /> {deletingId === wh.id ? 'Eliminando…' : 'Eliminar'}
+                    <Trash2 className="w-3 h-3" /> {deletingId === wh.id ? 'Deleting…' : 'Delete'}
                   </button>
                 </div>
               </div>
               {wh.locations && wh.locations.length > 0 && (
                 <div className="mt-3 border-t border-cyan-500/10 pt-3">
-                  <p className="text-xs text-slate-500 mb-1">Ubicaciones ({wh.locations.length}):</p>
+                  <p className="text-xs text-slate-500 mb-1">Locations ({wh.locations.length}):</p>
                   <div className="flex flex-wrap gap-2">
                     {wh.locations.map(loc => (
                       <span key={loc.id} className="text-xs bg-white/5 rounded px-2 py-1 text-slate-300">

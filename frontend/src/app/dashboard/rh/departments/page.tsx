@@ -43,7 +43,7 @@ export default function DepartmentsPage() {
       const result = await api.get<Department[] | { data: Department[] }>('/rh/departments');
       setDepartments(unwrapList(result));
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al cargar departamentos');
+      setError(err instanceof Error ? err.message : 'Error loading departments');
     } finally {
       setLoading(false);
     }
@@ -75,7 +75,7 @@ export default function DepartmentsPage() {
       cancelEdit();
       await fetchDepartments();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al actualizar departamento');
+      setError(err instanceof Error ? err.message : 'Error updating department');
     } finally {
       setSaving(false);
     }
@@ -94,7 +94,7 @@ export default function DepartmentsPage() {
       setNewDescription('');
       await fetchDepartments();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al crear departamento');
+      setError(err instanceof Error ? err.message : 'Error creating department');
     } finally {
       setSaving(false);
     }
@@ -108,7 +108,7 @@ export default function DepartmentsPage() {
       await api.delete(`/rh/departments/${id}`);
       await fetchDepartments();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al eliminar departamento');
+      setError(err instanceof Error ? err.message : 'Error deleting department');
     } finally {
       setDeletingId(null);
     }
@@ -119,13 +119,13 @@ export default function DepartmentsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Departamentos</h1>
+        <h1 className="text-2xl font-bold text-white">Departments</h1>
         <button
           onClick={() => { setShowNew(!showNew); setEditingId(null); }}
           className="btn-cyan text-sm flex items-center gap-1.5"
         >
           {showNew ? <X className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-          {showNew ? 'Cancelar' : 'Nuevo Departamento'}
+          {showNew ? 'Cancel' : 'New Department'}
         </button>
       </div>
 
@@ -138,19 +138,19 @@ export default function DepartmentsPage() {
       {/* New department inline form */}
       {showNew && (
         <div className="glass-card rounded-xl p-4 mb-6 border-cyan-500/30">
-          <h3 className="text-sm font-semibold text-slate-300 mb-3">Nuevo Departamento</h3>
+          <h3 className="text-sm font-semibold text-slate-300 mb-3">New Department</h3>
           <div className="flex flex-wrap gap-3">
             <div className="flex-1 min-w-[200px]">
-              <label className="block text-xs text-slate-400 mb-1">Nombre *</label>
+              <label className="block text-xs text-slate-400 mb-1">Name *</label>
               <input
                 type="text" value={newName} onChange={(e) => setNewName(e.target.value)}
-                placeholder="Nombre del departamento" className={inputClass} />
+                placeholder="Department name" className={inputClass} />
             </div>
             <div className="flex-1 min-w-[200px]">
-              <label className="block text-xs text-slate-400 mb-1">Descripción</label>
+              <label className="block text-xs text-slate-400 mb-1">Description</label>
               <input
                 type="text" value={newDescription} onChange={(e) => setNewDescription(e.target.value)}
-                placeholder="Descripción opcional" className={inputClass} />
+                placeholder="Optional description" className={inputClass} />
             </div>
             <div className="flex items-end gap-2">
               <button
@@ -158,13 +158,13 @@ export default function DepartmentsPage() {
                 disabled={saving || !newName.trim()}
                 className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-3 py-2 text-xs font-semibold text-white disabled:opacity-50"
               >
-                {saving ? 'Guardando…' : 'Crear'}
+                {saving ? 'Saving…' : 'Create'}
               </button>
               <button
                 onClick={() => setShowNew(false)}
                 className="rounded-lg border border-cyan-500/20 px-3 py-2 text-xs text-slate-400 hover:text-white"
               >
-                Cancelar
+                Cancel
               </button>
             </div>
           </div>
@@ -178,12 +178,12 @@ export default function DepartmentsPage() {
       ) : departments.length === 0 ? (
         <div className="glass-card rounded-xl p-12 text-center">
           <Building2 className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400">No hay departamentos registrados</p>
+          <p className="text-slate-400">No departments found</p>
           <button
             onClick={() => setShowNew(true)}
             className="text-cyan-400 hover:text-cyan-300 text-sm mt-2"
           >
-            Crear primer departamento
+            Create first department
           </button>
         </div>
       ) : (
@@ -194,13 +194,13 @@ export default function DepartmentsPage() {
                 /* Inline edit mode */
                 <div className="flex flex-wrap gap-3 items-end">
                   <div className="flex-1 min-w-[200px]">
-                    <label className="block text-xs text-slate-400 mb-1">Nombre *</label>
+                    <label className="block text-xs text-slate-400 mb-1">Name *</label>
                     <input
                       type="text" value={editName} onChange={(e) => setEditName(e.target.value)}
                       className={`${inputClass} ${!editName.trim() ? 'border-red-500/50' : ''}`} />
                   </div>
                   <div className="flex-1 min-w-[200px]">
-                    <label className="block text-xs text-slate-400 mb-1">Descripción</label>
+                    <label className="block text-xs text-slate-400 mb-1">Description</label>
                     <input
                       type="text" value={editDescription} onChange={(e) => setEditDescription(e.target.value)}
                       className={inputClass} />
@@ -210,14 +210,14 @@ export default function DepartmentsPage() {
                       onClick={() => saveEdit(dep.id)}
                       disabled={saving || !editName.trim()}
                       className="rounded-lg bg-emerald-500/20 border border-emerald-500/30 px-2.5 py-2 text-emerald-400 hover:bg-emerald-500/30 transition-colors disabled:opacity-50"
-                      title="Guardar"
+                      title="Save"
                     >
                       <Check className="w-4 h-4" />
                     </button>
                     <button
                       onClick={cancelEdit}
                       className="rounded-lg border border-cyan-500/20 px-2.5 py-2 text-slate-400 hover:text-white transition-colors"
-                      title="Cancelar"
+                      title="Cancel"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -240,14 +240,14 @@ export default function DepartmentsPage() {
                       onClick={() => startEdit(dep)}
                       className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1"
                     >
-                      <Edit2 className="w-3 h-3" /> Editar
+                      <Edit2 className="w-3 h-3" /> Edit
                     </button>
                     <button
                       onClick={() => handleDelete(dep.id, dep.name)}
                       disabled={deletingId === dep.id}
                       className="text-xs text-red-400 hover:text-red-300 disabled:text-slate-600 disabled:cursor-not-allowed flex items-center gap-1"
                     >
-                      <Trash2 className="w-3 h-3" /> {deletingId === dep.id ? '…' : 'Eliminar'}
+                      <Trash2 className="w-3 h-3" /> {deletingId === dep.id ? '…' : 'Delete'}
                     </button>
                   </div>
                 </div>

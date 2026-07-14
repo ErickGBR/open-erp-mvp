@@ -55,7 +55,7 @@ export default function RhDashboardPage() {
         if (!cancelled) setStats(data);
       } catch (err) {
         if (!cancelled) {
-          setError(err instanceof Error ? err.message : 'Error al cargar estadísticas');
+          setError(err instanceof Error ? err.message : 'Error loading stats');
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -68,54 +68,54 @@ export default function RhDashboardPage() {
 
   const quickLinks: QuickLink[] = [
     {
-      label: 'Empleados',
+      label: 'Employees',
       href: '/dashboard/rh/employees',
       icon: <Users className="h-5 w-5" />,
-      description: 'Gestionar empleados activos e inactivos',
+      description: 'Manage active and inactive employees',
     },
     {
-      label: 'Departamentos',
+      label: 'Departments',
       href: '/dashboard/rh/departments',
       icon: <Building2 className="h-5 w-5" />,
-      description: 'Administrar departamentos',
+      description: 'Manage departments',
     },
     {
-      label: 'Asistencia',
+      label: 'Attendance',
       href: '/dashboard/rh/attendance',
       icon: <Clock className="h-5 w-5" />,
-      description: 'Registro de asistencia diaria',
+      description: 'Daily attendance records',
     },
     {
-      label: 'Permisos',
+      label: 'Leave',
       href: '/dashboard/rh/leaves',
       icon: <CalendarCheck className="h-5 w-5" />,
-      description: 'Solicitudes de permisos y vacaciones',
+      description: 'Leave and vacation requests',
     },
     {
-      label: 'Bonos',
+      label: 'Bonuses',
       href: '/dashboard/rh/bonuses',
       icon: <Gift className="h-5 w-5" />,
-      description: 'Bonificaciones y compensaciones',
+      description: 'Bonuses and compensation',
     },
     {
-      label: 'Préstamos',
+      label: 'Loans',
       href: '/dashboard/rh/loans',
       icon: <Banknote className="h-5 w-5" />,
-      description: 'Préstamos y adelantos de sueldo',
+      description: 'Loans and salary advances',
     },
     {
-      label: 'Planilla',
+      label: 'Payroll',
       href: '/dashboard/rh/payroll',
       icon: <ClipboardList className="h-5 w-5" />,
-      description: 'Períodos de planilla y pagos',
+      description: 'Payroll periods and payments',
     },
   ];
 
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#e2e8f0]">Recursos Humanos</h1>
-        <p className="mt-1 text-slate-400">Panel de gestión de personal y planilla</p>
+        <h1 className="text-2xl font-bold text-[#e2e8f0]">Human Resources</h1>
+        <p className="mt-1 text-slate-400">Personnel and payroll management panel</p>
       </div>
 
       {/* Error state */}
@@ -147,26 +147,26 @@ export default function RhDashboardPage() {
       {!loading && (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <StatCard
-            label="Empleados Activos"
+            label="Active Employees"
             value={stats ? String(stats.activeEmployees) : '—'}
             sub={stats ? `${stats.totalEmployees} total` : undefined}
             icon={<Users className="h-5 w-5" />}
             gradient="from-cyan-400 to-blue-500"
           />
           <StatCard
-            label="Permisos Pendientes"
+            label="Pending Leave"
             value={stats ? String(stats.pendingLeaves) : '—'}
             icon={<CalendarCheck className="h-5 w-5" />}
             gradient="from-amber-400 to-orange-500"
           />
           <StatCard
-            label="Planillas Pendientes"
+            label="Pending Payroll"
             value={stats ? String(stats.pendingPayroll) : '—'}
             icon={<ClipboardList className="h-5 w-5" />}
             gradient="from-blue-400 to-purple-500"
           />
           <StatCard
-            label="Departamentos"
+            label="Departments"
             value="—"
             icon={<Building2 className="h-5 w-5" />}
             gradient="from-cyan-400 to-teal-500"
@@ -175,7 +175,7 @@ export default function RhDashboardPage() {
       )}
 
       {/* Quick links */}
-      <h2 className="mb-4 mt-10 text-lg font-semibold text-[#e2e8f0]">Módulos</h2>
+      <h2 className="mb-4 mt-10 text-lg font-semibold text-[#e2e8f0]">Modules</h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {quickLinks.map((link) => (
           <Link

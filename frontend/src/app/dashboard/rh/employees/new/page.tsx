@@ -61,9 +61,9 @@ const INITIAL_FORM: EmployeeForm = {
 };
 
 const SALARY_TYPES = [
-  { value: 'monthly', label: 'Mensual' },
-  { value: 'biweekly', label: 'Quincenal' },
-  { value: 'hourly', label: 'Por Hora' },
+  { value: 'monthly', label: 'Monthly' },
+  { value: 'biweekly', label: 'Biweekly' },
+  { value: 'hourly', label: 'Per Hour' },
 ];
 
 /**
@@ -102,22 +102,22 @@ export default function NewEmployeePage() {
   const validate = (): boolean => {
     const next: FormErrors = {};
 
-    if (!form.firstName.trim()) next.firstName = 'El nombre es requerido';
-    if (!form.lastName.trim()) next.lastName = 'El apellido es requerido';
-    if (!form.code.trim()) next.code = 'El código es requerido';
+    if (!form.firstName.trim()) next.firstName = 'First name is required';
+    if (!form.lastName.trim()) next.lastName = 'Last name is required';
+    if (!form.code.trim()) next.code = 'Code is required';
 
     if (form.dui && !DUI_REGEX.test(form.dui.trim())) {
-      next.dui = 'Formato de DUI inválido (00000000-0)';
+      next.dui = 'Invalid DUI format (00000000-0)';
     }
     if (form.nit && !NIT_REGEX.test(form.nit.trim())) {
-      next.nit = 'Formato de NIT inválido (0000-000000-000-0)';
+      next.nit = 'Invalid NIT format (0000-000000-000-0)';
     }
     if (form.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) {
-      next.email = 'Correo electrónico inválido';
+      next.email = 'Invalid email';
     }
-    if (!form.hireDate) next.hireDate = 'La fecha de contratación es requerida';
+    if (!form.hireDate) next.hireDate = 'Hire date is required';
     if (!form.baseSalary || Number(form.baseSalary) <= 0) {
-      next.baseSalary = 'El salario base debe ser mayor a 0';
+      next.baseSalary = 'Base salary must be greater than 0';
     }
 
     setErrors(next);
@@ -154,7 +154,7 @@ export default function NewEmployeePage() {
       });
       router.push('/dashboard/rh/employees');
     } catch (err) {
-      setSubmitError(err instanceof Error ? err.message : 'Error al crear empleado');
+      setSubmitError(err instanceof Error ? err.message : 'Error creating employee');
     } finally {
       setSubmitting(false);
     }
@@ -177,8 +177,8 @@ export default function NewEmployeePage() {
   return (
     <div className="max-w-3xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#e2e8f0]">Nuevo Empleado</h1>
-        <p className="mt-1 text-sm text-slate-400">Ingrese los datos del nuevo empleado</p>
+        <h1 className="text-2xl font-bold text-[#e2e8f0]">New Employee</h1>
+        <p className="mt-1 text-sm text-slate-400">Enter the new employee details</p>
       </div>
 
       {submitError && (
@@ -191,12 +191,12 @@ export default function NewEmployeePage() {
         {/* Personal Information */}
         <div>
           <h2 className="text-sm font-semibold text-slate-300 mb-3 border-b border-cyan-500/10 pb-2">
-            Información Personal
+            Personal Information
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label htmlFor="firstName" className="block text-sm font-medium text-slate-300">
-                Nombre <span className="text-red-500">*</span>
+                First Name <span className="text-red-500">*</span>
               </label>
               <input id="firstName" name="firstName" type="text" required
                 value={form.firstName} onChange={handleChange}
@@ -206,7 +206,7 @@ export default function NewEmployeePage() {
             </div>
             <div>
               <label htmlFor="lastName" className="block text-sm font-medium text-slate-300">
-                Apellido <span className="text-red-500">*</span>
+                Last Name <span className="text-red-500">*</span>
               </label>
               <input id="lastName" name="lastName" type="text" required
                 value={form.lastName} onChange={handleChange}
@@ -216,7 +216,7 @@ export default function NewEmployeePage() {
             </div>
             <div>
               <label htmlFor="code" className="block text-sm font-medium text-slate-300">
-                Código <span className="text-red-500">*</span>
+                Code <span className="text-red-500">*</span>
               </label>
               <input id="code" name="code" type="text" required
                 value={form.code} onChange={handleChange}
@@ -227,12 +227,12 @@ export default function NewEmployeePage() {
             </div>
             <div>
               <label htmlFor="departmentId" className="block text-sm font-medium text-slate-300">
-                Departamento
+                Department
               </label>
               <select id="departmentId" name="departmentId"
                 value={form.departmentId} onChange={handleChange}
                 className={selectClass('departmentId')}>
-                <option value="">Seleccionar departamento</option>
+                <option value="">Select department</option>
                 {departments.map((d) => (
                   <option key={d.id} value={d.id}>{d.name}</option>
                 ))}
@@ -240,7 +240,7 @@ export default function NewEmployeePage() {
             </div>
             <div>
               <label htmlFor="position" className="block text-sm font-medium text-slate-300">
-                Cargo
+                Position
               </label>
               <input id="position" name="position" type="text"
                 value={form.position} onChange={handleChange}
@@ -248,7 +248,7 @@ export default function NewEmployeePage() {
             </div>
             <div>
               <label htmlFor="hireDate" className="block text-sm font-medium text-slate-300">
-                Fecha de Contratación <span className="text-red-500">*</span>
+                Hire Date <span className="text-red-500">*</span>
               </label>
               <input id="hireDate" name="hireDate" type="date" required
                 value={form.hireDate} onChange={handleChange}
@@ -261,7 +261,7 @@ export default function NewEmployeePage() {
         {/* Documents */}
         <div>
           <h2 className="text-sm font-semibold text-slate-300 mb-3 border-b border-cyan-500/10 pb-2">
-            Documentos
+            Documents
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
@@ -298,20 +298,20 @@ export default function NewEmployeePage() {
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-slate-300">Correo Electrónico</label>
+                <label htmlFor="email" className="block text-sm font-medium text-slate-300">Email</label>
               <input id="email" name="email" type="email"
                 value={form.email} onChange={handleChange}
                 className={inputClass('email')} />
               {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email}</p>}
             </div>
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-slate-300">Teléfono</label>
+                <label htmlFor="phone" className="block text-sm font-medium text-slate-300">Phone</label>
               <input id="phone" name="phone" type="text"
                 value={form.phone} onChange={handleChange}
                 className={inputClass('phone')} />
             </div>
             <div className="sm:col-span-2">
-              <label htmlFor="address" className="block text-sm font-medium text-slate-300">Dirección</label>
+              <label htmlFor="address" className="block text-sm font-medium text-slate-300">Address</label>
               <textarea id="address" name="address" rows={2}
                 value={form.address} onChange={handleChange}
                 className={inputClass('address')} />
@@ -322,11 +322,11 @@ export default function NewEmployeePage() {
         {/* Salary */}
         <div>
           <h2 className="text-sm font-semibold text-slate-300 mb-3 border-b border-cyan-500/10 pb-2">
-            Información Salarial
+            Salary Information
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div>
-              <label htmlFor="salaryType" className="block text-sm font-medium text-slate-300">Tipo de Salario</label>
+                <label htmlFor="salaryType" className="block text-sm font-medium text-slate-300">Salary Type</label>
               <select id="salaryType" name="salaryType"
                 value={form.salaryType} onChange={handleChange}
                 className={selectClass('salaryType')}>
@@ -337,7 +337,7 @@ export default function NewEmployeePage() {
             </div>
             <div>
               <label htmlFor="baseSalary" className="block text-sm font-medium text-slate-300">
-                Salario Base <span className="text-red-500">*</span>
+                Base Salary <span className="text-red-500">*</span>
               </label>
               <input id="baseSalary" name="baseSalary" type="number" step="0.01" min="0" required
                 value={form.baseSalary} onChange={handleChange}
@@ -350,17 +350,17 @@ export default function NewEmployeePage() {
         {/* Bank */}
         <div>
           <h2 className="text-sm font-semibold text-slate-300 mb-3 border-b border-cyan-500/10 pb-2">
-            Información Bancaria
+            Bank Information
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="bankName" className="block text-sm font-medium text-slate-300">Banco</label>
+              <label htmlFor="bankName" className="block text-sm font-medium text-slate-300">Bank</label>
               <input id="bankName" name="bankName" type="text"
                 value={form.bankName} onChange={handleChange}
                 className={inputClass('bankName')} />
             </div>
             <div>
-              <label htmlFor="bankAccount" className="block text-sm font-medium text-slate-300">Cuenta Bancaria</label>
+              <label htmlFor="bankAccount" className="block text-sm font-medium text-slate-300">Bank Account</label>
               <input id="bankAccount" name="bankAccount" type="text"
                 value={form.bankAccount} onChange={handleChange}
                 className={inputClass('bankAccount')} />
@@ -371,17 +371,17 @@ export default function NewEmployeePage() {
         {/* Social Security */}
         <div>
           <h2 className="text-sm font-semibold text-slate-300 mb-3 border-b border-cyan-500/10 pb-2">
-            Seguridad Social
+            Social Security
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label htmlFor="isssNumber" className="block text-sm font-medium text-slate-300">Número ISSS</label>
+              <label htmlFor="isssNumber" className="block text-sm font-medium text-slate-300">ISSS Number</label>
               <input id="isssNumber" name="isssNumber" type="text"
                 value={form.isssNumber} onChange={handleChange}
                 className={inputClass('isssNumber')} />
             </div>
             <div>
-              <label htmlFor="afpNumber" className="block text-sm font-medium text-slate-300">Número AFP</label>
+              <label htmlFor="afpNumber" className="block text-sm font-medium text-slate-300">AFP Number</label>
               <input id="afpNumber" name="afpNumber" type="text"
                 value={form.afpNumber} onChange={handleChange}
                 className={inputClass('afpNumber')} />
@@ -396,14 +396,14 @@ export default function NewEmployeePage() {
             disabled={submitting}
             className="btn-cyan flex-1"
           >
-            {submitting ? 'Guardando…' : 'Crear Empleado'}
+            {submitting ? 'Saving…' : 'Create Employee'}
           </button>
           <button
             type="button"
             onClick={() => router.push('/dashboard/rh/employees')}
             className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white transition-colors"
           >
-            Cancelar
+            Cancel
           </button>
         </div>
       </form>

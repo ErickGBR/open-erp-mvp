@@ -50,7 +50,7 @@ export default function LandingPage() {
   const [copied, setCopied] = useState<string | null>(null);
   const [scrollY, setScrollY] = useState(0);
 
-  // Parallax scroll effect — actualiza posición de orbes y barrido luminoso
+  // Parallax scroll effect — updates orb positions and light sweep
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -76,7 +76,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-[#0a0a12] overflow-hidden">
 
-      {/* Floating orbs background con parallax scroll */}
+      {/* Floating orbs background with parallax scroll */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div
           className="orb-cyan w-[500px] h-[500px] -top-48 -right-48 animate-[orbFloat_12s_ease-in-out_infinite]"
@@ -90,7 +90,7 @@ export default function LandingPage() {
           className="orb-cyan w-[300px] h-[300px] top-1/2 left-1/3 animate-[orbFloat_10s_ease-in-out_infinite_2s]"
           style={{ transform: `translateY(${scrollY * 0.05}px)` }}
         />
-        {/* Barrido luminoso que sigue el scroll */}
+        {/* Light sweep that follows the scroll */}
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -144,7 +144,7 @@ export default function LandingPage() {
         <div className="relative py-8 overflow-hidden border-y border-cyan-500/10">
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a12] via-transparent to-[#0a0a12] z-10 pointer-events-none" />
           <div className="flex animate-marquee whitespace-nowrap">
-            {/* Primera fila */}
+            {/* First row */}
             <div className="flex items-center gap-12 mx-8">
               {['Inventory', 'Invoices', 'Customers', 'Reports', 'Analytics', 'Orders', 'Products', 'Payments', 'Dashboard', 'Sales'].map((item) => (
                 <span key={item} className="text-sm text-slate-500 font-medium tracking-wider uppercase">
@@ -153,7 +153,7 @@ export default function LandingPage() {
                 </span>
               ))}
             </div>
-            {/* Duplicado para efecto continuo */}
+            {/* Duplicated for continuous effect */}
             <div className="flex items-center gap-12 mx-8">
               {['Inventory', 'Invoices', 'Customers', 'Reports', 'Analytics', 'Orders', 'Products', 'Payments', 'Dashboard', 'Sales'].map((item) => (
                 <span key={item + '-dup'} className="text-sm text-slate-500 font-medium tracking-wider uppercase">

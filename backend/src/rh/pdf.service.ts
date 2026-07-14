@@ -68,18 +68,18 @@ export class PdfService {
       doc.moveDown();
 
       // -- Period --
-      doc.fontSize(11).font('Helvetica-Bold').text(`Período: ${period.periodName}`, { align: 'center' });
+      doc.fontSize(11).font('Helvetica-Bold').text(`Period: ${period.periodName}`, { align: 'center' });
       doc.fontSize(9).font('Helvetica').text(`${period.startDate} al ${period.endDate}`, { align: 'center' });
       doc.moveDown();
 
       // -- Employee info --
-      doc.fontSize(10).font('Helvetica-Bold').text('DATOS DEL EMPLEADO');
+      doc.fontSize(10).font('Helvetica-Bold').text('EMPLOYEE DATA');
       doc.fontSize(9).font('Helvetica');
       doc.text(`Nombre: ${employeeName}`);
-      doc.text(`Código: ${employeeCode}`);
+      doc.text(`Code: ${employeeCode}`);
       doc.text(`DUI: ${employeeDui}`);
       doc.text(`NIT: ${employeeNit}`);
-      doc.text(`Departamento: ${employeeDepartment}`);
+      doc.text(`Department: ${employeeDepartment}`);
       doc.moveDown();
 
       // -- Payroll table --
@@ -88,7 +88,7 @@ export class PdfService {
       const col2X = 450;
       const lineHeight = 18;
 
-      doc.fontSize(10).font('Helvetica-Bold').text('DETALLE DE PAGO');
+      doc.fontSize(10).font('Helvetica-Bold').text('PAYMENT DETAILS');
       doc.moveDown(0.3);
 
       let y = doc.y;
@@ -100,31 +100,31 @@ export class PdfService {
         y += lineHeight;
       };
 
-      drawRow('Salario Base', `$${Number(detail.baseSalary).toFixed(2)}`);
+      drawRow('Base Salary', `$${Number(detail.baseSalary).toFixed(2)}`);
       if (detail.regularHours > 0) {
-        drawRow(`Horas Regulares`, `${detail.regularHours} hrs`);
+        drawRow(`Regular Hours`, `${detail.regularHours} hrs`);
       }
       if (detail.overtimeHours > 0) {
-        drawRow(`Horas Extras (×1.5)`, `${detail.overtimeHours} hrs`);
-        drawRow('Pago Horas Extras', `$${Number(detail.overtimePay).toFixed(2)}`);
+        drawRow(`Overtime Hours (×1.5)`, `${detail.overtimeHours} hrs`);
+        drawRow('Overtime Pay', `$${Number(detail.overtimePay).toFixed(2)}`);
       }
       if (detail.bonuses > 0) {
-        drawRow('Bonos', `$${Number(detail.bonuses).toFixed(2)}`);
+        drawRow('Bonuses', `$${Number(detail.bonuses).toFixed(2)}`);
       }
       if (detail.commissions > 0) {
-        drawRow('Comisiones', `$${Number(detail.commissions).toFixed(2)}`);
+        drawRow('Commissions', `$${Number(detail.commissions).toFixed(2)}`);
       }
 
       // Separator before gross
       doc.moveTo(leftX, y).lineTo(552, y).stroke();
       y += 4;
 
-      drawRow('SUELDO BRUTO', `$${Number(detail.grossPay).toFixed(2)}`, true);
+      drawRow('GROSS PAY', `$${Number(detail.grossPay).toFixed(2)}`, true);
 
       doc.moveTo(leftX, y).lineTo(552, y).stroke();
       y += 6;
 
-      doc.fontSize(10).font('Helvetica-Bold').text('DEDUCCIONES');
+      doc.fontSize(10).font('Helvetica-Bold').text('DEDUCTIONS');
       y += lineHeight;
 
       if (detail.isssDeduction > 0) {
@@ -137,23 +137,23 @@ export class PdfService {
         drawRow('ISR', `$${Number(detail.isrDeduction).toFixed(2)}`);
       }
       if (detail.loanDeduction > 0) {
-        drawRow('Préstamo/Cuota', `$${Number(detail.loanDeduction).toFixed(2)}`);
+        drawRow('Loan/Installment', `$${Number(detail.loanDeduction).toFixed(2)}`);
       }
       if (detail.otherDeductions > 0) {
-        drawRow('Otras Deducciones', `$${Number(detail.otherDeductions).toFixed(2)}`);
+        drawRow('Other Deductions', `$${Number(detail.otherDeductions).toFixed(2)}`);
       }
 
       doc.moveTo(leftX, y).lineTo(552, y).stroke();
       y += 4;
 
-      drawRow('TOTAL DEDUCCIONES', `$${Number(detail.totalDeductions).toFixed(2)}`, true);
+      drawRow('TOTAL DEDUCTIONS', `$${Number(detail.totalDeductions).toFixed(2)}`, true);
 
       doc.moveTo(leftX, y).lineTo(552, y).stroke();
       y += 8;
 
       // -- Net pay (highlighted) --
       doc.fontSize(14).font('Helvetica-Bold');
-      doc.text('SUELDO NETO', leftX, y, { width: 250 });
+      doc.text('NET PAY', leftX, y, { width: 250 });
       doc.text(`$${Number(detail.netPay).toFixed(2)}`, col2X, y, { width: 80, align: 'right' });
       y += 24;
 
@@ -162,7 +162,7 @@ export class PdfService {
 
       // -- Footer --
       doc.fontSize(8).font('Helvetica');
-      doc.text('Este documento es un comprobante de pago generado electrónicamente.', leftX, y, { align: 'center' });
+      doc.text('This document is an electronically generated payment receipt.', leftX, y, { align: 'center' });
 
       doc.end();
     });

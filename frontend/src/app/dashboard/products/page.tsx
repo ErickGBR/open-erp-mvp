@@ -28,8 +28,8 @@ interface Product {
 }
 
 const UNITS: Record<string, string> = {
-  unit: 'Unidad', dozen: 'Docena', kg: 'Kg', lb: 'Lb', ft: 'Pie',
-  inch: 'Pulgada', m: 'Metro', cm: 'Cm', l: 'Litro', ml: 'Ml', box: 'Caja', pack: 'Paquete',
+  unit: 'Unit', dozen: 'Dozen', kg: 'Kg', lb: 'Lb', ft: 'Foot',
+  inch: 'Inch', m: 'Meter', cm: 'Cm', l: 'Liter', ml: 'Ml', box: 'Box', pack: 'Pack',
 };
 
 interface ProductsResponse {

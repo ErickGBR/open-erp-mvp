@@ -14,11 +14,11 @@ export class WarehouseLocation {
   @JoinColumn({ name: 'warehouseId' })
   warehouse!: Warehouse;
 
-  /** Estante / rack name */
+  /** Shelf / rack name */
   @Column({ type: 'varchar', length: 100 })
   name!: string;
 
-  /** Sección del estante */
+  /** Shelf section */
   @Column({ type: 'varchar', length: 100, nullable: true })
   section!: string | null;
 
