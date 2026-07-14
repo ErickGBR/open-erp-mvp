@@ -13,6 +13,12 @@ import {
   Warehouse,
   Building2,
   ChevronDown,
+  Users2,
+  CalendarCheck,
+  UserCheck,
+  Gift,
+  Banknote,
+  ClipboardList,
   type LucideIcon,
 } from 'lucide-react';
 
@@ -88,6 +94,20 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'Chart of Accounts', href: '/dashboard/accounts' },
     ],
   },
+  {
+    label: 'RH',
+    icon: Users2,
+    children: [
+      { label: 'Dashboard', href: '/dashboard/rh' },
+      { label: 'Empleados', href: '/dashboard/rh/employees' },
+      { label: 'Departamentos', href: '/dashboard/rh/departments' },
+      { label: 'Asistencia', href: '/dashboard/rh/attendance' },
+      { label: 'Permisos', href: '/dashboard/rh/leaves' },
+      { label: 'Bonos', href: '/dashboard/rh/bonuses' },
+      { label: 'Préstamos', href: '/dashboard/rh/loans' },
+      { label: 'Planilla', href: '/dashboard/rh/payroll' },
+    ],
+  },
   { label: 'Company', icon: Building2, href: '/dashboard/company' },
   { label: 'Settings', icon: Settings, href: '/dashboard/settings' },
 ];
@@ -98,7 +118,14 @@ const NAV_ITEMS: NavItem[] = [
  * Styled with neon cyan/blue dark theme.
  */
 export default function Sidebar({ open, onToggle: _onToggle, pathname }: SidebarProps) {
-  const [expandedLabels, setExpandedLabels] = useState<Set<string>>(new Set());
+  const [expandedLabels, setExpandedLabels] = useState<Set<string>>(() => {
+    // Auto-expand RH dropdown when on any RH page
+    const initial = new Set<string>();
+    if (pathname.startsWith('/dashboard/rh')) {
+      initial.add('RH');
+    }
+    return initial;
+  });
 
   /**
    * Toggles the expanded state of a dropdown section.
@@ -123,13 +150,22 @@ export default function Sidebar({ open, onToggle: _onToggle, pathname }: Sidebar
     if (item.children) {
       return item.children.some((child) => pathname === child.href);
     }
+    // Also active if any RH child path matches (for wildcard routes like [id])
+    if (item.label === 'RH' && pathname.startsWith('/dashboard/rh')) return true;
     return false;
   };
 
   /**
-   * Checks if a child link matches the current pathname.
+   * Checks if a child link matches the current pathname (prefix match for dynamic routes).
    */
-  const isChildActive = (href: string): boolean => pathname === href;
+  const isChildActive = (href: string): boolean => {
+    // Exact match
+    if (pathname === href) return true;
+    // Wildcard: match /dashboard/rh/employees/123 against /dashboard/rh/employees
+    if (href.endsWith('/employees') && pathname.startsWith('/dashboard/rh/employees/')) return true;
+    if (href.endsWith('/payroll') && pathname.startsWith('/dashboard/rh/payroll/')) return true;
+    return false;
+  };
 
   return (
     <aside
