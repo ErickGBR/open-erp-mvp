@@ -5,7 +5,7 @@
   <br />
   Built with NestJS • Next.js • React • Tailwind CSS • PostgreSQL
   <br />
-  Neon dark theme • Glassmorphism • OAuth ready
+  Neon dark theme • Glassmorphism • OAuth ready • El Salvador DTE
 </p>
 
 <p align="center">
@@ -22,11 +22,35 @@
 
 ## ✨ Features
 
-- **Dashboard** — Real-time stats, recent sales, and performance metrics
-- **Products** — Full CRUD with stock tracking and status management
-- **Customers** — Customer registry with purchase history
-- **Sales** — Invoice creation, payment tracking, status management
-- **Authentication** — JWT-based auth with email/password + OAuth (Google, Microsoft 365)
+### 🏢 Core Business
+- **Products** — Full CRUD with stock tracking, barcode, images, and status management
+- **Customers** — Customer registry with purchase history and contact details
+- **Sales** — Invoice creation, payment tracking, status management (pending, completed, cancelled)
+- **Point of Sale (POS)** — Quick-sale interface with product search, cart, and receipt generation
+- **Chart of Accounts** — Hierarchical accounting plan (assets, liabilities, equity, income, expenses)
+
+### 👥 Human Resources (RH)
+- **Employees** — Employee registry with departments, positions, contracts, and documents
+- **Payroll** — Payroll period management with automatic calculation and payment tracking
+- **Attendance** — Daily attendance recording and reporting
+- **Loans** — Employee loan management with installment-based repayment tracking
+- **Bonuses** — Bonus and incentive management per payroll period
+- **Positions & Departments** — Organizational structure management
+- **Contracts** — Employee contract types and terms
+
+### 📦 Inventory & Logistics
+- **Warehouses** — Multi-warehouse inventory management with locations
+- **Kardex** — Real-time inventory movement tracking (FIFO, average cost)
+
+### 🏛️ Company & Compliance
+- **Company Settings** — Company profile, tax IDs, registration data
+- **El Salvador DTE** — Electronic tax document generation (Factura, Crédito Fiscal, etc.)
+- **Landing Pages** — Public-facing pages (Home, Blog, About, Contact)
+
+### 🔐 System
+- **Authentication** — JWT-based auth with email/password, Google OAuth 2.0, Microsoft 365 OAuth
+- **Role-Based Access** — Admin, manager, accountant, and view-only roles (RBAC)
+- **Dashboard** — Real-time stats, recent activity, and performance metrics
 - **Responsive** — Fully responsive with collapsible sidebar and mobile support
 - **Dark Theme** — Neon cyan/blue design system with glassmorphism effects
 
@@ -35,7 +59,7 @@
 | Layer | Technology |
 |-------|-----------|
 | **Frontend** | Next.js 16, React 19, TypeScript, Tailwind CSS v4 |
-| **Backend** | NestJS 11, TypeORM, Passport.js |
+| **Backend** | NestJS 11, TypeORM, Passport.js, class-validator |
 | **Database** | PostgreSQL 16 |
 | **Auth** | JWT, Google OAuth 2.0, Microsoft OAuth 2.0 |
 | **DevOps** | Docker, Docker Compose |
@@ -58,6 +82,13 @@ docker compose up --build -d
 The app will be available at:
 - **Frontend:** http://localhost:3000
 - **API:** http://localhost:3001/api
+
+### Demo Credentials
+
+```
+Email:    demo@openerp.com
+Password: Demo123!
+```
 
 ## 🔧 Manual Setup
 
@@ -100,28 +131,57 @@ GOOGLE_CLIENT_SECRET=your-client-secret
 GOOGLE_CALLBACK_URL=http://localhost:3001/api/auth/google/callback
 ```
 
-### Microsoft 365 OAuth *(Coming Soon)*
-Microsoft 365 login is coming soon. Stay tuned.
+### Microsoft 365 OAuth
+
+```env
+MICROSOFT_CLIENT_ID=your-client-id
+MICROSOFT_CLIENT_SECRET=your-client-secret
+MICROSOFT_CALLBACK_URL=http://localhost:3001/api/auth/microsoft/callback
+```
 
 ## 📁 Project Structure
 
 ```
-├── backend/                 # NestJS API
+├── backend/                    # NestJS API
 │   ├── src/
-│   │   ├── auth/           # Auth module (JWT + OAuth strategies)
-│   │   ├── users/          # Users module
-│   │   ├── products/       # Products CRUD
-│   │   ├── customers/      # Customers CRUD
-│   │   ├── sales/          # Sales module
-│   │   └── dashboard/      # Dashboard stats
+│   │   ├── accounts/          # Chart of Accounts module
+│   │   ├── auth/              # Auth module (JWT + OAuth strategies)
+│   │   ├── common/            # Shared utilities, guards, interceptors
+│   │   ├── company/           # Company settings & DTE module
+│   │   ├── customers/         # Customers CRUD
+│   │   ├── dashboard/         # Dashboard stats
+│   │   ├── kardex/            # Inventory movement tracking
+│   │   ├── products/          # Products CRUD
+│   │   ├── rh/                # Human Resources (employees, payroll, attendance, loans, bonuses)
+│   │   ├── sales/             # Sales & invoices
+│   │   ├── users/             # Users & roles
+│   │   └── warehouse/         # Warehouse inventory
 │   └── package.json
-├── frontend/                # Next.js App
+├── frontend/                   # Next.js App
 │   ├── src/
-│   │   ├── app/            # Pages (landing, auth, dashboard)
-│   │   ├── components/     # Reusable components
-│   │   ├── contexts/       # Auth context
-│   │   └── lib/            # API client
+│   │   ├── app/
+│   │   │   ├── (auth)/        # Login & Register pages
+│   │   │   ├── about/         # About page
+│   │   │   ├── blog/          # Blog with tag system
+│   │   │   ├── customers/     # Public customers (landing)
+│   │   │   ├── dashboard/     # Protected dashboard
+│   │   │   │   ├── accounts/  # Chart of accounts UI
+│   │   │   │   ├── company/   # Company settings UI
+│   │   │   │   ├── customers/ # Customer management
+│   │   │   │   ├── pos/       # Point of Sale UI
+│   │   │   │   ├── products/  # Product management
+│   │   │   │   ├── rh/        # HR management (11 pages)
+│   │   │   │   ├── sales/     # Sales management
+│   │   │   │   ├── settings/  # User settings
+│   │   │   │   └── warehouses/# Warehouse UI
+│   │   │   ├── products/      # Public products (landing)
+│   │   │   ├── sales/         # Public sales (landing)
+│   │   │   └── setup/         # Initial setup wizard
+│   │   ├── components/        # Reusable UI components
+│   │   ├── contexts/          # Auth context provider
+│   │   └── lib/               # API client & utilities
 │   └── package.json
+├── screenshots/                # App screenshots & GIFs
 ├── docker-compose.yml
 └── README.md
 ```
@@ -131,6 +191,7 @@ Microsoft 365 login is coming soon. Stay tuned.
 | Service | Port | Description |
 |---------|------|-------------|
 | `openerp_db` | 5432 | PostgreSQL database |
+| `openerp_redis` | 6379 | Redis cache |
 | `openerp_api` | 3001 | NestJS REST API |
 | `openerp_frontend` | 3000 | Next.js frontend |
 
@@ -167,19 +228,63 @@ Microsoft 365 login is coming soon. Stay tuned.
 ![Blog Listing](screenshots/blog-page.png)
 *Blog with glassmorphism cards and tag system*
 
-### Dashboard
+### About
+
+![About Page](screenshots/about-page.png)
+*About page with team information*
+
+### Dashboard Overview
 
 ![Dashboard Overview](screenshots/dashboard-overview.png)
 *Main dashboard with key metrics and recent activity*
 
+### Human Resources (RH)
+
+![RH Dashboard](screenshots/dashboard-rh.png)
+*RH dashboard with employee stats and payroll overview*
+
+![Employees](screenshots/dashboard-rh-employees.png)
+*Employee management with departments, positions, and contracts*
+
+![Payroll](screenshots/dashboard-rh-payroll.png)
+*Payroll period management with automatic calculations*
+
+### Point of Sale (POS)
+
+![Point of Sale](screenshots/dashboard-pos.png)
+*Quick-sale interface with product search and cart*
+
+### Warehouse & Inventory
+
+![Warehouse Management](screenshots/dashboard-warehouses.png)
+*Multi-warehouse inventory management*
+
+### Products
+
 ![Products Management](screenshots/dashboard-products.png)
 *Product listing with CRUD operations and stock tracking*
+
+### Customers
 
 ![Customer Registry](screenshots/dashboard-customers.png)
 *Customer management with purchase history*
 
+### Sales & Invoices
+
 ![Sales & Invoices](screenshots/dashboard-sales.png)
 *Sales management with invoice creation and payment tracking*
+
+### Chart of Accounts
+
+![Chart of Accounts](screenshots/dashboard-accounts.png)
+*Hierarchical accounting plan with account categories*
+
+### Company Settings
+
+![Company Settings](screenshots/dashboard-company.png)
+*Company registration, tax IDs, and DTE configuration*
+
+### Settings & Profile
 
 ![Settings & Profile](screenshots/dashboard-settings.png)
 *User settings and profile management*
