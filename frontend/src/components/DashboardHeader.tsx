@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Menu, User, Settings, LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 /**
  * Props for the DashboardHeader component.
@@ -43,6 +44,7 @@ export default function DashboardHeader({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  const { t } = useLanguage();
   const initial = userName.charAt(0).toUpperCase();
 
   return (
@@ -89,7 +91,7 @@ export default function DashboardHeader({
               className="flex items-center gap-2 px-4 py-2 text-sm text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
             >
               <User className="h-4 w-4" />
-              Profile
+              {t('dashboardHeader.profile')}
             </Link>
             <Link
               href="/dashboard/settings"
@@ -97,7 +99,7 @@ export default function DashboardHeader({
               className="flex items-center gap-2 px-4 py-2 text-sm text-slate-300 transition-colors hover:bg-white/5 hover:text-cyan-400"
             >
               <Settings className="h-4 w-4" />
-              Settings
+              {t('dashboardHeader.settings')}
             </Link>
             <button
               type="button"
@@ -108,7 +110,7 @@ export default function DashboardHeader({
               className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-400 transition-colors hover:bg-red-500/10"
             >
               <LogOut className="h-4 w-4" />
-              Logout
+              {t('dashboardHeader.logout')}
             </button>
           </div>
         )}
