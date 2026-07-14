@@ -1,0 +1,180 @@
+{
+  "landing": {
+    "badge": "Plataforma ERP de código abierto",
+    "hero": {
+      "welcome": "Bienvenido a ",
+      "title": "Open ERP",
+      "subtitle": "Optimiza tus operaciones comerciales con una plataforma moderna y extensible diseñada para el crecimiento. Código abierto, segura y hecha para ti.",
+      "download": "Descargar Ahora",
+      "learnMore": "Más Información"
+    },
+    "features": {
+      "title": "Todo lo que necesitas para gestionar tu negocio",
+      "subtitle": "Desde productos hasta reportes, Open ERP te cubre con una interfaz limpia e intuitiva.",
+      "products": {
+        "title": "Productos",
+        "description": "Gestiona tu inventario con facilidad. Controla niveles de stock, establece puntos de reorden y organiza productos por categorías."
+      },
+      "customers": {
+        "title": "Clientes",
+        "description": "Mantén un registro completo de tus clientes. Consulta historial de compras, gestiona contactos y construye relaciones más sólidas."
+      },
+      "sales": {
+        "title": "Ventas",
+        "description": "Crea facturas, registra pagos y monitorea tu pipeline de ventas. Mantente al tanto de cada transacción."
+      },
+      "reports": {
+        "title": "Reportes",
+        "description": "Obtén información procesable con informes personalizables. Visualiza tus datos y toma decisiones informadas."
+      }
+    },
+    "banners": {
+      "title": "Construido para negocios modernos",
+      "analytics": {
+        "title": "Analítica en Tiempo Real",
+        "desc": "Monitorea el rendimiento de tu negocio con paneles en vivo, informes personalizados y perspectivas procesables que te ayudan a tomar decisiones basadas en datos."
+      },
+      "secure": {
+        "title": "Seguro y Confiable",
+        "desc": "Seguridad de nivel empresarial con autenticación JWT, almacenamiento de datos encriptado y control de acceso basado en roles para mantener tus datos seguros."
+      },
+      "fast": {
+        "title": "Rápido como un Rayo",
+        "desc": "Rendimiento optimizado con renderizado del lado del servidor, caché automática y un stack tecnológico moderno que garantiza tiempos de carga rápidos."
+      },
+      "opensource": {
+        "title": "Código Abierto",
+        "desc": "Completamente de código abierto. Auto-hospeda o usa nuestra nube. Personaliza, extiende y contribuye a la plataforma."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para empezar?",
+      "subtitle": "Únete a miles de empresas que usan Open ERP para optimizar sus operaciones. Es gratis, de código abierto y hecho para ti.",
+      "button": "Descargar Open ERP"
+    },
+    "stats": {
+      "opensource": "Código Abierto",
+      "accessible": "Accesible",
+      "free": "Gratis",
+      "extensible": "Extensible"
+    },
+    "install": {
+      "badge": "Instalación",
+      "title": "Comienza con Open ERP",
+      "subtitle": "Elige tu método de instalación",
+      "docker": {
+        "title": "Docker",
+        "desc": "Configuración rápida y consistente",
+        "recommended": "Recomendado"
+      },
+      "ubuntu": {
+        "title": "Instalador Ubuntu Server",
+        "desc": "Configuración para servidor Linux"
+      },
+      "requirements": "Requisitos",
+      "quickStart": "Guía de Inicio Rápido",
+      "steps": {
+        "clone": { "title": "Clonar Repositorio", "desc": "Obtén el código fuente" },
+        "configure": { "title": "Configurar", "desc": "Configura las variables de entorno" },
+        "run": { "title": "Ejecutar", "desc": "Inicia los contenedores Docker" },
+        "open": { "title": "Abrir", "desc": "Accede a tu instancia ERP" }
+      }
+    },
+    "marquee": ["Inventario", "Facturas", "Clientes", "Reportes", "Analítica", "Órdenes", "Productos", "Pagos", "Panel", "Ventas"]
+  },
+  "header": {
+    "features": "Funcionalidades",
+    "download": "Descargar",
+    "about": "Acerca de",
+    "blog": "Blog",
+    "signIn": "Iniciar Sesión",
+    "getStarted": "Comenzar",
+    "dashboard": "Panel"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados.",
+    "language": "Idioma"
+  },
+  "auth": {
+    "login": {
+      "title": "Bienvenido de Nuevo",
+      "subtitle": "Inicia sesión en tu cuenta para continuar",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "button": "Iniciar Sesión",
+      "loading": "Iniciando sesión...",
+      "noAccount": "¿No tienes una cuenta?",
+      "signUp": "Registrarse"
+    },
+    "register": {
+      "title": "Crear Cuenta",
+      "subtitle": "Comienza con tu cuenta gratuita",
+      "name": "Nombre Completo",
+      "email": "Correo Electrónico",
+      "password": "Contraseña",
+      "button": "Crear Cuenta",
+      "loading": "Creando cuenta...",
+      "hasAccount": "¿Ya tienes una cuenta?",
+      "signIn": "Iniciar Sesión"
+    },
+    "oauth": {
+      "google": "Continuar con Google",
+      "microsoft": "Continuar con Microsoft 365"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Panel",
+    "rh": {
+      "title": "Recursos Humanos",
+      "employees": "Empleados",
+      "departments": "Departamentos",
+      "attendance": "Asistencia",
+      "leaves": "Permisos",
+      "bonuses": "Bonificaciones",
+      "loans": "Préstamos",
+      "payroll": "Planilla",
+      "dashboard": "Panel"
+    },
+    "pos": "Punto de Venta",
+    "products": "Productos",
+    "productsAll": "Todos los Productos",
+    "productsAdd": "Agregar Producto",
+    "customers": "Clientes",
+    "customersAll": "Todos los Clientes",
+    "customersAdd": "Agregar Cliente",
+    "sales": "Ventas",
+    "salesAll": "Todas las Ventas",
+    "salesNew": "Nueva Venta",
+    "warehouses": "Bodegas",
+    "warehousesAll": "Todas las Bodegas",
+    "warehousesAdd": "Agregar Bodega",
+    "accounts": "Contabilidad",
+    "chartOfAccounts": "Catálogo de Cuentas",
+    "company": "Empresa",
+    "settings": "Configuración"
+  },
+  "dashboardHeader": {
+    "toggleSidebar": "Abrir/cerrar menú",
+    "profile": "Perfil",
+    "settings": "Configuración",
+    "logout": "Cerrar Sesión"
+  },
+  "settings": {
+    "title": "Configuración",
+    "subtitle": "Administra tu cuenta y visualiza la información de la aplicación.",
+    "profile": "Perfil de Usuario",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "role": "Rol",
+    "language": {
+      "label": "Idioma",
+      "en": "English",
+      "es": "Español"
+    },
+    "application": "Aplicación",
+    "version": "Versión",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "auth": "Autenticación"
+  }
+}
