@@ -1,5 +1,11 @@
-'use client';
-import EditCustomerPage from './customer-detail-page';
+import ClientPage from './client-page';
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return [];
+}
+
 export default function Page() {
-  return <EditCustomerPage />;
+  return <ClientPage />;
 }

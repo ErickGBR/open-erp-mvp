@@ -18,26 +18,26 @@ interface Feature {
 const FEATURES: Feature[] = [
   {
     icon: Package,
-    title: 'Products',
-    description: 'Manage your inventory with ease. Track stock levels, set reorder points, and organize products by categories.',
+    title: 'Products & Inventory',
+    description: 'Full product management with stock tracking, barcodes, categories, and multi-warehouse inventory with Kardex movement records.',
     color: 'from-cyan-400 to-blue-500',
   },
   {
     icon: Users,
-    title: 'Customers',
-    description: 'Keep a complete record of your customers. View purchase history, manage contacts, and build stronger relationships.',
+    title: 'HR & Payroll',
+    description: 'Complete human resources module with employee management, attendance tracking, payroll processing, loans, bonuses, and leave management.',
     color: 'from-blue-400 to-purple-500',
   },
   {
     icon: Receipt,
-    title: 'Sales',
-    description: 'Create invoices, track payments, and monitor your sales pipeline. Stay on top of every transaction.',
+    title: 'Sales & POS',
+    description: 'Create invoices, track payments, and manage your point of sale with quick-sale interface, product search, and electronic DTE document generation.',
     color: 'from-cyan-400 to-teal-500',
   },
   {
     icon: BarChart3,
-    title: 'Reports',
-    description: 'Get actionable insights with customizable reports. Visualize your data and make informed decisions.',
+    title: 'Accounting & Reports',
+    description: 'Hierarchical chart of accounts, company configuration with El Salvador DTE compliance, and real-time dashboard analytics.',
     color: 'from-blue-400 to-cyan-500',
   },
 ];
@@ -240,8 +240,7 @@ export default function LandingPage() {
                   <div>
                     <h3 className="text-xl font-semibold text-white mb-2">Secure & Reliable</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      Enterprise-grade security with JWT authentication, encrypted data storage,
-                      and role-based access control to keep your data safe.
+                      Enterprise-grade security with JWT authentication, role-based access control, and encrypted data storage. Licensed under CC BY-NC 4.0.
                     </p>
                   </div>
                 </div>
@@ -272,8 +271,7 @@ export default function LandingPage() {
                   <div>
                     <h3 className="text-xl font-semibold text-white mb-2">Open Source</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      Fully open-source under MIT license. Self-host or use our cloud.
-                      Customize, extend, and contribute to the platform.
+                      Fully open-source under Creative Commons BY-NC 4.0. Self-host or deploy to the cloud. Customize, extend, and contribute to the platform.
                     </p>
                   </div>
                 </div>
@@ -314,9 +312,9 @@ export default function LandingPage() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.03)_0%,transparent_70%)]" />
           <div className="relative max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { value: '100%', label: 'Open Source' },
+              { value: '100%', label: 'Free' },
               { value: '24/7', label: 'Accessible' },
-              { value: '0$', label: 'Free to Start' },
+              { value: '0$', label: 'Open Source' },
               { value: '∞', label: 'Extensible' },
             ].map((stat) => (
               <div key={stat.label} className="text-center group">
@@ -394,11 +392,11 @@ export default function LandingPage() {
                 <div className="relative">
                   <pre className="bg-[#0a0e1a] border border-cyan-500/10 rounded-lg p-4 overflow-x-auto">
                     <code className="text-sm text-slate-300 font-mono">
-                      {`git clone https://github.com/ErickGBR/run-mvp.git\ncd run-mvp\ndocker compose up --build -d`}
+                      {`git clone https://github.com/ErickGBR/open-erp-mvp.git\ncd open-erp-mvp\ndocker compose up --build -d`}
                     </code>
                   </pre>
                   <button
-                    onClick={() => handleCopy(`git clone https://github.com/ErickGBR/run-mvp.git\ncd run-mvp\ndocker compose up --build -d`, 'docker')}
+                    onClick={() => handleCopy(`git clone https://github.com/ErickGBR/open-erp-mvp.git\ncd open-erp-mvp\ndocker compose up --build -d`, 'docker')}
                     className="absolute top-3 right-3 btn-outline p-2"
                     aria-label="Copy Docker installation command"
                   >
@@ -448,11 +446,11 @@ export default function LandingPage() {
                 <div className="relative">
                   <pre className="bg-[#0a0e1a] border border-cyan-500/10 rounded-lg p-4 overflow-x-auto">
                     <code className="text-sm text-slate-300 font-mono">
-                      {`sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/ErickGBR/run-mvp/main/install.sh)"`}
+                      {`sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/ErickGBR/open-erp-mvp/main/install.sh)"`}
                     </code>
                   </pre>
                   <button
-                    onClick={() => handleCopy(`sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/ErickGBR/run-mvp/main/install.sh)"`, 'ubuntu')}
+                    onClick={() => handleCopy(`sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/ErickGBR/open-erp-mvp/main/install.sh)"`, 'ubuntu')}
                     className="absolute top-3 right-3 btn-outline p-2"
                     aria-label="Copy Ubuntu installation command"
                   >
@@ -477,10 +475,10 @@ export default function LandingPage() {
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { step: 1, title: 'Clone Repository', desc: 'Get the source code', code: 'git clone https://github.com/ErickGBR/run-mvp.git' },
-                  { step: 2, title: 'Configure', desc: 'Set up environment', code: 'cp .env.example .env' },
-                  { step: 3, title: 'Run', desc: 'Start Docker containers', code: 'docker compose up --build -d' },
-                  { step: 4, title: 'Open', desc: 'Access your ERP instance', code: 'http://localhost:3000' },
+                  { step: 1, title: 'Clone Repository', desc: 'Clone the Open ERP repository', code: 'git clone https://github.com/ErickGBR/open-erp-mvp.git' },
+                  { step: 2, title: 'Configure', desc: 'Configure environment variables', code: 'cp .env.example .env' },
+                  { step: 3, title: 'Run', desc: 'Build and start all services', code: 'docker compose up --build -d' },
+                  { step: 4, title: 'Open', desc: 'Access your instance in browser', code: 'http://localhost:3000' },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">

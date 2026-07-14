@@ -30,6 +30,7 @@ export class AuthService {
         name: user.name,
         email: user.email,
         role: user.role,
+        language: user.language || 'en',
       },
     };
   }
@@ -56,6 +57,7 @@ export class AuthService {
         name: user.name,
         email: user.email,
         role: user.role,
+        language: user.language || 'en',
       },
     };
   }
@@ -130,6 +132,7 @@ export class AuthService {
     name: string;
     email: string;
     role: string;
+    language?: string;
   }) {
     const payload = { sub: user.id, email: user.email, role: user.role };
     return {
@@ -139,6 +142,7 @@ export class AuthService {
         name: user.name,
         email: user.email,
         role: user.role,
+        language: user.language || 'en',
       },
     };
   }

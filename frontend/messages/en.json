@@ -1,0 +1,164 @@
+{
+  "landing": {
+    "badge": "Open-source ERP platform",
+    "hero": {
+      "welcome": "Welcome to ",
+      "title": "Open ERP",
+      "subtitle": "Streamline your business operations with a modern, extensible platform built for growth. Open-source, secure, and designed for you.",
+      "download": "Download Now",
+      "learnMore": "Learn More"
+    },
+    "features": {
+      "title": "Everything you need to run your business",
+      "subtitle": "From products to reports, Open ERP has you covered with a clean, intuitive interface.",
+      "products": {
+        "title": "Products",
+        "description": "Manage your inventory with ease. Track stock levels, set reorder points, and organize products by categories."
+      },
+      "customers": {
+        "title": "Customers",
+        "description": "Keep a complete record of your customers. View purchase history, manage contacts, and build stronger relationships."
+      },
+      "sales": {
+        "title": "Sales",
+        "description": "Create invoices, track payments, and monitor your sales pipeline. Stay on top of every transaction."
+      },
+      "reports": {
+        "title": "Reports",
+        "description": "Get actionable insights with customizable reports. Visualize your data and make informed decisions."
+      }
+    },
+    "banners": {
+      "title": "Built for modern businesses",
+      "analytics": {
+        "title": "Real-time Analytics",
+        "desc": "Monitor your business performance with live dashboards, custom reports, and actionable insights that help you make data-driven decisions."
+      },
+      "secure": {
+        "title": "Secure & Reliable",
+        "desc": "Enterprise-grade security with JWT authentication, encrypted data storage, and role-based access control to keep your data safe."
+      },
+      "fast": {
+        "title": "Lightning Fast",
+        "desc": "Optimized performance with server-side rendering, automatic caching, and a modern tech stack that ensures fast load times."
+      },
+      "opensource": {
+        "title": "Open Source",
+        "desc": "Fully open-source. Self-host or use our cloud. Customize, extend, and contribute to the platform."
+      }
+    },
+    "cta": {
+      "title": "Ready to get started?",
+      "subtitle": "Join thousands of businesses using Open ERP to streamline their operations. It's free, open-source, and built for you.",
+      "button": "Download Open ERP"
+    },
+    "stats": {
+      "opensource": "Open Source",
+      "accessible": "Accessible",
+      "free": "Free to Start",
+      "extensible": "Extensible"
+    },
+    "install": {
+      "badge": "Installation",
+      "title": "Get Started with Open ERP",
+      "subtitle": "Choose your installation method",
+      "docker": {
+        "title": "Docker",
+        "desc": "Quick & consistent setup",
+        "recommended": "Recommended"
+      },
+      "ubuntu": {
+        "title": "Ubuntu Server Installer",
+        "desc": "Linux server setup"
+      },
+      "requirements": "Requirements",
+      "quickStart": "Quick Start Guide",
+      "steps": {
+        "clone": { "title": "Clone Repository", "desc": "Get the source code" },
+        "configure": { "title": "Configure", "desc": "Set up environment" },
+        "run": { "title": "Run", "desc": "Start Docker containers" },
+        "open": { "title": "Open", "desc": "Access your ERP instance" }
+      }
+    },
+    "marquee": ["Inventory", "Invoices", "Customers", "Reports", "Analytics", "Orders", "Products", "Payments", "Dashboard", "Sales"]
+  },
+  "header": {
+    "features": "Features",
+    "download": "Download",
+    "about": "About",
+    "blog": "Blog",
+    "signIn": "Sign In",
+    "getStarted": "Get Started",
+    "dashboard": "Dashboard"
+  },
+  "footer": {
+    "rights": "All rights reserved.",
+    "language": "Language"
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account to continue",
+      "email": "Email",
+      "password": "Password",
+      "button": "Sign In",
+      "loading": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign Up"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Get started with your free account",
+      "name": "Full Name",
+      "email": "Email",
+      "password": "Password",
+      "button": "Create Account",
+      "loading": "Creating account...",
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign In"
+    },
+    "oauth": {
+      "google": "Continue with Google",
+      "microsoft": "Continue with Microsoft 365"
+    }
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "rh": {
+      "title": "Human Resources",
+      "employees": "Employees",
+      "departments": "Departments",
+      "attendance": "Attendance",
+      "leaves": "Leaves",
+      "bonuses": "Bonuses",
+      "loans": "Loans",
+      "payroll": "Payroll"
+    },
+    "pos": "Point of Sale",
+    "products": "Products",
+    "customers": "Customers",
+    "sales": "Sales",
+    "warehouses": "Warehouses",
+    "accounts": "Chart of Accounts",
+    "company": "Company",
+    "settings": "Settings"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account and view application information.",
+    "profile": "User Profile",
+    "name": "Name",
+    "email": "Email",
+    "role": "Role",
+    "language": {
+      "label": "Language",
+      "en": "English",
+      "es": "Español"
+    },
+    "application": "Application",
+    "version": "Version",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "auth": "Authentication"
+  }
+}

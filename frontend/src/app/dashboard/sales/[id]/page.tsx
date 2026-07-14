@@ -1,5 +1,11 @@
-'use client';
-import SaleDetailPage from './sale-detail-page';
+import ClientPage from './client-page';
+
+export const dynamicParams = false;
+
+export async function generateStaticParams() {
+  return [];
+}
+
 export default function Page() {
-  return <SaleDetailPage />;
+  return <ClientPage />;
 }

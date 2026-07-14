@@ -33,6 +33,9 @@ export class User {
   @Column({ type: 'varchar', length: 20, default: UserStatus.ACTIVE })
   status!: UserStatus;
 
+  @Column({ type: 'varchar', length: 10, default: 'en' })
+  language!: string;
+
   /** Google OAuth identifier. Unique when present. */
   @Column({ type: 'varchar', length: 255, nullable: true, unique: true })
   googleId?: string;

@@ -167,6 +167,14 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
+  async updateProfile(id: number, data: { language?: string }): Promise<User> {
+    const user = await this.findById(id);
+    if (data.language !== undefined) {
+      user.language = data.language;
+    }
+    return this.usersRepository.save(user);
+  }
+
   /**
    * Soft-delete a user by setting their status to inactive.
    *

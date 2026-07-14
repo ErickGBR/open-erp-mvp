@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Open ERP — Open-Source Business Management Platform</title>
+  <meta name="description" content="Open ERP is a modern, open-source ERP platform for inventory, HR & payroll, sales & POS, accounting, and more. Free to use under CC BY-NC 4.0." />
+  <meta name="keywords" content="ERP, open-source, inventory, HR, payroll, POS, accounting, El Salvador, DTE, business management" />
+  <meta property="og:title" content="Open ERP — Open-Source Business Management Platform" />
+  <meta property="og:description" content="Streamline your business operations with a modern, extensible platform built for growth." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://erickgbr.github.io/open-erp-mvp/" />
+  <meta name="theme-color" content="#0a0a12" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cyan: { 400: '#22d3ee', 500: '#06b6d4' },
+            blue: { 400: '#60a5fa', 500: '#3b82f6' },
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background: #0a0a12;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* Glass card effect */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(34, 211, 238, 0.08);
+      transition: all 0.3s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(34, 211, 238, 0.2);
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.08);
+    }
+
+    /* Floating orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      pointer-events: none;
+    }
+    .orb-cyan {
+      background: radial-gradient(circle, rgba(34, 211, 238, 0.4), transparent 70%);
+    }
+    .orb-blue {
+      background: radial-gradient(circle, rgba(96, 165, 250, 0.3), transparent 70%);
+    }
+
+    /* Gradient text */
+    .gradient-text {
+      background: linear-gradient(135deg, #22d3ee, #60a5fa, #22d3ee);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 4s ease infinite;
+    }
+
+    /* Buttons */
+    .btn-cyan {
+      background: linear-gradient(135deg, #06b6d4, #3b82f6);
+      color: white;
+      padding: 0.75rem 2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-cyan:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.3);
+    }
+    .btn-outline {
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      color: #22d3ee;
+      padding: 0.75rem 2rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn-outline:hover {
+      background: rgba(34, 211, 238, 0.08);
+      border-color: rgba(34, 211, 238, 0.4);
+    }
+
+    /* Marquee animation */
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+      animation: marquee 30s linear infinite;
+    }
+
+    /* Gradient sweep */
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+    }
+
+    /* Orb float */
+    @keyframes orbFloat {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-30px) scale(1.05); }
+    }
+
+    /* Step link styling */
+    .step-card code {
+      transition: all 0.2s ease;
+    }
+
+    /* Copy button flash */
+    .copy-flash {
+      color: #4ade80 !important;
+    }
+
+    /* Smooth section transitions */
+    section {
+      position: relative;
+    }
+
+    /* Code block */
+    pre code {
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    /* Responsive fixes */
+    @media (max-width: 640px) {
+      h1 { font-size: 2.5rem !important; }
+      .btn-cyan, .btn-outline { width: 100%; justify-content: center; }
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0a0a12; }
+    ::-webkit-scrollbar-thumb { background: rgba(34, 211, 238, 0.15); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(34, 211, 238, 0.3); }
+  </style>
+</head>
+<body>
+  <!-- Floating orbs background -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="orb orb-cyan w-[500px] h-[500px] -top-48 -right-48" style="animation: orbFloat 12s ease-in-out infinite;"></div>
+    <div class="orb orb-blue w-[400px] h-[400px] -bottom-32 -left-32" style="animation: orbFloat 15s ease-in-out infinite reverse;"></div>
+    <div class="orb orb-cyan w-[300px] h-[300px] top-1/2 left-1/3" style="animation: orbFloat 10s ease-in-out infinite 2s;"></div>
+    <div class="absolute inset-0 opacity-[0.04]"
+         style="background: linear-gradient(180deg, transparent 0%, rgba(34,211,238,1) 50%, transparent 100%);">
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="relative z-10 border-b border-cyan-500/10">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
+          <span class="text-white font-bold text-sm">OE</span>
+        </div>
+        <span class="text-white font-bold text-lg">Open ERP</span>
+      </a>
+      <nav class="hidden sm:flex items-center gap-6">
+        <a href="#features" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Features</a>
+        <a href="#download" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Download</a>
+        <a href="https://github.com/ErickGBR/open-erp-mvp" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm !px-4 !py-2">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+      </nav>
+      <button id="menu-toggle" class="sm:hidden text-slate-400 p-2" aria-label="Toggle menu">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile nav -->
+    <div id="mobile-nav" class="sm:hidden hidden border-t border-cyan-500/10 px-4 py-3">
+      <div class="flex flex-col gap-3">
+        <a href="#features" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Features</a>
+        <a href="#download" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Download</a>
+        <a href="https://github.com/ErickGBR/open-erp-mvp" target="_blank" rel="noopener noreferrer" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="relative z-10">
+    <!-- HERO SECTION -->
+    <section class="relative min-h-screen flex items-center justify-center px-4 pt-20 pb-32">
+      <div class="max-w-4xl mx-auto text-center">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-sm mb-8">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+          <span>Open-source ERP platform</span>
+        </div>
+
+        <!-- Main heading -->
+        <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
+          <span class="text-white">Welcome to </span>
+          <span class="gradient-text">Open ERP</span>
+        </h1>
+
+        <p class="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+          Streamline your business operations with a modern, extensible platform
+          built for growth. Open-source, secure, and designed for you.
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="#download" class="btn-cyan text-base">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Download Now
+          </a>
+          <a href="#features" class="btn-outline text-base">Learn More</a>
+        </div>
+      </div>
+
+      <!-- Bottom gradient fade -->
+      <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0a0a12] to-transparent"></div>
+    </section>
+
+    <!-- MARQUEE BANNER -->
+    <div class="relative py-8 overflow-hidden border-y border-cyan-500/10">
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0a0a12] via-transparent to-[#0a0a12] z-10 pointer-events-none"></div>
+      <div class="flex animate-marquee whitespace-nowrap">
+        <div class="flex items-center gap-12 mx-8">
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Inventory</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Invoices</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Customers</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Reports</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Analytics</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Orders</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Products</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Payments</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Dashboard</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Sales</span>
+        </div>
+        <div class="flex items-center gap-12 mx-8">
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Inventory</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Invoices</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Customers</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Reports</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Analytics</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Orders</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Products</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Payments</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Dashboard</span>
+          <span class="text-sm text-slate-500 font-medium tracking-wider uppercase"><span class="text-cyan-400 mr-2">&#9670;</span>Sales</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURES SECTION -->
+    <section id="features" class="py-24 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+            Everything you need to run your business
+          </h2>
+          <div class="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto" style="box-shadow: 0 0 12px rgba(34, 211, 238, 0.3);"></div>
+          <p class="mt-4 text-slate-400 text-lg max-w-xl mx-auto">
+            From products to reports, Open ERP has you covered with a clean, intuitive interface.
+          </p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Feature 1: Products & Inventory -->
+          <div class="glass-card rounded-xl p-6 group">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">Products &amp; Inventory</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Full product management with stock tracking, barcodes, categories, and multi-warehouse inventory with Kardex movement records.</p>
+          </div>
+
+          <!-- Feature 2: HR & Payroll -->
+          <div class="glass-card rounded-xl p-6 group">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">HR &amp; Payroll</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Complete human resources module with employee management, attendance tracking, payroll processing, loans, bonuses, and leave management.</p>
+          </div>
+
+          <!-- Feature 3: Sales & POS -->
+          <div class="glass-card rounded-xl p-6 group">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zm7 5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">Sales &amp; POS</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Create invoices, track payments, and manage your point of sale with quick-sale interface, product search, and electronic DTE document generation.</p>
+          </div>
+
+          <!-- Feature 4: Accounting & Reports -->
+          <div class="glass-card rounded-xl p-6 group">
+            <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <h3 class="text-lg font-semibold text-white mb-2">Accounting &amp; Reports</h3>
+            <p class="text-sm text-slate-400 leading-relaxed">Hierarchical chart of accounts, company configuration with El Salvador DTE compliance, and real-time dashboard analytics.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOWCASE BANNER SECTION -->
+    <section class="py-24 px-4 relative">
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-cyan-500/5 blur-[120px]"></div>
+      </div>
+
+      <div class="relative max-w-5xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+            Built for modern businesses
+          </h2>
+          <div class="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto" style="box-shadow: 0 0 12px rgba(34, 211, 238, 0.3);"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Banner 1 -->
+          <div class="glass-card rounded-xl p-8">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-white mb-2">Real-time Analytics</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                  Monitor your business performance with live dashboards, custom reports, and actionable insights that help you make data-driven decisions.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Banner 2 -->
+          <div class="glass-card rounded-xl p-8">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-white mb-2">Secure &amp; Reliable</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                  Enterprise-grade security with JWT authentication, role-based access control, and encrypted data storage. Licensed under CC BY-NC 4.0.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Banner 3 -->
+          <div class="glass-card rounded-xl p-8">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-white mb-2">Lightning Fast</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                  Optimized performance with server-side rendering, automatic caching, and a modern tech stack that ensures fast load times.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Banner 4 -->
+          <div class="glass-card rounded-xl p-8">
+            <div class="flex items-start gap-4">
+              <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-110">
+                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-white mb-2">Open Source</h3>
+                <p class="text-slate-400 text-sm leading-relaxed">
+                  Fully open-source under Creative Commons BY-NC 4.0. Self-host or deploy to the cloud. Customize, extend, and contribute to the platform.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="py-24 px-4 relative">
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="w-[600px] h-[600px] rounded-full bg-cyan-500/5 blur-[120px]"></div>
+      </div>
+
+      <div class="relative max-w-3xl mx-auto text-center">
+        <div class="glass-card rounded-2xl p-12" style="box-shadow: 0 0 30px rgba(34, 211, 238, 0.08);">
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Ready to get started?</h2>
+          <p class="text-lg text-slate-400 mb-8 max-w-lg mx-auto">
+            Join thousands of businesses using Open ERP to streamline their operations. It&apos;s free, open-source, and built for you.
+          </p>
+          <a href="#download" class="btn-cyan text-base">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Download Open ERP
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS BANNER -->
+    <section class="py-16 px-4 border-y border-cyan-500/10 relative overflow-hidden">
+      <div class="absolute inset-0" style="background: radial-gradient(ellipse at center, rgba(34, 211, 238, 0.03) 0%, transparent 70%);"></div>
+      <div class="relative max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div class="text-center group">
+          <div class="text-3xl sm:text-4xl font-extrabold gradient-text mb-2 transition-transform duration-300 group-hover:scale-110">100%</div>
+          <div class="text-sm text-slate-500 font-medium tracking-wider uppercase">Free</div>
+        </div>
+        <div class="text-center group">
+          <div class="text-3xl sm:text-4xl font-extrabold gradient-text mb-2 transition-transform duration-300 group-hover:scale-110">24/7</div>
+          <div class="text-sm text-slate-500 font-medium tracking-wider uppercase">Accessible</div>
+        </div>
+        <div class="text-center group">
+          <div class="text-3xl sm:text-4xl font-extrabold gradient-text mb-2 transition-transform duration-300 group-hover:scale-110">$0</div>
+          <div class="text-sm text-slate-500 font-medium tracking-wider uppercase">Open Source</div>
+        </div>
+        <div class="text-center group">
+          <div class="text-3xl sm:text-4xl font-extrabold gradient-text mb-2 transition-transform duration-300 group-hover:scale-110">&infin;</div>
+          <div class="text-sm text-slate-500 font-medium tracking-wider uppercase">Extensible</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DOWNLOAD & INSTALL SECTION -->
+    <section id="download" class="py-24 px-4 relative">
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-cyan-500/5 blur-[120px]"></div>
+      </div>
+
+      <div class="relative max-w-5xl mx-auto">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-sm mb-6">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Installation</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Get Started with Open ERP</h2>
+          <div class="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto" style="box-shadow: 0 0 12px rgba(34, 211, 238, 0.3);"></div>
+          <p class="mt-4 text-slate-400 text-lg max-w-xl mx-auto">Choose your installation method</p>
+        </div>
+
+        <!-- Two columns -->
+        <div class="grid md:grid-cols-2 gap-6 mb-6">
+          <!-- Docker Column -->
+          <div class="glass-card rounded-xl p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-white">
+                  Docker
+                  <span class="text-[10px] align-top px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 ml-2">Recommended</span>
+                </h3>
+                <p class="text-sm text-slate-400">Quick &amp; consistent setup</p>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Requirements</p>
+              <ul class="space-y-1">
+                <li class="flex items-center gap-2 text-sm text-slate-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>Docker</li>
+                <li class="flex items-center gap-2 text-sm text-slate-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>Docker Compose</li>
+                <li class="flex items-center gap-2 text-sm text-slate-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>Git</li>
+              </ul>
+            </div>
+
+            <div class="relative">
+              <pre class="bg-[#0a0e1a] border border-cyan-500/10 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300 font-mono">git clone https://github.com/ErickGBR/open-erp-mvp.git
+cd open-erp-mvp
+docker compose up --build -d</code></pre>
+              <button onclick="copyCode(this, 'docker')" class="absolute top-3 right-3 p-2 rounded-lg border border-cyan-500/20 text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/5 transition-all" aria-label="Copy Docker installation command">
+                <svg class="w-4 h-4 copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <svg class="w-4 h-4 check-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Ubuntu Column -->
+          <div class="glass-card rounded-xl p-8">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold text-white">Ubuntu Server Installer</h3>
+                <p class="text-sm text-slate-400">Linux server setup</p>
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <p class="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Requirements</p>
+              <ul class="space-y-1">
+                <li class="flex items-center gap-2 text-sm text-slate-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>Ubuntu 22.04+</li>
+                <li class="flex items-center gap-2 text-sm text-slate-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>sudo access</li>
+                <li class="flex items-center gap-2 text-sm text-slate-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>curl</li>
+                <li class="flex items-center gap-2 text-sm text-slate-400"><span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>openssl</li>
+              </ul>
+            </div>
+
+            <div class="relative">
+              <pre class="bg-[#0a0e1a] border border-cyan-500/10 rounded-lg p-4 overflow-x-auto"><code class="text-sm text-slate-300 font-mono">sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/ErickGBR/open-erp-mvp/main/install.sh)"</code></pre>
+              <button onclick="copyCode(this, 'ubuntu')" class="absolute top-3 right-3 p-2 rounded-lg border border-cyan-500/20 text-slate-400 hover:text-cyan-400 hover:bg-cyan-500/5 transition-all" aria-label="Copy Ubuntu installation command">
+                <svg class="w-4 h-4 copy-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <svg class="w-4 h-4 check-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Start Guide -->
+        <div class="glass-card rounded-xl p-8">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+              <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+            <h3 class="text-xl font-semibold text-white">Quick Start Guide</h3>
+          </div>
+
+          <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-sm font-bold text-white">1</span>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold text-sm mb-1">Clone Repository</h4>
+                <p class="text-xs text-slate-400 mb-2">Clone the Open ERP repository</p>
+                <code class="text-xs text-cyan-400 font-mono bg-[#0a0e1a] px-2 py-1 rounded border border-cyan-500/10 block truncate">git clone https://github.com/ErickGBR/open-erp-mvp.git</code>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-sm font-bold text-white">2</span>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold text-sm mb-1">Configure</h4>
+                <p class="text-xs text-slate-400 mb-2">Configure environment variables</p>
+                <code class="text-xs text-cyan-400 font-mono bg-[#0a0e1a] px-2 py-1 rounded border border-cyan-500/10 block truncate">cp .env.example .env</code>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-sm font-bold text-white">3</span>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold text-sm mb-1">Run</h4>
+                <p class="text-xs text-slate-400 mb-2">Build and start all services</p>
+                <code class="text-xs text-cyan-400 font-mono bg-[#0a0e1a] px-2 py-1 rounded border border-cyan-500/10 block truncate">docker compose up --build -d</code>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <span class="text-sm font-bold text-white">4</span>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold text-sm mb-1">Open</h4>
+                <p class="text-xs text-slate-400 mb-2">Access your instance in browser</p>
+                <code class="text-xs text-cyan-400 font-mono bg-[#0a0e1a] px-2 py-1 rounded border border-cyan-500/10 block truncate">http://localhost:3000</code>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 border-t border-cyan-500/10 py-8 px-4">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
+          <span class="text-white font-bold text-[10px]">OE</span>
+        </div>
+        <span class="text-sm text-slate-500">Open ERP &mdash; CC BY-NC 4.0</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <a href="https://github.com/ErickGBR/open-erp-mvp" target="_blank" rel="noopener noreferrer" class="text-sm text-slate-500 hover:text-cyan-400 transition-colors">GitHub</a>
+        <a href="https://github.com/ErickGBR/open-erp-mvp/blob/main/LICENSE" target="_blank" rel="noopener noreferrer" class="text-sm text-slate-500 hover:text-cyan-400 transition-colors">License</a>
+        <a href="https://github.com/ErickGBR/open-erp-mvp/blob/main/README.md" target="_blank" rel="noopener noreferrer" class="text-sm text-slate-500 hover:text-cyan-400 transition-colors">Documentation</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const nav = document.getElementById('mobile-nav');
+      nav.classList.toggle('hidden');
+    });
+
+    // Close mobile menu on link click
+    document.querySelectorAll('#mobile-nav a').forEach(link => {
+      link.addEventListener('click', function() {
+        document.getElementById('mobile-nav').classList.add('hidden');
+      });
+    });
+
+    // Copy to clipboard function
+    function copyCode(btn, id) {
+      const codeBlock = btn.closest('.relative').querySelector('code');
+      const text = codeBlock.textContent.trim();
+
+      navigator.clipboard.writeText(text).then(() => {
+        const copyIcon = btn.querySelector('.copy-icon');
+        const checkIcon = btn.querySelector('.check-icon');
+        copyIcon.classList.add('hidden');
+        checkIcon.classList.remove('hidden');
+        btn.classList.add('copy-flash');
+
+        setTimeout(() => {
+          copyIcon.classList.remove('hidden');
+          checkIcon.classList.add('hidden');
+          btn.classList.remove('copy-flash');
+        }, 2000);
+      }).catch(err => {
+        console.error('Failed to copy:', err);
+      });
+    }
+
+    // Parallax scroll effect for orbs
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const orbs = document.querySelectorAll('.orb');
+          if (orbs[0]) orbs[0].style.transform = `translateY(${scrollY * 0.15}px)`;
+          if (orbs[1]) orbs[1].style.transform = `translateY(${scrollY * -0.1}px)`;
+          if (orbs[2]) orbs[2].style.transform = `translateY(${scrollY * 0.05}px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  </script>
+</body>
+</html>
