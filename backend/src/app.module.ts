@@ -12,8 +12,10 @@ import { AccountsModule } from './accounts/accounts.module';
 import { KardexModule } from './kardex/kardex.module';
 import { WarehouseModule } from './warehouse/warehouse.module';
 import { CompanyModule } from './company/company.module';
+import { RhModule } from './rh/rh.module';
 
 @Module({
+  
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
@@ -43,6 +45,7 @@ import { CompanyModule } from './company/company.module';
     KardexModule,
     WarehouseModule,
     CompanyModule,
+    RhModule,
     DashboardModule,
   ],
 })
