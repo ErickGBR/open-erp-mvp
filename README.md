@@ -16,6 +16,7 @@
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql" alt="PostgreSQL" />
   <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker" alt="Docker" />
+  <img src="https://img.shields.io/badge/License-CC%20BY--NC%204.0-grey?style=flat" alt="CC BY-NC 4.0" />
 </p>
 
 ---
@@ -69,7 +70,7 @@
 
 ```bash
 # Clone the repository
-git clone https://github.com/ErickGBR/run-mvp.git
+git clone https://github.com/ErickGBR/open-erp-mvp.git
 cd run-mvp
 
 # Create environment file
@@ -182,6 +183,7 @@ MICROSOFT_CALLBACK_URL=http://localhost:3001/api/auth/microsoft/callback
 │   │   └── lib/               # API client & utilities
 │   └── package.json
 ├── screenshots/                # App screenshots & GIFs
+├── LICENSE                     # CC BY-NC 4.0 license
 ├── docker-compose.yml
 └── README.md
 ```
@@ -297,4 +299,20 @@ MICROSOFT_CALLBACK_URL=http://localhost:3001/api/auth/microsoft/callback
 
 ## 📄 License
 
-This project is open-source. Feel free to use, modify, and distribute.
+**Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)**
+
+Copyright © 2026 **Erick Burgos**
+
+This work is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.
+
+You are **free** to:
+- **Share** — copy and redistribute the material in any medium or format
+- **Adapt** — remix, transform, and build upon the material
+
+Under the following **terms**:
+- **Attribution** — You must give appropriate credit to the original author
+- **NonCommercial** — You may **not** use the material for commercial purposes
+
+For commercial use, licensing, or collaboration inquiries, contact the author.
+
+Full license: [CC BY-NC 4.0 Legal Code](https://creativecommons.org/licenses/by-nc/4.0/legalcode)
