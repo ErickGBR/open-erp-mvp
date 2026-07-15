@@ -13,9 +13,10 @@ import { KardexModule } from './kardex/kardex.module';
 import { WarehouseModule } from './warehouse/warehouse.module';
 import { CompanyModule } from './company/company.module';
 import { RhModule } from './rh/rh.module';
+import { HealthController } from './health.controller';
 
 @Module({
-  
+  controllers: [HealthController],
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
@@ -23,16 +24,28 @@ import { RhModule } from './rh/rh.module';
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (config: ConfigService) => ({
-        type: 'postgres',
-        host: config.get('DB_HOST', 'localhost'),
-        port: config.get<number>('DB_PORT', 5432),
-        username: config.get('DB_USERNAME', 'postgres'),
-        password: config.get('DB_PASSWORD', 'postgres'),
-        database: config.get('DB_DATABASE', 'openerp'),
-        autoLoadEntities: true,
-        synchronize: config.get('NODE_ENV') !== 'production',
-      }),
+      useFactory: (config: ConfigService) => {
+        const databaseUrl = config.get('DATABASE_URL');
+        if (databaseUrl) {
+          return {
+            type: 'postgres',
+            url: databaseUrl,
+            autoLoadEntities: true,
+            synchronize: config.get('NODE_ENV') !== 'production',
+            ssl: config.get('NODE_ENV') === 'production' ? { rejectUnauthorized: false } : false,
+          };
+        }
+        return {
+          type: 'postgres',
+          host: config.get('DB_HOST', 'localhost'),
+          port: config.get<number>('DB_PORT', 5432),
+          username: config.get('DB_USERNAME', 'postgres'),
+          password: config.get('DB_PASSWORD', 'postgres'),
+          database: config.get('DB_DATABASE', 'openerp'),
+          autoLoadEntities: true,
+          synchronize: config.get('NODE_ENV') !== 'production',
+        };
+      },
       inject: [ConfigService],
     }),
     AuthModule,
