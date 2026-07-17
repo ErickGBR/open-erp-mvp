@@ -110,8 +110,8 @@ export class AttendanceService {
       throw new ConflictException(`Attendance record already exists for employee ${dto.employeeId} on ${dto.date}`);
     }
 
-    const record = this.attendanceRepository.create(dto as any);
-    return this.attendanceRepository.save(record) as unknown as AttendanceRecord;
+    const record = this.attendanceRepository.create(dto);
+    return this.attendanceRepository.save(record);
   }
 
   async update(id: number, dto: Partial<CreateAttendanceDto>): Promise<AttendanceRecord> {
