@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException, ConflictException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, Between } from 'typeorm';
 import { AttendanceRecord } from './attendance-record.entity';
@@ -58,7 +58,7 @@ export class AttendanceService {
     const today = new Date().toISOString().split('T')[0];
     const existing = await this.findByEmployeeAndDate(employeeId, today);
     if (existing) {
-      throw new NotFoundException('Already clocked in today');
+      throw new ConflictException('Already clocked in today');
     }
 
     const record = this.attendanceRepository.create({
@@ -73,16 +73,16 @@ export class AttendanceService {
     const today = new Date().toISOString().split('T')[0];
     const record = await this.findByEmployeeAndDate(employeeId, today);
     if (!record) {
-      throw new NotFoundException('No clock-in record found for today');
+      throw new BadRequestException('No clock-in record found for today');
     }
     if (record.clockOut) {
-      throw new NotFoundException('Already clocked out today');
+      throw new ConflictException('Already clocked out today');
     }
 
     record.clockOut = new Date();
 
     if (!record.clockIn) {
-      throw new NotFoundException('Clock-in time is missing');
+      throw new BadRequestException('Clock-in time is missing');
     }
 
     // Calculate regular hours (default 8h, minus break)
@@ -107,7 +107,7 @@ export class AttendanceService {
   async create(dto: CreateAttendanceDto): Promise<AttendanceRecord> {
     const existing = await this.findByEmployeeAndDate(dto.employeeId, dto.date);
     if (existing) {
-      throw new NotFoundException(`Attendance record already exists for employee ${dto.employeeId} on ${dto.date}`);
+      throw new ConflictException(`Attendance record already exists for employee ${dto.employeeId} on ${dto.date}`);
     }
 
     const record = this.attendanceRepository.create(dto as any);
