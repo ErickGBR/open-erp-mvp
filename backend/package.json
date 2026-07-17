@@ -36,6 +36,7 @@
     "passport-microsoft": "^2.1.0",
     "pdfkit": "^0.19.1",
     "pg": "^8.22.0",
+    "qrcode": "^1.5.4",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^1.0.0"
   },
@@ -49,6 +50,7 @@
     "@types/passport-google-oauth20": "^2.0.17",
     "@types/passport-jwt": "^4.0.1",
     "@types/passport-microsoft": "^2.1.1",
+    "@types/qrcode": "^1.5.6",
     "jest": "^30.4.2",
     "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",

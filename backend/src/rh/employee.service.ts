@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, ILike, Not, FindOptionsWhere, FindOperator } from 'typeorm';
+import { randomUUID } from 'crypto';
 import { Employee } from './employee.entity';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
@@ -140,6 +141,7 @@ export class EmployeeService {
       status: dto.status ?? 'active',
       isActive: dto.isActive ?? true,
       departmentId: dto.departmentId ?? null,
+      qrToken: randomUUID(),
     };
   }
 }

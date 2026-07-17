@@ -29,6 +29,9 @@ export class Employee {
   @Exclude()
   nit?: string;
 
+  @Column({ type: 'varchar', length: 64, unique: true, nullable: true })
+  qrToken?: string;
+
   @Column({ type: 'varchar', length: 17, nullable: true })
   nrc!: string | null;
 
