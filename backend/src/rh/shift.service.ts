@@ -37,8 +37,8 @@ export class ShiftService {
   }
 
   async create(dto: CreateShiftDto): Promise<Shift> {
-    const shift = this.shiftRepository.create(dto as any);
-    return this.shiftRepository.save(shift) as unknown as Shift;
+    const shift = this.shiftRepository.create(dto);
+    return this.shiftRepository.save(shift);
   }
 
   async update(id: number, dto: UpdateShiftDto): Promise<Shift> {
