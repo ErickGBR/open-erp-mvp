@@ -22,7 +22,7 @@ export class ShiftAssignmentService {
     const page = query?.page ?? 1;
     const limit = query?.limit ?? 10;
 
-    const where: any = {};
+    const where: any = { isActive: true };
 
     if (query?.employeeId) {
       where.employeeId = query.employeeId;
@@ -92,6 +92,7 @@ export class ShiftAssignmentService {
 
   async delete(id: number): Promise<void> {
     const assignment = await this.findById(id);
-    await this.shiftAssignmentRepository.remove(assignment);
+    assignment.isActive = false;
+    await this.shiftAssignmentRepository.save(assignment);
   }
 }
