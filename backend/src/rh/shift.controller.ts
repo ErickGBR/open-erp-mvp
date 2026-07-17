@@ -16,10 +16,12 @@ export class ShiftController {
   findAll(
     @Query('page') page?: string,
     @Query('limit') limit?: string,
+    @Query('includeInactive') includeInactive?: string,
   ) {
     return this.shiftService.findAll(
       page ? parseInt(page, 10) : undefined,
       limit ? parseInt(limit, 10) : undefined,
+      includeInactive === 'true',
     );
   }
 

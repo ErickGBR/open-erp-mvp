@@ -12,9 +12,14 @@ export class ShiftService {
     private readonly shiftRepository: Repository<Shift>,
   ) {}
 
-  async findAll(page: number = 1, limit: number = 10): Promise<{ data: Shift[]; total: number; page: number; limit: number }> {
+  async findAll(page: number = 1, limit: number = 10, includeInactive?: boolean): Promise<{ data: Shift[]; total: number; page: number; limit: number }> {
+    const where: any = {};
+    if (!includeInactive) {
+      where.isActive = true;
+    }
+
     const [data, total] = await this.shiftRepository.findAndCount({
-      where: { isActive: true },
+      where,
       skip: (page - 1) * limit,
       take: limit,
       order: { name: 'ASC' },
