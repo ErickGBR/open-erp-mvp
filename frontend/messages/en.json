@@ -132,16 +132,32 @@
       "leaves": "Leaves",
       "bonuses": "Bonuses",
       "loans": "Loans",
-      "payroll": "Payroll"
+      "payroll": "Payroll",
+      "dashboard": "Dashboard"
     },
     "pos": "Point of Sale",
     "products": "Products",
+    "productsAll": "All Products",
+    "productsAdd": "Add Product",
     "customers": "Customers",
+    "customersAll": "All Customers",
+    "customersAdd": "Add Customer",
     "sales": "Sales",
+    "salesAll": "All Sales",
+    "salesNew": "New Sale",
     "warehouses": "Warehouses",
-    "accounts": "Chart of Accounts",
+    "warehousesAll": "All Warehouses",
+    "warehousesAdd": "Add Warehouse",
+    "accounts": "Accounting",
+    "chartOfAccounts": "Chart of Accounts",
     "company": "Company",
     "settings": "Settings"
+  },
+  "dashboardHeader": {
+    "toggleSidebar": "Toggle sidebar",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
   },
   "settings": {
     "title": "Settings",
