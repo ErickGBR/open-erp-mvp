@@ -104,12 +104,25 @@ export default function AttendancePage() {
     setForm({
       employeeId: String(record.employeeId),
       date: record.date.split('T')[0],
-      clockIn: record.clockIn?.slice(0, 5) || '08:00',
-      clockOut: record.clockOut?.slice(0, 5) || '17:00',
+      clockIn: extractTime(record.clockIn, '08:00'),
+      clockOut: extractTime(record.clockOut, '17:00'),
       breakMinutes: String(record.breakMinutes ?? 60),
       notes: record.notes ?? '',
     });
     setShowModal(true);
+  };
+
+  /** Combine date + time into an ISO datetime string. */
+  const toISO = (date: string, time: string): string | undefined => {
+    if (!time) return undefined;
+    return `${date}T${time}:00`;
+  };
+
+  /** Extract HH:MM from an ISO datetime string. */
+  const extractTime = (iso: string | null | undefined, fallback = '08:00'): string => {
+    if (!iso) return fallback;
+    const m = iso.match(/T(\d{2}:\d{2})/);
+    return m ? m[1] : fallback;
   };
 
   const handleSubmit = async () => {
@@ -120,8 +133,8 @@ export default function AttendancePage() {
       const body = {
         employeeId: Number(form.employeeId),
         date: form.date,
-        clockIn: form.clockIn || undefined,
-        clockOut: form.clockOut || undefined,
+        clockIn: toISO(form.date, form.clockIn),
+        clockOut: toISO(form.date, form.clockOut),
         breakMinutes: Number(form.breakMinutes) || undefined,
         notes: form.notes.trim() || undefined,
       };
@@ -157,7 +170,7 @@ export default function AttendancePage() {
 
   const formatTime = (val: string | null) => {
     if (!val) return '—';
-    return val.slice(0, 5);
+    return extractTime(val);
   };
 
   const formatEmployeeName = (rec: AttendanceRecord) => {
