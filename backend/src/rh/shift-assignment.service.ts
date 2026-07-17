@@ -16,6 +16,7 @@ export class ShiftAssignmentService {
     employeeId?: number;
     branchId?: number;
     shiftId?: number;
+    search?: string;
     page?: number;
     limit?: number;
   }): Promise<{ data: ShiftAssignment[]; total: number; page: number; limit: number }> {
@@ -23,6 +24,37 @@ export class ShiftAssignmentService {
     const limit = query?.limit ?? 10;
 
     const where: any = { isActive: true };
+    const relations = { employee: true, branch: true, shift: true };
+
+    if (query?.search) {
+      const builder = this.shiftAssignmentRepository.createQueryBuilder('sa')
+        .leftJoinAndSelect('sa.employee', 'employee')
+        .leftJoinAndSelect('sa.branch', 'branch')
+        .leftJoinAndSelect('sa.shift', 'shift')
+        .where('sa.isActive = :isActive', { isActive: true })
+        .andWhere(
+          '(employee.firstName LIKE :search OR employee.lastName LIKE :search)',
+          { search: `%${query.search}%` },
+        );
+
+      if (query?.employeeId) {
+        builder.andWhere('sa.employeeId = :employeeId', { employeeId: query.employeeId });
+      }
+      if (query?.branchId) {
+        builder.andWhere('sa.branchId = :branchId', { branchId: query.branchId });
+      }
+      if (query?.shiftId) {
+        builder.andWhere('sa.shiftId = :shiftId', { shiftId: query.shiftId });
+      }
+
+      const [data, total] = await builder
+        .skip((page - 1) * limit)
+        .take(limit)
+        .orderBy('sa.createdAt', 'DESC')
+        .getManyAndCount();
+
+      return { data, total, page, limit };
+    }
 
     if (query?.employeeId) {
       where.employeeId = query.employeeId;
@@ -36,7 +68,7 @@ export class ShiftAssignmentService {
 
     const [data, total] = await this.shiftAssignmentRepository.findAndCount({
       where,
-      relations: { employee: true, branch: true, shift: true },
+      relations,
       skip: (page - 1) * limit,
       take: limit,
       order: { createdAt: 'DESC' },

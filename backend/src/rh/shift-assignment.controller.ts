@@ -17,6 +17,7 @@ export class ShiftAssignmentController {
     @Query('employeeId') employeeId?: string,
     @Query('branchId') branchId?: string,
     @Query('shiftId') shiftId?: string,
+    @Query('search') search?: string,
     @Query('page') page?: string,
     @Query('limit') limit?: string,
   ) {
@@ -24,6 +25,7 @@ export class ShiftAssignmentController {
       employeeId: employeeId ? parseInt(employeeId, 10) : undefined,
       branchId: branchId ? parseInt(branchId, 10) : undefined,
       shiftId: shiftId ? parseInt(shiftId, 10) : undefined,
+      search,
       page: page ? parseInt(page, 10) : undefined,
       limit: limit ? parseInt(limit, 10) : undefined,
     });
