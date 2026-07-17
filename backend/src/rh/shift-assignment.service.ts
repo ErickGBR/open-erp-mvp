@@ -65,10 +65,18 @@ export class ShiftAssignmentService {
   }
 
   async findByEmployeeAndDay(employeeId: number, dayOfWeek: number): Promise<ShiftAssignment[]> {
-    return this.shiftAssignmentRepository.find({
-      where: { employeeId, dayOfWeek },
-      relations: { employee: true, branch: true, shift: true },
-    });
+    const today = new Date().toISOString().split('T')[0];
+    return this.shiftAssignmentRepository.createQueryBuilder('sa')
+      .leftJoinAndSelect('sa.employee', 'employee')
+      .leftJoinAndSelect('sa.branch', 'branch')
+      .leftJoinAndSelect('sa.shift', 'shift')
+      .where('sa.employeeId = :employeeId', { employeeId })
+      .andWhere('sa.dayOfWeek = :dayOfWeek', { dayOfWeek })
+      .andWhere('sa.isActive = :isActive', { isActive: true })
+      .andWhere('sa.startDate <= :today', { today })
+      .andWhere('(sa.endDate IS NULL OR sa.endDate >= :today)', { today })
+      .orderBy('sa.startDate', 'DESC')
+      .getMany();
   }
 
   async create(dto: CreateShiftAssignmentDto): Promise<ShiftAssignment> {
