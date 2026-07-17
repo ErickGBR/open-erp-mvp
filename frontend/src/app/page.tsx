@@ -280,6 +280,56 @@ export default function LandingPage() {
           </div>
         </section>
 
+        {/* APP SCREENSHOTS SECTION */}
+        <section className="py-24 px-4 relative">
+          {/* Background glow */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-blue-500/5 blur-[120px]" />
+          </div>
+
+          <div className="relative max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                See Open ERP in action
+              </h2>
+              <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto glow-cyan-sm" />
+              <p className="mt-4 text-slate-400 text-lg max-w-xl mx-auto">
+                Clean, modern interface for every business module
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 gap-6">
+              {[
+                { src: '/screenshots/dashboard-overview.png', label: 'Dashboard Overview' },
+                { src: '/screenshots/dashboard-products.png', label: 'Products & Inventory' },
+                { src: '/screenshots/dashboard-customers.png', label: 'Customers' },
+                { src: '/screenshots/dashboard-sales.png', label: 'Sales & POS' },
+                { src: '/screenshots/dashboard-accounts.png', label: 'Chart of Accounts' },
+                { src: '/screenshots/dashboard-rh.png', label: 'HR & Payroll' },
+              ].map((shot) => (
+                <div
+                  key={shot.label}
+                  className="glass-card rounded-xl overflow-hidden group hover:glow-cyan transition-all duration-300"
+                >
+                  <div className="relative aspect-video bg-[#0a0e1a] overflow-hidden">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={shot.src}
+                      alt={shot.label}
+                      className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <div className="p-4">
+                    <p className="text-sm font-medium text-slate-300">{shot.label}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* CTA SECTION */}
         <section className="py-24 px-4 relative">
           {/* Background glow */}
