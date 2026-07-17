@@ -3,14 +3,11 @@ import {
   Body, Param, Query, UseGuards, ParseIntPipe,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { RolesGuard } from '../auth/roles.guard';
-import { Roles } from '../auth/roles.decorator';
-import { UserRole } from '../users/user.entity';
 import { AttendanceService } from './attendance.service';
 import { CreateAttendanceDto } from './dto/create-attendance.dto';
 
 @Controller('rh/attendance')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard)
 export class AttendanceController {
   constructor(private readonly attendanceService: AttendanceService) {}
 
@@ -37,7 +34,6 @@ export class AttendanceController {
   }
 
   @Post()
-  @Roles(UserRole.ADMIN)
   create(@Body() dto: CreateAttendanceDto) {
     return this.attendanceService.create(dto);
   }
@@ -53,13 +49,11 @@ export class AttendanceController {
   }
 
   @Patch(':id')
-  @Roles(UserRole.ADMIN)
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: Partial<CreateAttendanceDto>) {
     return this.attendanceService.update(id, dto);
   }
 
   @Delete(':id')
-  @Roles(UserRole.ADMIN)
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.attendanceService.delete(id);
   }
