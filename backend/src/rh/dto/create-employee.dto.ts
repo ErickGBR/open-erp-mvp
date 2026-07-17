@@ -13,13 +13,15 @@ export class CreateEmployeeDto {
   @MaxLength(100)
   lastName!: string;
 
+  @IsOptional()
   @IsString()
   @MaxLength(10)
-  dui!: string;
+  dui?: string;
 
+  @IsOptional()
   @IsString()
   @MaxLength(17)
-  nit!: string;
+  nit?: string;
 
   @IsOptional()
   @IsString()

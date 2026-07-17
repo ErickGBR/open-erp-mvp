@@ -21,13 +21,13 @@ export class Employee {
   @Column({ type: 'varchar', length: 100 })
   lastName!: string;
 
-  @Column({ type: 'varchar', length: 10, unique: true })
+  @Column({ type: 'varchar', length: 10, unique: true, nullable: true })
   @Exclude()
-  dui!: string;
+  dui?: string;
 
-  @Column({ type: 'varchar', length: 17, unique: true })
+  @Column({ type: 'varchar', length: 17, unique: true, nullable: true })
   @Exclude()
-  nit!: string;
+  nit?: string;
 
   @Column({ type: 'varchar', length: 17, nullable: true })
   nrc!: string | null;

@@ -72,8 +72,8 @@ export class EmployeeService {
 
   async create(dto: CreateEmployeeDto): Promise<Employee> {
     await this.assertUniqueField('code', dto.code);
-    await this.assertUniqueField('dui', dto.dui);
-    await this.assertUniqueField('nit', dto.nit);
+    if (dto.dui) await this.assertUniqueField('dui', dto.dui);
+    if (dto.nit) await this.assertUniqueField('nit', dto.nit);
 
     const employee = this.employeeRepository.create(this.mapCreateDto(dto));
     return this.employeeRepository.save(employee);

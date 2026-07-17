@@ -87,8 +87,8 @@ export class PayrollSchedulerService {
           period,
           `${employee.firstName} ${employee.lastName}`,
           employee.code,
-          employee.dui,
-          employee.nit,
+          employee.dui || '',
+          employee.nit || '',
           employee.department?.name || '',
           companyInfo,
         );

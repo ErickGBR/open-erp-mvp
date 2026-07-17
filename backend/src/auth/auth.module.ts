@@ -31,10 +31,7 @@ import { RolesGuard } from './roles.guard';
   providers: [
     AuthService,
     JwtStrategy,
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
+    RolesGuard,
     ...(process.env.GOOGLE_CLIENT_ID ? [GoogleStrategy] : []),
     ...(process.env.MICROSOFT_CLIENT_ID ? [MicrosoftStrategy] : []),
   ],
