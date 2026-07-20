@@ -1,7 +1,7 @@
-import { IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import { IsNumber, IsInt, IsOptional, IsString, IsIn, Min } from 'class-validator';
 
 export class UpdateStockDto {
-  @IsNumber()
+  @IsInt()
   quantity!: number;
 
   @IsOptional()
@@ -16,6 +16,7 @@ export class UpdateStockDto {
 
   @IsOptional()
   @IsString()
+  @IsIn(['purchase', 'sale', 'adjustment'])
   referenceType?: 'purchase' | 'sale' | 'adjustment';
 
   @IsOptional()
