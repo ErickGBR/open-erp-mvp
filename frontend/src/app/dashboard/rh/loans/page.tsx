@@ -15,7 +15,7 @@ interface LoanRecord {
   employee: { id: number; firstName: string; lastName: string; code: string } | null;
   type: string;
   totalAmount: number;
-  remainingAmount: number;
+  remainingBalance: number;
   installmentAmount: number;
   status: string;
   startDate: string;
@@ -248,7 +248,7 @@ export default function LoansPage() {
                     </span>
                   </td>
                   <td className="px-4 py-3 text-right text-white font-mono">{formatCurrency(loan.totalAmount)}</td>
-                  <td className="px-4 py-3 text-right text-amber-400 font-mono">{formatCurrency(loan.remainingAmount)}</td>
+                  <td className="px-4 py-3 text-right text-amber-400 font-mono">{formatCurrency(loan.remainingBalance)}</td>
                   <td className="px-4 py-3 text-right text-slate-300 font-mono">{formatCurrency(loan.installmentAmount)}</td>
                   <td className="px-4 py-3 text-center">
                     <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${LOAN_STATUS[loan.status]?.badge || 'badge-inactive'}`}>
