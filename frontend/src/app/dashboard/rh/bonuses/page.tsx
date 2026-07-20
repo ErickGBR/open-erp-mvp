@@ -39,7 +39,7 @@ const BONUS_TYPES = [
   { value: 'performance', label: 'Performance' },
   { value: 'commission', label: 'Commission' },
   { value: 'attendance', label: 'Attendance' },
-  { value: 'holiday', label: 'Christmas Bonus' },
+  { value: 'christmas', label: 'Christmas Bonus' },
   { value: 'other', label: 'Other' },
 ];
 
