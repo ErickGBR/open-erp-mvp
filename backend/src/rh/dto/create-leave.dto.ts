@@ -5,7 +5,7 @@ export class CreateLeaveDto {
   employeeId!: number;
 
   @IsString()
-  @IsIn(['vacation', 'sick', 'personal', 'other'])
+  @IsIn(['vacation', 'sick', 'personal', 'other', 'maternity', 'paternity', 'bereavement'])
   type!: string;
 
   @IsDateString()
