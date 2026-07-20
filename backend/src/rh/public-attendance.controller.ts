@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Body, Param, NotFoundException, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Get, Body, Param, ParseIntPipe, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Employee } from './employee.entity';
@@ -48,7 +48,7 @@ export class PublicAttendanceController {
    * the employee should be at based on the current day of week.
    */
   @Get('assignments/:employeeId')
-  async getTodayAssignments(@Param('employeeId') employeeId: number) {
+  async getTodayAssignments(@Param('employeeId', ParseIntPipe) employeeId: number) {
     const today = new Date();
     const dayOfWeek = today.getDay(); // 0=Sunday … 6=Saturday
     const dateStr = today.toISOString().split('T')[0];
