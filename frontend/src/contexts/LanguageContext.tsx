@@ -50,10 +50,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
    */
   const syncToBackend = useCallback(async (lang: Language) => {
     try {
-      await fetch('/api/profile', {
+      const token = localStorage.getItem('token');
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+      await fetch(`${apiUrl}/profile`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
         body: JSON.stringify({ language: lang }),
       });
     } catch {
