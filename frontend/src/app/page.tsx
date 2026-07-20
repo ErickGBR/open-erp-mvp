@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Package, Users, Receipt, BarChart3, Sparkles, TrendingUp, Shield, Zap, Globe, Download, Terminal, Copy, Check, Container } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -280,15 +280,15 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* APP SCREENSHOTS SECTION */}
-        <section className="py-24 px-4 relative">
+        {/* APP SCREENSHOTS SECTION — Carrusel Dinámico */}
+        <section className="py-24 px-4 relative overflow-hidden">
           {/* Background glow */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
             <div className="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-blue-500/5 blur-[120px]" />
           </div>
 
           <div className="relative max-w-6xl mx-auto">
-            <div className="text-center mb-16">
+            <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 See Open ERP in action
               </h2>
@@ -298,35 +298,8 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-6">
-              {[
-                { src: '/screenshots/dashboard-overview.png', label: 'Dashboard Overview' },
-                { src: '/screenshots/dashboard-products.png', label: 'Products & Inventory' },
-                { src: '/screenshots/dashboard-customers.png', label: 'Customers' },
-                { src: '/screenshots/dashboard-sales.png', label: 'Sales & POS' },
-                { src: '/screenshots/dashboard-accounts.png', label: 'Chart of Accounts' },
-                { src: '/screenshots/dashboard-rh.png', label: 'HR & Payroll' },
-              ].map((shot) => (
-                <div
-                  key={shot.label}
-                  className="glass-card rounded-xl overflow-hidden group hover:glow-cyan transition-all duration-300"
-                >
-                  <div className="relative aspect-video bg-[#0a0e1a] overflow-hidden">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={shot.src}
-                      alt={shot.label}
-                      className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a12]/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </div>
-                  <div className="p-4">
-                    <p className="text-sm font-medium text-slate-300">{shot.label}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {/* Carrusel */}
+            <CarouselScreenshots />
           </div>
         </section>
 
@@ -551,6 +524,158 @@ export default function LandingPage() {
 
       <Footer />
 
+    </div>
+  );
+}
+
+/* ──────────────────────────────────────────────────────────────
+ * CarouselScreenshots — carrusel interactivo con sweep effect
+ * ────────────────────────────────────────────────────────────── */
+const SCREENSHOTS = [
+  { src: '/screenshots/landing-hero.png',      label: 'Landing Page' },
+  { src: '/screenshots/login-page.png',         label: 'Login' },
+  { src: '/screenshots/dashboard-overview.png', label: 'Dashboard' },
+  { src: '/screenshots/dashboard-products.png', label: 'Products' },
+  { src: '/screenshots/dashboard-warehouses.png', label: 'Warehouse' },
+  { src: '/screenshots/dashboard-customers.png', label: 'Customers' },
+  { src: '/screenshots/dashboard-sales.png',    label: 'Sales' },
+  { src: '/screenshots/dashboard-pos.png',      label: 'POS' },
+  { src: '/screenshots/dashboard-rh.png',       label: 'HR Dashboard' },
+  { src: '/screenshots/dashboard-rh-employees.png', label: 'Employees' },
+  { src: '/screenshots/dashboard-rh-payroll.png',  label: 'Payroll' },
+  { src: '/screenshots/dashboard-accounts.png', label: 'Accounts' },
+  { src: '/screenshots/dashboard-company.png',  label: 'Company' },
+  { src: '/screenshots/dashboard-settings.png', label: 'Settings' },
+];
+
+function CarouselScreenshots() {
+  const [current, setCurrent] = useState(0);
+  const [sweeping, setSweeping] = useState(false);
+  const [direction, setDirection] = useState<'left' | 'right'>('right');
+  const [autoplay, setAutoplay] = useState(true);
+
+  const total = SCREENSHOTS.length;
+
+  const goTo = useCallback((idx: number) => {
+    if (idx === current) return;
+    setDirection(idx > current ? 'right' : 'left');
+    setSweeping(true);
+    setTimeout(() => {
+      setCurrent(idx);
+      setSweeping(false);
+    }, 300);
+  }, [current]);
+
+  const next = useCallback(() => goTo((current + 1) % total), [current, goTo, total]);
+  const prev = useCallback(() => goTo((current - 1 + total) % total), [current, goTo, total]);
+
+  // Autoplay
+  useEffect(() => {
+    if (!autoplay) return;
+    const timer = setInterval(next, 5000);
+    return () => clearInterval(timer);
+  }, [autoplay, next]);
+
+  // Keyboard
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') { prev(); setAutoplay(false); }
+      if (e.key === 'ArrowRight') { next(); setAutoplay(false); }
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [prev, next]);
+
+  const sweepClass = sweeping
+    ? (direction === 'right' ? 'animate-[carouselSweepRight_0.3s_ease-in-out]' : 'animate-[carouselSweepLeft_0.3s_ease-in-out]')
+    : '';
+
+  return (
+    <div
+      className="relative select-none"
+      onMouseEnter={() => setAutoplay(false)}
+      onMouseLeave={() => setAutoplay(true)}
+    >
+      {/* Viewport */}
+      <div className="relative overflow-hidden rounded-2xl glass-card glow-cyan aspect-video max-w-4xl mx-auto">
+        {/* Sweep overlay */}
+        {sweeping && (
+          <div
+            className={`absolute inset-0 z-20 bg-gradient-to-r from-cyan-400/30 via-blue-500/20 to-cyan-400/30 ${sweepClass}`}
+          />
+        )}
+
+        {/* Image */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={SCREENSHOTS[current].src}
+          alt={SCREENSHOTS[current].label}
+          className="w-full h-full object-cover object-top transition-all duration-500"
+          style={{
+            filter: sweeping ? 'brightness(1.2) saturate(1.3)' : 'brightness(1) saturate(1)',
+          }}
+        />
+
+        {/* Label overlay */}
+        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0a0a12]/80 via-[#0a0a12]/40 to-transparent p-6 pt-12">
+          <p className="text-white font-semibold text-lg">{SCREENSHOTS[current].label}</p>
+          <p className="text-slate-400 text-sm">
+            {current + 1} / {total}
+          </p>
+        </div>
+
+        {/* Prev / Next buttons */}
+        <button
+          onClick={() => { prev(); setAutoplay(false); }}
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-cyan-500/30 hover:border-cyan-500/40 transition-all duration-200 opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100"
+          aria-label="Previous screenshot"
+          style={{ opacity: '0.7' }}
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button
+          onClick={() => { next(); setAutoplay(false); }}
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-cyan-500/30 hover:border-cyan-500/40 transition-all duration-200"
+          aria-label="Next screenshot"
+          style={{ opacity: '0.7' }}
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+
+      {/* Dot indicators */}
+      <div className="flex justify-center gap-2 mt-4 flex-wrap">
+        {SCREENSHOTS.map((shot, idx) => (
+          <button
+            key={shot.label}
+            onClick={() => { goTo(idx); setAutoplay(false); }}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              idx === current
+                ? 'bg-cyan-400 w-6 shadow-[0_0_8px_rgba(0,200,255,0.6)]'
+                : 'bg-slate-600 hover:bg-slate-400'
+            }`}
+            aria-label={`Go to ${shot.label}`}
+          />
+        ))}
+      </div>
+
+      {/* Thumbnail strip */}
+      <div className="flex justify-center gap-2 mt-4 overflow-x-auto pb-2">
+        {SCREENSHOTS.map((shot, idx) => (
+          <button
+            key={shot.label}
+            onClick={() => { goTo(idx); setAutoplay(false); }}
+            className={`flex-shrink-0 w-16 h-10 rounded-md overflow-hidden border-2 transition-all duration-200 ${
+              idx === current
+                ? 'border-cyan-400 shadow-[0_0_10px_rgba(0,200,255,0.4)] opacity-100'
+                : 'border-transparent opacity-50 hover:opacity-80'
+            }`}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={shot.src} alt="" className="w-full h-full object-cover" />
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
