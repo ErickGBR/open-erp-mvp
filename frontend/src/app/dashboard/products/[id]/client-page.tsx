@@ -146,7 +146,7 @@ export default function ClientPage() {
       name: form.name,
       description: form.description || undefined,
       price: Number(form.price),
-      cost: form.cost !== '' ? Number(form.cost) : undefined,
+      cost: form.cost,
       sku: form.sku || undefined,
       barcode: form.barcode || undefined,
       unitOfMeasure: form.unitOfMeasure || undefined,
