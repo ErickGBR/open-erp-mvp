@@ -51,7 +51,7 @@ export class AccountsService {
     }
 
     if (dto.parentId) {
-      const parent = await this.findById(dto.parentId);
+      const parent = await this.accountsRepository.findOne({ where: { id: dto.parentId } });
       if (!parent) {
         throw new BadRequestException(`Parent account with id ${dto.parentId} not found`);
       }
@@ -69,6 +69,13 @@ export class AccountsService {
       const existing = await this.findByCode(dto.code);
       if (existing) {
         throw new BadRequestException(`Account with code ${dto.code} already exists`);
+      }
+    }
+
+    if (dto.parentId && dto.parentId !== account.parentId) {
+      const parent = await this.accountsRepository.findOne({ where: { id: dto.parentId } });
+      if (!parent) {
+        throw new BadRequestException(`Parent account with id ${dto.parentId} not found`);
       }
     }
 
