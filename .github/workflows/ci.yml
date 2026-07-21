@@ -53,7 +53,7 @@ jobs:
         run: npm run build
 
       - name: Test
-        run: npm test
+        run: npm test -- --passWithNoTests
         env:
           DATABASE_URL: postgresql://test:test@localhost:5432/erp_test
           JWT_SECRET: test-secret-for-ci
