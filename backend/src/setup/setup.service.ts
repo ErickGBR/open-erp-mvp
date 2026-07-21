@@ -39,7 +39,8 @@ export class SetupService {
     name: string;
     email: string;
     password: string;
-    organizationName?: string;
+    orgName?: string;
+    usageMode?: string;
   }) {
     const existing = await this.usersRepository.findOne({ where: { role: UserRole.ROOT } });
     if (existing) {

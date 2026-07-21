@@ -17,7 +17,11 @@ export class InitRootDto {
 
   @IsOptional()
   @IsString()
-  organizationName?: string;
+  orgName?: string;
+
+  @IsOptional()
+  @IsString()
+  usageMode?: string;
 }
 
 @Controller('setup')
