@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { Package, Users, Receipt, BarChart3, Sparkles, TrendingUp, Shield, Zap, Globe, Download, Terminal, Copy, Check, Container } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 /**
  * Feature card data for the landing page features section.
@@ -15,40 +16,48 @@ interface Feature {
   color: string;
 }
 
-const FEATURES: Feature[] = [
-  {
-    icon: Package,
-    title: 'Products & Inventory',
-    description: 'Full product management with stock tracking, barcodes, categories, and multi-warehouse inventory with Kardex movement records.',
-    color: 'from-cyan-400 to-blue-500',
-  },
-  {
-    icon: Users,
-    title: 'HR & Payroll',
-    description: 'Complete human resources module with employee management, attendance tracking, payroll processing, loans, bonuses, and leave management.',
-    color: 'from-blue-400 to-purple-500',
-  },
-  {
-    icon: Receipt,
-    title: 'Sales & POS',
-    description: 'Create invoices, track payments, and manage your point of sale with quick-sale interface, product search, and electronic DTE document generation.',
-    color: 'from-cyan-400 to-teal-500',
-  },
-  {
-    icon: BarChart3,
-    title: 'Accounting & Reports',
-    description: 'Hierarchical chart of accounts, company configuration with El Salvador DTE compliance, and real-time dashboard analytics.',
-    color: 'from-blue-400 to-cyan-500',
-  },
-];
+/**
+ * Build feature cards from translation keys.
+ */
+function useFeatures(): Feature[] {
+  const { t } = useLanguage();
+  return [
+    {
+      icon: Package,
+      title: t('landing.features.inventory.title'),
+      description: t('landing.features.inventory.description'),
+      color: 'from-cyan-400 to-blue-500',
+    },
+    {
+      icon: Users,
+      title: t('landing.features.hr.title'),
+      description: t('landing.features.hr.description'),
+      color: 'from-blue-400 to-purple-500',
+    },
+    {
+      icon: Receipt,
+      title: t('landing.features.pos.title'),
+      description: t('landing.features.pos.description'),
+      color: 'from-cyan-400 to-teal-500',
+    },
+    {
+      icon: BarChart3,
+      title: t('landing.features.accounting.title'),
+      description: t('landing.features.accounting.description'),
+      color: 'from-blue-400 to-cyan-500',
+    },
+  ];
+}
 
 /**
  * Landing page — showcases Open ERP with a neon cyan/blue dark theme,
  * floating orb background, features grid, and a glassmorphism CTA.
  */
 export default function LandingPage() {
+  const { t } = useLanguage();
   const [copied, setCopied] = useState<string | null>(null);
   const [scrollY, setScrollY] = useState(0);
+  const FEATURES = useFeatures();
 
   // Parallax scroll effect — updates orb positions and light sweep
   useEffect(() => {
@@ -109,29 +118,28 @@ export default function LandingPage() {
             {/* Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-sm mb-8">
               <Sparkles className="w-4 h-4" />
-              <span>Open-source ERP platform</span>
+              <span>{t('landing.badge')}</span>
             </div>
 
             {/* Main heading with gradient sweep */}
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
-              <span className="text-white">Welcome to </span>
+              <span className="text-white">{t('landing.hero.welcome')}</span>
               <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent gradient-sweep">
-                Open ERP
+                {t('landing.hero.title')}
               </span>
             </h1>
 
             <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-              Streamline your business operations with a modern, extensible platform
-              built for growth. Open-source, secure, and designed for you.
+              {t('landing.hero.subtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a href="#download" className="btn-cyan inline-flex items-center gap-2 text-base">
                 <Download className="w-5 h-5" />
-                Download Now
+                {t('landing.hero.download')}
               </a>
               <a href="#features" className="btn-outline text-base">
-                Learn More
+                {t('landing.hero.learnMore')}
               </a>
             </div>
           </div>
@@ -146,19 +154,19 @@ export default function LandingPage() {
           <div className="flex animate-marquee whitespace-nowrap">
             {/* First row */}
             <div className="flex items-center gap-12 mx-8">
-              {['Inventory', 'Invoices', 'Customers', 'Reports', 'Analytics', 'Orders', 'Products', 'Payments', 'Dashboard', 'Sales'].map((item) => (
-                <span key={item} className="text-sm text-slate-500 font-medium tracking-wider uppercase">
+              {[0,1,2,3,4,5,6,7,8,9].map((i) => (
+                <span key={i} className="text-sm text-slate-500 font-medium tracking-wider uppercase">
                   <span className="text-cyan-400 mr-2">◆</span>
-                  {item}
+                  {t(`landing.marquee.${i}`)}
                 </span>
               ))}
             </div>
             {/* Duplicated for continuous effect */}
             <div className="flex items-center gap-12 mx-8">
-              {['Inventory', 'Invoices', 'Customers', 'Reports', 'Analytics', 'Orders', 'Products', 'Payments', 'Dashboard', 'Sales'].map((item) => (
-                <span key={item + '-dup'} className="text-sm text-slate-500 font-medium tracking-wider uppercase">
+              {[0,1,2,3,4,5,6,7,8,9].map((i) => (
+                <span key={`${i}-dup`} className="text-sm text-slate-500 font-medium tracking-wider uppercase">
                   <span className="text-cyan-400 mr-2">◆</span>
-                  {item}
+                  {t(`landing.marquee.${i}`)}
                 </span>
               ))}
             </div>
@@ -170,11 +178,11 @@ export default function LandingPage() {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-                Everything you need to run your business
+                {t('landing.features.title')}
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto glow-cyan-sm" />
               <p className="mt-4 text-slate-400 text-lg max-w-xl mx-auto">
-                From products to reports, Open ERP has you covered with a clean, intuitive interface.
+                {t('landing.features.subtitle')}
               </p>
             </div>
 
@@ -208,7 +216,7 @@ export default function LandingPage() {
           <div className="relative max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-                Built for modern businesses
+                {t('landing.banners.title')}
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto glow-cyan-sm" />
             </div>
@@ -222,10 +230,9 @@ export default function LandingPage() {
                     <TrendingUp className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Real-time Analytics</h3>
+                    <h3 className="text-xl font-semibold text-white mb-2">{t('landing.banners.analytics.title')}</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      Monitor your business performance with live dashboards, custom reports, and
-                      actionable insights that help you make data-driven decisions.
+                      {t('landing.banners.analytics.desc')}
                     </p>
                   </div>
                 </div>
@@ -238,9 +245,9 @@ export default function LandingPage() {
                     <Shield className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Secure & Reliable</h3>
+                    <h3 className="text-xl font-semibold text-white mb-2">{t('landing.banners.secure.title')}</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      Enterprise-grade security with JWT authentication, role-based access control, and encrypted data storage. Licensed under CC BY-NC 4.0.
+                      {t('landing.banners.secure.desc')}
                     </p>
                   </div>
                 </div>
@@ -253,10 +260,9 @@ export default function LandingPage() {
                     <Zap className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Lightning Fast</h3>
+                    <h3 className="text-xl font-semibold text-white mb-2">{t('landing.banners.fast.title')}</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      Optimized performance with server-side rendering, automatic caching, and
-                      a modern tech stack that ensures fast load times.
+                      {t('landing.banners.fast.desc')}
                     </p>
                   </div>
                 </div>
@@ -269,9 +275,9 @@ export default function LandingPage() {
                     <Globe className="w-7 h-7 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Open Source</h3>
+                    <h3 className="text-xl font-semibold text-white mb-2">{t('landing.banners.opensource.title')}</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">
-                      Fully open-source under Creative Commons BY-NC 4.0. Self-host or deploy to the cloud. Customize, extend, and contribute to the platform.
+                      {t('landing.banners.opensource.desc')}
                     </p>
                   </div>
                 </div>
@@ -290,11 +296,11 @@ export default function LandingPage() {
           <div className="relative max-w-6xl mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-                See Open ERP in action
+                {t('landing.screenshots.title')}
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto glow-cyan-sm" />
               <p className="mt-4 text-slate-400 text-lg max-w-xl mx-auto">
-                Clean, modern interface for every business module
+                {t('landing.screenshots.subtitle')}
               </p>
             </div>
 
@@ -313,18 +319,17 @@ export default function LandingPage() {
           <div className="relative max-w-3xl mx-auto text-center">
             <div className="glass-card rounded-2xl p-12 glow-cyan">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-                Ready to get started?
+                {t('landing.cta.title')}
               </h2>
               <p className="text-lg text-slate-400 mb-8 max-w-lg mx-auto">
-                Join thousands of businesses using Open ERP to streamline their operations.
-                It&apos;s free, open-source, and built for you.
+                {t('landing.cta.subtitle')}
               </p>
               <a
                 href="#download"
                 className="btn-cyan inline-flex items-center gap-2 text-base"
               >
                 <Download className="w-5 h-5" />
-                Download Open ERP
+                {t('landing.cta.button')}
               </a>
             </div>
           </div>
@@ -335,10 +340,10 @@ export default function LandingPage() {
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.03)_0%,transparent_70%)]" />
           <div className="relative max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { value: '100%', label: 'Free' },
-              { value: '24/7', label: 'Accessible' },
-              { value: '0$', label: 'Open Source' },
-              { value: '∞', label: 'Extensible' },
+              { value: '100%', label: t('landing.stats.free') },
+              { value: '24/7', label: t('landing.stats.accessible') },
+              { value: '0$', label: t('landing.stats.opensource') },
+              { value: '∞', label: t('landing.stats.extensible') },
             ].map((stat) => (
               <div key={stat.label} className="text-center group">
                 <div className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-br from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform">
@@ -364,14 +369,14 @@ export default function LandingPage() {
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-sm mb-6">
                 <Download className="w-4 h-4" />
-                <span>Installation</span>
+                <span>{t('landing.install.badge')}</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-                Get Started with Open ERP
+                {t('landing.install.title')}
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto glow-cyan-sm" />
               <p className="mt-4 text-slate-400 text-lg max-w-xl mx-auto">
-                Choose your installation method
+                {t('landing.install.subtitle')}
               </p>
             </div>
 
@@ -385,17 +390,17 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-white">
-                      Docker{' '}
+                      {t('landing.install.docker.title')}{' '}
                       <span className="text-[10px] align-top px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
-                        Recommended
+                        {t('landing.install.docker.recommended')}
                       </span>
                     </h3>
-                    <p className="text-sm text-slate-400">Quick &amp; consistent setup</p>
+                    <p className="text-sm text-slate-400">{t('landing.install.docker.desc')}</p>
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Requirements</p>
+                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">{t('landing.install.requirements')}</p>
                   <ul className="space-y-1">
                     <li className="flex items-center gap-2 text-sm text-slate-400">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
@@ -439,13 +444,13 @@ export default function LandingPage() {
                     <Terminal className="w-6 h-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold text-white">Ubuntu Server Installer</h3>
-                    <p className="text-sm text-slate-400">Linux server setup</p>
+                    <h3 className="text-xl font-semibold text-white">{t('landing.install.ubuntu.title')}</h3>
+                    <p className="text-sm text-slate-400">{t('landing.install.ubuntu.desc')}</p>
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">Requirements</p>
+                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">{t('landing.install.requirements')}</p>
                   <ul className="space-y-1">
                     <li className="flex items-center gap-2 text-sm text-slate-400">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
@@ -493,15 +498,15 @@ export default function LandingPage() {
                 <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0">
                   <Zap className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-white">Quick Start Guide</h3>
+                <h3 className="text-xl font-semibold text-white">{t('landing.install.quickStart')}</h3>
               </div>
 
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { step: 1, title: 'Clone Repository', desc: 'Clone the Open ERP repository', code: 'git clone https://github.com/ErickGBR/open-erp-mvp.git' },
-                  { step: 2, title: 'Configure', desc: 'Configure environment variables', code: 'cp .env.example .env' },
-                  { step: 3, title: 'Run', desc: 'Build and start all services', code: 'docker compose up --build -d' },
-                  { step: 4, title: 'Open', desc: 'Access your instance in browser', code: 'http://localhost:3000' },
+                  { step: 1, title: t('landing.install.steps.clone.title'), desc: t('landing.install.steps.clone.desc'), code: 'git clone https://github.com/ErickGBR/open-erp-mvp.git' },
+                  { step: 2, title: t('landing.install.steps.configure.title'), desc: t('landing.install.steps.configure.desc'), code: 'cp .env.example .env' },
+                  { step: 3, title: t('landing.install.steps.run.title'), desc: t('landing.install.steps.run.desc'), code: 'docker compose up --build -d' },
+                  { step: 4, title: t('landing.install.steps.open.title'), desc: t('landing.install.steps.open.desc'), code: 'http://localhost:3000' },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-3">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -531,28 +536,33 @@ export default function LandingPage() {
 /* ──────────────────────────────────────────────────────────────
  * CarouselScreenshots — carrusel interactivo con sweep effect
  * ────────────────────────────────────────────────────────────── */
-const SCREENSHOTS = [
-  { src: '/screenshots/landing-hero.png',      label: 'Landing Page' },
-  { src: '/screenshots/login-page.png',         label: 'Login' },
-  { src: '/screenshots/dashboard-overview.png', label: 'Dashboard' },
-  { src: '/screenshots/dashboard-products.png', label: 'Products' },
-  { src: '/screenshots/dashboard-warehouses.png', label: 'Warehouse' },
-  { src: '/screenshots/dashboard-customers.png', label: 'Customers' },
-  { src: '/screenshots/dashboard-sales.png',    label: 'Sales' },
-  { src: '/screenshots/dashboard-pos.png',      label: 'POS' },
-  { src: '/screenshots/dashboard-rh.png',       label: 'HR Dashboard' },
-  { src: '/screenshots/dashboard-rh-employees.png', label: 'Employees' },
-  { src: '/screenshots/dashboard-rh-payroll.png',  label: 'Payroll' },
-  { src: '/screenshots/dashboard-accounts.png', label: 'Accounts' },
-  { src: '/screenshots/dashboard-company.png',  label: 'Company' },
-  { src: '/screenshots/dashboard-settings.png', label: 'Settings' },
-];
 
+/**
+ * Componente que usa el hook useLanguage dentro del contexto del provider.
+ */
 function CarouselScreenshots() {
+  const { t } = useLanguage();
   const [current, setCurrent] = useState(0);
   const [sweeping, setSweeping] = useState(false);
   const [direction, setDirection] = useState<'left' | 'right'>('right');
   const [autoplay, setAutoplay] = useState(true);
+
+  const SCREENSHOTS = [
+    { src: '/screenshots/landing-hero.png',      label: t('landing.screenshots.slides.hero') },
+    { src: '/screenshots/login-page.png',         label: t('landing.screenshots.slides.login') },
+    { src: '/screenshots/dashboard-overview.png', label: t('landing.screenshots.slides.dashboard') },
+    { src: '/screenshots/dashboard-products.png', label: t('landing.screenshots.slides.products') },
+    { src: '/screenshots/dashboard-warehouses.png', label: t('landing.screenshots.slides.warehouses') },
+    { src: '/screenshots/dashboard-customers.png', label: t('landing.screenshots.slides.customers') },
+    { src: '/screenshots/dashboard-sales.png',    label: t('landing.screenshots.slides.sales') },
+    { src: '/screenshots/dashboard-pos.png',      label: t('landing.screenshots.slides.pos') },
+    { src: '/screenshots/dashboard-rh.png',       label: t('landing.screenshots.slides.hr') },
+    { src: '/screenshots/dashboard-rh-employees.png', label: t('landing.screenshots.slides.employees') },
+    { src: '/screenshots/dashboard-rh-payroll.png',  label: t('landing.screenshots.slides.payroll') },
+    { src: '/screenshots/dashboard-accounts.png', label: t('landing.screenshots.slides.accounts') },
+    { src: '/screenshots/dashboard-company.png',  label: t('landing.screenshots.slides.company') },
+    { src: '/screenshots/dashboard-settings.png', label: t('landing.screenshots.slides.settings') },
+  ];
 
   const total = SCREENSHOTS.length;
 

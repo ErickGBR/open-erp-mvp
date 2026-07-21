@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Menu, X, Package, ChevronDown } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 /**
  * A navigation item for the header dropdown menus.
@@ -17,43 +18,46 @@ interface NavItem {
 }
 
 /**
- * Navigation items with dropdown children.
+ * Build navigation items dynamically from translation keys.
  */
-const navItems: NavItem[] = [
-  {
-    label: 'Products',
-    children: [
-      { label: 'Dashboard', href: '/products' },
-      { label: 'Inventory', href: '/products#inventory' },
-      { label: 'Sales', href: '/products#sales' },
-      { label: 'Reports', href: '/products#reports' },
-    ],
-  },
-  {
-    label: 'Customers',
-    children: [
-      { label: 'All Customers', href: '/customers' },
-      { label: 'Analytics', href: '/customers#analytics' },
-      { label: 'Support', href: '/customers#support' },
-    ],
-  },
-  {
-    label: 'Sales',
-    children: [
-      { label: 'New Sale', href: '/sales' },
-      { label: 'Invoices', href: '/sales#invoices' },
-      { label: 'Payments', href: '/sales#payments' },
-    ],
-  },
-  {
-    label: 'About',
-    children: [
-      { label: 'Our Story', href: '/about' },
-      { label: 'Blog', href: '/blog' },
-      { label: 'Contact', href: '/about#contact' },
-    ],
-  },
-];
+function useNavItems(): NavItem[] {
+  const { t } = useLanguage();
+  return [
+    {
+      label: t('header.nav.products'),
+      children: [
+        { label: t('header.subProducts.0'), href: '/products' },
+        { label: t('header.subProducts.1'), href: '/products#inventory' },
+        { label: t('header.subProducts.2'), href: '/products#sales' },
+        { label: t('header.subProducts.3'), href: '/products#reports' },
+      ],
+    },
+    {
+      label: t('header.nav.customers'),
+      children: [
+        { label: t('header.subCustomers.0'), href: '/customers' },
+        { label: t('header.subCustomers.1'), href: '/customers#analytics' },
+        { label: t('header.subCustomers.2'), href: '/customers#support' },
+      ],
+    },
+    {
+      label: t('header.nav.sales'),
+      children: [
+        { label: t('header.subSales.0'), href: '/sales' },
+        { label: t('header.subSales.1'), href: '/sales#invoices' },
+        { label: t('header.subSales.2'), href: '/sales#payments' },
+      ],
+    },
+    {
+      label: t('header.nav.about'),
+      children: [
+        { label: t('header.subAbout.0'), href: '/about' },
+        { label: t('header.subAbout.1'), href: '/blog' },
+        { label: t('header.subAbout.2'), href: '/about#contact' },
+      ],
+    },
+  ];
+}
 
 /**
  * Props for the Header component.
@@ -69,9 +73,11 @@ interface HeaderProps {
  * Styled with the neon cyan/blue dark theme and glassmorphism panels.
  */
 export default function Header({ landing = false }: HeaderProps) {
+  const { t } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const navItems = useNavItems();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-cyan-500/10 bg-[#0a0a12]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0a0a12]/80">
@@ -135,13 +141,13 @@ export default function Header({ landing = false }: HeaderProps) {
             href="/auth?tab=login"
             className="rounded-lg px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:text-white hover:bg-white/5"
           >
-            Log In
+            {t('header.login')}
           </Link>
           <Link
             href="/auth"
             className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-cyan-500/25"
           >
-            Sign In
+            {t('header.signIn')}
           </Link>
         </div>
 
@@ -201,14 +207,14 @@ export default function Header({ landing = false }: HeaderProps) {
               onClick={() => setMobileOpen(false)}
               className="block rounded-lg px-3 py-2 text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white"
             >
-              Log In
+              {t('header.login')}
             </Link>
             <Link
               href="/auth"
               onClick={() => setMobileOpen(false)}
               className="block rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-3 py-2 text-sm font-semibold text-white text-center"
             >
-              Sign In
+              {t('header.signIn')}
             </Link>
           </div>
         </div>

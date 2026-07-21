@@ -11,21 +11,21 @@
     "features": {
       "title": "Everything you need to run your business",
       "subtitle": "From products to reports, Open ERP has you covered with a clean, intuitive interface.",
-      "products": {
-        "title": "Products",
-        "description": "Manage your inventory with ease. Track stock levels, set reorder points, and organize products by categories."
+      "inventory": {
+        "title": "Products & Inventory",
+        "description": "Full product management with stock tracking, barcodes, categories, and multi-warehouse inventory with Kardex movement records."
       },
-      "customers": {
-        "title": "Customers",
-        "description": "Keep a complete record of your customers. View purchase history, manage contacts, and build stronger relationships."
+      "hr": {
+        "title": "HR & Payroll",
+        "description": "Complete human resources module with employee management, attendance tracking, payroll processing, loans, bonuses, and leave management."
       },
-      "sales": {
-        "title": "Sales",
-        "description": "Create invoices, track payments, and monitor your sales pipeline. Stay on top of every transaction."
+      "pos": {
+        "title": "Sales & POS",
+        "description": "Create invoices, track payments, and manage your point of sale with quick-sale interface, product search, and electronic DTE document generation."
       },
-      "reports": {
-        "title": "Reports",
-        "description": "Get actionable insights with customizable reports. Visualize your data and make informed decisions."
+      "accounting": {
+        "title": "Accounting & Reports",
+        "description": "Hierarchical chart of accounts, company configuration with El Salvador DTE compliance, and real-time dashboard analytics."
       }
     },
     "banners": {
@@ -55,7 +55,7 @@
     "stats": {
       "opensource": "Open Source",
       "accessible": "Accessible",
-      "free": "Free to Start",
+      "free": "Free",
       "extensible": "Extensible"
     },
     "install": {
@@ -80,7 +80,27 @@
         "open": { "title": "Open", "desc": "Access your ERP instance" }
       }
     },
-    "marquee": ["Inventory", "Invoices", "Customers", "Reports", "Analytics", "Orders", "Products", "Payments", "Dashboard", "Sales"]
+    "marquee": ["Inventory", "Invoices", "Customers", "Reports", "Analytics", "Orders", "Products", "Payments", "Dashboard", "Sales"],
+    "screenshots": {
+      "title": "See Open ERP in action",
+      "subtitle": "Clean, modern interface for every business module",
+      "slides": {
+        "hero": "Landing Page",
+        "login": "Login",
+        "dashboard": "Dashboard",
+        "products": "Products",
+        "warehouses": "Warehouse",
+        "customers": "Customers",
+        "sales": "Sales",
+        "pos": "POS",
+        "hr": "HR Dashboard",
+        "employees": "Employees",
+        "payroll": "Payroll",
+        "accounts": "Accounts",
+        "company": "Company",
+        "settings": "Settings"
+      }
+    }
   },
   "header": {
     "features": "Features",
@@ -89,11 +109,25 @@
     "blog": "Blog",
     "signIn": "Sign In",
     "getStarted": "Get Started",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "login": "Log In",
+    "nav": {
+      "products": "Products",
+      "customers": "Customers",
+      "sales": "Sales",
+      "about": "About"
+    },
+    "subProducts": ["Dashboard", "Inventory", "Sales", "Reports"],
+    "subCustomers": ["All Customers", "Analytics", "Support"],
+    "subSales": ["New Sale", "Invoices", "Payments"],
+    "subAbout": ["Our Story", "Blog", "Contact"]
   },
   "footer": {
     "rights": "All rights reserved.",
-    "language": "Language"
+    "language": "Language",
+    "description": "Open-source Enterprise Resource Planning system. Streamline your business operations with a modern, extensible platform.",
+    "builtWith": "Built with",
+    "sourceCode": "Source Code"
   },
   "auth": {
     "login": {
