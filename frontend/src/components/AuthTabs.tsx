@@ -77,14 +77,14 @@ export default function AuthTabs() {
         {/* OAuth Buttons */}
         <div className="space-y-3">
           <a
-            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/auth/google`}
+            href={`${process.env.NEXT_PUBLIC_API_URL || '/api'}/auth/google`}
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-cyan-500/20 bg-white/5 px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-cyan-500/10 hover:border-cyan-500/40"
           >
             <GoogleIcon />
             Continue with Google
           </a>
           <a
-            href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/auth/microsoft`}
+            href={`${process.env.NEXT_PUBLIC_API_URL || '/api'}/auth/microsoft`}
             className="flex w-full items-center justify-center gap-3 rounded-lg border border-cyan-500/20 bg-white/5 px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-cyan-500/10 hover:border-cyan-500/40"
           >
             <MicrosoftIcon />

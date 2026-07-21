@@ -165,7 +165,7 @@ export default function ClientPage() {
       const formData = new FormData();
       formData.append('file', file);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/products/${productId}/image`,
+        `${process.env.NEXT_PUBLIC_API_URL || '/api'}/products/${productId}/image`,
         { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: formData }
       );
       if (res.ok) await loadProduct();

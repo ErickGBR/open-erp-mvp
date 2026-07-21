@@ -473,14 +473,14 @@ export default function ClientPage() {
             <div className="bg-white rounded-xl p-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/rh/qr/${employeeId}`}
+                src={`${process.env.NEXT_PUBLIC_API_URL || '/api'}/rh/qr/${employeeId}`}
                 alt={`QR for ${form.firstName} ${form.lastName}`}
                 className="w-40 h-40"
               />
             </div>
             <div className="space-y-3">
               <a
-                href={`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/rh/qr/${employeeId}`}
+                href={`${process.env.NEXT_PUBLIC_API_URL || '/api'}/rh/qr/${employeeId}`}
                 download={`qr-${form.code}.png`}
                 className="btn-cyan text-sm inline-flex items-center gap-1.5"
               >

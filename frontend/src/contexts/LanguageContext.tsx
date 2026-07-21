@@ -51,7 +51,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const syncToBackend = useCallback(async (lang: Language) => {
     try {
       const token = localStorage.getItem('token');
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || '/api';
       await fetch(`${apiUrl}/profile`, {
         method: 'PATCH',
         headers: {

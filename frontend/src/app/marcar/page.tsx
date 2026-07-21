@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { Html5Qrcode } from 'html5-qrcode';
 import { Clock, Camera, CameraOff, QrCode, CheckCircle, XCircle, MapPin, Clock3 } from 'lucide-react';
 
-const API = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 /**
  * Employee info from QR lookup.
