@@ -247,3 +247,14 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(34, 211, 238, 0.3);
 }
+
+/* ── Carousel sweep effects ────────────────────────────── */
+@keyframes carouselSweepRight {
+  0%   { transform: translateX(-100%); opacity: 0.8; }
+  100% { transform: translateX(100%);  opacity: 0; }
+}
+
+@keyframes carouselSweepLeft {
+  0%   { transform: translateX(100%);  opacity: 0.8; }
+  100% { transform: translateX(-100%); opacity: 0; }
+}

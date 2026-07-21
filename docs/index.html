@@ -162,6 +162,226 @@
     ::-webkit-scrollbar-track { background: #0a0a12; }
     ::-webkit-scrollbar-thumb { background: rgba(34, 211, 238, 0.15); border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: rgba(34, 211, 238, 0.3); }
+    /* Screenshots Carousel */
+    #screenshots {
+      scroll-margin-top: 80px;
+    }
+
+    .carousel-container {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      user-select: none;
+    }
+
+    .carousel-viewport {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(34, 211, 238, 0.08);
+    }
+
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .carousel-slide {
+      min-width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-slide img {
+      width: 100%;
+      height: auto;
+      max-height: 70vh;
+      object-fit: contain;
+      display: block;
+      border-radius: 1rem;
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.15), 0 0 60px rgba(34, 211, 238, 0.08);
+      transition: box-shadow 0.3s ease;
+    }
+
+    .carousel-slide img:hover {
+      box-shadow: 0 0 40px rgba(34, 211, 238, 0.25), 0 0 80px rgba(34, 211, 238, 0.12);
+    }
+
+    .carousel-sweep {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      pointer-events: none;
+      background: linear-gradient(90deg, transparent 0%, rgba(34, 211, 238, 0.35) 40%, rgba(96, 165, 250, 0.35) 55%, transparent 70%);
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+
+    .carousel-container.sweeping .carousel-sweep {
+      opacity: 1;
+      animation: carouselSweep 0.5s ease-in-out forwards;
+    }
+
+    @keyframes carouselSweep {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(250%); }
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 30;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      background: rgba(10, 10, 18, 0.7);
+      backdrop-filter: blur(12px);
+      color: #22d3ee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.25rem;
+      padding: 0;
+    }
+
+    .carousel-btn:hover {
+      background: rgba(34, 211, 238, 0.15);
+      border-color: rgba(34, 211, 238, 0.4);
+      box-shadow: 0 0 20px rgba(34, 211, 238, 0.2);
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .carousel-btn:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+
+    .carousel-btn-prev { left: 1rem; }
+    .carousel-btn-next { right: 1rem; }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(34, 211, 238, 0.2);
+      background: transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0;
+    }
+
+    .carousel-dot.active {
+      background: #22d3ee;
+      border-color: #22d3ee;
+      box-shadow: 0 0 10px rgba(34, 211, 238, 0.4);
+      width: 24px;
+      border-radius: 5px;
+    }
+
+    .carousel-dot:hover:not(.active) {
+      border-color: rgba(34, 211, 238, 0.5);
+      background: rgba(34, 211, 238, 0.15);
+    }
+
+    .carousel-caption {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 1rem;
+      color: #94a3b8;
+      font-weight: 500;
+      letter-spacing: 0.025em;
+      transition: opacity 0.3s ease;
+      min-height: 1.5rem;
+    }
+
+    .thumbnails-container {
+      max-width: 100%;
+      overflow-x: auto;
+      margin-top: 2rem;
+      padding-bottom: 0.5rem;
+    }
+
+    .thumbnails-container::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .thumbnails-container::-webkit-scrollbar-track {
+      background: rgba(34, 211, 238, 0.05);
+      border-radius: 2px;
+    }
+
+    .thumbnails-container::-webkit-scrollbar-thumb {
+      background: rgba(34, 211, 238, 0.2);
+      border-radius: 2px;
+    }
+
+    .thumbnails-track {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.25rem;
+      min-width: max-content;
+    }
+
+    .thumbnail {
+      flex-shrink: 0;
+      width: 100px;
+      height: 60px;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 0;
+      position: relative;
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumbnail:hover {
+      border-color: rgba(34, 211, 238, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .thumbnail.active {
+      border-color: #22d3ee;
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .carousel-btn { width: 40px; height: 40px; font-size: 1rem; }
+      .carousel-btn-prev { left: 0.5rem; }
+      .carousel-btn-next { right: 0.5rem; }
+      .carousel-slide img { max-height: 50vh; }
+      .thumbnail { width: 80px; height: 48px; }
+      .carousel-dot { width: 8px; height: 8px; }
+      .carousel-dot.active { width: 20px; }
+    }
+
+    @media (max-width: 480px) {
+      .thumbnail { width: 64px; height: 40px; }
+    }
   </style>
 </head>
 <body>
@@ -186,6 +406,7 @@
       </a>
       <nav class="hidden sm:flex items-center gap-6">
         <a href="#features" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Features</a>
+        <a href="#screenshots" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Screenshots</a>
         <a href="#download" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Download</a>
         <a href="https://github.com/ErickGBR/open-erp-mvp" target="_blank" rel="noopener noreferrer" class="btn-outline text-sm !px-4 !py-2">
           <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
@@ -202,6 +423,7 @@
     <div id="mobile-nav" class="sm:hidden hidden border-t border-cyan-500/10 px-4 py-3">
       <div class="flex flex-col gap-3">
         <a href="#features" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Features</a>
+        <a href="#screenshots" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Screenshots</a>
         <a href="#download" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">Download</a>
         <a href="https://github.com/ErickGBR/open-erp-mvp" target="_blank" rel="noopener noreferrer" class="text-sm text-slate-400 hover:text-cyan-400 transition-colors">GitHub</a>
       </div>
@@ -398,6 +620,48 @@
                   Fully open-source under Creative Commons BY-NC 4.0. Self-host or deploy to the cloud. Customize, extend, and contribute to the platform.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREENSHOTS CAROUSEL SECTION -->
+    <section id="screenshots" class="py-24 px-4 relative">
+      <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div class="w-[600px] h-[600px] rounded-full bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-cyan-500/5 blur-[120px]"></div>
+      </div>
+
+      <div class="relative max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-sm mb-6">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            <span>Screenshots</span>
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">See Open ERP in action</h2>
+          <div class="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto" style="box-shadow: 0 0 12px rgba(34, 211, 238, 0.3);"></div>
+        </div>
+
+        <div class="carousel-container">
+          <div class="carousel-viewport" role="region" aria-label="Screenshot gallery" aria-roledescription="carousel">
+            <div class="carousel-track">
+            </div>
+            <div class="carousel-sweep"></div>
+          </div>
+
+          <button class="carousel-btn carousel-btn-prev" aria-label="Previous screenshot">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="carousel-btn carousel-btn-next" aria-label="Next screenshot">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+
+          <div class="carousel-dots" role="tablist" aria-label="Slides"></div>
+
+          <div class="carousel-caption"></div>
+
+          <div class="thumbnails-container">
+            <div class="thumbnails-track">
             </div>
           </div>
         </div>
@@ -658,6 +922,162 @@ docker compose up --build -d</code></pre>
         ticking = true;
       }
     });
+
+    // Screenshots Carousel
+    (function() {
+      var images = [
+        { file: 'screenshots/landing-hero.png', label: 'Landing Page' },
+        { file: 'screenshots/login-page.png', label: 'Login' },
+        { file: 'screenshots/dashboard-overview.png', label: 'Dashboard' },
+        { file: 'screenshots/dashboard-products.png', label: 'Products' },
+        { file: 'screenshots/dashboard-warehouses.png', label: 'Warehouse' },
+        { file: 'screenshots/dashboard-customers.png', label: 'Customers' },
+        { file: 'screenshots/dashboard-sales.png', label: 'Sales' },
+        { file: 'screenshots/dashboard-pos.png', label: 'POS' },
+        { file: 'screenshots/dashboard-rh.png', label: 'HR Dashboard' },
+        { file: 'screenshots/dashboard-rh-employees.png', label: 'Employees' },
+        { file: 'screenshots/dashboard-rh-payroll.png', label: 'Payroll' },
+        { file: 'screenshots/dashboard-accounts.png', label: 'Accounts' },
+        { file: 'screenshots/dashboard-company.png', label: 'Company' },
+        { file: 'screenshots/dashboard-settings.png', label: 'Settings' }
+      ];
+
+      var current = 0;
+      var isTransitioning = false;
+      var autoplayTimer = null;
+      var touchStartX = 0;
+
+      var container = document.querySelector('.carousel-container');
+      if (!container) return;
+
+      var track = container.querySelector('.carousel-track');
+      var dotsContainer = container.querySelector('.carousel-dots');
+      var captionEl = container.querySelector('.carousel-caption');
+      var thumbnailsTrack = container.querySelector('.thumbnails-track');
+      var prevBtn = container.querySelector('.carousel-btn-prev');
+      var nextBtn = container.querySelector('.carousel-btn-next');
+
+      function buildSlides() {
+        images.forEach(function(img, i) {
+          var slide = document.createElement('div');
+          slide.className = 'carousel-slide';
+          slide.setAttribute('role', 'tabpanel');
+          slide.setAttribute('aria-roledescription', 'slide');
+          slide.setAttribute('aria-label', img.label + ' - Slide ' + (i + 1) + ' of ' + images.length);
+          var imgEl = document.createElement('img');
+          imgEl.src = img.file;
+          imgEl.alt = img.label;
+          imgEl.loading = i === 0 ? 'eager' : 'lazy';
+          slide.appendChild(imgEl);
+          track.appendChild(slide);
+
+          var dot = document.createElement('button');
+          dot.className = 'carousel-dot';
+          dot.setAttribute('role', 'tab');
+          dot.setAttribute('aria-label', 'Go to slide ' + (i + 1) + ': ' + img.label);
+          dot.addEventListener('click', function() { goTo(i); });
+          dotsContainer.appendChild(dot);
+
+          var thumbWrapper = document.createElement('button');
+          thumbWrapper.className = 'thumbnail';
+          thumbWrapper.setAttribute('aria-label', img.label);
+          var thumbImg = document.createElement('img');
+          thumbImg.src = img.file;
+          thumbImg.alt = img.label;
+          thumbImg.loading = 'lazy';
+          thumbWrapper.appendChild(thumbImg);
+          thumbWrapper.addEventListener('click', function() { goTo(i); });
+          thumbnailsTrack.appendChild(thumbWrapper);
+        });
+      }
+
+      function goTo(index) {
+        if (isTransitioning || index === current) return;
+        if (index < 0) index = images.length - 1;
+        if (index >= images.length) index = 0;
+
+        isTransitioning = true;
+        container.classList.add('sweeping');
+
+        setTimeout(function() {
+          current = index;
+          track.style.transform = 'translateX(-' + (index * 100) + '%)';
+          updateUI();
+        }, 200);
+
+        setTimeout(function() {
+          container.classList.remove('sweeping');
+          isTransitioning = false;
+        }, 500);
+      }
+
+      function updateUI() {
+        var dots = dotsContainer.querySelectorAll('.carousel-dot');
+        var thumbs = thumbnailsTrack.querySelectorAll('.thumbnail');
+
+        dots.forEach(function(d, i) {
+          d.classList.toggle('active', i === current);
+          d.setAttribute('aria-selected', i === current ? 'true' : 'false');
+        });
+
+        thumbs.forEach(function(t, i) {
+          t.classList.toggle('active', i === current);
+        });
+
+        captionEl.textContent = images[current].label;
+
+        var activeThumb = thumbnailsTrack.querySelector('.thumbnail.active');
+        if (activeThumb) {
+          activeThumb.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+      }
+
+      function prev() { goTo(current - 1); }
+      function next() { goTo(current + 1); }
+
+      function startAutoplay() {
+        stopAutoplay();
+        autoplayTimer = setInterval(next, 5000);
+      }
+
+      function stopAutoplay() {
+        if (autoplayTimer) {
+          clearInterval(autoplayTimer);
+          autoplayTimer = null;
+        }
+      }
+
+      prevBtn.addEventListener('click', prev);
+      nextBtn.addEventListener('click', next);
+
+      container.addEventListener('mouseenter', stopAutoplay);
+      container.addEventListener('mouseleave', startAutoplay);
+
+      document.addEventListener('keydown', function(e) {
+        var isVisible = container.offsetParent !== null;
+        if (!isVisible) return;
+        if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+      });
+
+      container.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoplay();
+      }, { passive: true });
+
+      container.addEventListener('touchend', function(e) {
+        var diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) next();
+          else prev();
+        }
+        startAutoplay();
+      }, { passive: true });
+
+      buildSlides();
+      updateUI();
+      startAutoplay();
+    })();
   </script>
 </body>
 </html>

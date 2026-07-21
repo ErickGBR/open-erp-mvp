@@ -31,7 +31,7 @@ import { HealthController } from './health.controller';
             type: 'postgres',
             url: databaseUrl,
             autoLoadEntities: true,
-            synchronize: config.get('NODE_ENV') !== 'production',
+            synchronize: true,
             ssl: config.get('NODE_ENV') === 'production' ? { rejectUnauthorized: false } : false,
           };
         }
@@ -43,7 +43,7 @@ import { HealthController } from './health.controller';
           password: config.get('DB_PASSWORD', 'postgres'),
           database: config.get('DB_DATABASE', 'openerp'),
           autoLoadEntities: true,
-          synchronize: config.get('NODE_ENV') !== 'production',
+          synchronize: true,
         };
       },
       inject: [ConfigService],

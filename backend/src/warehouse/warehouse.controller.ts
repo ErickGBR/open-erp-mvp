@@ -2,6 +2,7 @@ import { Controller, Get, Post, Patch, Delete, Body, Param, ParseIntPipe, UseGua
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { WarehouseService } from './warehouse.service';
 import { CreateWarehouseDto } from './dto/create-warehouse.dto';
+import { UpdateWarehouseDto } from './dto/update-warehouse.dto';
 import { CreateLocationDto } from './dto/create-location.dto';
 import { UpdateStockDto } from './dto/update-stock.dto';
 
@@ -27,7 +28,7 @@ export class WarehouseController {
   }
 
   @Patch('warehouses/:id')
-  updateWarehouse(@Param('id', ParseIntPipe) id: number, @Body() dto: Partial<CreateWarehouseDto>) {
+  updateWarehouse(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateWarehouseDto) {
     return this.service.updateWarehouse(id, dto);
   }
 

@@ -19,5 +19,5 @@ export function getInitialLanguage(): Language {
   const stored = localStorage.getItem('language');
   if (stored === 'en' || stored === 'es') return stored;
   
-  return detectBrowserLanguage();
+  return DEFAULT_LANG;
 }

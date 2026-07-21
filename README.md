@@ -203,93 +203,84 @@ MICROSOFT_CALLBACK_URL=http://localhost:3001/api/auth/microsoft/callback
 
 ### 🎬 Interactive Demos
 
-| Feature | GIF Demo |
-|---------|----------|
-| **Landing Page Scroll** | ![Landing Scroll](screenshots/landing-scroll.gif) |
-| **Auth Tab Switching** | ![Auth Tabs](screenshots/auth-tabs.gif) |
-| **Dashboard Navigation** | ![Dashboard Nav](screenshots/dashboard-nav.gif) |
+<p align="center">
+  <img src="screenshots/landing-scroll.gif" width="30%" alt="Landing Scroll" style="border-radius: 8px; box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); margin: 4px;" />
+  <img src="screenshots/auth-tabs.gif" width="30%" alt="Auth Tabs" style="border-radius: 8px; box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); margin: 4px;" />
+  <img src="screenshots/dashboard-nav.gif" width="30%" alt="Dashboard Nav" style="border-radius: 8px; box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); margin: 4px;" />
+</p>
 
-### Landing Page
+### 🖼️ Screenshot Gallery
 
-![Hero Section](screenshots/landing-hero.png)
-*Hero section with gradient effects and floating orbs*
+<details>
+<summary><strong>Click to expand — full dashboard gallery</strong></summary>
+<br />
 
-![Features Section](screenshots/landing-features.png)
-*Feature cards with glassmorphism design*
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="screenshots/landing-hero.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Landing Page — Hero</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-overview.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Dashboard Overview</em>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-products.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Products Management</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-warehouses.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Warehouse & Inventory</em>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-customers.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Customer Registry</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-sales.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Sales & Invoices</em>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-pos.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Point of Sale (POS)</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-rh.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>RH Dashboard</em>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-rh-employees.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Employee Management</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-rh-payroll.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Payroll Management</em>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-accounts.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Chart of Accounts</em>
+    </td>
+    <td width="50%" align="center">
+      <img src="screenshots/dashboard-company.png" width="95%" style="border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+      <br /><em>Company Settings</em>
+    </td>
+  </tr>
+</table>
 
-![Download & Install](screenshots/landing-download.png)
-*Docker and Ubuntu installation options*
+</details>
 
-### Authentication
-
-![Login Page](screenshots/login-page.png)
-*Login page with neon dark theme*
-
-### Blog
-
-![Blog Listing](screenshots/blog-page.png)
-*Blog with glassmorphism cards and tag system*
-
-### About
-
-![About Page](screenshots/about-page.png)
-*About page with team information*
-
-### Dashboard Overview
-
-![Dashboard Overview](screenshots/dashboard-overview.png)
-*Main dashboard with key metrics and recent activity*
-
-### Human Resources (RH)
-
-![RH Dashboard](screenshots/dashboard-rh.png)
-*RH dashboard with employee stats and payroll overview*
-
-![Employees](screenshots/dashboard-rh-employees.png)
-*Employee management with departments, positions, and contracts*
-
-![Payroll](screenshots/dashboard-rh-payroll.png)
-*Payroll period management with automatic calculations*
-
-### Point of Sale (POS)
-
-![Point of Sale](screenshots/dashboard-pos.png)
-*Quick-sale interface with product search and cart*
-
-### Warehouse & Inventory
-
-![Warehouse Management](screenshots/dashboard-warehouses.png)
-*Multi-warehouse inventory management*
-
-### Products
-
-![Products Management](screenshots/dashboard-products.png)
-*Product listing with CRUD operations and stock tracking*
-
-### Customers
-
-![Customer Registry](screenshots/dashboard-customers.png)
-*Customer management with purchase history*
-
-### Sales & Invoices
-
-![Sales & Invoices](screenshots/dashboard-sales.png)
-*Sales management with invoice creation and payment tracking*
-
-### Chart of Accounts
-
-![Chart of Accounts](screenshots/dashboard-accounts.png)
-*Hierarchical accounting plan with account categories*
-
-### Company Settings
-
-![Company Settings](screenshots/dashboard-company.png)
-*Company registration, tax IDs, and DTE configuration*
-
-### Settings & Profile
-
-![Settings & Profile](screenshots/dashboard-settings.png)
-*User settings and profile management*
+<br />
 
 </div>
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Patch, Body, UseGuards, Req } from '@nestjs/common';
+import { Controller, Get, Patch, Body, UseGuards, Req, NotFoundException } from '@nestjs/common';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { UsersService } from '../users/users.service';
 import { IsOptional, IsIn } from 'class-validator';
@@ -16,7 +16,8 @@ export class ProfileController {
 
   @Get()
   async getProfile(@Req() req: any) {
-    const user = await this.usersService.findById(req.user.sub);
+    const user = await this.usersService.findById(req.user.id);
+    if (!user) throw new NotFoundException('User not found');
     return {
       id: user.id,
       name: user.name,
@@ -28,7 +29,7 @@ export class ProfileController {
 
   @Patch()
   async updateProfile(@Req() req: any, @Body() dto: UpdateLanguageDto) {
-    const updated = await this.usersService.updateProfile(req.user.sub, dto);
+    const updated = await this.usersService.updateProfile(req.user.id, dto);
     return {
       id: updated.id,
       name: updated.name,

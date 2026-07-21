@@ -18,6 +18,7 @@ interface EmployeeData {
   dui: string | null;
   nit: string | null;
   nrc: string | null;
+  qrToken: string | null;
   email: string | null;
   phone: string | null;
   address: string | null;
@@ -461,6 +462,48 @@ export default function ClientPage() {
             <div>
               <label htmlFor="afpNumber" className="block text-sm font-medium text-slate-300">AFP Number</label>
               <input id="afpNumber" name="afpNumber" type="text" value={form.afpNumber} onChange={handleChange} className={inputClass('afpNumber')} />
+            </div>
+          </div>
+        </div>
+
+        {/* QR Code */}
+        <div>
+          <h2 className="text-sm font-semibold text-slate-300 mb-3 border-b border-cyan-500/10 pb-2">QR Code</h2>
+          <div className="flex items-center gap-6">
+            <div className="bg-white rounded-xl p-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${process.env.NEXT_PUBLIC_API_URL || '/api'}/rh/qr/${employeeId}`}
+                alt={`QR for ${form.firstName} ${form.lastName}`}
+                className="w-40 h-40"
+              />
+            </div>
+            <div className="space-y-3">
+              <a
+                href={`${process.env.NEXT_PUBLIC_API_URL || '/api'}/rh/qr/${employeeId}`}
+                download={`qr-${form.code}.png`}
+                className="btn-cyan text-sm inline-flex items-center gap-1.5"
+              >
+                Download QR
+              </a>
+              <br />
+              <button
+                type="button"
+                onClick={async () => {
+                  try {
+                    await api.get(`/rh/qr/${employeeId}/regenerate`);
+                    window.location.reload();
+                  } catch (err) {
+                    setSubmitError(err instanceof Error ? err.message : 'Error regenerating QR');
+                  }
+                }}
+                className="rounded-lg border border-amber-500/30 px-4 py-2 text-sm text-amber-400 hover:bg-amber-900/20 transition-colors"
+              >
+                Regenerate Token
+              </button>
+              <p className="text-xs text-slate-500 max-w-xs">
+                Scan this QR at the attendance kiosk to clock in/out.
+              </p>
             </div>
           </div>
         </div>

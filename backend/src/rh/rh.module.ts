@@ -14,6 +14,9 @@ import { PayrollPeriod } from './payroll-period.entity';
 import { PayrollDetail } from './payroll-detail.entity';
 import { PayrollEmailLog } from './payroll-email-log.entity';
 import { Company } from '../company/company.entity';
+import { Branch } from './branch.entity';
+import { Shift } from './shift.entity';
+import { ShiftAssignment } from './shift-assignment.entity';
 
 // Services
 import { DepartmentService } from './department.service';
@@ -27,6 +30,9 @@ import { PayrollCalculatorService } from './payroll-calculator.service';
 import { PdfService } from './pdf.service';
 import { EmailService } from './email.service';
 import { PayrollSchedulerService } from './payroll-scheduler.service';
+import { BranchService } from './branch.service';
+import { ShiftService } from './shift.service';
+import { ShiftAssignmentService } from './shift-assignment.service';
 
 // Controllers
 import { DepartmentController } from './department.controller';
@@ -37,6 +43,11 @@ import { BonusController } from './bonus.controller';
 import { LoanController } from './loan.controller';
 import { PayrollController } from './payroll.controller';
 import { RhDashboardController } from './rh-dashboard.controller';
+import { BranchController } from './branch.controller';
+import { ShiftController } from './shift.controller';
+import { ShiftAssignmentController } from './shift-assignment.controller';
+import { QrController } from './qr.controller';
+import { PublicAttendanceController } from './public-attendance.controller';
 
 @Module({
   imports: [
@@ -52,6 +63,9 @@ import { RhDashboardController } from './rh-dashboard.controller';
       PayrollDetail,
       PayrollEmailLog,
       Company,
+      Branch,
+      Shift,
+      ShiftAssignment,
     ]),
     ScheduleModule.forRoot(),
   ],
@@ -64,6 +78,11 @@ import { RhDashboardController } from './rh-dashboard.controller';
     LoanController,
     PayrollController,
     RhDashboardController,
+    BranchController,
+    ShiftController,
+    ShiftAssignmentController,
+    QrController,
+    PublicAttendanceController,
   ],
   providers: [
     DepartmentService,
@@ -77,6 +96,9 @@ import { RhDashboardController } from './rh-dashboard.controller';
     PdfService,
     EmailService,
     PayrollSchedulerService,
+    BranchService,
+    ShiftService,
+    ShiftAssignmentService,
   ],
   exports: [
     DepartmentService,
@@ -84,6 +106,9 @@ import { RhDashboardController } from './rh-dashboard.controller';
     PayrollService,
     PdfService,
     EmailService,
+    BranchService,
+    ShiftService,
+    ShiftAssignmentService,
   ],
 })
 export class RhModule {}

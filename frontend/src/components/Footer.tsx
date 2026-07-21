@@ -1,43 +1,47 @@
+'use client';
+
 import { Package } from 'lucide-react';
 import Link from 'next/link';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 /**
  * Footer component for the landing page with logo, description, link sections, and copyright.
  * Styled with the neon cyan/blue dark theme.
  */
 export default function Footer() {
+  const { t } = useLanguage();
   const linkSections = [
     {
-      title: 'Products',
+      title: t('header.nav.products'),
       links: [
-        { label: 'Dashboard', href: '/products' },
-        { label: 'Inventory', href: '/products#inventory' },
-        { label: 'Sales', href: '/products#sales' },
-        { label: 'Reports', href: '/products#reports' },
+        { label: t('header.subProducts.0'), href: '/products' },
+        { label: t('header.subProducts.1'), href: '/products#inventory' },
+        { label: t('header.subProducts.2'), href: '/products#sales' },
+        { label: t('header.subProducts.3'), href: '/products#reports' },
       ],
     },
     {
-      title: 'Customers',
+      title: t('header.nav.customers'),
       links: [
-        { label: 'All Customers', href: '/customers' },
-        { label: 'Analytics', href: '/customers#analytics' },
-        { label: 'Support', href: '/customers#support' },
+        { label: t('header.subCustomers.0'), href: '/customers' },
+        { label: t('header.subCustomers.1'), href: '/customers#analytics' },
+        { label: t('header.subCustomers.2'), href: '/customers#support' },
       ],
     },
     {
-      title: 'Sales',
+      title: t('header.nav.sales'),
       links: [
-        { label: 'New Sale', href: '/sales' },
-        { label: 'Invoices', href: '/sales#invoices' },
-        { label: 'Payments', href: '/sales#payments' },
+        { label: t('header.subSales.0'), href: '/sales' },
+        { label: t('header.subSales.1'), href: '/sales#invoices' },
+        { label: t('header.subSales.2'), href: '/sales#payments' },
       ],
     },
     {
-      title: 'About',
+      title: t('header.nav.about'),
       links: [
-        { label: 'Our Story', href: '/about' },
-        { label: 'Blog', href: '/blog' },
-        { label: 'Contact', href: '/about#contact' },
+        { label: t('header.subAbout.0'), href: '/about' },
+        { label: t('header.subAbout.1'), href: '/blog' },
+        { label: t('header.subAbout.2'), href: '/about#contact' },
       ],
     },
   ];
@@ -55,8 +59,7 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-3 max-w-xs text-sm text-slate-400">
-              Open-source Enterprise Resource Planning system. Streamline your business operations
-              with a modern, extensible platform.
+              {t('footer.description')}
             </p>
           </div>
 
@@ -83,7 +86,7 @@ export default function Footer() {
         {/* Tech Stack */}
         <div className="mt-8 pt-8 border-t border-cyan-500/10">
           <p className="text-center text-xs text-slate-500 uppercase tracking-widest mb-4">
-            Built with
+            {t('footer.builtWith')}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             {[
@@ -113,27 +116,27 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 border-t border-cyan-500/10 pt-8">
-          <p className="text-center text-sm text-slate-500">
-            &copy; 2026 Open ERP. Built with{' '}
-            <span className="text-cyan-400 mx-1">❤</span>{' '}
-            by{' '}
-            <a 
-              href="https://github.com/ErickGBR" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="font-medium text-slate-300 hover:text-cyan-400 transition-colors"
-            >
-              Erick Burgos
-            </a>
-            {' '}|{' '}
-            <a 
-              href="https://github.com/ErickGBR/run-mvp" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="text-slate-400 hover:text-cyan-400 transition-colors"
-            >
-              Source Code
-            </a>
+            <p className="text-center text-sm text-slate-500">
+              &copy; 2026 Open ERP. {t('footer.builtWith')}{' '}
+              <span className="text-cyan-400 mx-1">❤</span>{' '}
+              by{' '}
+              <a 
+                href="https://github.com/ErickGBR" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="font-medium text-slate-300 hover:text-cyan-400 transition-colors"
+              >
+                Erick Burgos
+              </a>
+              {' '}|{' '}
+              <a 
+                href="https://github.com/ErickGBR/run-mvp" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-slate-400 hover:text-cyan-400 transition-colors"
+              >
+                {t('footer.sourceCode')}
+              </a>
           </p>
         </div>
       </div>

@@ -146,7 +146,7 @@ export default function ClientPage() {
       name: form.name,
       description: form.description || undefined,
       price: Number(form.price),
-      cost: Number(form.cost) || undefined,
+      cost: form.cost,
       sku: form.sku || undefined,
       barcode: form.barcode || undefined,
       unitOfMeasure: form.unitOfMeasure || undefined,
@@ -165,7 +165,7 @@ export default function ClientPage() {
       const formData = new FormData();
       formData.append('file', file);
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/products/${productId}/image`,
+        `${process.env.NEXT_PUBLIC_API_URL || '/api'}/products/${productId}/image`,
         { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: formData }
       );
       if (res.ok) await loadProduct();

@@ -1,56 +1,19 @@
-databases:
-  - name: open-erp-db
-    databaseName: openerp
-    plan: free
-    ipAllowList: []
-
 services:
-  # ─── Backend API ──────────────────────────────────────────────
+  # ─── Single service: Backend + Frontend ────────────────────────
   - type: web
-    name: open-erp-backend
-    runtime: node
+    name: open-erp-mvp
+    runtime: docker
     plan: free
     region: oregon
-    rootDir: backend
-    buildCommand: npm ci && npm run build
-    startCommand: npm run start:prod
-    healthCheckPath: /api/health
-    envVars:
-      - key: NODE_ENV
-        value: production
-      - key: PORT
-        value: "3001"
-      - key: DATABASE_URL
-        fromDatabase:
-          name: open-erp-db
-          property: connectionString
-      - key: JWT_SECRET
-        sync: false
-      - key: JWT_EXPIRATION
-        value: 1d
-      - key: FRONTEND_URL
-        fromService:
-          name: open-erp-frontend
-          type: web
-          property: url
-      - key: DISABLE_LANDING
-        value: "true"
-
-  # ─── Frontend (Next.js) ───────────────────────────────────────
-  - type: web
-    name: open-erp-frontend
-    runtime: node
-    plan: free
-    region: oregon
-    rootDir: frontend
-    buildCommand: npm ci && npm run build
-    startCommand: npm run start
     healthCheckPath: /
     envVars:
       - key: NODE_ENV
         value: production
-      - key: BACKEND_INTERNAL_URL
-        fromService:
-          name: open-erp-backend
-          type: web
-          property: url
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRATION
+        value: 1d
+      - key: DISABLE_LANDING
+        value: "true"

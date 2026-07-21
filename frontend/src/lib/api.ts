@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 interface ApiOptions {
   method?: string;
@@ -30,7 +30,7 @@ async function request<T>(endpoint: string, options: ApiOptions = {}): Promise<T
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ message: 'Request failed' }));
-    throw new Error(error.message || `HTTP ${response.status}`);
+    throw new Error(`HTTP ${response.status}: ${error.message || 'Request failed'}`);
   }
 
   const text = await response.text();

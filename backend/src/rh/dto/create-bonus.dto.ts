@@ -5,7 +5,7 @@ export class CreateBonusDto {
   employeeId!: number;
 
   @IsString()
-  @IsIn(['performance', 'commission', 'christmas', 'other'])
+  @IsIn(['performance', 'commission', 'christmas', 'other', 'productivity', 'attendance', 'holiday'])
   type!: string;
 
   @IsNumber()

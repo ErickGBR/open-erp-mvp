@@ -7,6 +7,7 @@ import {
   Body,
   Param,
   UseGuards,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../auth/roles.guard';
@@ -94,7 +95,7 @@ export class UsersController {
    */
   @Patch(':id')
   @Roles(UserRole.ROOT)
-  async update(@Param('id') id: number, @Body() dto: UpdateUserDto) {
+  async update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateUserDto) {
     return this.usersService.updateByRoot(id, {
       role: dto.role,
       status: dto.status as UserStatus | undefined,
@@ -109,7 +110,7 @@ export class UsersController {
    */
   @Delete(':id')
   @Roles(UserRole.ROOT)
-  async remove(@Param('id') id: number) {
+  async remove(@Param('id', ParseIntPipe) id: number) {
     await this.usersService.deactivate(id);
     return { message: 'User deactivated' };
   }

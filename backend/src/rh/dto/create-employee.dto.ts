@@ -51,7 +51,7 @@ export class CreateEmployeeDto {
 
   @IsOptional()
   @IsString()
-  @IsIn(['monthly', 'hourly'])
+  @IsIn(['monthly', 'hourly', 'biweekly'])
   salaryType?: string;
 
   @IsOptional()

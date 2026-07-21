@@ -11,21 +11,21 @@
     "features": {
       "title": "Todo lo que necesitas para gestionar tu negocio",
       "subtitle": "Desde productos hasta reportes, Open ERP te cubre con una interfaz limpia e intuitiva.",
-      "products": {
-        "title": "Productos",
-        "description": "Gestiona tu inventario con facilidad. Controla niveles de stock, establece puntos de reorden y organiza productos por categorías."
+      "inventory": {
+        "title": "Productos e Inventario",
+        "description": "Gestión completa de productos con control de stock, códigos de barrera, categorías e inventario multi-bodega con registros de movimiento Kardex."
       },
-      "customers": {
-        "title": "Clientes",
-        "description": "Mantén un registro completo de tus clientes. Consulta historial de compras, gestiona contactos y construye relaciones más sólidas."
+      "hr": {
+        "title": "RRHH y Planilla",
+        "description": "Módulo completo de recursos humanos con gestión de empleados, control de asistencia, procesamiento de planilla, préstamos, bonificaciones y gestión de permisos."
       },
-      "sales": {
-        "title": "Ventas",
-        "description": "Crea facturas, registra pagos y monitorea tu pipeline de ventas. Mantente al tanto de cada transacción."
+      "pos": {
+        "title": "Ventas y POS",
+        "description": "Crea facturas, registra pagos y administra tu punto de venta con interfaz de venta rápida, búsqueda de productos y generación de documentos DTE electrónicos."
       },
-      "reports": {
-        "title": "Reportes",
-        "description": "Obtén información procesable con informes personalizables. Visualiza tus datos y toma decisiones informadas."
+      "accounting": {
+        "title": "Contabilidad y Reportes",
+        "description": "Catálogo de cuentas jerárquico, configuración de empresa con cumplimiento DTE El Salvador y analíticas de panel en tiempo real."
       }
     },
     "banners": {
@@ -80,7 +80,27 @@
         "open": { "title": "Abrir", "desc": "Accede a tu instancia ERP" }
       }
     },
-    "marquee": ["Inventario", "Facturas", "Clientes", "Reportes", "Analítica", "Órdenes", "Productos", "Pagos", "Panel", "Ventas"]
+    "marquee": ["Inventario", "Facturas", "Clientes", "Reportes", "Analítica", "Órdenes", "Productos", "Pagos", "Panel", "Ventas"],
+    "screenshots": {
+      "title": "Ve Open ERP en acción",
+      "subtitle": "Interfaz limpia y moderna para cada módulo del negocio",
+      "slides": {
+        "hero": "Página de Inicio",
+        "login": "Inicio de Sesión",
+        "dashboard": "Panel",
+        "products": "Productos",
+        "warehouses": "Bodegas",
+        "customers": "Clientes",
+        "sales": "Ventas",
+        "pos": "POS",
+        "hr": "Panel RRHH",
+        "employees": "Empleados",
+        "payroll": "Planilla",
+        "accounts": "Contabilidad",
+        "company": "Empresa",
+        "settings": "Configuración"
+      }
+    }
   },
   "header": {
     "features": "Funcionalidades",
@@ -89,11 +109,25 @@
     "blog": "Blog",
     "signIn": "Iniciar Sesión",
     "getStarted": "Comenzar",
-    "dashboard": "Panel"
+    "dashboard": "Panel",
+    "login": "Iniciar Sesión",
+    "nav": {
+      "products": "Productos",
+      "customers": "Clientes",
+      "sales": "Ventas",
+      "about": "Acerca de"
+    },
+    "subProducts": ["Panel", "Inventario", "Ventas", "Reportes"],
+    "subCustomers": ["Todos los Clientes", "Analítica", "Soporte"],
+    "subSales": ["Nueva Venta", "Facturas", "Pagos"],
+    "subAbout": ["Nuestra Historia", "Blog", "Contacto"]
   },
   "footer": {
     "rights": "Todos los derechos reservados.",
-    "language": "Idioma"
+    "language": "Idioma",
+    "description": "Sistema de Planificación de Recursos Empresariales de código abierto. Optimiza tus operaciones comerciales con una plataforma moderna y extensible.",
+    "builtWith": "Construido con",
+    "sourceCode": "Código Fuente"
   },
   "auth": {
     "login": {
@@ -128,8 +162,11 @@
       "title": "Recursos Humanos",
       "employees": "Empleados",
       "departments": "Departamentos",
-      "attendance": "Asistencia",
-      "leaves": "Permisos",
+    "branches": "Sucursales",
+    "shifts": "Turnos",
+    "assignments": "Asignaciones",
+    "attendance": "Asistencia",
+    "leaves": "Permisos",
       "bonuses": "Bonificaciones",
       "loans": "Préstamos",
       "payroll": "Planilla",
