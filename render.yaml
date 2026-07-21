@@ -8,12 +8,10 @@ services:
   # ─── Backend API ──────────────────────────────────────────────
   - type: web
     name: open-erp-backend
-    runtime: node
+    runtime: docker
     plan: free
     region: oregon
     rootDir: backend
-    buildCommand: npm ci && npm run build
-    startCommand: npm run start:prod
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
@@ -39,12 +37,10 @@ services:
   # ─── Frontend (Next.js) ───────────────────────────────────────
   - type: web
     name: open-erp-frontend
-    runtime: node
+    runtime: docker
     plan: free
     region: oregon
     rootDir: frontend
-    buildCommand: npm ci && npm run build
-    startCommand: npm run start
     healthCheckPath: /
     envVars:
       - key: NODE_ENV
