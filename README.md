@@ -12,11 +12,17 @@
   <img src="https://img.shields.io/badge/NestJS-v11-E0234E?style=flat&logo=nestjs" alt="NestJS" />
   <img src="https://img.shields.io/badge/Next.js-v16-000000?style=flat&logo=next.js" alt="Next.js" />
   <img src="https://img.shields.io/badge/React-v19-61DAFB?style=flat&logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/Tailwind-v4-06B6D4?style=flat&logo=tailwindcss" alt="Tailwind" />
+  <img src="https://img.shields.io/badge/Tailwind-v4-06B4D4?style=flat&logo=tailwindcss" alt="Tailwind" />
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript" alt="TypeScript" />
   <img src="https://img.shields.io/badge/PostgreSQL-4169E1?style=flat&logo=postgresql" alt="PostgreSQL" />
   <img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker" alt="Docker" />
   <img src="https://img.shields.io/badge/License-CC%20BY--NC%204.0-grey?style=flat" alt="CC BY-NC 4.0" />
+</p>
+
+<p align="center">
+  <a href="https://open-erp-mvp.onrender.com/">
+    <img src="https://img.shields.io/badge/Live_Demo-https://open--erp--mvp.onrender.com-00E676?style=for-the-badge&logo=render&logoColor=white" alt="Live Demo" />
+  </a>
 </p>
 
 ---
@@ -286,7 +292,7 @@ MICROSOFT_CALLBACK_URL=http://localhost:3001/api/auth/microsoft/callback
 
 ## 👨‍💻 Author
 
-**Erick Burgos** — [GitHub](https://github.com/ErickGBR)
+**Erick Burgos** — [GitHub](https://github.com/ErickGBR) — [Email](mailto:eburgos.web.developer@gmail.com)
 
 ## 📄 License
 
