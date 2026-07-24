@@ -80,12 +80,12 @@ export default function Header({ landing = false }: HeaderProps) {
   const navItems = useNavItems();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-cyan-500/10 bg-[#0a0a12]/95 backdrop-blur supports-[backdrop-filter]:bg-[#0a0a12]/80">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-surface/95 backdrop-blur supports-[backdrop-filter]:bg-surface/80">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 text-xl font-bold">
-          <Package className="h-6 w-6 text-cyan-400" />
-          <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+          <Package className="h-6 w-6 text-primary" />
+          <span className="bg-gradient-to-r from-primary to-primary-light bg-clip-text text-transparent">
             Open ERP
           </span>
         </Link>
@@ -102,7 +102,7 @@ export default function Header({ landing = false }: HeaderProps) {
               >
                 <button
                   type="button"
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-400 rounded-lg transition-colors hover:text-cyan-400 hover:bg-white/5"
+                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-text-secondary rounded-lg transition-colors hover:text-primary hover:bg-surface-hover"
                   aria-expanded={openDropdown === item.label}
                   aria-haspopup="true"
                 >
@@ -115,7 +115,7 @@ export default function Header({ landing = false }: HeaderProps) {
                 {/* Dropdown panel with glassmorphism */}
                 {openDropdown === item.label && (
                   <div
-                    className="absolute top-full left-0 mt-1 w-48 rounded-xl border border-cyan-500/10 bg-[#12121e]/95 backdrop-blur-xl shadow-2xl shadow-cyan-500/5 py-2 animate-[fadeIn_0.15s_ease-out]"
+                    className="absolute top-full left-0 mt-1 w-48 rounded-xl border border-border bg-surface-card/95 backdrop-blur-xl shadow-2xl shadow-primary/5 py-2 animate-[fadeIn_0.15s_ease-out]"
                     role="menu"
                   >
                     {item.children?.map((child) => (
@@ -123,7 +123,7 @@ export default function Header({ landing = false }: HeaderProps) {
                         key={child.label}
                         href={child.href}
                         role="menuitem"
-                        className="block px-4 py-2.5 text-sm text-slate-400 transition-colors hover:text-cyan-400 hover:bg-cyan-500/5"
+                        className="block px-4 py-2.5 text-sm text-text-secondary transition-colors hover:text-primary hover:bg-surface-hover"
                       >
                         {child.label}
                       </Link>
@@ -139,13 +139,13 @@ export default function Header({ landing = false }: HeaderProps) {
         <div className="hidden items-center gap-3 md:flex">
           <Link
             href="/auth?tab=login"
-            className="rounded-lg px-4 py-2 text-sm font-medium text-slate-300 transition-colors hover:text-white hover:bg-white/5"
+            className="rounded-lg px-4 py-2 text-sm font-medium text-text-secondary transition-colors hover:text-white hover:bg-surface-hover"
           >
             {t('header.login')}
           </Link>
           <Link
             href="/auth"
-            className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white transition-all hover:shadow-lg hover:shadow-cyan-500/25"
+            className="rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white transition-all hover:shadow-lg "
           >
             {t('header.signIn')}
           </Link>
@@ -155,7 +155,7 @@ export default function Header({ landing = false }: HeaderProps) {
         <button
           type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="inline-flex items-center justify-center rounded-lg p-2 text-slate-400 hover:bg-white/5 md:hidden"
+          className="inline-flex items-center justify-center rounded-lg p-2 text-text-secondary hover:bg-surface-hover md:hidden"
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileOpen}
         >
@@ -165,7 +165,7 @@ export default function Header({ landing = false }: HeaderProps) {
 
       {/* Mobile menu with accordion submenus */}
       {mobileOpen && (
-        <div className="border-t border-cyan-500/10 md:hidden">
+        <div className="border-t border-border md:hidden">
           <div className="space-y-1 px-4 pb-4 pt-2">
             {landing &&
               navItems.map((item) => (
@@ -177,7 +177,7 @@ export default function Header({ landing = false }: HeaderProps) {
                         mobileExpanded === item.label ? null : item.label,
                       )
                     }
-                    className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-cyan-400"
+                    className="flex w-full items-center justify-between rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-surface-hover hover:text-primary"
                     aria-expanded={mobileExpanded === item.label}
                   >
                     {item.label}
@@ -192,7 +192,7 @@ export default function Header({ landing = false }: HeaderProps) {
                           key={child.label}
                           href={child.href}
                           onClick={() => setMobileOpen(false)}
-                          className="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-cyan-400"
+                          className="block rounded-lg px-3 py-2 text-sm text-text-secondary hover:bg-surface-hover hover:text-primary"
                         >
                           {child.label}
                         </Link>
@@ -201,18 +201,18 @@ export default function Header({ landing = false }: HeaderProps) {
                   )}
                 </div>
               ))}
-            <hr className="my-2 border-cyan-500/10" />
+            <hr className="my-2 border-border" />
             <Link
               href="/auth?tab=login"
               onClick={() => setMobileOpen(false)}
-              className="block rounded-lg px-3 py-2 text-sm font-medium text-slate-400 hover:bg-white/5 hover:text-white"
+              className="block rounded-lg px-3 py-2 text-sm font-medium text-text-secondary hover:bg-surface-hover hover:text-white"
             >
               {t('header.login')}
             </Link>
             <Link
               href="/auth"
               onClick={() => setMobileOpen(false)}
-              className="block rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-3 py-2 text-sm font-semibold text-white text-center"
+              className="block rounded-lg bg-gradient-to-r from-primary to-primary-dark px-3 py-2 text-sm font-semibold text-white text-center"
             >
               {t('header.signIn')}
             </Link>

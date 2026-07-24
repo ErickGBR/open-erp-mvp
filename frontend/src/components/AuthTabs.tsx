@@ -68,24 +68,24 @@ export default function AuthTabs() {
   return (
     <div className="w-full max-w-md">
       {/* Title */}
-      <h2 className="mb-6 text-center text-xl font-bold text-white">
+      <h2 className="mb-6 text-center text-xl font-bold text-text-primary">
         Sign in to Open ERP
       </h2>
 
       {/* Glass card */}
-      <div className="glass-card rounded-xl p-8 glow-cyan-sm">
+      <div className="card p-8 shadow-md">
         {/* OAuth Buttons */}
         <div className="space-y-3">
           <a
             href={`${process.env.NEXT_PUBLIC_API_URL || '/api'}/auth/google`}
-            className="flex w-full items-center justify-center gap-3 rounded-lg border border-cyan-500/20 bg-white/5 px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-cyan-500/10 hover:border-cyan-500/40"
+            className="flex w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface-hover px-4 py-2.5 text-sm font-medium text-text-primary transition-all hover:bg-surface-hover hover:border-primary/40"
           >
             <GoogleIcon />
             Continue with Google
           </a>
           <a
             href={`${process.env.NEXT_PUBLIC_API_URL || '/api'}/auth/microsoft`}
-            className="flex w-full items-center justify-center gap-3 rounded-lg border border-cyan-500/20 bg-white/5 px-4 py-2.5 text-sm font-medium text-white transition-all hover:bg-cyan-500/10 hover:border-cyan-500/40"
+            className="flex w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface-hover px-4 py-2.5 text-sm font-medium text-text-primary transition-all hover:bg-surface-hover hover:border-primary/40"
           >
             <MicrosoftIcon />
             Continue with Microsoft 365
@@ -94,21 +94,21 @@ export default function AuthTabs() {
 
         {/* Divider */}
         <div className="flex items-center gap-3 my-6">
-          <div className="flex-1 border-t border-cyan-500/20" />
-          <span className="text-xs text-slate-500">or continue with email</span>
-          <div className="flex-1 border-t border-cyan-500/20" />
+          <div className="flex-1 border-t border-border" />
+          <span className="text-xs text-text-muted">or continue with email</span>
+          <div className="flex-1 border-t border-border" />
         </div>
 
         {/* Login form */}
         <form onSubmit={handleLogin} className="space-y-5">
           {loginError && (
-            <div className="rounded-lg bg-red-900/30 border border-red-500/30 p-3 text-sm text-red-300" role="alert">
+            <div className="rounded-lg bg-red-900/30 border border-red-500/30 p-3 text-sm text-danger" role="alert">
               {loginError}
             </div>
           )}
 
           <div>
-            <label htmlFor="auth-email" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="auth-email" className="block text-sm font-medium text-text-secondary">
               Email
             </label>
             <input
@@ -117,14 +117,14 @@ export default function AuthTabs() {
               required
               value={loginEmail}
               onChange={(e) => setLoginEmail(e.target.value)}
-              className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/40 mt-1"
+              className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2.5 text-sm text-white placeholder:text-text-muted transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 mt-1"
               placeholder="you@example.com"
               autoComplete="email"
             />
           </div>
 
           <div>
-            <label htmlFor="auth-password" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="auth-password" className="block text-sm font-medium text-text-secondary">
               Password
             </label>
             <input
@@ -133,7 +133,7 @@ export default function AuthTabs() {
               required
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
-              className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-500/30 focus:border-cyan-500/40 mt-1"
+              className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2.5 text-sm text-white placeholder:text-text-muted transition-all focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/40 mt-1"
               placeholder="••••••••"
               autoComplete="current-password"
             />
@@ -142,7 +142,7 @@ export default function AuthTabs() {
           <button
             type="submit"
             disabled={loginSubmitting}
-            className="btn-cyan w-full flex items-center justify-center"
+            className="btn-primary w-full flex items-center justify-center"
           >
             {loginSubmitting ? (
               <span className="flex items-center gap-2">
@@ -156,10 +156,10 @@ export default function AuthTabs() {
         </form>
 
         {/* Demo credentials hint */}
-        <div className="mt-6 rounded-lg border border-cyan-500/15 bg-cyan-500/5 p-3 text-center">
-          <p className="text-xs font-medium text-cyan-400 mb-1">Demo Credentials</p>
-          <p className="text-xs text-slate-400">
-            demo@openerp.com / <span className="font-mono text-slate-300">Demo123!</span>
+        <div className="mt-6 rounded-lg border border-border bg-surface-hover p-3 text-center">
+          <p className="text-xs font-medium text-primary mb-1">Demo Credentials</p>
+          <p className="text-xs text-text-secondary">
+            demo@openerp.com / <span className="font-mono text-text-secondary">Demo123!</span>
           </p>
         </div>
       </div>
