@@ -36,41 +36,41 @@ export default function NewWarehousePage() {
 
   return (
     <div className="max-w-lg mx-auto">
-      <h1 className="text-xl font-bold text-white mb-6">New Warehouse</h1>
-      <form onSubmit={handleSubmit} className="glass-card rounded-xl p-6 space-y-4">
+      <h1 className="text-xl font-bold text-text-primary mb-6">New Warehouse</h1>
+      <form onSubmit={handleSubmit} className="card p-6 space-y-4">
         <div>
-          <label className="text-xs text-slate-400 mb-1 block">Warehouse Name *</label>
+          <label className="text-xs text-text-secondary mb-1 block">Warehouse Name *</label>
           <input value={form.name} onChange={e => setForm({...form, name: e.target.value})} required
-            className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+            className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
         </div>
         <div>
-          <label className="text-xs text-slate-400 mb-1 block">Description</label>
+          <label className="text-xs text-text-secondary mb-1 block">Description</label>
           <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows={2}
-            className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+            className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
         </div>
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="text-xs text-slate-400 mb-1 block">Country</label>
+            <label className="text-xs text-text-secondary mb-1 block">Country</label>
             <input value={form.country} onChange={e => setForm({...form, country: e.target.value})}
-              className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+              className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
           </div>
           <div>
-            <label className="text-xs text-slate-400 mb-1 block">City</label>
+            <label className="text-xs text-text-secondary mb-1 block">City</label>
             <input value={form.city} onChange={e => setForm({...form, city: e.target.value})}
-              className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+              className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
           </div>
         </div>
         <div>
-            <label className="text-xs text-slate-400 mb-1 block">Locality</label>
+            <label className="text-xs text-text-secondary mb-1 block">Locality</label>
           <input value={form.locality} onChange={e => setForm({...form, locality: e.target.value})}
-            className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+            className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
         </div>
         <div>
-          <label className="text-xs text-slate-400 mb-1 block">Address</label>
+          <label className="text-xs text-text-secondary mb-1 block">Address</label>
           <input value={form.address} onChange={e => setForm({...form, address: e.target.value})}
-            className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+            className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
         </div>
-        <button type="submit" disabled={saving || !form.name} className="btn-cyan w-full">
+        <button type="submit" disabled={saving || !form.name} className="btn-primary w-full">
           {saving ? 'Saving…' : 'Create Warehouse'}
         </button>
       </form>

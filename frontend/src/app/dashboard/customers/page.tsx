@@ -101,14 +101,14 @@ export default function CustomersPage() {
       {/* Header */}
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#e2e8f0]">Customers</h1>
-          <p className="mt-1 text-sm text-slate-400">
+          <h1 className="text-2xl font-bold text-text-primary">Customers</h1>
+          <p className="mt-1 text-sm text-text-secondary">
             {total > 0 ? `${total} customer${total !== 1 ? 's' : ''} found` : 'Manage your customers'}
           </p>
         </div>
         <Link
           href="/dashboard/customers/new"
-          className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2"
+          className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:shadow-lg  focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
         >
           <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -125,7 +125,7 @@ export default function CustomersPage() {
           onChange={handleSearchChange}
           placeholder="Search by name…"
           aria-label="Search customers by name"
-          className="w-full rounded-lg border border-cyan-500/15 bg-[#12121e] px-4 py-2 text-sm text-[#e2e8f0] placeholder-slate-500 shadow-sm transition-colors focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 sm:w-72"
+          className="w-full rounded-lg border border-border bg-surface-card px-4 py-2 text-sm text-text-primary placeholder-slate-500 shadow-sm transition-colors focus:border-border focus:outline-none focus:ring-1 focus:ring-primary/50 sm:w-72"
         />
       </div>
 
@@ -133,7 +133,7 @@ export default function CustomersPage() {
       {error && (
         <div
           role="alert"
-          className="mb-4 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300"
+          className="mb-4 rounded-lg border border-danger/20 bg-danger-light px-4 py-3 text-sm text-danger"
         >
           {error}
           <button
@@ -148,16 +148,16 @@ export default function CustomersPage() {
       {/* Loading state */}
       {loading && (
         <div className="flex items-center justify-center py-20">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
-          <span className="ml-3 text-sm text-slate-400">Loading customers…</span>
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+          <span className="ml-3 text-sm text-text-secondary">Loading customers…</span>
         </div>
       )}
 
       {/* Empty state */}
       {!loading && !error && customers.length === 0 && (
-        <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center shadow-sm">
+        <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center shadow-sm">
           <svg
-            className="mx-auto h-12 w-12 text-slate-500"
+            className="mx-auto h-12 w-12 text-text-muted"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1}
@@ -169,8 +169,8 @@ export default function CustomersPage() {
               d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z"
             />
           </svg>
-          <h3 className="mt-4 text-sm font-semibold text-[#e2e8f0]">No customers yet</h3>
-          <p className="mt-1 text-sm text-slate-400">
+          <h3 className="mt-4 text-sm font-semibold text-text-primary">No customers yet</h3>
+          <p className="mt-1 text-sm text-text-secondary">
             {search
               ? 'No customers match your search. Try a different name.'
               : 'Get started by adding your first customer.'}
@@ -178,7 +178,7 @@ export default function CustomersPage() {
           {!search && (
             <Link
               href="/dashboard/customers/new"
-              className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-cyan-400 hover:text-cyan-300"
+              className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary-dark"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -191,64 +191,64 @@ export default function CustomersPage() {
 
       {/* Table */}
       {!loading && customers.length > 0 && (
-        <div className="overflow-hidden rounded-xl border border-cyan-500/10 bg-[#12121e] shadow-sm ">
+        <div className="overflow-hidden rounded-xl border border-border bg-surface-card shadow-sm ">
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-cyan-500/10">
+            <table className="min-w-full divide-y divide-border">
               <thead className="bg-white/[0.02]">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-text-secondary">
                     Name
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-text-secondary">
                     Company
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-text-secondary">
                     Document
                   </th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-text-secondary">
                     Email
                   </th>
-                  <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-slate-400 sm:table-cell">
+                  <th className="hidden px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-text-secondary sm:table-cell">
                     Phone
                   </th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <th className="px-4 py-3 text-center text-xs font-semibold uppercase tracking-wider text-text-secondary">
                     Status
                   </th>
-                  <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
+                  <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-text-secondary">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-cyan-500/5">
+              <tbody className="divide-y divide-border">
                 {customers.map((customer) => (
                   <tr key={customer.id} className="transition-colors hover:bg-white/[0.02]">
-                    <td className="whitespace-nowrap px-4 py-3 text-sm font-medium text-[#e2e8f0]">
+                    <td className="whitespace-nowrap px-4 py-3 text-sm font-medium text-text-primary">
                       {customer.name}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-400">
+                    <td className="whitespace-nowrap px-4 py-3 text-sm text-text-secondary">
                       {customer.company || '—'}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-400">
+                    <td className="whitespace-nowrap px-4 py-3 text-sm text-text-secondary">
                       {customer.document || '—'}
                     </td>
-                    <td className="whitespace-nowrap px-4 py-3 text-sm text-slate-400">
+                    <td className="whitespace-nowrap px-4 py-3 text-sm text-text-secondary">
                       {customer.email ? (
-                        <a href={`mailto:${customer.email}`} className="text-cyan-400 hover:underline">
+                        <a href={`mailto:${customer.email}`} className="text-primary hover:underline">
                           {customer.email}
                         </a>
                       ) : (
                         '—'
                       )}
                     </td>
-                    <td className="hidden whitespace-nowrap px-4 py-3 text-sm text-slate-400 sm:table-cell">
+                    <td className="hidden whitespace-nowrap px-4 py-3 text-sm text-text-secondary sm:table-cell">
                       {customer.phone || '—'}
                     </td>
                     <td className="whitespace-nowrap px-4 py-3 text-center">
                       <span
                         className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
                           customer.isActive
-                            ? 'bg-emerald-900/20 text-emerald-400'
-                            : 'bg-slate-500/20 text-slate-300'
+                            ? 'bg-emerald-900/20 text-success'
+                            : 'bg-slate-500/20 text-text-secondary'
                         }`}
                       >
                         {customer.isActive ? 'Active' : 'Inactive'}
@@ -259,7 +259,7 @@ export default function CustomersPage() {
                         <button
                           type="button"
                           onClick={() => router.push(`/dashboard/customers/${customer.id}`)}
-                          className="rounded-md px-2.5 py-1.5 text-sm font-medium text-slate-400 transition-colors hover:bg-white/[0.02] hover:text-[#e2e8f0] focus:outline-none focus:ring-2 focus:ring-cyan-500/50"
+                          className="rounded-md px-2.5 py-1.5 text-sm font-medium text-text-secondary transition-colors hover:bg-white/[0.02] hover:text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
                           aria-label={`Edit ${customer.name}`}
                         >
                           Edit
@@ -268,7 +268,7 @@ export default function CustomersPage() {
                           type="button"
                           onClick={() => handleDelete(customer)}
                           disabled={deletingId === customer.id}
-                          className="rounded-md px-2.5 py-1.5 text-sm font-medium text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-500/50 disabled:cursor-not-allowed disabled:opacity-50"
+                          className="rounded-md px-2.5 py-1.5 text-sm font-medium text-danger transition-colors hover:bg-red-500/10 hover:text-danger focus:outline-none focus:ring-2 focus:ring-red-500/50 disabled:cursor-not-allowed disabled:opacity-50"
                           aria-label={`Delete ${customer.name}`}
                         >
                           {deletingId === customer.id ? '…' : 'Delete'}
@@ -282,8 +282,8 @@ export default function CustomersPage() {
           </div>
 
           {/* Pagination */}
-          <div className="flex items-center justify-between border-t border-cyan-500/5 px-4 py-3">
-            <p className="text-sm text-slate-400">
+          <div className="flex items-center justify-between border-t border-border px-4 py-3">
+            <p className="text-sm text-text-secondary">
               Showing{' '}
               <span className="font-medium">{total > 0 ? (page - 1) * limit + 1 : 0}</span>
               {' — '}
@@ -296,7 +296,7 @@ export default function CustomersPage() {
                 type="button"
                 disabled={page <= 1}
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className="rounded-lg border border-cyan-500/15 bg-[#12121e] px-3 py-1.5 text-sm font-medium text-slate-300 shadow-sm transition-colors hover:bg-white/[0.02] disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg border border-border bg-surface-card px-3 py-1.5 text-sm font-medium text-text-secondary shadow-sm transition-colors hover:bg-white/[0.02] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Previous
               </button>
@@ -304,7 +304,7 @@ export default function CustomersPage() {
                 type="button"
                 disabled={page >= totalPages}
                 onClick={() => setPage((p) => p + 1)}
-                className="rounded-lg border border-cyan-500/15 bg-[#12121e] px-3 py-1.5 text-sm font-medium text-slate-300 shadow-sm transition-colors hover:bg-white/[0.02] disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-lg border border-border bg-surface-card px-3 py-1.5 text-sm font-medium text-text-secondary shadow-sm transition-colors hover:bg-white/[0.02] disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Next
               </button>

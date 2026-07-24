@@ -117,10 +117,10 @@ export default function ProductsPage() {
       <div>
         <HeaderBar onNew={() => router.push('/dashboard/products/new')} />
 
-        <div className="rounded-xl border border-cyan-500/10 bg-[#12121e]  shadow-sm">
+        <div className="rounded-xl border border-border bg-surface-card  shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-cyan-500/10 bg-white/[0.02] text-xs uppercase text-slate-400">
+              <thead className="border-b border-border bg-white/[0.02] text-xs uppercase text-text-secondary">
                 <tr>
                   <Th></Th>
                   <Th>Name</Th>
@@ -135,10 +135,10 @@ export default function ProductsPage() {
               </thead>
               <tbody>
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <tr key={i} className="border-b border-cyan-500/5">
+                  <tr key={i} className="border-b border-border">
                     {Array.from({ length: 9 }).map((_, j) => (
                       <td key={j} className="px-4 py-3">
-                        <div className="h-4 w-20 animate-pulse rounded bg-cyan-500/10" />
+                        <div className="h-4 w-20 animate-pulse rounded bg-surface-hover" />
                       </td>
                     ))}
                   </tr>
@@ -157,11 +157,11 @@ export default function ProductsPage() {
       <div>
         <HeaderBar onNew={() => router.push('/dashboard/products/new')} />
 
-        <div className="rounded-xl border border-red-500/20 bg-red-900/20 p-8 text-center">
-          <p className="text-sm font-medium text-red-400">{error}</p>
+        <div className="rounded-xl border border-danger/20 bg-danger-light p-8 text-center">
+          <p className="text-sm font-medium text-danger">{error}</p>
           <button
             onClick={fetchProducts}
-            className="mt-4 rounded-lg bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-red-500/25"
+            className="mt-4 rounded-lg bg-gradient-to-r from-red-500 to-red-600 px-4 py-2 text-sm font-semibold text-white shadow-sm "
           >
             Retry
           </button>
@@ -182,14 +182,14 @@ export default function ProductsPage() {
           onChange={(e) => handleSearchChange(e.target.value)}
           placeholder="Search products by name…"
           aria-label="Search products"
-          className="block w-full max-w-sm rounded-lg border border-cyan-500/15 px-3 py-2 text-sm shadow-sm placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
+          className="block w-full max-w-sm rounded-lg border border-border px-3 py-2 text-sm shadow-sm placeholder:text-text-muted focus:border-border focus:outline-none focus:ring-2 focus:ring-primary/30"
         />
       </div>
 
       {/* Error alert (non-blocking, shown above the table) */}
       {error && (
         <div
-          className="mb-4 rounded-lg bg-red-900/20 p-3 text-sm text-red-400"
+          className="mb-4 rounded-lg bg-danger-light p-3 text-sm text-danger"
           role="alert"
         >
           {error}
@@ -203,16 +203,16 @@ export default function ProductsPage() {
       )}
 
       {/* Table */}
-      <div className="rounded-xl border border-cyan-500/10 bg-[#12121e]  shadow-sm">
+      <div className="rounded-xl border border-border bg-surface-card  shadow-sm">
         {products.length === 0 ? (
           <div className="p-8 text-center">
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-text-secondary">
               {search ? 'No products match your search.' : 'No products found.'}
             </p>
             {!search && (
               <Link
                 href="/dashboard/products/new"
-                className="mt-3 inline-block rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25"
+                className="mt-3 inline-block rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg "
               >
                 Add your first product
               </Link>
@@ -221,7 +221,7 @@ export default function ProductsPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="border-b border-cyan-500/10 bg-white/[0.02] text-xs uppercase text-slate-400">
+              <thead className="border-b border-border bg-white/[0.02] text-xs uppercase text-text-secondary">
                 <tr>
                   <Th></Th>
                   <Th>Name</Th>
@@ -238,37 +238,37 @@ export default function ProductsPage() {
                 {products.map((product) => (
                   <tr
                     key={product.id}
-                    className="border-b border-cyan-500/5 transition-colors hover:bg-white/[0.02]"
+                    className="border-b border-border transition-colors hover:bg-white/[0.02]"
                   >
                     <td className="px-2 py-3">
                       {product.imageUrl ? (
                         <img src={product.imageUrl} alt="" className="w-8 h-8 rounded object-cover" />
                       ) : (
-                        <div className="w-8 h-8 rounded bg-white/5" />
+                        <div className="w-8 h-8 rounded bg-surface-hover" />
                       )}
                     </td>
-                    <td className="px-4 py-3 font-medium text-[#e2e8f0]">
-                      <Link href={`/dashboard/products/${product.id}`} className="hover:text-cyan-400">
+                    <td className="px-4 py-3 font-medium text-text-primary">
+                      <Link href={`/dashboard/products/${product.id}`} className="hover:text-primary">
                         {product.name}
                       </Link>
                     </td>
-                    <td className="px-4 py-3 text-slate-400 font-mono text-xs">
+                    <td className="px-4 py-3 text-text-secondary font-mono text-xs">
                       {product.sku || '—'}
                     </td>
                     <td className="px-4 py-3">
                       {product.barcode ? (
-                        <span className="font-mono text-xs text-cyan-400">{product.barcode}</span>
+                        <span className="font-mono text-xs text-primary">{product.barcode}</span>
                       ) : (
-                        <span className="text-slate-600">—</span>
+                        <span className="text-text-muted">—</span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-[#e2e8f0]">
+                    <td className="px-4 py-3 text-text-primary">
                       {formatCurrency(product.price)}
                     </td>
                     <td className="px-4 py-3">
                       <StockBadge stock={product.stock} />
                     </td>
-                    <td className="px-4 py-3 text-xs text-slate-400">
+                    <td className="px-4 py-3 text-xs text-text-secondary">
                       {UNITS[product.unitOfMeasure] || product.unitOfMeasure}
                     </td>
                     <td className="px-4 py-3">
@@ -278,14 +278,14 @@ export default function ProductsPage() {
                       <div className="flex items-center gap-3">
                         <Link
                           href={`/dashboard/products/${product.id}`}
-                          className="text-sm font-medium text-cyan-400 hover:text-cyan-300"
+                          className="text-sm font-medium text-primary hover:text-primary-dark"
                         >
                           Edit
                         </Link>
                         <button
                           onClick={() => handleDelete(product)}
                           disabled={deletingId === product.id}
-                          className="text-sm font-medium text-red-400 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-50"
+                          className="text-sm font-medium text-danger hover:text-danger disabled:cursor-not-allowed disabled:opacity-50"
                         >
                           {deletingId === product.id ? 'Deleting…' : 'Delete'}
                         </button>
@@ -321,10 +321,10 @@ export default function ProductsPage() {
 function HeaderBar({ onNew }: { onNew: () => void }) {
   return (
     <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold text-[#e2e8f0]">Products</h1>
+          <h1 className="text-2xl font-bold text-text-primary">Products</h1>
       <button
         onClick={onNew}
-        className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2 focus:ring-offset-[#0a0a12]"
+        className="rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg  focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-2"
       >
         + New Product
       </button>
@@ -345,11 +345,11 @@ function Th({ children }: { children?: React.ReactNode }) {
 function StockBadge({ stock }: { stock: number }) {
   let colorClass: string;
   if (stock <= 0) {
-    colorClass = 'bg-red-900/20 text-red-400';
+    colorClass = 'bg-danger-light text-danger';
   } else if (stock < 10) {
-    colorClass = 'bg-amber-900/20 text-amber-400';
+    colorClass = 'bg-amber-900/20 text-warning';
   } else {
-    colorClass = 'bg-emerald-900/20 text-emerald-400';
+    colorClass = 'bg-emerald-900/20 text-success';
   }
 
   return (
@@ -369,8 +369,8 @@ function StatusBadge({ isActive }: { isActive: boolean }) {
     <span
       className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
         isActive
-          ? 'bg-emerald-900/20 text-emerald-400'
-          : 'bg-slate-500/20 text-slate-300'
+          ? 'bg-emerald-900/20 text-success'
+          : 'bg-slate-500/20 text-text-secondary'
       }`}
     >
       {isActive ? 'Active' : 'Inactive'}
@@ -395,7 +395,7 @@ function PaginationBar({
   onNext: () => void;
 }) {
   return (
-    <div className="mt-4 flex items-center justify-between text-sm text-slate-400">
+    <div className="mt-4 flex items-center justify-between text-sm text-text-secondary">
       <p>
         Showing page {page} of {totalPages} ({total} total products)
       </p>
@@ -403,14 +403,14 @@ function PaginationBar({
         <button
           onClick={onPrev}
           disabled={page <= 1}
-          className="rounded-lg border border-cyan-500/15 px-3 py-1.5 text-sm font-medium text-slate-300 shadow-sm hover:bg-white/[0.02] focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary shadow-sm hover:bg-white/[0.02] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
           ← Previous
         </button>
         <button
           onClick={onNext}
           disabled={page >= totalPages}
-          className="rounded-lg border border-cyan-500/15 px-3 py-1.5 text-sm font-medium text-slate-300 shadow-sm hover:bg-white/[0.02] focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-lg border border-border px-3 py-1.5 text-sm font-medium text-text-secondary shadow-sm hover:bg-white/[0.02] focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Next →
         </button>
