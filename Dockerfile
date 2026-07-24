@@ -3,48 +3,54 @@
 # ================================================================
 FROM node:22-alpine AS backend-builder
 
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
+
 WORKDIR /app
 
-COPY backend/package*.json backend/tsconfig*.json backend/nest-cli.json ./
-RUN npm ci
+COPY backend/package.json backend/pnpm-lock.yaml backend/tsconfig*.json backend/nest-cli.json ./
+RUN pnpm install --frozen-lockfile
 
 COPY backend/ .
-RUN rm -f tsconfig.tsbuildinfo && npm run build
+RUN rm -f tsconfig.tsbuildinfo && pnpm run build
 
 # ================================================================
 # Stage 2: Build Frontend (Next.js)
 # ================================================================
 FROM node:22-alpine AS frontend-builder
 
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
+
 WORKDIR /app
 
-COPY frontend/package*.json frontend/tsconfig*.json frontend/next.config.* ./
-RUN npm ci
+COPY frontend/package.json frontend/pnpm-lock.yaml frontend/tsconfig*.json frontend/next.config.* ./
+RUN pnpm install --frozen-lockfile
 
 COPY frontend/ .
 COPY frontend/messages ./messages
 
-RUN npm run build
+RUN pnpm run build
 
 # ================================================================
 # Stage 3: Runtime — both services in one container
 # ================================================================
 FROM node:22-alpine AS runner
 
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
+
 RUN addgroup --system --gid 1001 appgroup && \
     adduser --system --uid 1001 appuser
 
 # ── Backend dependencies & dist ──
 WORKDIR /app/backend
-COPY --from=backend-builder /app/package*.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+COPY --from=backend-builder /app/package.json /app/pnpm-lock.yaml ./
+RUN pnpm install --prod --frozen-lockfile && pnpm store prune
 COPY --from=backend-builder /app/dist ./dist
 RUN mkdir -p /app/uploads/products
 
 # ── Frontend dependencies & build ──
 WORKDIR /app/frontend
-COPY --from=frontend-builder /app/package*.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+COPY --from=frontend-builder /app/package.json /app/pnpm-lock.yaml ./
+RUN pnpm install --prod --frozen-lockfile && pnpm store prune
 COPY --from=frontend-builder /app/.next ./.next
 COPY --from=frontend-builder /app/public ./public
 COPY --from=frontend-builder /app/package.json ./
