@@ -47,6 +47,9 @@ importers:
       class-validator:
         specifier: ^0.15.1
         version: 0.15.1
+      multer:
+        specifier: 2.2.0
+        version: 2.2.0
       nodemailer:
         specifier: ^9.0.3
         version: 9.0.3

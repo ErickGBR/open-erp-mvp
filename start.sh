@@ -11,7 +11,7 @@ echo "Backend started on :3001 (PID: $BACKEND_PID)"
 
 # Frontend: run on Render's PORT (default 3000)
 cd /app/frontend
-node node_modules/.bin/next start -p ${PORT:-3000} &
+./node_modules/.bin/next start -p ${PORT:-3000} &
 FRONTEND_PID=$!
 echo "Frontend started on :${PORT:-3000} (PID: $FRONTEND_PID)"
 
