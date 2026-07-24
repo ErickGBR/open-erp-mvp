@@ -302,10 +302,10 @@ export default function POSPage() {
 
         {/* Actions */}
         <div className="flex gap-3 max-w-sm w-full">
-          <button onClick={handlePrint} className="btn-cyan flex-1 flex items-center justify-center gap-2">
+          <button onClick={handlePrint} className="btn-primary flex-1 flex items-center justify-center gap-2">
             <Printer className="w-4 h-4" /> Print
           </button>
-          <button onClick={() => setResult(null)} className="btn-cyan flex-1">
+          <button onClick={() => setResult(null)} className="btn-primary flex-1">
             New Sale
           </button>
         </div>
@@ -319,13 +319,13 @@ export default function POSPage() {
       <div className="flex-1 flex flex-col min-w-0">
         {/* Search */}
         <div className="relative mb-3">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-muted" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, code or barcode…"
-            className="w-full rounded-lg bg-white/5 border border-cyan-500/15 pl-10 pr-3 py-2.5 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
+            className="w-full rounded-lg bg-surface-hover border border-border pl-10 pr-3 py-2.5 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/30"
             autoFocus
           />
         </div>
@@ -337,51 +337,51 @@ export default function POSPage() {
               key={product.id}
               onClick={() => addToCart(product)}
               disabled={product.stock <= 0}
-              className={`glass-card rounded-xl p-2.5 text-left transition-all ${
-                product.stock <= 0 ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:border-cyan-500/30'
+              className={`card p-2.5 text-left transition-all ${
+                product.stock <= 0 ? 'opacity-40 cursor-not-allowed' : 'cursor-pointer hover:border-border'
               }`}
             >
               {product.imageUrl ? (
                 <img src={product.imageUrl} alt={product.name}
-                  className="w-full h-20 object-cover rounded-lg mb-2 bg-white/5" />
+                  className="w-full h-20 object-cover rounded-lg mb-2 bg-surface-hover" />
               ) : (
-                <div className="w-full h-20 rounded-lg mb-2 bg-white/5 flex items-center justify-center">
-                  <Package className="w-8 h-8 text-slate-600" />
+                <div className="w-full h-20 rounded-lg mb-2 bg-surface-hover flex items-center justify-center">
+                  <Package className="w-8 h-8 text-text-muted" />
                 </div>
               )}
-              <p className="text-xs font-medium text-white truncate">{product.name}</p>
-              <p className="text-sm font-bold text-cyan-400 mt-0.5">${Number(product.price).toFixed(2)}</p>
+              <p className="text-xs font-medium text-text-primary truncate">{product.name}</p>
+              <p className="text-sm font-bold text-primary mt-0.5">${Number(product.price).toFixed(2)}</p>
               <div className="flex items-center justify-between mt-1">
-                <span className={`text-[10px] ${product.stock > 0 ? 'text-emerald-400' : 'text-red-400'}`}>
+                <span className={`text-[10px] ${product.stock > 0 ? 'text-success' : 'text-danger'}`}>
                   {product.stock > 0 ? `Stock: ${product.stock}` : 'Out of Stock'}
                 </span>
-                <span className="text-[10px] text-slate-500">{UNITS[product.unitOfMeasure] || product.unitOfMeasure}</span>
+                <span className="text-[10px] text-text-muted">{UNITS[product.unitOfMeasure] || product.unitOfMeasure}</span>
               </div>
               {product.barcode && (
-                <p className="text-[8px] text-slate-600 mt-0.5 font-mono">Code: {product.barcode}</p>
+                <p className="text-[8px] text-text-muted mt-0.5 font-mono">Code: {product.barcode}</p>
               )}
             </button>
           ))}
           {filteredProducts.length === 0 && (
-            <p className="col-span-full text-center text-slate-500 py-8">No products found</p>
+            <p className="col-span-full text-center text-text-muted py-8">No products found</p>
           )}
         </div>
       </div>
 
       {/* Cart panel */}
-      <div className="w-80 flex flex-col glass-card rounded-xl">
-        <div className="p-3 border-b border-cyan-500/10">
-          <div className="flex items-center gap-2 text-white font-semibold text-sm">
-            <ShoppingCart className="w-4 h-4 text-cyan-400" />
+      <div className="w-80 flex flex-col card">
+        <div className="p-3 border-b border-border">
+          <div className="flex items-center gap-2 text-text-primary font-semibold text-sm">
+            <ShoppingCart className="w-4 h-4 text-primary" />
             Sale ({cart.length} items)
           </div>
         </div>
 
         {/* Customer selection */}
-        <div className="px-3 py-2 border-b border-cyan-500/5 space-y-1">
+        <div className="px-3 py-2 border-b border-border space-y-1">
           <button
             onClick={() => { setShowCustomerSelect(!showCustomerSelect); setShowReceiverForm(false); }}
-            className="text-xs text-slate-400 hover:text-cyan-400 transition-colors w-full text-left"
+            className="text-xs text-text-secondary hover:text-primary transition-colors w-full text-left"
           >
             {selectedCustomer
               ? `Customer: ${selectedCustomer.name}`
@@ -397,24 +397,24 @@ export default function POSPage() {
                 value={customerSearch}
                 onChange={(e) => setCustomerSearch(e.target.value)}
                 placeholder="Search customer…"
-                className="w-full rounded bg-white/5 border border-cyan-500/10 px-2 py-1 text-xs text-white placeholder:text-slate-500"
+                className="w-full rounded bg-surface-hover border border-border px-2 py-1 text-xs text-text-primary placeholder:text-text-muted"
               />
               <button
                 onClick={() => { setSelectedCustomerId(null); setShowCustomerSelect(false); }}
-                className="block w-full text-left text-xs text-slate-500 hover:text-white py-1"
+                className="block w-full text-left text-xs text-text-muted hover:text-text-primary py-1"
               >
                 — Final Consumer —
               </button>
               <button
                 onClick={() => { setShowCustomerSelect(false); setShowReceiverForm(true); }}
-                className="block w-full text-left text-xs text-cyan-400 hover:text-cyan-300 py-1"
+                className="block w-full text-left text-xs text-primary hover:text-primary-dark py-1"
               >
                 + Enter data manually
               </button>
               {customers.filter(c => !customerSearch || c.name.toLowerCase().includes(customerSearch.toLowerCase())).map(c => (
                 <button key={c.id} onClick={() => { setSelectedCustomerId(c.id); setShowCustomerSelect(false); }}
-                  className={`block w-full text-left text-xs py-0.5 ${selectedCustomerId === c.id ? 'text-cyan-400' : 'text-slate-400 hover:text-white'}`}>
-                  {c.name} {c.nit && <span className="text-slate-600">({c.nit})</span>}
+                  className={`block w-full text-left text-xs py-0.5 ${selectedCustomerId === c.id ? 'text-primary' : 'text-text-secondary hover:text-text-primary'}`}>
+                  {c.name} {c.nit && <span className="text-text-muted">({c.nit})</span>}
                 </button>
               ))}
             </div>
@@ -423,13 +423,13 @@ export default function POSPage() {
           {showReceiverForm && (
             <div className="space-y-1 text-xs">
               <input placeholder="NIT" value={receiverForm.nit} onChange={e => setReceiverForm(p => ({...p, nit: e.target.value}))}
-                className="w-full rounded bg-white/5 border border-cyan-500/10 px-2 py-1 text-white placeholder:text-slate-500" />
+                className="w-full rounded bg-surface-hover border border-border px-2 py-1 text-text-primary placeholder:text-text-muted" />
               <input placeholder="NRC" value={receiverForm.nrc} onChange={e => setReceiverForm(p => ({...p, nrc: e.target.value}))}
-                className="w-full rounded bg-white/5 border border-cyan-500/10 px-2 py-1 text-white placeholder:text-slate-500" />
+                className="w-full rounded bg-surface-hover border border-border px-2 py-1 text-text-primary placeholder:text-text-muted" />
               <input placeholder="Name / Business Name" value={receiverForm.name} onChange={e => setReceiverForm(p => ({...p, name: e.target.value}))}
-                className="w-full rounded bg-white/5 border border-cyan-500/10 px-2 py-1 text-white placeholder:text-slate-500" />
+                className="w-full rounded bg-surface-hover border border-border px-2 py-1 text-text-primary placeholder:text-text-muted" />
               <input placeholder="Address" value={receiverForm.address} onChange={e => setReceiverForm(p => ({...p, address: e.target.value}))}
-                className="w-full rounded bg-white/5 border border-cyan-500/10 px-2 py-1 text-white placeholder:text-slate-500" />
+                className="w-full rounded bg-surface-hover border border-border px-2 py-1 text-text-primary placeholder:text-text-muted" />
             </div>
           )}
         </div>
@@ -437,32 +437,32 @@ export default function POSPage() {
         {/* Cart items */}
         <div className="flex-1 overflow-y-auto p-3 space-y-2">
           {cart.length === 0 && (
-            <p className="text-center text-slate-500 text-sm py-8">Select products</p>
+            <p className="text-center text-text-muted text-sm py-8">Select products</p>
           )}
           {cart.map(item => (
-            <div key={item.productId} className="bg-white/5 rounded-lg p-2">
+            <div key={item.productId} className="bg-surface-hover rounded-lg p-2">
               <div className="flex items-start justify-between">
-                <p className="text-xs text-white font-medium truncate flex-1">{item.productName}</p>
-                <button onClick={() => removeFromCart(item.productId)} className="text-slate-500 hover:text-red-400 ml-1">
+                <p className="text-xs text-text-primary font-medium truncate flex-1">{item.productName}</p>
+                <button onClick={() => removeFromCart(item.productId)} className="text-text-muted hover:text-danger ml-1">
                   <Trash2 className="w-3 h-3" />
                 </button>
               </div>
-              {item.barcode && <p className="text-[9px] text-slate-600 font-mono">{item.barcode}</p>}
+              {item.barcode && <p className="text-[9px] text-text-muted font-mono">{item.barcode}</p>}
               <div className="flex items-center justify-between mt-1.5">
                 <div className="flex items-center gap-1.5">
                   <button onClick={() => updateQuantity(item.productId, -1)}
-                    className="w-5 h-5 rounded bg-white/10 flex items-center justify-center text-slate-300 hover:bg-white/20">
+                    className="w-5 h-5 rounded bg-white/10 flex items-center justify-center text-text-secondary hover:bg-white/20">
                     <Minus className="w-2.5 h-2.5" />
                   </button>
-                  <span className="text-xs text-white font-mono w-5 text-center">{item.quantity}</span>
+                  <span className="text-xs text-text-primary font-mono w-5 text-center">{item.quantity}</span>
                   <button onClick={() => updateQuantity(item.productId, 1)}
-                    className="w-5 h-5 rounded bg-white/10 flex items-center justify-center text-slate-300 hover:bg-white/20">
+                    className="w-5 h-5 rounded bg-white/10 flex items-center justify-center text-text-secondary hover:bg-white/20">
                     <Plus className="w-2.5 h-2.5" />
                   </button>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-cyan-400 font-mono">${(Number(item.price) * item.quantity).toFixed(2)}</p>
-                  <p className="text-[9px] text-slate-500">${Number(item.price).toFixed(2)} each</p>
+                  <p className="text-xs text-primary font-mono">${(Number(item.price) * item.quantity).toFixed(2)}</p>
+                  <p className="text-[9px] text-text-muted">${Number(item.price).toFixed(2)} each</p>
                 </div>
               </div>
             </div>
@@ -470,25 +470,25 @@ export default function POSPage() {
         </div>
 
         {/* Totals & Checkout */}
-        <div className="p-3 border-t border-cyan-500/10 space-y-2">
+        <div className="p-3 border-t border-border space-y-2">
           {error && (
-            <div className="text-xs text-red-300 bg-red-900/30 rounded p-2">{error}</div>
+            <div className="text-xs text-danger bg-danger-light rounded p-2">{error}</div>
           )}
-          <div className="flex justify-between text-xs text-slate-400">
+          <div className="flex justify-between text-xs text-text-secondary">
             <span>Subtotal</span>
-            <span className="text-white font-mono">${subtotal.toFixed(2)}</span>
+            <span className="text-text-primary font-mono">${subtotal.toFixed(2)}</span>
           </div>
-          <div className="flex justify-between text-xs text-slate-400">
+          <div className="flex justify-between text-xs text-text-secondary">
             <span>VAT ({taxRate}%)</span>
-            <span className="text-white font-mono">${tax.toFixed(2)}</span>
+            <span className="text-text-primary font-mono">${tax.toFixed(2)}</span>
           </div>
           <div className="flex justify-between text-base font-bold">
-            <span className="text-white">TOTAL</span>
-            <span className="text-cyan-400">${total.toFixed(2)}</span>
+            <span className="text-text-primary">TOTAL</span>
+            <span className="text-primary">${total.toFixed(2)}</span>
           </div>
           <button onClick={handleCheckout}
             disabled={cart.length === 0 || submitting}
-            className="btn-cyan w-full text-sm">
+            className="btn-primary w-full text-sm">
             {submitting ? 'Processing…' : `Charge $${total.toFixed(2)}`}
           </button>
         </div>
