@@ -26,31 +26,31 @@ function useFeatures(): Feature[] {
       icon: Package,
       title: t('landing.features.inventory.title'),
       description: t('landing.features.inventory.description'),
-      color: 'from-cyan-400 to-blue-500',
+      color: 'from-primary to-primary-dark',
     },
     {
       icon: Users,
       title: t('landing.features.hr.title'),
       description: t('landing.features.hr.description'),
-      color: 'from-blue-400 to-purple-500',
+      color: 'from-primary-light to-primary',
     },
     {
       icon: Receipt,
       title: t('landing.features.pos.title'),
       description: t('landing.features.pos.description'),
-      color: 'from-cyan-400 to-teal-500',
+      color: 'from-primary to-navy',
     },
     {
       icon: BarChart3,
       title: t('landing.features.accounting.title'),
       description: t('landing.features.accounting.description'),
-      color: 'from-blue-400 to-cyan-500',
+      color: 'from-primary-light to-primary-dark',
     },
   ];
 }
 
 /**
- * Landing page — showcases Open ERP with a neon cyan/blue dark theme,
+ * Landing page — showcases Open ERP with a corporate premium theme,
  * floating orb background, features grid, and a glassmorphism CTA.
  */
 export default function LandingPage() {
@@ -83,7 +83,7 @@ export default function LandingPage() {
 
 
   return (
-    <div className="min-h-screen bg-[#0a0a12] overflow-hidden">
+    <div className="min-h-screen bg-surface overflow-hidden">
 
       {/* Floating orbs background with parallax scroll */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -116,25 +116,25 @@ export default function LandingPage() {
         <section className="relative min-h-screen flex items-center justify-center px-4">
           <div className="max-w-4xl mx-auto text-center">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-sm mb-8">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-surface-hover text-primary text-sm mb-8">
               <Sparkles className="w-4 h-4" />
               <span>{t('landing.badge')}</span>
             </div>
 
             {/* Main heading with gradient sweep */}
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
-              <span className="text-white">{t('landing.hero.welcome')}</span>
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-cyan-300 bg-clip-text text-transparent gradient-sweep">
+              <span className="text-text-primary">{t('landing.hero.welcome')}</span>
+              <span className="bg-gradient-to-r from-primary via-primary-light to-navy bg-clip-text text-transparent gradient-sweep">
                 {t('landing.hero.title')}
               </span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-lg sm:text-xl text-text-secondary max-w-2xl mx-auto mb-10 leading-relaxed">
               {t('landing.hero.subtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="#download" className="btn-cyan inline-flex items-center gap-2 text-base">
+              <a href="#download" className="btn-primary inline-flex items-center gap-2 text-base">
                 <Download className="w-5 h-5" />
                 {t('landing.hero.download')}
               </a>
@@ -149,14 +149,14 @@ export default function LandingPage() {
         </section>
 
         {/* MARQUEE BANNER */}
-        <div className="relative py-8 overflow-hidden border-y border-cyan-500/10">
+        <div className="relative py-8 overflow-hidden border-y border-border">
           <div className="absolute inset-0 bg-gradient-to-r from-[#0a0a12] via-transparent to-[#0a0a12] z-10 pointer-events-none" />
           <div className="flex animate-marquee whitespace-nowrap">
             {/* First row */}
             <div className="flex items-center gap-12 mx-8">
               {[0,1,2,3,4,5,6,7,8,9].map((i) => (
-                <span key={i} className="text-sm text-slate-500 font-medium tracking-wider uppercase">
-                  <span className="text-cyan-400 mr-2">◆</span>
+                <span key={i} className="text-sm text-text-muted font-medium tracking-wider uppercase">
+                  <span className="text-primary mr-2">◆</span>
                   {t(`landing.marquee.${i}`)}
                 </span>
               ))}
@@ -164,8 +164,8 @@ export default function LandingPage() {
             {/* Duplicated for continuous effect */}
             <div className="flex items-center gap-12 mx-8">
               {[0,1,2,3,4,5,6,7,8,9].map((i) => (
-                <span key={`${i}-dup`} className="text-sm text-slate-500 font-medium tracking-wider uppercase">
-                  <span className="text-cyan-400 mr-2">◆</span>
+                <span key={`${i}-dup`} className="text-sm text-text-muted font-medium tracking-wider uppercase">
+                  <span className="text-primary mr-2">◆</span>
                   {t(`landing.marquee.${i}`)}
                 </span>
               ))}
@@ -180,8 +180,8 @@ export default function LandingPage() {
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {t('landing.features.title')}
               </h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto glow-cyan-sm" />
-              <p className="mt-4 text-slate-400 text-lg max-w-xl mx-auto">
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-dark rounded-full mx-auto shadow-md" />
+              <p className="mt-4 text-text-secondary text-lg max-w-xl mx-auto">
                 {t('landing.features.subtitle')}
               </p>
             </div>
@@ -192,13 +192,13 @@ export default function LandingPage() {
                 return (
                   <div
                     key={feature.title}
-                    className="glass-card rounded-xl p-6 group hover:glow-cyan transition-all duration-300"
+                    className="card p-6 group hover:shadow-md transition-all duration-300"
                   >
                     <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${feature.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300`}>
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-lg font-semibold text-white mb-2">{feature.title}</h3>
-                    <p className="text-sm text-slate-400 leading-relaxed">{feature.description}</p>
+                    <h3 className="text-lg font-semibold text-text-primary mb-2">{feature.title}</h3>
+                    <p className="text-sm text-text-secondary leading-relaxed">{feature.description}</p>
                   </div>
                 );
               })}
@@ -210,7 +210,7 @@ export default function LandingPage() {
         <section className="py-24 px-4 relative">
           {/* Background glow */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-cyan-500/5 blur-[120px]" />
+            <div className="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-primary/5 via-primary-light/5 to-primary/5 blur-[120px]" />
           </div>
 
           <div className="relative max-w-5xl mx-auto">
@@ -218,20 +218,20 @@ export default function LandingPage() {
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {t('landing.banners.title')}
               </h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto glow-cyan-sm" />
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-dark rounded-full mx-auto shadow-md" />
             </div>
 
             {/* Banner Grid */}
             <div className="grid md:grid-cols-2 gap-6">
               {/* Banner 1 */}
-              <div className="glass-card rounded-xl p-8 glow-cyan group hover:glow-blue transition-all duration-500">
+              <div className="card p-8 shadow-md group hover:shadow-md transition-all duration-500">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                     <TrendingUp className="w-7 h-7 text-white" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-white mb-2">{t('landing.banners.analytics.title')}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
+                    <p className="text-text-secondary text-sm leading-relaxed">
                       {t('landing.banners.analytics.desc')}
                     </p>
                   </div>
@@ -239,14 +239,14 @@ export default function LandingPage() {
               </div>
 
               {/* Banner 2 */}
-              <div className="glass-card rounded-xl p-8 glow-cyan group hover:glow-blue transition-all duration-500">
+              <div className="card p-8 shadow-md group hover:shadow-md transition-all duration-500">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-light to-primary-dark flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                     <Shield className="w-7 h-7 text-white" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-white mb-2">{t('landing.banners.secure.title')}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
+                    <p className="text-text-secondary text-sm leading-relaxed">
                       {t('landing.banners.secure.desc')}
                     </p>
                   </div>
@@ -254,14 +254,14 @@ export default function LandingPage() {
               </div>
 
               {/* Banner 3 */}
-              <div className="glass-card rounded-xl p-8 glow-cyan group hover:glow-blue transition-all duration-500">
+              <div className="card p-8 shadow-md group hover:shadow-md transition-all duration-500">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-400 to-teal-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-navy flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                     <Zap className="w-7 h-7 text-white" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-white mb-2">{t('landing.banners.fast.title')}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
+                    <p className="text-text-secondary text-sm leading-relaxed">
                       {t('landing.banners.fast.desc')}
                     </p>
                   </div>
@@ -269,14 +269,14 @@ export default function LandingPage() {
               </div>
 
               {/* Banner 4 */}
-              <div className="glass-card rounded-xl p-8 glow-cyan group hover:glow-blue transition-all duration-500">
+              <div className="card p-8 shadow-md group hover:shadow-md transition-all duration-500">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary-light to-primary flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                     <Globe className="w-7 h-7 text-white" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-white mb-2">{t('landing.banners.opensource.title')}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">
+                    <p className="text-text-secondary text-sm leading-relaxed">
                       {t('landing.banners.opensource.desc')}
                     </p>
                   </div>
@@ -290,7 +290,7 @@ export default function LandingPage() {
         <section className="py-24 px-4 relative overflow-hidden">
           {/* Background glow */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-blue-500/5 via-cyan-500/5 to-blue-500/5 blur-[120px]" />
+            <div className="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-primary-light/5 via-primary/5 to-primary-light/5 blur-[120px]" />
           </div>
 
           <div className="relative max-w-6xl mx-auto">
@@ -298,8 +298,8 @@ export default function LandingPage() {
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {t('landing.screenshots.title')}
               </h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto glow-cyan-sm" />
-              <p className="mt-4 text-slate-400 text-lg max-w-xl mx-auto">
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-dark rounded-full mx-auto shadow-md" />
+              <p className="mt-4 text-text-secondary text-lg max-w-xl mx-auto">
                 {t('landing.screenshots.subtitle')}
               </p>
             </div>
@@ -313,20 +313,20 @@ export default function LandingPage() {
         <section className="py-24 px-4 relative">
           {/* Background glow */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-[600px] h-[600px] rounded-full bg-cyan-500/5 blur-[120px]" />
+            <div className="w-[600px] h-[600px] rounded-full bg-surface-hover blur-[120px]" />
           </div>
 
           <div className="relative max-w-3xl mx-auto text-center">
-            <div className="glass-card rounded-2xl p-12 glow-cyan">
+            <div className="card rounded-2xl p-12 shadow-md">
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {t('landing.cta.title')}
               </h2>
-              <p className="text-lg text-slate-400 mb-8 max-w-lg mx-auto">
+              <p className="text-lg text-text-secondary mb-8 max-w-lg mx-auto">
                 {t('landing.cta.subtitle')}
               </p>
               <a
                 href="#download"
-                className="btn-cyan inline-flex items-center gap-2 text-base"
+                className="btn-primary inline-flex items-center gap-2 text-base"
               >
                 <Download className="w-5 h-5" />
                 {t('landing.cta.button')}
@@ -336,7 +336,7 @@ export default function LandingPage() {
         </section>
 
         {/* STATS BANNER */}
-        <section className="py-16 px-4 border-y border-cyan-500/10 relative overflow-hidden">
+        <section className="py-16 px-4 border-y border-border relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(34,211,238,0.03)_0%,transparent_70%)]" />
           <div className="relative max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -346,10 +346,10 @@ export default function LandingPage() {
               { value: '∞', label: t('landing.stats.extensible') },
             ].map((stat) => (
               <div key={stat.label} className="text-center group">
-                <div className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-br from-cyan-400 to-blue-500 bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform">
+                <div className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-br from-primary to-primary-dark bg-clip-text text-transparent mb-2 group-hover:scale-110 transition-transform">
                   {stat.value}
                 </div>
-                <div className="text-sm text-slate-500 font-medium tracking-wider uppercase">
+                <div className="text-sm text-text-muted font-medium tracking-wider uppercase">
                   {stat.label}
                 </div>
               </div>
@@ -361,21 +361,21 @@ export default function LandingPage() {
         <section id="download" className="py-24 px-4 relative">
           {/* Background glow */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <div className="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-cyan-500/5 via-blue-500/5 to-cyan-500/5 blur-[120px]" />
+            <div className="w-[800px] h-[800px] rounded-full bg-gradient-to-r from-primary/5 via-primary-light/5 to-primary/5 blur-[120px]" />
           </div>
 
           <div className="relative max-w-5xl mx-auto">
             {/* Section Header */}
             <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 text-cyan-400 text-sm mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border bg-surface-hover text-primary text-sm mb-6">
                 <Download className="w-4 h-4" />
                 <span>{t('landing.install.badge')}</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                 {t('landing.install.title')}
               </h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full mx-auto glow-cyan-sm" />
-              <p className="mt-4 text-slate-400 text-lg max-w-xl mx-auto">
+              <div className="w-20 h-1 bg-gradient-to-r from-primary to-primary-dark rounded-full mx-auto shadow-md" />
+              <p className="mt-4 text-text-secondary text-lg max-w-xl mx-auto">
                 {t('landing.install.subtitle')}
               </p>
             </div>
@@ -383,43 +383,43 @@ export default function LandingPage() {
             {/* Two columns grid */}
             <div className="grid md:grid-cols-2 gap-6 mb-6">
               {/* Docker Column */}
-              <div className="glass-card rounded-xl p-8 glow-cyan group hover:glow-blue transition-all duration-500">
+              <div className="card p-8 shadow-md group hover:shadow-md transition-all duration-500">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0">
                     <Container className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-white">
                       {t('landing.install.docker.title')}{' '}
-                      <span className="text-[10px] align-top px-2 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                      <span className="text-[10px] align-top px-2 py-0.5 rounded-full bg-surface-hover text-primary border border-border">
                         {t('landing.install.docker.recommended')}
                       </span>
                     </h3>
-                    <p className="text-sm text-slate-400">{t('landing.install.docker.desc')}</p>
+                    <p className="text-sm text-text-secondary">{t('landing.install.docker.desc')}</p>
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">{t('landing.install.requirements')}</p>
+                  <p className="text-xs text-text-muted font-semibold uppercase tracking-wider mb-2">{t('landing.install.requirements')}</p>
                   <ul className="space-y-1">
-                    <li className="flex items-center gap-2 text-sm text-slate-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                       Docker
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                       Docker Compose
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                       Git
                     </li>
                   </ul>
                 </div>
 
                 <div className="relative">
-                  <pre className="bg-[#0a0e1a] border border-cyan-500/10 rounded-lg p-4 overflow-x-auto">
-                    <code className="text-sm text-slate-300 font-mono">
+                  <pre className="bg-[#0a0e1a] border border-border rounded-lg p-4 overflow-x-auto">
+                    <code className="text-sm text-text-secondary font-mono">
                       {`git clone https://github.com/ErickGBR/open-erp-mvp.git\ncd open-erp-mvp\ndocker compose up --build -d`}
                     </code>
                   </pre>
@@ -438,42 +438,42 @@ export default function LandingPage() {
               </div>
 
               {/* Ubuntu Column */}
-              <div className="glass-card rounded-xl p-8 glow-cyan group hover:glow-blue transition-all duration-500">
+              <div className="card p-8 shadow-md group hover:shadow-md transition-all duration-500">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-400 to-cyan-500 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary-light to-primary-dark flex items-center justify-center flex-shrink-0">
                     <Terminal className="w-6 h-6 text-white" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-white">{t('landing.install.ubuntu.title')}</h3>
-                    <p className="text-sm text-slate-400">{t('landing.install.ubuntu.desc')}</p>
+                    <p className="text-sm text-text-secondary">{t('landing.install.ubuntu.desc')}</p>
                   </div>
                 </div>
 
                 <div className="mb-4">
-                  <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">{t('landing.install.requirements')}</p>
+                  <p className="text-xs text-text-muted font-semibold uppercase tracking-wider mb-2">{t('landing.install.requirements')}</p>
                   <ul className="space-y-1">
-                    <li className="flex items-center gap-2 text-sm text-slate-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                       Ubuntu 22.04+
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                       sudo access
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                       curl
                     </li>
-                    <li className="flex items-center gap-2 text-sm text-slate-400">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+                    <li className="flex items-center gap-2 text-sm text-text-secondary">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary" />
                       openssl
                     </li>
                   </ul>
                 </div>
 
                 <div className="relative">
-                  <pre className="bg-[#0a0e1a] border border-cyan-500/10 rounded-lg p-4 overflow-x-auto">
-                    <code className="text-sm text-slate-300 font-mono">
+                  <pre className="bg-[#0a0e1a] border border-border rounded-lg p-4 overflow-x-auto">
+                    <code className="text-sm text-text-secondary font-mono">
                       {`sudo bash -c "$(curl -fsSL https://raw.githubusercontent.com/ErickGBR/open-erp-mvp/main/install.sh)"`}
                     </code>
                   </pre>
@@ -493,9 +493,9 @@ export default function LandingPage() {
             </div>
 
             {/* Quick Start Guide */}
-            <div className="glass-card rounded-xl p-8 glow-cyan group hover:glow-blue transition-all duration-500">
+            <div className="card p-8 shadow-md group hover:shadow-md transition-all duration-500">
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0">
                   <Zap className="w-5 h-5 text-white" />
                 </div>
                 <h3 className="text-xl font-semibold text-white">{t('landing.install.quickStart')}</h3>
@@ -509,13 +509,13 @@ export default function LandingPage() {
                   { step: 4, title: t('landing.install.steps.open.title'), desc: t('landing.install.steps.open.desc'), code: 'http://localhost:3000' },
                 ].map((item) => (
                   <div key={item.step} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0 mt-0.5">
                       <span className="text-sm font-bold text-white">{item.step}</span>
                     </div>
                     <div>
                       <h4 className="text-white font-semibold text-sm mb-1">{item.title}</h4>
-                      <p className="text-xs text-slate-400 mb-2">{item.desc}</p>
-                      <code className="text-xs text-cyan-400 font-mono bg-[#0a0e1a] px-2 py-1 rounded border border-cyan-500/10 block truncate">
+                      <p className="text-xs text-text-secondary mb-2">{item.desc}</p>
+                      <code className="text-xs text-primary font-mono bg-[#0a0e1a] px-2 py-1 rounded border border-border block truncate">
                         {item.code}
                       </code>
                     </div>
@@ -607,11 +607,11 @@ function CarouselScreenshots() {
       onMouseLeave={() => setAutoplay(true)}
     >
       {/* Viewport */}
-      <div className="relative overflow-hidden rounded-2xl glass-card glow-cyan aspect-video max-w-4xl mx-auto">
+      <div className="relative overflow-hidden rounded-2xl card shadow-md aspect-video max-w-4xl mx-auto">
         {/* Sweep overlay */}
         {sweeping && (
           <div
-            className={`absolute inset-0 z-20 bg-gradient-to-r from-cyan-400/30 via-blue-500/20 to-cyan-400/30 ${sweepClass}`}
+            className={`absolute inset-0 z-20 bg-gradient-to-r from-primary/30 via-primary-light/20 to-primary/30 ${sweepClass}`}
           />
         )}
 
@@ -629,7 +629,7 @@ function CarouselScreenshots() {
         {/* Label overlay */}
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0a0a12]/80 via-[#0a0a12]/40 to-transparent p-6 pt-12">
           <p className="text-white font-semibold text-lg">{SCREENSHOTS[current].label}</p>
-          <p className="text-slate-400 text-sm">
+          <p className="text-text-secondary text-sm">
             {current + 1} / {total}
           </p>
         </div>
@@ -637,7 +637,7 @@ function CarouselScreenshots() {
         {/* Prev / Next buttons */}
         <button
           onClick={() => { prev(); setAutoplay(false); }}
-          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-cyan-500/30 hover:border-cyan-500/40 transition-all duration-200 opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100"
+          className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-primary/20 hover:border-primary/40 transition-all duration-200 opacity-0 group-hover:opacity-100 hover:opacity-100 focus:opacity-100"
           aria-label="Previous screenshot"
           style={{ opacity: '0.7' }}
         >
@@ -645,7 +645,7 @@ function CarouselScreenshots() {
         </button>
         <button
           onClick={() => { next(); setAutoplay(false); }}
-          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-cyan-500/30 hover:border-cyan-500/40 transition-all duration-200"
+          className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white hover:bg-primary/20 hover:border-primary/40 transition-all duration-200"
           aria-label="Next screenshot"
           style={{ opacity: '0.7' }}
         >
@@ -661,7 +661,7 @@ function CarouselScreenshots() {
             onClick={() => { goTo(idx); setAutoplay(false); }}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               idx === current
-                ? 'bg-cyan-400 w-6 shadow-[0_0_8px_rgba(0,200,255,0.6)]'
+                ? 'bg-primary w-6 shadow-[0_0_8px_rgba(0,200,255,0.6)]'
                 : 'bg-slate-600 hover:bg-slate-400'
             }`}
             aria-label={`Go to ${shot.label}`}
@@ -677,7 +677,7 @@ function CarouselScreenshots() {
             onClick={() => { goTo(idx); setAutoplay(false); }}
             className={`flex-shrink-0 w-16 h-10 rounded-md overflow-hidden border-2 transition-all duration-200 ${
               idx === current
-                ? 'border-cyan-400 shadow-[0_0_10px_rgba(0,200,255,0.4)] opacity-100'
+                ? 'border-primary shadow-[0_0_10px_rgba(37,99,235,0.4)] opacity-100'
                 : 'border-transparent opacity-50 hover:opacity-80'
             }`}
           >

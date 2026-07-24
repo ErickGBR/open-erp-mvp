@@ -181,15 +181,15 @@ export default function MarcarPage() {
   const todayName = DAYS[new Date().getDay()];
 
   return (
-    <div className="min-h-screen bg-[#0a0a12] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-surface flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 mb-4">
-            <Clock className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary-dark mb-4">
+            <Clock className="w-8 h-8 text-text-primary" />
           </div>
-          <h1 className="text-2xl font-bold text-white">Attendance Kiosk</h1>
-          <p className="text-sm text-slate-400 mt-1">Scan your QR code to clock in/out</p>
+          <h1 className="text-2xl font-bold text-text-primary">Attendance Kiosk</h1>
+          <p className="text-sm text-text-secondary mt-1">Scan your QR code to clock in/out</p>
         </div>
 
         {/* Message */}
@@ -198,8 +198,8 @@ export default function MarcarPage() {
             step === 'success'
               ? 'border-green-500/30 bg-green-900/20 text-green-300'
               : step === 'error'
-              ? 'border-red-500/30 bg-red-900/20 text-red-300'
-              : 'border-cyan-500/30 bg-cyan-900/20 text-cyan-300'
+              ? 'border-red-500/30 bg-red-900/20 text-danger'
+              : 'border-primary/30 bg-primary/20 text-primary'
           }`}>
             <div className="flex items-center gap-2">
               {step === 'success' ? <CheckCircle className="w-4 h-4" /> :
@@ -212,22 +212,22 @@ export default function MarcarPage() {
 
         {/* Step: Scan QR */}
         {step === 'scan' && (
-          <div className="glass-card rounded-xl p-6 space-y-4">
+          <div className="card p-6 space-y-4">
             {/* QR Scanner */}
             <div
               id="qr-reader"
               ref={scannerContainerRef}
-              className={`w-full aspect-square rounded-lg overflow-hidden bg-[#1a1a2e] border border-cyan-500/20 ${
+              className={`w-full aspect-square rounded-lg overflow-hidden bg-surface-card border border-border ${
                 cameraActive ? '' : 'flex items-center justify-center'
               }`}
             >
               {!cameraActive && !scanning && (
                 <div className="text-center p-8">
-                  <QrCode className="w-16 h-16 mx-auto mb-3 text-slate-600" />
-                  <p className="text-sm text-slate-400 mb-4">Point your camera at the QR code</p>
+                  <QrCode className="w-16 h-16 mx-auto mb-3 text-text-muted" />
+                  <p className="text-sm text-text-secondary mb-4">Point your camera at the QR code</p>
                   <button
                     onClick={startCamera}
-                    className="btn-cyan text-sm inline-flex items-center gap-2"
+                    className="btn-primary text-sm inline-flex items-center gap-2"
                   >
                     <Camera className="w-4 h-4" /> Start Camera
                   </button>
@@ -235,7 +235,7 @@ export default function MarcarPage() {
               )}
               {scanning && !cameraActive && (
                 <div className="flex items-center justify-center p-8">
-                  <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+                  <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
                 </div>
               )}
             </div>
@@ -243,7 +243,7 @@ export default function MarcarPage() {
             {cameraActive && (
               <button
                 onClick={stopCamera}
-                className="w-full rounded-lg border border-red-500/30 px-4 py-2 text-sm text-red-400 hover:bg-red-900/20 transition-colors flex items-center justify-center gap-2"
+                className="w-full rounded-lg border border-red-500/30 px-4 py-2 text-sm text-danger hover:bg-red-900/20 transition-colors flex items-center justify-center gap-2"
               >
                 <CameraOff className="w-4 h-4" /> Stop Camera
               </button>
@@ -251,9 +251,9 @@ export default function MarcarPage() {
 
             {/* Manual entry divider */}
             <div className="flex items-center gap-3">
-              <div className="flex-1 border-t border-cyan-500/10" />
-              <span className="text-xs text-slate-500">or enter token manually</span>
-              <div className="flex-1 border-t border-cyan-500/10" />
+              <div className="flex-1 border-t border-border" />
+              <span className="text-xs text-text-muted">or enter token manually</span>
+              <div className="flex-1 border-t border-border" />
             </div>
 
             {/* Manual token input */}
@@ -263,12 +263,12 @@ export default function MarcarPage() {
                 value={token}
                 onChange={(e) => setToken(e.target.value)}
                 placeholder="Paste QR token…"
-                className="flex-1 rounded-lg bg-[#1a1a2e] border border-cyan-500/15 px-3 py-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:border-cyan-500/40 focus:ring-cyan-500/50"
+                className="flex-1 rounded-lg bg-surface-card border border-border px-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-1 focus:border-primary/40 focus:ring-primary/50"
               />
               <button
                 onClick={() => token && lookupEmployee(token)}
                 disabled={!token}
-                className="btn-cyan text-sm disabled:opacity-50"
+                className="btn-primary text-sm disabled:opacity-50"
               >
                 Lookup
               </button>
@@ -278,20 +278,20 @@ export default function MarcarPage() {
 
         {/* Step: Identified */}
         {step === 'identified' && employee && (
-          <div className="glass-card rounded-xl p-6 space-y-4">
+          <div className="card p-6 space-y-4">
             {/* Employee info */}
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 mb-3">
-                <span className="text-xl font-bold text-white">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary to-primary-dark mb-3">
+                <span className="text-xl font-bold text-text-primary">
                   {employee.firstName[0]}{employee.lastName[0]}
                 </span>
               </div>
-              <h2 className="text-lg font-semibold text-white">
+              <h2 className="text-lg font-semibold text-text-primary">
                 {employee.firstName} {employee.lastName}
               </h2>
-              <p className="text-sm text-slate-400">{employee.code}</p>
+              <p className="text-sm text-text-secondary">{employee.code}</p>
               {employee.department && (
-                <p className="text-xs text-slate-500">{employee.department}</p>
+                <p className="text-xs text-text-muted">{employee.department}</p>
               )}
             </div>
 
@@ -302,33 +302,33 @@ export default function MarcarPage() {
               </div>
             ) : (
               <div className="space-y-2">
-                <p className="text-xs text-slate-400 font-medium">Today ({todayName}) — Select assignment:</p>
+                <p className="text-xs text-text-secondary font-medium">Today ({todayName}) — Select assignment:</p>
                 {assignments.map((a) => (
                   <button
                     key={a.id}
                     onClick={() => setSelectedAssignment(a.id)}
                     className={`w-full rounded-lg border p-3 text-left transition-colors ${
                       selectedAssignment === a.id
-                        ? 'border-cyan-500/50 bg-cyan-500/10'
-                        : 'border-cyan-500/15 bg-[#1a1a2e] hover:border-cyan-500/30'
+                        ? 'border-primary/50 bg-surface-hover'
+                        : 'border-border bg-surface-card hover:border-primary/30'
                     }`}
                   >
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="flex items-center gap-2">
-                          <MapPin className="w-3.5 h-3.5 text-cyan-400" />
-                          <span className="text-sm text-white font-medium">{a.branch.name}</span>
+                          <MapPin className="w-3.5 h-3.5 text-primary" />
+                          <span className="text-sm text-text-primary font-medium">{a.branch.name}</span>
                         </div>
                         <div className="flex items-center gap-2 mt-1">
-                          <Clock3 className="w-3.5 h-3.5 text-slate-500" />
-                          <span className="text-xs text-slate-400">{a.shift.name}</span>
-                          <span className="text-xs text-slate-500">
+                          <Clock3 className="w-3.5 h-3.5 text-text-muted" />
+                          <span className="text-xs text-text-secondary">{a.shift.name}</span>
+                          <span className="text-xs text-text-muted">
                             ({a.shift.startTime} - {a.shift.endTime})
                           </span>
                         </div>
                       </div>
                       {selectedAssignment === a.id && (
-                        <CheckCircle className="w-5 h-5 text-cyan-400" />
+                        <CheckCircle className="w-5 h-5 text-primary" />
                       )}
                     </div>
                   </button>
@@ -341,13 +341,13 @@ export default function MarcarPage() {
               <div className="flex gap-3">
                 <button
                   onClick={() => { setMarkingType('in'); handleMarcar(); }}
-                  className="flex-1 rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-3 text-sm font-semibold text-white hover:shadow-lg hover:shadow-green-500/25 transition-all"
+                  className="flex-1 rounded-lg bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-3 text-sm font-semibold text-text-primary hover:shadow-lg hover:shadow-green-500/25 transition-all"
                 >
                   Clock In
                 </button>
                 <button
                   onClick={() => { setMarkingType('out'); handleMarcar(); }}
-                  className="flex-1 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 px-4 py-3 text-sm font-semibold text-white hover:shadow-lg hover:shadow-amber-500/25 transition-all"
+                  className="flex-1 rounded-lg bg-gradient-to-r from-amber-500 to-orange-600 px-4 py-3 text-sm font-semibold text-text-primary hover:shadow-lg hover:shadow-amber-500/25 transition-all"
                 >
                   Clock Out
                 </button>
@@ -356,7 +356,7 @@ export default function MarcarPage() {
 
             <button
               onClick={reset}
-              className="w-full text-sm text-slate-400 hover:text-cyan-300 transition-colors"
+              className="w-full text-sm text-text-secondary hover:text-primary-dark transition-colors"
             >
               Scan different code
             </button>
@@ -365,15 +365,15 @@ export default function MarcarPage() {
 
         {/* Step: Success */}
         {step === 'success' && (
-          <div className="glass-card rounded-xl p-8 text-center space-y-4">
+          <div className="card p-8 text-center space-y-4">
             <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-green-500/20 mx-auto">
               <CheckCircle className="w-10 h-10 text-green-400" />
             </div>
-            <h2 className="text-xl font-semibold text-white">Success!</h2>
-            <p className="text-sm text-slate-400">{message}</p>
+            <h2 className="text-xl font-semibold text-text-primary">Success!</h2>
+            <p className="text-sm text-text-secondary">{message}</p>
             <button
               onClick={reset}
-              className="btn-cyan text-sm"
+              className="btn-primary text-sm"
             >
               Mark another
             </button>
@@ -381,7 +381,7 @@ export default function MarcarPage() {
         )}
 
         {/* Footer */}
-        <p className="text-center text-xs text-slate-600 mt-8">
+        <p className="text-center text-xs text-text-muted mt-8">
           Open ERP — Attendance Kiosk v1.0
         </p>
       </div>
