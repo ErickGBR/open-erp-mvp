@@ -43,9 +43,9 @@ interface UpdateUserPayload {
 // ── Config ───────────────────────────────────────────────────────────
 
 const ROLE_STYLES: Record<string, string> = {
-  root: 'bg-cyan-500/15 text-cyan-400 border border-cyan-500/20',
+  root: 'bg-primary/15 text-primary border border-border',
   admin: 'bg-blue-500/15 text-blue-400 border border-blue-500/20',
-  user: 'bg-slate-500/15 text-slate-300 border border-slate-500/20',
+  user: 'bg-slate-500/15 text-text-secondary border border-slate-500/20',
   viewer: 'bg-purple-500/15 text-purple-400 border border-purple-500/20',
 };
 
@@ -223,8 +223,8 @@ export default function AdminUsersPage() {
   // ── Loading state ───────────────────────────────────────────────
   if (authLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0a0a12]">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-surface">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       </div>
     );
   }
@@ -236,7 +236,7 @@ export default function AdminUsersPage() {
 
   // ── Render ──────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen bg-[#0a0a12]">
+    <div className="min-h-screen bg-surface">
       <div className="mx-auto max-w-6xl px-4 py-8 lg:px-8">
         {/* Header */}
         <div className="mb-8 flex items-center justify-between">
@@ -244,18 +244,18 @@ export default function AdminUsersPage() {
             <button
               type="button"
               onClick={() => router.push('/dashboard')}
-              className="mb-2 inline-flex items-center gap-1 text-sm text-slate-400 transition-colors hover:text-cyan-400"
+              className="mb-2 inline-flex items-center gap-1 text-sm text-text-secondary transition-colors hover:text-primary"
             >
               <ChevronLeft className="h-4 w-4" />
               Back to Dashboard
             </button>
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg shadow-cyan-500/25">
-                <Users className="h-5 w-5 text-white" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-primary/25">
+                <Users className="h-5 w-5 text-text-primary" />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-white">User Management</h1>
-                <p className="text-sm text-slate-400">
+                <h1 className="text-xl font-bold text-text-primary">User Management</h1>
+                <p className="text-sm text-text-secondary">
                   Manage users and roles in your ERP instance
                 </p>
               </div>
@@ -268,7 +268,7 @@ export default function AdminUsersPage() {
               resetAddForm();
               setShowAddModal(true);
             }}
-            className="btn-cyan inline-flex items-center gap-2"
+            className="btn-primary inline-flex items-center gap-2"
           >
             <Plus className="h-4 w-4" />
             Add User
@@ -278,14 +278,14 @@ export default function AdminUsersPage() {
         {/* Error banner */}
         {error && (
           <div
-            className="mb-6 rounded-lg border border-red-500/30 bg-red-900/30 p-3 text-sm text-red-300"
+            className="mb-6 rounded-lg border border-red-500/30 bg-red-900/30 p-3 text-sm text-danger"
             role="alert"
           >
             {error}
             <button
               type="button"
               onClick={() => setError('')}
-              className="ml-2 text-red-400 underline hover:text-red-300"
+              className="ml-2 text-danger underline hover:text-danger"
             >
               Dismiss
             </button>
@@ -294,18 +294,18 @@ export default function AdminUsersPage() {
 
         {/* Loading skeleton */}
         {loading && (
-          <div className="glass-card rounded-xl overflow-hidden">
-            <div className="border-b border-cyan-500/10 px-6 py-4">
-              <div className="h-5 w-40 animate-pulse rounded bg-cyan-500/10" />
+          <div className="card overflow-hidden">
+            <div className="border-b border-border px-6 py-4">
+              <div className="h-5 w-40 animate-pulse rounded bg-surface-hover" />
             </div>
-            <div className="divide-y divide-cyan-500/5">
+            <div className="divide-y divide-border">
               {Array.from({ length: 4 }).map((_, i) => (
                 <div key={i} className="flex items-center gap-6 px-6 py-4">
-                  <div className="h-4 w-32 animate-pulse rounded bg-cyan-500/10" />
-                  <div className="h-4 w-40 animate-pulse rounded bg-cyan-500/10" />
-                  <div className="h-5 w-16 animate-pulse rounded bg-cyan-500/10" />
-                  <div className="h-5 w-16 animate-pulse rounded bg-cyan-500/10" />
-                  <div className="ml-auto h-4 w-20 animate-pulse rounded bg-cyan-500/10" />
+                  <div className="h-4 w-32 animate-pulse rounded bg-surface-hover" />
+                  <div className="h-4 w-40 animate-pulse rounded bg-surface-hover" />
+                  <div className="h-5 w-16 animate-pulse rounded bg-surface-hover" />
+                  <div className="h-5 w-16 animate-pulse rounded bg-surface-hover" />
+                  <div className="ml-auto h-4 w-20 animate-pulse rounded bg-surface-hover" />
                 </div>
               ))}
             </div>
@@ -314,36 +314,36 @@ export default function AdminUsersPage() {
 
         {/* Users table */}
         {!loading && (
-          <div className="glass-card rounded-xl overflow-hidden">
+          <div className="card overflow-hidden">
             {users.length === 0 ? (
               <div className="px-6 py-16 text-center">
-                <Users className="mx-auto h-10 w-10 text-slate-500" />
-                <p className="mt-3 text-sm text-slate-400">
+                <Users className="mx-auto h-10 w-10 text-text-muted" />
+                <p className="mt-3 text-sm text-text-secondary">
                   No users found. Add your first user to get started.
                 </p>
               </div>
             ) : (
               <table className="w-full text-left text-sm">
-                <thead className="border-b border-cyan-500/10 bg-white/[0.02]">
+                <thead className="border-b border-border bg-white/[0.02]">
                   <tr>
-                    <th className="px-6 py-3 font-medium text-cyan-400">Name</th>
-                    <th className="px-6 py-3 font-medium text-cyan-400">Email</th>
-                    <th className="px-6 py-3 font-medium text-cyan-400">Role</th>
-                    <th className="px-6 py-3 font-medium text-cyan-400">Status</th>
-                    <th className="px-6 py-3 font-medium text-cyan-400">Created</th>
-                    <th className="px-6 py-3 text-right font-medium text-cyan-400">Actions</th>
+                    <th className="px-6 py-3 font-medium text-primary">Name</th>
+                    <th className="px-6 py-3 font-medium text-primary">Email</th>
+                    <th className="px-6 py-3 font-medium text-primary">Role</th>
+                    <th className="px-6 py-3 font-medium text-primary">Status</th>
+                    <th className="px-6 py-3 font-medium text-primary">Created</th>
+                    <th className="px-6 py-3 text-right font-medium text-primary">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-cyan-500/5">
+                <tbody className="divide-y divide-border">
                   {users.map((u) => (
                     <tr
                       key={u.id}
                       className="transition-colors hover:bg-white/[0.02]"
                     >
-                      <td className="px-6 py-4 font-medium text-white">
+                      <td className="px-6 py-4 font-medium text-text-primary">
                         {u.name}
                       </td>
-                      <td className="px-6 py-4 text-slate-400">{u.email}</td>
+                      <td className="px-6 py-4 text-text-secondary">{u.email}</td>
                       <td className="px-6 py-4">
                         <RoleBadge role={u.role} />
                       </td>
@@ -356,12 +356,12 @@ export default function AdminUsersPage() {
                           {u.status === 'active' ? 'Active' : 'Inactive'}
                         </span>
                       </td>
-                      <td className="px-6 py-4 text-slate-500">
+                      <td className="px-6 py-4 text-text-muted">
                         {formatDate(u.createdAt)}
                       </td>
                       <td className="px-6 py-4 text-right">
                         {u.role === 'root' ? (
-                          <span className="text-xs text-slate-500">
+                          <span className="text-xs text-text-muted">
                             — no actions —
                           </span>
                         ) : (
@@ -369,7 +369,7 @@ export default function AdminUsersPage() {
                             <button
                               type="button"
                               onClick={() => openEditModal(u)}
-                              className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-cyan-500/10 hover:text-cyan-400"
+                              className="rounded-lg p-1.5 text-text-secondary transition-colors hover:bg-surface-hover hover:text-primary"
                               aria-label={`Edit ${u.name}`}
                             >
                               <Pencil className="h-4 w-4" />
@@ -377,7 +377,7 @@ export default function AdminUsersPage() {
                             <button
                               type="button"
                               onClick={() => handleDeactivate(u)}
-                              className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-red-500/10 hover:text-red-400"
+                              className="rounded-lg p-1.5 text-text-secondary transition-colors hover:bg-red-500/10 hover:text-danger"
                               aria-label={`Deactivate ${u.name}`}
                             >
                               <Trash2 className="h-4 w-4" />
@@ -401,15 +401,15 @@ export default function AdminUsersPage() {
           onClick={() => setShowAddModal(false)}
         >
           <div
-            className="glass-card w-full max-w-md rounded-xl p-6 glow-cyan"
+            className="card w-full max-w-md rounded-xl p-6 shadow-md"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white">Add User</h2>
+              <h2 className="text-lg font-bold text-text-primary">Add User</h2>
               <button
                 type="button"
                 onClick={() => setShowAddModal(false)}
-                className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-white/5 hover:text-white"
+                className="rounded-lg p-1.5 text-text-secondary transition-colors hover:bg-surface-hover hover:text-text-primary"
                 aria-label="Close"
               >
                 <X className="h-5 w-5" />
@@ -419,7 +419,7 @@ export default function AdminUsersPage() {
             <form onSubmit={handleAddUser} className="space-y-4">
               {addError && (
                 <div
-                  className="rounded-lg border border-red-500/30 bg-red-900/30 p-3 text-sm text-red-300"
+                  className="rounded-lg border border-red-500/30 bg-red-900/30 p-3 text-sm text-danger"
                   role="alert"
                 >
                   {addError}
@@ -429,7 +429,7 @@ export default function AdminUsersPage() {
               <div>
                 <label
                   htmlFor="add-name"
-                  className="mb-1.5 block text-sm font-medium text-slate-300"
+                  className="mb-1.5 block text-sm font-medium text-text-secondary"
                 >
                   Full Name
                 </label>
@@ -439,7 +439,7 @@ export default function AdminUsersPage() {
                   required
                   value={addName}
                   onChange={(e) => setAddName(e.target.value)}
-                  className="w-full bg-[#0a0e1a] border border-cyan-500/20 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none transition-all"
+                  className="w-full bg-surface-card border border-border rounded-lg px-4 py-2.5 text-text-primary placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all"
                   placeholder="John Smith"
                 />
               </div>
@@ -447,7 +447,7 @@ export default function AdminUsersPage() {
               <div>
                 <label
                   htmlFor="add-email"
-                  className="mb-1.5 block text-sm font-medium text-slate-300"
+                  className="mb-1.5 block text-sm font-medium text-text-secondary"
                 >
                   Email
                 </label>
@@ -457,7 +457,7 @@ export default function AdminUsersPage() {
                   required
                   value={addEmail}
                   onChange={(e) => setAddEmail(e.target.value)}
-                  className="w-full bg-[#0a0e1a] border border-cyan-500/20 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none transition-all"
+                  className="w-full bg-surface-card border border-border rounded-lg px-4 py-2.5 text-text-primary placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all"
                   placeholder="john@example.com"
                 />
               </div>
@@ -465,7 +465,7 @@ export default function AdminUsersPage() {
               <div>
                 <label
                   htmlFor="add-password"
-                  className="mb-1.5 block text-sm font-medium text-slate-300"
+                  className="mb-1.5 block text-sm font-medium text-text-secondary"
                 >
                   Password
                 </label>
@@ -476,7 +476,7 @@ export default function AdminUsersPage() {
                   minLength={6}
                   value={addPassword}
                   onChange={(e) => setAddPassword(e.target.value)}
-                  className="w-full bg-[#0a0e1a] border border-cyan-500/20 rounded-lg px-4 py-2.5 text-white placeholder-slate-500 focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none transition-all"
+                  className="w-full bg-surface-card border border-border rounded-lg px-4 py-2.5 text-text-primary placeholder-slate-500 focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all"
                   placeholder="At least 6 characters"
                 />
               </div>
@@ -484,7 +484,7 @@ export default function AdminUsersPage() {
               <div>
                 <label
                   htmlFor="add-role"
-                  className="mb-1.5 block text-sm font-medium text-slate-300"
+                  className="mb-1.5 block text-sm font-medium text-text-secondary"
                 >
                   Role
                 </label>
@@ -494,7 +494,7 @@ export default function AdminUsersPage() {
                   onChange={(e) =>
                     setAddRole(e.target.value as 'admin' | 'user' | 'viewer')
                   }
-                  className="w-full appearance-none bg-[#0a0e1a] border border-cyan-500/20 rounded-lg px-4 py-2.5 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none transition-all"
+                  className="w-full appearance-none bg-surface-card border border-border rounded-lg px-4 py-2.5 text-text-primary focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all"
                 >
                   {AVAILABLE_ROLES.map((r) => (
                     <option key={r} value={r}>
@@ -515,7 +515,7 @@ export default function AdminUsersPage() {
                 <button
                   type="submit"
                   disabled={addSubmitting}
-                  className="btn-cyan px-4 py-2 text-sm"
+                  className="btn-primary px-4 py-2 text-sm"
                 >
                   {addSubmitting ? (
                     <span className="flex items-center gap-2">
@@ -542,11 +542,11 @@ export default function AdminUsersPage() {
           }}
         >
           <div
-            className="glass-card w-full max-w-md rounded-xl p-6 glow-cyan"
+            className="card w-full max-w-md rounded-xl p-6 shadow-md"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-lg font-bold text-white">
+              <h2 className="text-lg font-bold text-text-primary">
                 Edit User
               </h2>
               <button
@@ -555,22 +555,22 @@ export default function AdminUsersPage() {
                   setShowEditModal(false);
                   setEditingUser(null);
                 }}
-                className="rounded-lg p-1.5 text-slate-400 transition-colors hover:bg-white/5 hover:text-white"
+                className="rounded-lg p-1.5 text-text-secondary transition-colors hover:bg-surface-hover hover:text-text-primary"
                 aria-label="Close"
               >
                 <X className="h-5 w-5" />
               </button>
             </div>
 
-            <div className="mb-4 rounded-lg border border-cyan-500/10 bg-[#0a0e1a] p-3">
-              <p className="text-sm font-medium text-white">{editingUser.name}</p>
-              <p className="text-xs text-slate-400">{editingUser.email}</p>
+            <div className="mb-4 rounded-lg border border-border bg-surface-card p-3">
+              <p className="text-sm font-medium text-text-primary">{editingUser.name}</p>
+              <p className="text-xs text-text-secondary">{editingUser.email}</p>
             </div>
 
             <form onSubmit={handleEditUser} className="space-y-4">
               {editError && (
                 <div
-                  className="rounded-lg border border-red-500/30 bg-red-900/30 p-3 text-sm text-red-300"
+                  className="rounded-lg border border-red-500/30 bg-red-900/30 p-3 text-sm text-danger"
                   role="alert"
                 >
                   {editError}
@@ -580,7 +580,7 @@ export default function AdminUsersPage() {
               <div>
                 <label
                   htmlFor="edit-role"
-                  className="mb-1.5 block text-sm font-medium text-slate-300"
+                  className="mb-1.5 block text-sm font-medium text-text-secondary"
                 >
                   Role
                 </label>
@@ -590,7 +590,7 @@ export default function AdminUsersPage() {
                   onChange={(e) =>
                     setEditRole(e.target.value as 'admin' | 'user' | 'viewer')
                   }
-                  className="w-full appearance-none bg-[#0a0e1a] border border-cyan-500/20 rounded-lg px-4 py-2.5 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none transition-all"
+                  className="w-full appearance-none bg-surface-card border border-border rounded-lg px-4 py-2.5 text-text-primary focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all"
                 >
                   {AVAILABLE_ROLES.map((r) => (
                     <option key={r} value={r}>
@@ -603,7 +603,7 @@ export default function AdminUsersPage() {
               <div>
                 <label
                   htmlFor="edit-status"
-                  className="mb-1.5 block text-sm font-medium text-slate-300"
+                  className="mb-1.5 block text-sm font-medium text-text-secondary"
                 >
                   Status
                 </label>
@@ -613,7 +613,7 @@ export default function AdminUsersPage() {
                   onChange={(e) =>
                     setEditStatus(e.target.value as 'active' | 'inactive')
                   }
-                  className="w-full appearance-none bg-[#0a0e1a] border border-cyan-500/20 rounded-lg px-4 py-2.5 text-white focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/30 outline-none transition-all"
+                  className="w-full appearance-none bg-surface-card border border-border rounded-lg px-4 py-2.5 text-text-primary focus:border-primary focus:ring-1 focus:ring-primary/30 outline-none transition-all"
                 >
                   <option value="active">Active</option>
                   <option value="inactive">Inactive</option>
@@ -634,7 +634,7 @@ export default function AdminUsersPage() {
                 <button
                   type="submit"
                   disabled={editSubmitting}
-                  className="btn-cyan px-4 py-2 text-sm"
+                  className="btn-primary px-4 py-2 text-sm"
                 >
                   {editSubmitting ? (
                     <span className="flex items-center gap-2">
