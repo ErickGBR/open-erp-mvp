@@ -34,9 +34,9 @@ interface Sale {
 
 /** Map status to badge colour classes */
 const STATUS_STYLES: Record<Sale['status'], string> = {
-  pending: 'bg-amber-900/20 text-amber-400',
-  paid: 'bg-emerald-900/20 text-emerald-400',
-  cancelled: 'bg-red-100 text-red-300',
+  pending: 'bg-amber-900/20 text-warning',
+  paid: 'bg-emerald-900/20 text-success',
+  cancelled: 'bg-red-100 text-danger',
 };
 
 /**
@@ -163,19 +163,19 @@ export default function SaleDetailPage() {
         <div className="mx-auto max-w-3xl">
           {/* Header skeleton */}
           <div className="mb-6">
-            <div className="mb-2 h-8 w-64 animate-pulse rounded bg-cyan-500/10" />
-            <div className="h-5 w-40 animate-pulse rounded bg-cyan-500/10" />
+            <div className="mb-2 h-8 w-64 animate-pulse rounded bg-surface-hover" />
+            <div className="h-5 w-40 animate-pulse rounded bg-surface-hover" />
           </div>
 
           {/* Card skeletons */}
           {Array.from({ length: 3 }).map((_, i) => (
             <div
               key={i}
-              className="mb-6 space-y-4 rounded-xl border border-cyan-500/10 bg-[#12121e] p-6 shadow-sm"
+              className="mb-6 space-y-4 rounded-xl border border-border bg-surface-card p-6 shadow-sm"
             >
-              <div className="mb-3 h-5 w-32 animate-pulse rounded bg-cyan-500/10" />
+              <div className="mb-3 h-5 w-32 animate-pulse rounded bg-surface-hover" />
               {Array.from({ length: 3 }).map((_, j) => (
-                <div key={j} className="h-4 w-full animate-pulse rounded bg-cyan-500/10" />
+                <div key={j} className="h-4 w-full animate-pulse rounded bg-surface-hover" />
               ))}
             </div>
           ))}
@@ -190,14 +190,14 @@ export default function SaleDetailPage() {
       <div>
         <BackLink />
 
-        <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center shadow-sm">
-          <h2 className="text-lg font-semibold text-[#e2e8f0]">Sale not found</h2>
-          <p className="mt-1 text-sm text-slate-400">
+        <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center shadow-sm">
+          <h2 className="text-lg font-semibold text-text-primary">Sale not found</h2>
+          <p className="mt-1 text-sm text-text-secondary">
             The sale you are looking for does not exist or has been removed.
           </p>
           <Link
             href="/dashboard/sales"
-            className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300"
+            className="mt-4 inline-block text-sm font-medium text-primary hover:text-primary-dark"
           >
             &larr; Back to sales
           </Link>
@@ -212,11 +212,11 @@ export default function SaleDetailPage() {
       <div>
         <BackLink />
 
-        <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center shadow-sm">
-          <p className="text-sm text-red-400">{error}</p>
+        <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center shadow-sm">
+          <p className="text-sm text-danger">{error}</p>
           <button
             onClick={fetchSale}
-            className="mt-4 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2"
+            className="mt-4 rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg  focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2"
           >
             Retry
           </button>
@@ -236,7 +236,7 @@ export default function SaleDetailPage() {
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
           <div className="flex items-center gap-3">
-            <h1 className="text-2xl font-bold text-[#e2e8f0]">
+            <h1 className="text-2xl font-bold text-text-primary">
               {sale.invoiceNumber}
             </h1>
             <span
@@ -245,18 +245,18 @@ export default function SaleDetailPage() {
               {sale.status.charAt(0).toUpperCase() + sale.status.slice(1)}
             </span>
           </div>
-          <p className="mt-1 text-sm text-slate-400">
+          <p className="mt-1 text-sm text-text-secondary">
             Created on {formatDateTime(sale.createdAt)}
           </p>
           {sale.paidAt && (
-            <p className="text-sm text-slate-400">
+            <p className="text-sm text-text-secondary">
               Paid on {formatDateTime(sale.paidAt)}
             </p>
           )}
         </div>
         <Link
           href="/dashboard/sales"
-          className="text-sm font-medium text-cyan-400 hover:text-cyan-300"
+          className="text-sm font-medium text-primary hover:text-primary-dark"
         >
           &larr; Back to sales
         </Link>
@@ -266,7 +266,7 @@ export default function SaleDetailPage() {
       {error && (
         <div
           role="alert"
-          className="mb-6 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300"
+          className="mb-6 rounded-lg border border-danger/20 bg-danger-light px-4 py-3 text-sm text-danger"
         >
           {error}
           <button
@@ -279,56 +279,56 @@ export default function SaleDetailPage() {
       )}
 
       {/* ── Customer Info ─────────────────────────────────────────── */}
-      <div className="mb-6 rounded-xl border border-cyan-500/10 bg-[#12121e] p-6 shadow-sm">
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-400">
+      <div className="mb-6 rounded-xl border border-border bg-surface-card p-6 shadow-sm">
+        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-text-secondary">
           Customer
         </h2>
         {sale.customer ? (
-          <div className="text-sm text-[#e2e8f0]">
+          <div className="text-sm text-text-primary">
             <p className="font-medium">{sale.customer.name}</p>
           </div>
         ) : (
-          <p className="text-sm text-slate-400">Walk-in customer</p>
+          <p className="text-sm text-text-secondary">Walk-in customer</p>
         )}
       </div>
 
       {/* ── Items ─────────────────────────────────────────────────── */}
-      <div className="mb-6 rounded-xl border border-cyan-500/10 bg-[#12121e] p-6 shadow-sm">
-        <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-400">
+      <div className="mb-6 rounded-xl border border-border bg-surface-card p-6 shadow-sm">
+        <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-text-secondary">
           Items
         </h2>
 
-        <div className="overflow-hidden rounded-lg border border-cyan-500/10">
+        <div className="overflow-hidden rounded-lg border border-border">
           <table className="w-full text-left text-sm">
             <thead className="bg-white/[0.02]">
               <tr>
-                <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <th className="px-4 py-2.5 text-xs font-semibold uppercase tracking-wider text-text-secondary">
                   Product
                 </th>
-                <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-text-secondary">
                   Price
                 </th>
-                <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-text-secondary">
                   Qty
                 </th>
-                <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wider text-text-secondary">
                   Total
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-cyan-500/5">
+            <tbody className="divide-y divide-border">
               {sale.items.map((item) => (
                 <tr key={item.id} className="hover:bg-white/[0.02]">
-                  <td className="px-4 py-2.5 font-medium text-[#e2e8f0]">
+                  <td className="px-4 py-2.5 font-medium text-text-primary">
                     {item.productName}
                   </td>
-                  <td className="px-4 py-2.5 text-right text-slate-400">
+                  <td className="px-4 py-2.5 text-right text-text-secondary">
                     {formatCurrency(item.price)}
                   </td>
-                  <td className="px-4 py-2.5 text-right text-slate-400">
+                  <td className="px-4 py-2.5 text-right text-text-secondary">
                     {item.quantity}
                   </td>
-                  <td className="px-4 py-2.5 text-right font-medium text-[#e2e8f0]">
+                  <td className="px-4 py-2.5 text-right font-medium text-text-primary">
                     {formatCurrency(item.total)}
                   </td>
                 </tr>
@@ -338,20 +338,20 @@ export default function SaleDetailPage() {
         </div>
 
         {/* Totals */}
-        <div className="mt-4 space-y-1 border-t border-cyan-500/5 pt-4 text-right">
-          <div className="flex justify-end gap-8 text-sm text-slate-400">
+        <div className="mt-4 space-y-1 border-t border-border pt-4 text-right">
+          <div className="flex justify-end gap-8 text-sm text-text-secondary">
             <span>Subtotal:</span>
-            <span className="w-24 text-right font-medium text-[#e2e8f0]">
+            <span className="w-24 text-right font-medium text-text-primary">
               {formatCurrency(sale.subtotal)}
             </span>
           </div>
-          <div className="flex justify-end gap-8 text-sm text-slate-400">
+          <div className="flex justify-end gap-8 text-sm text-text-secondary">
             <span>Tax:</span>
-            <span className="w-24 text-right font-medium text-[#e2e8f0]">
+            <span className="w-24 text-right font-medium text-text-primary">
               {formatCurrency(sale.tax)}
             </span>
           </div>
-          <div className="flex justify-end gap-8 text-base font-semibold text-[#e2e8f0]">
+          <div className="flex justify-end gap-8 text-base font-semibold text-text-primary">
             <span>Total:</span>
             <span className="w-24 text-right">
               {formatCurrency(sale.total)}
@@ -362,11 +362,11 @@ export default function SaleDetailPage() {
 
       {/* ── Notes ─────────────────────────────────────────────────── */}
       {sale.notes && (
-        <div className="mb-6 rounded-xl border border-cyan-500/10 bg-[#12121e] p-6 shadow-sm">
-          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-slate-400">
+        <div className="mb-6 rounded-xl border border-border bg-surface-card p-6 shadow-sm">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-text-secondary">
             Notes
           </h2>
-          <p className="whitespace-pre-wrap text-sm text-slate-300">
+          <p className="whitespace-pre-wrap text-sm text-text-secondary">
             {sale.notes}
           </p>
         </div>
@@ -380,7 +380,7 @@ export default function SaleDetailPage() {
               type="button"
               onClick={handleMarkAsPaid}
               disabled={updating}
-              className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:shadow-lg hover:shadow-emerald-500/25 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 disabled:opacity-50"
+              className="rounded-lg bg-emerald-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:ring-offset-2 disabled:opacity-50"
             >
               {updating ? 'Updating…' : 'Mark as Paid'}
             </button>
@@ -388,7 +388,7 @@ export default function SaleDetailPage() {
               type="button"
               onClick={handleMarkAsCancelled}
               disabled={updating}
-              className="rounded-lg border border-red-500/20 bg-transparent px-4 py-2 text-sm font-semibold text-red-300 shadow-sm transition-colors hover:bg-red-500/10 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 disabled:opacity-50"
+              className="rounded-lg border border-danger/20 bg-transparent px-4 py-2 text-sm font-semibold text-danger shadow-sm transition-colors hover:bg-red-500/10 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 disabled:opacity-50"
             >
               {updating ? 'Updating…' : 'Cancel Sale'}
             </button>
@@ -398,7 +398,7 @@ export default function SaleDetailPage() {
           type="button"
           onClick={handleDelete}
           disabled={deleting}
-          className="rounded-lg border border-cyan-500/15 bg-[#12121e] px-4 py-2 text-sm font-medium text-slate-300 shadow-sm transition-colors hover:bg-red-500/10 hover:text-red-300 focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-lg border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text-secondary shadow-sm transition-colors hover:bg-red-500/10 hover:text-danger focus:outline-none focus:ring-2 focus:ring-red-500/50 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
         >
           {deleting ? 'Deleting…' : 'Delete'}
         </button>
@@ -419,7 +419,7 @@ function BackLink() {
     <div className="mb-6">
       <Link
         href="/dashboard/sales"
-        className="text-sm font-medium text-cyan-400 hover:text-cyan-300"
+        className="text-sm font-medium text-primary hover:text-primary-dark"
       >
         &larr; Back to sales
       </Link>
