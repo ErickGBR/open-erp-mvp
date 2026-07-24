@@ -64,7 +64,10 @@ export class Sale {
   @Column({ type: 'timestamp', nullable: true })
   paidAt!: Date | null;
 
-  @OneToMany(() => SaleItem, item => item.sale, { cascade: true, eager: true })
+  @Column({ default: true })
+  isActive!: boolean;
+
+  @OneToMany(() => SaleItem, item => item.sale, { cascade: true, eager: false })
   items!: SaleItem[];
 
   @CreateDateColumn()
