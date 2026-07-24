@@ -38,13 +38,14 @@
     "pg": "^8.22.0",
     "qrcode": "^1.5.4",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^1.0.0"
+    "rxjs": "^7.8.2",
+    "typeorm": "^1.1.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^11.0.23",
+    "@nestjs/cli": "^11.0.24",
     "@nestjs/testing": "^11.1.28",
     "@types/bcrypt": "^6.0.0",
-    "@types/express": "^5.0.0",
+    "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.1.1",
     "@types/passport-google-oauth20": "^2.0.17",
@@ -52,7 +53,7 @@
     "@types/passport-microsoft": "^2.1.1",
     "@types/qrcode": "^1.5.6",
     "jest": "^30.4.2",
-    "ts-jest": "^29.4.11",
+    "ts-jest": "^29.4.12",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
   },
@@ -73,5 +74,6 @@
     "coverageDirectory": "../coverage",
     "testEnvironment": "node",
     "passWithNoTests": true
-  }
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }

@@ -11,7 +11,7 @@
   "dependencies": {
     "html5-qrcode": "^2.3.8",
     "jsbarcode": "^3.12.3",
-    "lucide-react": "^1.23.0",
+    "lucide-react": "^1.26.0",
     "next": "16.2.10",
     "playwright": "^1.61.1",
     "qrcode": "^1.5.4",
@@ -20,13 +20,14 @@
     "sweetalert2": "^11.26.25"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^20.19.43",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.5",
     "eslint-config-next": "16.2.10",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  }
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
 }
