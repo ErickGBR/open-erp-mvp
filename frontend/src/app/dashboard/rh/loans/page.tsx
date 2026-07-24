@@ -191,65 +191,65 @@ export default function LoansPage() {
     }
   };
 
-  const inputClass = 'mt-1 block w-full rounded-lg border border-cyan-500/15 bg-[#1a1a2e] px-3 py-2 text-sm text-[#e2e8f0] focus:outline-none focus:ring-1 focus:border-cyan-500/40 focus:ring-cyan-500/50';
+  const inputClass = 'mt-1 block w-full rounded-lg border border-border bg-surface-card px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-1 focus:border-border focus:ring-primary/50';
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Loans and Advances</h1>
-        <button onClick={openNew} className="btn-cyan text-sm flex items-center gap-1.5">
+        <h1 className="text-2xl font-bold text-text-primary">Loans and Advances</h1>
+        <button onClick={openNew} className="btn-primary text-sm flex items-center gap-1.5">
           <Plus className="w-4 h-4" /> New Loan
         </button>
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-900/30 border border-red-500/30 p-3 text-sm text-red-300 mb-4" role="alert">
+        <div className="rounded-lg bg-danger-light border border-danger/30 p-3 text-sm text-danger mb-4" role="alert">
           {error}
         </div>
       )}
 
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
         </div>
       ) : loans.length === 0 ? (
-        <div className="glass-card rounded-xl p-12 text-center">
-          <Banknote className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400">No loans found</p>
-          <button onClick={openNew} className="text-cyan-400 hover:text-cyan-300 text-sm mt-2">
+        <div className="card p-12 text-center">
+          <Banknote className="w-12 h-12 mx-auto mb-3 text-text-muted" />
+          <p className="text-text-secondary">No loans found</p>
+          <button onClick={openNew} className="text-primary hover:text-primary-dark text-sm mt-2">
             Create loan
           </button>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-cyan-500/10">
+        <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-cyan-500/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Employee</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Type</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Total</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Balance</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Installment</th>
-                <th className="px-4 py-3 text-center font-medium text-slate-400">Status</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Actions</th>
+              <tr className="border-b border-border bg-surface-hover">
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Employee</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Type</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Total</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Balance</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Installment</th>
+                <th className="px-4 py-3 text-center font-medium text-text-secondary">Status</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Actions</th>
               </tr>
             </thead>
             <tbody>
               {loans.map((loan) => (
-                <tr key={loan.id} className="border-b border-cyan-500/5 hover:bg-white/5 transition-colors">
-                  <td className="px-4 py-3 text-white">
+                <tr key={loan.id} className="border-b border-border hover:bg-surface-hover transition-colors">
+                  <td className="px-4 py-3 text-text-primary">
                     {loan.employee
                       ? `${loan.employee.firstName} ${loan.employee.lastName}`
                       : `ID: ${loan.employeeId}`}
                   </td>
                   <td className="px-4 py-3">
-                    <span className={`text-xs font-medium rounded-full px-2 py-0.5 ${loan.type === 'advance' ? 'bg-amber-500/10 text-amber-400' : 'bg-cyan-500/10 text-cyan-400'}`}>
+                    <span className={`text-xs font-medium rounded-full px-2 py-0.5 ${loan.type === 'advance' ? 'bg-amber-500/10 text-warning' : 'bg-surface-hover text-primary'}`}>
                       {LOAN_TYPE[loan.type] || loan.type}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right text-white font-mono">{formatCurrency(loan.totalAmount)}</td>
-                  <td className="px-4 py-3 text-right text-amber-400 font-mono">{formatCurrency(loan.remainingBalance)}</td>
-                  <td className="px-4 py-3 text-right text-slate-300 font-mono">{formatCurrency(loan.installmentAmount)}</td>
+                  <td className="px-4 py-3 text-right text-text-primary font-mono">{formatCurrency(loan.totalAmount)}</td>
+                  <td className="px-4 py-3 text-right text-warning font-mono">{formatCurrency(loan.remainingBalance)}</td>
+                  <td className="px-4 py-3 text-right text-text-secondary font-mono">{formatCurrency(loan.installmentAmount)}</td>
                   <td className="px-4 py-3 text-center">
                     <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${LOAN_STATUS[loan.status]?.badge || 'badge-inactive'}`}>
                       {LOAN_STATUS[loan.status]?.label || loan.status}
@@ -259,7 +259,7 @@ export default function LoansPage() {
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => viewPayments(loan.id)}
-                        className="text-cyan-400 hover:text-cyan-300 text-xs flex items-center gap-1"
+                        className="text-primary hover:text-primary-dark text-xs flex items-center gap-1"
                         title="View payments"
                       >
                         <Eye className="w-3 h-3" /> Payments
@@ -267,7 +267,7 @@ export default function LoansPage() {
                       {loan.status === 'active' && (
                         <button
                           onClick={() => openPaymentForm(loan.id)}
-                          className="text-emerald-400 hover:text-emerald-300 text-xs flex items-center gap-1"
+                          className="text-success hover:text-emerald-300 text-xs flex items-center gap-1"
                           title="Record payment"
                         >
                           <DollarSign className="w-3 h-3" /> Pay
@@ -276,7 +276,7 @@ export default function LoansPage() {
                       <button
                         onClick={() => handleDelete(loan.id, `${loan.employee?.firstName ?? ''} ${loan.employee?.lastName ?? ''} - ${formatCurrency(loan.totalAmount)}`)}
                         disabled={deletingId === loan.id}
-                        className="text-red-400 hover:text-red-300 text-xs disabled:opacity-50"
+                        className="text-danger hover:text-danger text-xs disabled:opacity-50"
                       >
                         {deletingId === loan.id ? '…' : 'Delete'}
                       </button>
@@ -292,17 +292,17 @@ export default function LoansPage() {
       {/* New Loan Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="glass-card rounded-xl p-6 w-full max-w-md mx-4">
+          <div className="card p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">New Loan / Advance</h2>
-              <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-white">
+              <h2 className="text-lg font-semibold text-text-primary">New Loan / Advance</h2>
+              <button onClick={() => setShowModal(false)} className="text-text-secondary hover:text-text-primary">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300">Employee *</label>
+                <label className="block text-sm font-medium text-text-secondary">Employee *</label>
                 <select
                   value={form.employeeId}
                   onChange={(e) => setForm({ ...form, employeeId: e.target.value })}
@@ -318,7 +318,7 @@ export default function LoansPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Type *</label>
+                <label className="block text-sm font-medium text-text-secondary">Type *</label>
                 <select
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value })}
@@ -332,14 +332,14 @@ export default function LoansPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Total Amount *</label>
+                  <label className="block text-sm font-medium text-text-secondary">Total Amount *</label>
                   <input
                     type="number" step="0.01" min="0" value={form.totalAmount}
                     onChange={(e) => setForm({ ...form, totalAmount: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Installment *</label>
+                  <label className="block text-sm font-medium text-text-secondary">Installment *</label>
                   <input
                     type="number" step="0.01" min="0" value={form.installmentAmount}
                     onChange={(e) => setForm({ ...form, installmentAmount: e.target.value })}
@@ -348,7 +348,7 @@ export default function LoansPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Start Date *</label>
+                <label className="block text-sm font-medium text-text-secondary">Start Date *</label>
                 <input
                   type="date" value={form.startDate}
                   onChange={(e) => setForm({ ...form, startDate: e.target.value })}
@@ -356,7 +356,7 @@ export default function LoansPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Reason</label>
+                <label className="block text-sm font-medium text-text-secondary">Reason</label>
                 <textarea
                   rows={2} value={form.reason}
                   onChange={(e) => setForm({ ...form, reason: e.target.value })}
@@ -368,13 +368,13 @@ export default function LoansPage() {
               <button
                 onClick={handleCreate}
                 disabled={saving || !form.employeeId || !form.totalAmount || !form.installmentAmount || !form.startDate}
-                className="btn-cyan flex-1 text-sm"
+                className="btn-primary flex-1 text-sm"
               >
                 {saving ? 'Saving…' : 'Create'}
               </button>
               <button
                 onClick={() => setShowModal(false)}
-                className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
+                className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary"
               >
                 Cancel
               </button>
@@ -386,38 +386,38 @@ export default function LoansPage() {
       {/* Payments Modal */}
       {showPayments && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="glass-card rounded-xl p-6 w-full max-w-lg mx-4">
+          <div className="card p-6 w-full max-w-lg mx-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">
+              <h2 className="text-lg font-semibold text-text-primary">
                 Payment History {paymentsLoanId ? `#${paymentsLoanId}` : ''}
               </h2>
-              <button onClick={() => setShowPayments(false)} className="text-slate-400 hover:text-white">
+              <button onClick={() => setShowPayments(false)} className="text-text-secondary hover:text-text-primary">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             {paymentsLoading ? (
               <div className="flex justify-center py-8">
-                <div className="h-6 w-6 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+                <div className="h-6 w-6 animate-spin rounded-full border-4 border-primary border-t-transparent" />
               </div>
             ) : payments.length === 0 ? (
-              <p className="text-slate-400 text-center py-8">No payments found</p>
+              <p className="text-text-secondary text-center py-8">No payments found</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-cyan-500/10">
-                      <th className="px-3 py-2 text-left font-medium text-slate-400">Date</th>
-                      <th className="px-3 py-2 text-right font-medium text-slate-400">Amount</th>
-                      <th className="px-3 py-2 text-left font-medium text-slate-400">Notes</th>
+                    <tr className="border-b border-border">
+                      <th className="px-3 py-2 text-left font-medium text-text-secondary">Date</th>
+                      <th className="px-3 py-2 text-right font-medium text-text-secondary">Amount</th>
+                      <th className="px-3 py-2 text-left font-medium text-text-secondary">Notes</th>
                     </tr>
                   </thead>
                   <tbody>
                     {payments.map((p) => (
-                      <tr key={p.id} className="border-b border-cyan-500/5">
-                        <td className="px-3 py-2 text-slate-300">{formatDate(p.paymentDate)}</td>
-                        <td className="px-3 py-2 text-right text-white font-mono">{formatCurrency(p.amount)}</td>
-                        <td className="px-3 py-2 text-slate-400">{p.notes || '—'}</td>
+                      <tr key={p.id} className="border-b border-border">
+                        <td className="px-3 py-2 text-text-secondary">{formatDate(p.paymentDate)}</td>
+                        <td className="px-3 py-2 text-right text-text-primary font-mono">{formatCurrency(p.amount)}</td>
+                        <td className="px-3 py-2 text-text-secondary">{p.notes || '—'}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -428,7 +428,7 @@ export default function LoansPage() {
             <div className="mt-4 text-right">
               <button
                 onClick={() => setShowPayments(false)}
-                className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
+                className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary"
               >
                 Close
               </button>
@@ -440,24 +440,24 @@ export default function LoansPage() {
       {/* Record Payment Modal */}
       {showPaymentForm && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="glass-card rounded-xl p-6 w-full max-w-sm mx-4">
+          <div className="card p-6 w-full max-w-sm mx-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">Record Payment</h2>
-              <button onClick={() => setShowPaymentForm(false)} className="text-slate-400 hover:text-white">
+              <h2 className="text-lg font-semibold text-text-primary">Record Payment</h2>
+              <button onClick={() => setShowPaymentForm(false)} className="text-text-secondary hover:text-text-primary">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300">Amount *</label>
+                <label className="block text-sm font-medium text-text-secondary">Amount *</label>
                 <input
                   type="number" step="0.01" min="0" value={paymentAmount}
                   onChange={(e) => setPaymentAmount(e.target.value)}
                   className={inputClass} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-300">Notes</label>
+                <label className="block text-sm font-medium text-text-secondary">Notes</label>
                 <textarea
                   rows={2} value={paymentNotes}
                   onChange={(e) => setPaymentNotes(e.target.value)}
@@ -469,13 +469,13 @@ export default function LoansPage() {
               <button
                 onClick={recordPayment}
                 disabled={paymentSaving || !paymentAmount || Number(paymentAmount) <= 0}
-                className="btn-cyan flex-1 text-sm"
+                className="btn-primary flex-1 text-sm"
               >
                 {paymentSaving ? 'Saving…' : 'Record Payment'}
               </button>
               <button
                 onClick={() => setShowPaymentForm(false)}
-                className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
+                className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary"
               >
                 Cancel
               </button>

@@ -147,70 +147,70 @@ export default function BonusesPage() {
     }
   };
 
-  const inputClass = 'mt-1 block w-full rounded-lg border border-cyan-500/15 bg-[#1a1a2e] px-3 py-2 text-sm text-[#e2e8f0] focus:outline-none focus:ring-1 focus:border-cyan-500/40 focus:ring-cyan-500/50';
+  const inputClass = 'mt-1 block w-full rounded-lg border border-border bg-surface-card px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-1 focus:border-border focus:ring-primary/50';
 
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Bonuses</h1>
-        <button onClick={openNew} className="btn-cyan text-sm flex items-center gap-1.5">
+        <h1 className="text-2xl font-bold text-text-primary">Bonuses</h1>
+        <button onClick={openNew} className="btn-primary text-sm flex items-center gap-1.5">
           <Plus className="w-4 h-4" /> New Bonus
         </button>
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-900/30 border border-red-500/30 p-3 text-sm text-red-300 mb-4" role="alert">
+        <div className="rounded-lg bg-danger-light border border-danger/30 p-3 text-sm text-danger mb-4" role="alert">
           {error}
         </div>
       )}
 
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
         </div>
       ) : bonuses.length === 0 ? (
-        <div className="glass-card rounded-xl p-12 text-center">
-          <Gift className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400">No bonuses found</p>
-          <button onClick={openNew} className="text-cyan-400 hover:text-cyan-300 text-sm mt-2">
+        <div className="card p-12 text-center">
+          <Gift className="w-12 h-12 mx-auto mb-3 text-text-muted" />
+          <p className="text-text-secondary">No bonuses found</p>
+          <button onClick={openNew} className="text-primary hover:text-primary-dark text-sm mt-2">
             Create bonus
           </button>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-cyan-500/10">
+        <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-cyan-500/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Employee</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Type</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Amount</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Date</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Description</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Actions</th>
+              <tr className="border-b border-border bg-surface-hover">
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Employee</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Type</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Amount</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Date</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Description</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Actions</th>
               </tr>
             </thead>
             <tbody>
               {bonuses.map((b) => (
-                <tr key={b.id} className="border-b border-cyan-500/5 hover:bg-white/5 transition-colors">
-                  <td className="px-4 py-3 text-white">
+                <tr key={b.id} className="border-b border-border hover:bg-surface-hover transition-colors">
+                  <td className="px-4 py-3 text-text-primary">
                     {b.employee ? `${b.employee.firstName} ${b.employee.lastName}` : `ID: ${b.employeeId}`}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="text-xs font-medium text-cyan-400 bg-cyan-500/10 rounded-full px-2 py-0.5">
+                    <span className="text-xs font-medium text-primary bg-surface-hover rounded-full px-2 py-0.5">
                       {BONUS_TYPE[b.type] || b.type}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right text-white font-mono">{formatCurrency(b.amount)}</td>
-                  <td className="px-4 py-3 text-slate-300">{formatDate(b.date)}</td>
-                  <td className="px-4 py-3 text-slate-400 max-w-[200px] truncate">{b.description || '—'}</td>
+                  <td className="px-4 py-3 text-right text-text-primary font-mono">{formatCurrency(b.amount)}</td>
+                  <td className="px-4 py-3 text-text-secondary">{formatDate(b.date)}</td>
+                  <td className="px-4 py-3 text-text-secondary max-w-[200px] truncate">{b.description || '—'}</td>
                   <td className="px-4 py-3 text-right">
-                    <button onClick={() => openEdit(b)} className="text-cyan-400 hover:text-cyan-300 mr-3 text-xs">
+                    <button onClick={() => openEdit(b)} className="text-primary hover:text-primary-dark mr-3 text-xs">
                       <Edit2 className="w-3 h-3 inline" /> Edit
                     </button>
                     <button
                       onClick={() => handleDelete(b.id, `${b.employee?.firstName ?? ''} ${b.employee?.lastName ?? ''} - ${BONUS_TYPE[b.type]}`)}
                       disabled={deletingId === b.id}
-                      className="text-red-400 hover:text-red-300 text-xs disabled:opacity-50"
+                      className="text-danger hover:text-danger text-xs disabled:opacity-50"
                     >
                       <Trash2 className="w-3 h-3 inline" /> {deletingId === b.id ? '…' : 'Delete'}
                     </button>
@@ -225,19 +225,19 @@ export default function BonusesPage() {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="glass-card rounded-xl p-6 w-full max-w-md mx-4">
+          <div className="card p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">
+              <h2 className="text-lg font-semibold text-text-primary">
                 {editId ? 'Edit Bonus' : 'New Bonus'}
               </h2>
-              <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-white">
+              <button onClick={() => setShowModal(false)} className="text-text-secondary hover:text-text-primary">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300">Employee *</label>
+                <label className="block text-sm font-medium text-text-secondary">Employee *</label>
                 <select
                   value={form.employeeId}
                   onChange={(e) => setForm({ ...form, employeeId: e.target.value })}
@@ -254,7 +254,7 @@ export default function BonusesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Type *</label>
+                <label className="block text-sm font-medium text-text-secondary">Type *</label>
                 <select
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value })}
@@ -268,14 +268,14 @@ export default function BonusesPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Amount *</label>
+                  <label className="block text-sm font-medium text-text-secondary">Amount *</label>
                   <input
                     type="number" step="0.01" min="0" value={form.amount}
                     onChange={(e) => setForm({ ...form, amount: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Date *</label>
+                  <label className="block text-sm font-medium text-text-secondary">Date *</label>
                   <input
                     type="date" value={form.date}
                     onChange={(e) => setForm({ ...form, date: e.target.value })}
@@ -284,7 +284,7 @@ export default function BonusesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Description</label>
+                <label className="block text-sm font-medium text-text-secondary">Description</label>
                 <textarea
                   rows={2} value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
@@ -296,13 +296,13 @@ export default function BonusesPage() {
               <button
                 onClick={handleSubmit}
                 disabled={saving || !form.employeeId || !form.amount || !form.date}
-                className="btn-cyan flex-1 text-sm"
+                className="btn-primary flex-1 text-sm"
               >
                 {saving ? 'Saving…' : editId ? 'Update' : 'Create'}
               </button>
               <button
                 onClick={() => setShowModal(false)}
-                className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
+                className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary"
               >
                 Cancel
               </button>

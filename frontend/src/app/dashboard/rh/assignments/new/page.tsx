@@ -118,40 +118,40 @@ export default function NewAssignmentPage() {
   };
 
   const inputClass = (field: keyof AssignmentForm) =>
-    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm text-[#e2e8f0] transition-colors bg-[#1a1a2e] placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
+    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm text-text-primary transition-colors bg-surface-card placeholder:text-text-muted focus:outline-none focus:ring-1 ${
       errors[field]
         ? 'border-red-300 focus:border-red-500 focus:ring-red-500/50'
-        : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
+        : 'border-border focus:border-border focus:ring-primary/50'
     }`;
 
   const selectClass = (field: keyof AssignmentForm) =>
-    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm transition-colors bg-[#1a1a2e] focus:outline-none focus:ring-1 ${
+    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm transition-colors bg-surface-card focus:outline-none focus:ring-1 ${
       errors[field]
-        ? 'border-red-300 text-red-300 focus:border-red-500 focus:ring-red-500/50'
-        : 'border-cyan-500/15 text-slate-300 focus:border-cyan-500/40 focus:ring-cyan-500/50'
+        ? 'border-red-300 text-danger focus:border-red-500 focus:ring-red-500/50'
+        : 'border-border text-text-secondary focus:border-border focus:ring-primary/50'
     }`;
 
   return (
     <div className="max-w-2xl mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#e2e8f0]">New Shift Assignment</h1>
-        <p className="mt-1 text-sm text-slate-400">Assign a shift to an employee for a specific day of the week</p>
+        <h1 className="text-2xl font-bold text-text-primary">New Shift Assignment</h1>
+        <p className="mt-1 text-sm text-text-secondary">Assign a shift to an employee for a specific day of the week</p>
       </div>
 
       {submitError && (
-        <div role="alert" className="mb-6 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300">
+        <div role="alert" className="mb-6 rounded-lg border border-danger/20 bg-danger-light px-4 py-3 text-sm text-danger">
           {submitError}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} noValidate className="glass-card rounded-xl p-6 space-y-6">
+      <form onSubmit={handleSubmit} noValidate className="card p-6 space-y-6">
         <div>
-          <h2 className="text-sm font-semibold text-slate-300 mb-3 border-b border-cyan-500/10 pb-2">
+          <h2 className="text-sm font-semibold text-text-secondary mb-3 border-b border-border pb-2">
             Assignment Details
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="sm:col-span-2">
-              <label htmlFor="employeeId" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="employeeId" className="block text-sm font-medium text-text-secondary">
                 Employee <span className="text-red-500">*</span>
               </label>
               <select id="employeeId" name="employeeId"
@@ -162,10 +162,10 @@ export default function NewAssignmentPage() {
                   <option key={e.id} value={e.id}>{e.firstName} {e.lastName} ({e.code})</option>
                 ))}
               </select>
-              {errors.employeeId && <p className="mt-1 text-xs text-red-400">{errors.employeeId}</p>}
+              {errors.employeeId && <p className="mt-1 text-xs text-danger">{errors.employeeId}</p>}
             </div>
             <div>
-              <label htmlFor="branchId" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="branchId" className="block text-sm font-medium text-text-secondary">
                 Branch <span className="text-red-500">*</span>
               </label>
               <select id="branchId" name="branchId"
@@ -176,10 +176,10 @@ export default function NewAssignmentPage() {
                   <option key={b.id} value={b.id}>{b.name}</option>
                 ))}
               </select>
-              {errors.branchId && <p className="mt-1 text-xs text-red-400">{errors.branchId}</p>}
+              {errors.branchId && <p className="mt-1 text-xs text-danger">{errors.branchId}</p>}
             </div>
             <div>
-              <label htmlFor="shiftId" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="shiftId" className="block text-sm font-medium text-text-secondary">
                 Shift <span className="text-red-500">*</span>
               </label>
               <select id="shiftId" name="shiftId"
@@ -190,10 +190,10 @@ export default function NewAssignmentPage() {
                   <option key={s.id} value={s.id}>{s.name} ({s.startTime} - {s.endTime})</option>
                 ))}
               </select>
-              {errors.shiftId && <p className="mt-1 text-xs text-red-400">{errors.shiftId}</p>}
+              {errors.shiftId && <p className="mt-1 text-xs text-danger">{errors.shiftId}</p>}
             </div>
             <div>
-              <label htmlFor="dayOfWeek" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="dayOfWeek" className="block text-sm font-medium text-text-secondary">
                 Day of Week <span className="text-red-500">*</span>
               </label>
               <select id="dayOfWeek" name="dayOfWeek"
@@ -204,19 +204,19 @@ export default function NewAssignmentPage() {
                   <option key={d.value} value={d.value}>{d.label}</option>
                 ))}
               </select>
-              {errors.dayOfWeek && <p className="mt-1 text-xs text-red-400">{errors.dayOfWeek}</p>}
+              {errors.dayOfWeek && <p className="mt-1 text-xs text-danger">{errors.dayOfWeek}</p>}
             </div>
             <div>
-              <label htmlFor="startDate" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="startDate" className="block text-sm font-medium text-text-secondary">
                 Start Date <span className="text-red-500">*</span>
               </label>
               <input id="startDate" name="startDate" type="date" required
                 value={form.startDate} onChange={handleChange}
                 className={inputClass('startDate')} />
-              {errors.startDate && <p className="mt-1 text-xs text-red-400">{errors.startDate}</p>}
+              {errors.startDate && <p className="mt-1 text-xs text-danger">{errors.startDate}</p>}
             </div>
             <div>
-              <label htmlFor="endDate" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="endDate" className="block text-sm font-medium text-text-secondary">
                 End Date
               </label>
               <input id="endDate" name="endDate" type="date"
@@ -226,18 +226,18 @@ export default function NewAssignmentPage() {
           </div>
         </div>
 
-        <div className="flex gap-3 pt-4 border-t border-cyan-500/10">
+        <div className="flex gap-3 pt-4 border-t border-border">
           <button
             type="submit"
             disabled={submitting}
-            className="btn-cyan flex-1"
+            className="btn-primary flex-1"
           >
             {submitting ? 'Saving…' : 'Create Assignment'}
           </button>
           <button
             type="button"
             onClick={() => router.push('/dashboard/rh/assignments')}
-            className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white transition-colors"
+            className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
           >
             Cancel
           </button>

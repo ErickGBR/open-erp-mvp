@@ -60,34 +60,34 @@ export default function ShiftsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Shifts</h1>
+        <h1 className="text-2xl font-bold text-text-primary">Shifts</h1>
         <Link
           href="/dashboard/rh/shifts/new"
-          className="btn-cyan text-sm flex items-center gap-1.5"
+          className="btn-primary text-sm flex items-center gap-1.5"
         >
           <Plus className="w-4 h-4" /> New Shift
         </Link>
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-900/30 border border-red-500/30 p-3 text-sm text-red-300 mb-4" role="alert">
+        <div className="rounded-lg bg-danger-light border border-danger/30 p-3 text-sm text-danger mb-4" role="alert">
           {error}
         </div>
       )}
 
       {loading && (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
         </div>
       )}
 
       {!loading && !error && shifts.length === 0 && (
-        <div className="glass-card rounded-xl p-12 text-center">
-          <Clock className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400 mb-2">No shifts found</p>
+        <div className="card p-12 text-center">
+          <Clock className="w-12 h-12 mx-auto mb-3 text-text-muted" />
+          <p className="text-text-secondary mb-2">No shifts found</p>
           <Link
             href="/dashboard/rh/shifts/new"
-            className="text-cyan-400 hover:text-cyan-300 text-sm"
+            className="text-primary hover:text-primary-dark text-sm"
           >
             Create first shift
           </Link>
@@ -95,29 +95,29 @@ export default function ShiftsPage() {
       )}
 
       {!loading && shifts.length > 0 && (
-        <div className="overflow-x-auto rounded-xl border border-cyan-500/10">
+        <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-cyan-500/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Name</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Start Time</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">End Time</th>
-                <th className="px-4 py-3 text-center font-medium text-slate-400">Status</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Actions</th>
+              <tr className="border-b border-border bg-surface-hover">
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Name</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Start Time</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">End Time</th>
+                <th className="px-4 py-3 text-center font-medium text-text-secondary">Status</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Actions</th>
               </tr>
             </thead>
             <tbody>
               {shifts.map((shift) => (
-                <tr key={shift.id} className="border-b border-cyan-500/5 hover:bg-white/5 transition-colors">
-                  <td className="px-4 py-3 text-white font-medium">{shift.name}</td>
+                <tr key={shift.id} className="border-b border-border hover:bg-surface-hover transition-colors">
+                  <td className="px-4 py-3 text-text-primary font-medium">{shift.name}</td>
                   <td className="px-4 py-3">
-                    <span className="inline-flex items-center gap-1 text-cyan-400 font-mono">
+                    <span className="inline-flex items-center gap-1 text-primary font-mono">
                       <Clock className="w-3 h-3" />
                       {formatTime(shift.startTime)}
                     </span>
                   </td>
                   <td className="px-4 py-3">
-                    <span className="inline-flex items-center gap-1 text-cyan-400 font-mono">
+                    <span className="inline-flex items-center gap-1 text-primary font-mono">
                       <Clock className="w-3 h-3" />
                       {formatTime(shift.endTime)}
                     </span>
@@ -125,8 +125,8 @@ export default function ShiftsPage() {
                   <td className="px-4 py-3 text-center">
                     <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
                       shift.isActive
-                        ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30'
-                        : 'bg-slate-500/15 text-slate-400 border border-slate-500/30'
+                        ? 'bg-emerald-500/15 text-success border border-success/30'
+                        : 'bg-slate-500/15 text-text-secondary border border-slate-500/30'
                     }`}>
                       {shift.isActive ? 'Active' : 'Inactive'}
                     </span>
@@ -134,14 +134,14 @@ export default function ShiftsPage() {
                   <td className="px-4 py-3 text-right">
                     <Link
                       href={`/dashboard/rh/shifts/${shift.id}`}
-                      className="text-cyan-400 hover:text-cyan-300 mr-3 text-xs"
+                      className="text-primary hover:text-primary-dark mr-3 text-xs"
                     >
                       Edit
                     </Link>
                     <button
                       onClick={() => handleDelete(shift.id, shift.name)}
                       disabled={deletingId === shift.id}
-                      className="text-red-400 hover:text-red-300 text-xs disabled:opacity-50"
+                      className="text-danger hover:text-danger text-xs disabled:opacity-50"
                     >
                       {deletingId === shift.id ? '…' : 'Delete'}
                     </button>
