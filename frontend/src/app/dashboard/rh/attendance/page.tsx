@@ -178,14 +178,14 @@ export default function AttendancePage() {
     return `${rec.employee.firstName} ${rec.employee.lastName}`;
   };
 
-  const inputClass = 'mt-1 block w-full rounded-lg border border-cyan-500/15 bg-[#1a1a2e] px-3 py-2 text-sm text-[#e2e8f0] focus:outline-none focus:ring-1 focus:border-cyan-500/40 focus:ring-cyan-500/50';
+  const inputClass = 'mt-1 block w-full rounded-lg border border-border bg-surface-card px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-1 focus:border-border focus:ring-primary/50';
 
   return (
     <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Attendance</h1>
-        <button onClick={openNew} className="btn-cyan text-sm flex items-center gap-1.5">
+        <h1 className="text-2xl font-bold text-text-primary">Attendance</h1>
+        <button onClick={openNew} className="btn-primary text-sm flex items-center gap-1.5">
           <Plus className="w-4 h-4" /> New Record
         </button>
       </div>
@@ -193,68 +193,68 @@ export default function AttendancePage() {
       {/* Filter */}
       <div className="flex gap-4 mb-6 items-end">
         <div>
-          <label className="block text-xs text-slate-400 mb-1">Date</label>
+          <label className="block text-xs text-text-secondary mb-1">Date</label>
           <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
             <input
               type="date"
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value)}
-              className="rounded-lg bg-white/5 border border-cyan-500/15 pl-9 pr-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
+              className="rounded-lg bg-surface-hover border border-border pl-9 pr-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
             />
           </div>
         </div>
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-900/30 border border-red-500/30 p-3 text-sm text-red-300 mb-4" role="alert">
+        <div className="rounded-lg bg-danger-light border border-danger/30 p-3 text-sm text-danger mb-4" role="alert">
           {error}
         </div>
       )}
 
       {loading ? (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
         </div>
       ) : records.length === 0 ? (
-        <div className="glass-card rounded-xl p-12 text-center">
-          <Clock className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400">No attendance records for this date</p>
-          <button onClick={openNew} className="text-cyan-400 hover:text-cyan-300 text-sm mt-2">
+        <div className="card p-12 text-center">
+          <Clock className="w-12 h-12 mx-auto mb-3 text-text-muted" />
+          <p className="text-text-secondary">No attendance records for this date</p>
+          <button onClick={openNew} className="text-primary hover:text-primary-dark text-sm mt-2">
             Create record
           </button>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-cyan-500/10">
+        <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-cyan-500/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Employee</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Check-in</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Check-out</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Reg. Hours</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Overtime</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Notes</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Actions</th>
+              <tr className="border-b border-border bg-surface-hover">
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Employee</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Check-in</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Check-out</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Reg. Hours</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Overtime</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Notes</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Actions</th>
               </tr>
             </thead>
             <tbody>
               {records.map((rec) => (
-                <tr key={rec.id} className="border-b border-cyan-500/5 hover:bg-white/5 transition-colors">
-                  <td className="px-4 py-3 text-white">{formatEmployeeName(rec)}</td>
-                  <td className="px-4 py-3 text-cyan-400 font-mono">{formatTime(rec.clockIn)}</td>
-                  <td className="px-4 py-3 text-cyan-400 font-mono">{formatTime(rec.clockOut)}</td>
-                  <td className="px-4 py-3 text-right text-white">{rec.regularHours?.toFixed(1) ?? '—'}</td>
-                  <td className="px-4 py-3 text-right text-amber-400">{rec.overtimeHours?.toFixed(1) ?? '—'}</td>
-                  <td className="px-4 py-3 text-slate-400 max-w-[200px] truncate">{rec.notes || '—'}</td>
+                <tr key={rec.id} className="border-b border-border hover:bg-surface-hover transition-colors">
+                  <td className="px-4 py-3 text-text-primary">{formatEmployeeName(rec)}</td>
+                  <td className="px-4 py-3 text-primary font-mono">{formatTime(rec.clockIn)}</td>
+                  <td className="px-4 py-3 text-primary font-mono">{formatTime(rec.clockOut)}</td>
+                  <td className="px-4 py-3 text-right text-text-primary">{rec.regularHours?.toFixed(1) ?? '—'}</td>
+                  <td className="px-4 py-3 text-right text-warning">{rec.overtimeHours?.toFixed(1) ?? '—'}</td>
+                  <td className="px-4 py-3 text-text-secondary max-w-[200px] truncate">{rec.notes || '—'}</td>
                   <td className="px-4 py-3 text-right">
-                    <button onClick={() => openEdit(rec)} className="text-cyan-400 hover:text-cyan-300 mr-3 text-xs">
+                    <button onClick={() => openEdit(rec)} className="text-primary hover:text-primary-dark mr-3 text-xs">
                       <Edit2 className="w-3 h-3 inline" /> Edit
                     </button>
                     <button
                       onClick={() => handleDelete(rec.id, formatEmployeeName(rec))}
                       disabled={deletingId === rec.id}
-                      className="text-red-400 hover:text-red-300 text-xs disabled:opacity-50"
+                      className="text-danger hover:text-danger text-xs disabled:opacity-50"
                     >
                       <Trash2 className="w-3 h-3 inline" /> {deletingId === rec.id ? '…' : 'Delete'}
                     </button>
@@ -269,19 +269,19 @@ export default function AttendancePage() {
       {/* Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="glass-card rounded-xl p-6 w-full max-w-md mx-4">
+          <div className="card p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-white">
+              <h2 className="text-lg font-semibold text-text-primary">
                 {editId ? 'Edit Record' : 'New Record'}
               </h2>
-              <button onClick={() => setShowModal(false)} className="text-slate-400 hover:text-white">
+              <button onClick={() => setShowModal(false)} className="text-text-secondary hover:text-text-primary">
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-slate-300">Employee *</label>
+                <label className="block text-sm font-medium text-text-secondary">Employee *</label>
                 <select
                   value={form.employeeId}
                   onChange={(e) => setForm({ ...form, employeeId: e.target.value })}
@@ -298,7 +298,7 @@ export default function AttendancePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Date *</label>
+                <label className="block text-sm font-medium text-text-secondary">Date *</label>
                 <input
                   type="date" value={form.date}
                   onChange={(e) => setForm({ ...form, date: e.target.value })}
@@ -307,14 +307,14 @@ export default function AttendancePage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Check-in</label>
+                  <label className="block text-sm font-medium text-text-secondary">Check-in</label>
                   <input
                     type="time" value={form.clockIn}
                     onChange={(e) => setForm({ ...form, clockIn: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-300">Check-out</label>
+                  <label className="block text-sm font-medium text-text-secondary">Check-out</label>
                   <input
                     type="time" value={form.clockOut}
                     onChange={(e) => setForm({ ...form, clockOut: e.target.value })}
@@ -323,7 +323,7 @@ export default function AttendancePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Break Minutes</label>
+                <label className="block text-sm font-medium text-text-secondary">Break Minutes</label>
                 <input
                   type="number" value={form.breakMinutes}
                   onChange={(e) => setForm({ ...form, breakMinutes: e.target.value })}
@@ -331,7 +331,7 @@ export default function AttendancePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-300">Notes</label>
+                <label className="block text-sm font-medium text-text-secondary">Notes</label>
                 <textarea
                   rows={2} value={form.notes}
                   onChange={(e) => setForm({ ...form, notes: e.target.value })}
@@ -343,13 +343,13 @@ export default function AttendancePage() {
               <button
                 onClick={handleSubmit}
                 disabled={saving || !form.employeeId || !form.date}
-                className="btn-cyan flex-1 text-sm"
+                className="btn-primary flex-1 text-sm"
               >
                 {saving ? 'Saving…' : editId ? 'Update' : 'Create'}
               </button>
               <button
                 onClick={() => setShowModal(false)}
-                className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white"
+                className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary"
               >
                 Cancel
               </button>

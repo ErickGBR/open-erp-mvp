@@ -125,27 +125,27 @@ export default function ClientPage() {
   };
 
   const inputClass = (field: keyof ShiftForm) =>
-    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm text-[#e2e8f0] transition-colors bg-[#1a1a2e] placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
+    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm text-text-primary transition-colors bg-surface-card placeholder:text-text-muted focus:outline-none focus:ring-1 ${
       errors[field]
         ? 'border-red-300 focus:border-red-500 focus:ring-red-500/50'
-        : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
+        : 'border-border focus:border-border focus:ring-primary/50'
     }`;
 
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
-        <span className="ml-3 text-sm text-slate-400">Loading shift…</span>
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        <span className="ml-3 text-sm text-text-secondary">Loading shift…</span>
       </div>
     );
   }
 
   if (notFound) {
     return (
-      <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center">
-        <p className="text-lg font-semibold text-[#e2e8f0]">Shift not found</p>
-        <p className="mt-1 text-sm text-slate-400">The shift you are looking for does not exist or was deleted.</p>
-        <Link href="/dashboard/rh/shifts" className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300">
+      <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center">
+        <p className="text-lg font-semibold text-text-primary">Shift not found</p>
+        <p className="mt-1 text-sm text-text-secondary">The shift you are looking for does not exist or was deleted.</p>
+        <Link href="/dashboard/rh/shifts" className="mt-4 inline-block text-sm font-medium text-primary hover:text-primary-dark">
           &larr; Back to shifts
         </Link>
       </div>
@@ -154,9 +154,9 @@ export default function ClientPage() {
 
   if (!form) {
     return (
-      <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center">
-        <p className="text-sm text-red-400">{submitError || 'Error loading shift data.'}</p>
-        <Link href="/dashboard/rh/shifts" className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300">
+      <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center">
+        <p className="text-sm text-danger">{submitError || 'Error loading shift data.'}</p>
+        <Link href="/dashboard/rh/shifts" className="mt-4 inline-block text-sm font-medium text-primary hover:text-primary-dark">
           &larr; Back to shifts
         </Link>
       </div>
@@ -167,70 +167,70 @@ export default function ClientPage() {
     <div className="max-w-lg mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-[#e2e8f0]">Edit Shift</h1>
-          <p className="mt-1 text-sm text-slate-400">{form.name}</p>
+          <h1 className="text-2xl font-bold text-text-primary">Edit Shift</h1>
+          <p className="mt-1 text-sm text-text-secondary">{form.name}</p>
         </div>
-        <Link href="/dashboard/rh/shifts" className="text-sm font-medium text-cyan-400 hover:text-cyan-300">
+        <Link href="/dashboard/rh/shifts" className="text-sm font-medium text-primary hover:text-primary-dark">
           &larr; Back
         </Link>
       </div>
 
       {submitError && (
-        <div role="alert" className="mb-6 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300">
+        <div role="alert" className="mb-6 rounded-lg border border-danger/20 bg-danger-light px-4 py-3 text-sm text-danger">
           {submitError}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} noValidate className="glass-card rounded-xl p-6 space-y-5">
+      <form onSubmit={handleSubmit} noValidate className="card p-6 space-y-5">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="name" className="block text-sm font-medium text-text-secondary">
             Name <span className="text-red-500">*</span>
           </label>
           <input id="name" name="name" type="text" required
             value={form.name} onChange={handleChange}
             aria-invalid={!!errors.name}
             className={inputClass('name')} />
-          {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name}</p>}
+          {errors.name && <p className="mt-1 text-xs text-danger">{errors.name}</p>}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="startTime" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="startTime" className="block text-sm font-medium text-text-secondary">
               Start Time <span className="text-red-500">*</span>
             </label>
             <input id="startTime" name="startTime" type="time" required
               value={form.startTime} onChange={handleChange}
               aria-invalid={!!errors.startTime}
               className={inputClass('startTime')} />
-            {errors.startTime && <p className="mt-1 text-xs text-red-400">{errors.startTime}</p>}
+            {errors.startTime && <p className="mt-1 text-xs text-danger">{errors.startTime}</p>}
           </div>
           <div>
-            <label htmlFor="endTime" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="endTime" className="block text-sm font-medium text-text-secondary">
               End Time <span className="text-red-500">*</span>
             </label>
             <input id="endTime" name="endTime" type="time" required
               value={form.endTime} onChange={handleChange}
               aria-invalid={!!errors.endTime}
               className={inputClass('endTime')} />
-            {errors.endTime && <p className="mt-1 text-xs text-red-400">{errors.endTime}</p>}
+            {errors.endTime && <p className="mt-1 text-xs text-danger">{errors.endTime}</p>}
           </div>
         </div>
 
         <div className="flex items-center gap-3">
           <input id="isActive" name="isActive" type="checkbox"
             checked={form.isActive} onChange={handleChange}
-            className="h-4 w-4 rounded border-cyan-500/30 bg-[#1a1a2e] text-cyan-500 focus:ring-cyan-500/50" />
-          <label htmlFor="isActive" className="text-sm text-slate-300">
+            className="h-4 w-4 rounded border-border bg-surface-card text-primary focus:ring-primary/50" />
+          <label htmlFor="isActive" className="text-sm text-text-secondary">
             Active shift
           </label>
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-cyan-500/10">
+        <div className="flex items-center justify-between pt-4 border-t border-border">
           <button
             type="button"
             onClick={handleDelete}
             disabled={deleting}
-            className="rounded-lg border border-red-500/30 px-4 py-2 text-sm text-red-400 hover:bg-red-900/20 transition-colors disabled:opacity-50"
+            className="rounded-lg border border-danger/30 px-4 py-2 text-sm text-danger hover:bg-danger-light transition-colors disabled:opacity-50"
           >
             {deleting ? 'Deleting…' : 'Delete Shift'}
           </button>
@@ -238,14 +238,14 @@ export default function ClientPage() {
             <button
               type="button"
               onClick={() => router.push('/dashboard/rh/shifts')}
-              className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white transition-colors"
+              className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25 disabled:opacity-50 transition-all"
+              className="rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg  disabled:opacity-50 transition-all"
             >
               {submitting ? 'Saving…' : 'Save Changes'}
             </button>

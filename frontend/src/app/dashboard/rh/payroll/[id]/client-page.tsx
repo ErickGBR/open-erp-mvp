@@ -113,18 +113,18 @@ export default function ClientPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
-        <span className="ml-3 text-sm text-slate-400">Loading payroll…</span>
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        <span className="ml-3 text-sm text-text-secondary">Loading payroll…</span>
       </div>
     );
   }
 
   if (error && !period) {
     return (
-      <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center">
-        <ClipboardList className="mx-auto mb-3 h-12 w-12 text-slate-600" />
-        <p className="text-sm text-red-400">{error}</p>
-        <Link href="/dashboard/rh/payroll" className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300">
+      <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center">
+        <ClipboardList className="mx-auto mb-3 h-12 w-12 text-text-muted" />
+        <p className="text-sm text-danger">{error}</p>
+        <Link href="/dashboard/rh/payroll" className="mt-4 inline-block text-sm font-medium text-primary hover:text-primary-dark">
           &larr; Back to payroll
         </Link>
       </div>
@@ -133,11 +133,11 @@ export default function ClientPage() {
 
   if (!period) {
     return (
-      <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center">
-        <ClipboardList className="mx-auto mb-3 h-12 w-12 text-slate-600" />
-        <p className="text-lg font-semibold text-[#e2e8f0]">Payroll not found</p>
-        <p className="mt-1 text-sm text-slate-400">This payroll period does not exist or was deleted.</p>
-        <Link href="/dashboard/rh/payroll" className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300">
+      <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center">
+        <ClipboardList className="mx-auto mb-3 h-12 w-12 text-text-muted" />
+        <p className="text-lg font-semibold text-text-primary">Payroll not found</p>
+        <p className="mt-1 text-sm text-text-secondary">This payroll period does not exist or was deleted.</p>
+        <Link href="/dashboard/rh/payroll" className="mt-4 inline-block text-sm font-medium text-primary hover:text-primary-dark">
           &larr; Back to payroll
         </Link>
       </div>
@@ -149,17 +149,17 @@ export default function ClientPage() {
       {/* Back link */}
       <Link
         href="/dashboard/rh/payroll"
-        className="inline-flex items-center gap-1 text-sm text-cyan-400 hover:text-cyan-300 mb-4"
+        className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary-dark mb-4"
       >
         <ArrowLeft className="w-4 h-4" /> Back to payroll
       </Link>
 
       {/* Period Info Header */}
-      <div className="glass-card rounded-xl p-6 mb-6">
+      <div className="card p-6 mb-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-[#e2e8f0]">{period.periodName}</h1>
-            <p className="mt-1 text-sm text-slate-400">
+            <h1 className="text-2xl font-bold text-text-primary">{period.periodName}</h1>
+            <p className="mt-1 text-sm text-text-secondary">
               {formatDate(period.startDate)} — {formatDate(period.endDate)}
             </p>
           </div>
@@ -171,15 +171,15 @@ export default function ClientPage() {
         </div>
 
         {/* Summary Row */}
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-6 pt-4 border-t border-cyan-500/10">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-6 pt-4 border-t border-border">
           <SummaryBox label="Employees" value={String(period.employeeCount ?? entries.length)} />
-          <SummaryBox label="Gross Salary" value={formatCurrency(period.grossPay ?? totals.grossPay)} color="text-white" />
-          <SummaryBox label="Deductions" value={formatCurrency(period.totalDeductions ?? totals.totalDeductions)} color="text-red-400" />
-          <SummaryBox label="Net Pay" value={formatCurrency(period.netPay ?? totals.netPay)} color="text-emerald-400" />
+          <SummaryBox label="Gross Salary" value={formatCurrency(period.grossPay ?? totals.grossPay)} color="text-text-primary" />
+          <SummaryBox label="Deductions" value={formatCurrency(period.totalDeductions ?? totals.totalDeductions)} color="text-danger" />
+          <SummaryBox label="Net Pay" value={formatCurrency(period.netPay ?? totals.netPay)} color="text-success" />
         </div>
 
         {/* Action buttons based on status */}
-        <div className="flex flex-wrap gap-3 mt-6 pt-4 border-t border-cyan-500/10">
+        <div className="flex flex-wrap gap-3 mt-6 pt-4 border-t border-border">
           {period.status === 'draft' && (
             <ActionButton
               icon={<Calculator className="w-4 h-4" />}
@@ -215,7 +215,7 @@ export default function ClientPage() {
           )}
           {(period.status === 'paid' || period.status === 'approved' || period.status === 'calculated') && (
             <button
-              className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-2"
+              className="rounded-lg border border-border px-4 py-2 text-sm font-medium text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2"
             >
               <Download className="w-4 h-4" /> Export (Soon)
             </button>
@@ -225,37 +225,37 @@ export default function ClientPage() {
 
       {/* Error banner */}
       {error && (
-        <div role="alert" className="mb-6 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300">
+        <div role="alert" className="mb-6 rounded-lg border border-danger/20 bg-danger-light px-4 py-3 text-sm text-danger">
           {error}
         </div>
       )}
 
       {/* Employee Payroll Table */}
-      <div className="overflow-x-auto rounded-xl border border-cyan-500/10">
+      <div className="overflow-x-auto rounded-xl border border-border">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-cyan-500/10 bg-white/5">
-              <th className="px-3 py-3 text-left font-medium text-slate-400">Employee</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">Base Salary</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">Reg. Hrs</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">Overtime</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">Bonuses</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400 text-cyan-400">Gross</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">ISSS</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">AFP</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">ISR</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400">Loan</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400 text-red-400">Deductions</th>
-              <th className="px-3 py-3 text-right font-medium text-slate-400 text-emerald-400">Net</th>
+            <tr className="border-b border-border bg-surface-hover">
+              <th className="px-3 py-3 text-left font-medium text-text-secondary">Employee</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary">Base Salary</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary">Reg. Hrs</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary">Overtime</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary">Bonuses</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary text-primary">Gross</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary">ISSS</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary">AFP</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary">ISR</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary">Loan</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary text-danger">Deductions</th>
+              <th className="px-3 py-3 text-right font-medium text-text-secondary text-success">Net</th>
             </tr>
           </thead>
           <tbody>
             {entries.length === 0 ? (
               <tr>
-                <td colSpan={12} className="px-3 py-12 text-center text-slate-400">
+                <td colSpan={12} className="px-3 py-12 text-center text-text-secondary">
                   No employees in this period
                   {period.status === 'draft' && (
-                    <p className="mt-2 text-xs text-slate-500">
+                    <p className="mt-2 text-xs text-text-muted">
                       Use &quot;Calculate Payroll&quot; to generate the details
                     </p>
                   )}
@@ -263,42 +263,42 @@ export default function ClientPage() {
               </tr>
             ) : (
               entries.map((entry) => (
-                <tr key={entry.id} className="border-b border-cyan-500/5 hover:bg-white/5 transition-colors">
-                  <td className="px-3 py-3 text-white whitespace-nowrap">
+                <tr key={entry.id} className="border-b border-border hover:bg-surface-hover transition-colors">
+                  <td className="px-3 py-3 text-text-primary whitespace-nowrap">
                     {entry.employee
                       ? `${entry.employee.firstName} ${entry.employee.lastName}`
                       : `ID: ${entry.employeeId}`}
                   </td>
-                  <td className="px-3 py-3 text-right text-white font-mono">{formatCurrency(entry.baseSalary)}</td>
-                  <td className="px-3 py-3 text-right text-slate-300">{entry.regularHours?.toFixed(1) ?? '—'}</td>
-                  <td className="px-3 py-3 text-right text-amber-400">{entry.overtimeHours?.toFixed(1) ?? '—'}</td>
-                  <td className="px-3 py-3 text-right text-white font-mono">{formatCurrency(entry.bonuses)}</td>
-                  <td className="px-3 py-3 text-right text-cyan-400 font-mono font-semibold">{formatCurrency(entry.grossPay)}</td>
-                  <td className="px-3 py-3 text-right text-red-400/80 font-mono">{formatCurrency(entry.isss)}</td>
-                  <td className="px-3 py-3 text-right text-red-400/80 font-mono">{formatCurrency(entry.afp)}</td>
-                  <td className="px-3 py-3 text-right text-red-400/80 font-mono">{formatCurrency(entry.isr)}</td>
-                  <td className="px-3 py-3 text-right text-red-400/80 font-mono">{formatCurrency(entry.loanDeduction)}</td>
-                  <td className="px-3 py-3 text-right text-red-400 font-mono font-semibold">{formatCurrency(entry.totalDeductions)}</td>
-                  <td className="px-3 py-3 text-right text-emerald-400 font-mono font-semibold">{formatCurrency(entry.netPay)}</td>
+                  <td className="px-3 py-3 text-right text-text-primary font-mono">{formatCurrency(entry.baseSalary)}</td>
+                  <td className="px-3 py-3 text-right text-text-secondary">{entry.regularHours?.toFixed(1) ?? '—'}</td>
+                  <td className="px-3 py-3 text-right text-warning">{entry.overtimeHours?.toFixed(1) ?? '—'}</td>
+                  <td className="px-3 py-3 text-right text-text-primary font-mono">{formatCurrency(entry.bonuses)}</td>
+                  <td className="px-3 py-3 text-right text-primary font-mono font-semibold">{formatCurrency(entry.grossPay)}</td>
+                  <td className="px-3 py-3 text-right text-danger/80 font-mono">{formatCurrency(entry.isss)}</td>
+                  <td className="px-3 py-3 text-right text-danger/80 font-mono">{formatCurrency(entry.afp)}</td>
+                  <td className="px-3 py-3 text-right text-danger/80 font-mono">{formatCurrency(entry.isr)}</td>
+                  <td className="px-3 py-3 text-right text-danger/80 font-mono">{formatCurrency(entry.loanDeduction)}</td>
+                  <td className="px-3 py-3 text-right text-danger font-mono font-semibold">{formatCurrency(entry.totalDeductions)}</td>
+                  <td className="px-3 py-3 text-right text-success font-mono font-semibold">{formatCurrency(entry.netPay)}</td>
                 </tr>
               ))
             )}
 
             {/* Totals row */}
             {entries.length > 0 && (
-              <tr className="bg-white/5 border-t-2 border-cyan-500/20">
-                <td className="px-3 py-3 text-sm font-semibold text-cyan-400">TOTALS</td>
-                <td className="px-3 py-3 text-right text-white font-mono font-semibold">{formatCurrency(totals.baseSalary)}</td>
-                <td className="px-3 py-3 text-right text-slate-300 font-semibold">{totals.regularHours.toFixed(1)}</td>
-                <td className="px-3 py-3 text-right text-amber-400 font-semibold">{totals.overtimeHours.toFixed(1)}</td>
-                <td className="px-3 py-3 text-right text-white font-mono font-semibold">{formatCurrency(totals.bonuses)}</td>
-                <td className="px-3 py-3 text-right text-cyan-400 font-mono font-bold">{formatCurrency(totals.grossPay)}</td>
-                <td className="px-3 py-3 text-right text-red-400/80 font-mono font-semibold">{formatCurrency(totals.isss)}</td>
-                <td className="px-3 py-3 text-right text-red-400/80 font-mono font-semibold">{formatCurrency(totals.afp)}</td>
-                <td className="px-3 py-3 text-right text-red-400/80 font-mono font-semibold">{formatCurrency(totals.isr)}</td>
-                <td className="px-3 py-3 text-right text-red-400/80 font-mono font-semibold">{formatCurrency(totals.loanDeduction)}</td>
-                <td className="px-3 py-3 text-right text-red-400 font-mono font-bold">{formatCurrency(totals.totalDeductions)}</td>
-                <td className="px-3 py-3 text-right text-emerald-400 font-mono font-bold">{formatCurrency(totals.netPay)}</td>
+              <tr className="bg-surface-hover border-t-2 border-border">
+                <td className="px-3 py-3 text-sm font-semibold text-primary">TOTALS</td>
+                <td className="px-3 py-3 text-right text-text-primary font-mono font-semibold">{formatCurrency(totals.baseSalary)}</td>
+                <td className="px-3 py-3 text-right text-text-secondary font-semibold">{totals.regularHours.toFixed(1)}</td>
+                <td className="px-3 py-3 text-right text-warning font-semibold">{totals.overtimeHours.toFixed(1)}</td>
+                <td className="px-3 py-3 text-right text-text-primary font-mono font-semibold">{formatCurrency(totals.bonuses)}</td>
+                <td className="px-3 py-3 text-right text-primary font-mono font-bold">{formatCurrency(totals.grossPay)}</td>
+                <td className="px-3 py-3 text-right text-danger/80 font-mono font-semibold">{formatCurrency(totals.isss)}</td>
+                <td className="px-3 py-3 text-right text-danger/80 font-mono font-semibold">{formatCurrency(totals.afp)}</td>
+                <td className="px-3 py-3 text-right text-danger/80 font-mono font-semibold">{formatCurrency(totals.isr)}</td>
+                <td className="px-3 py-3 text-right text-danger/80 font-mono font-semibold">{formatCurrency(totals.loanDeduction)}</td>
+                <td className="px-3 py-3 text-right text-danger font-mono font-bold">{formatCurrency(totals.totalDeductions)}</td>
+                <td className="px-3 py-3 text-right text-success font-mono font-bold">{formatCurrency(totals.netPay)}</td>
               </tr>
             )}
           </tbody>
@@ -314,8 +314,8 @@ export default function ClientPage() {
 function SummaryBox({ label, value, color }: { label: string; value: string; color?: string }) {
   return (
     <div>
-      <p className="text-xs text-slate-500">{label}</p>
-      <p className={`text-lg font-bold ${color || 'text-white'}`}>{value}</p>
+      <p className="text-xs text-text-muted">{label}</p>
+      <p className={`text-lg font-bold ${color || 'text-text-primary'}`}>{value}</p>
     </div>
   );
 }
@@ -343,7 +343,7 @@ function ActionButton({
       <button
         onClick={onClick}
         disabled={loading}
-        className={`${base} border border-cyan-500/20 text-slate-300 hover:text-white hover:bg-white/5`}
+        className={`${base} border border-border text-text-secondary hover:text-text-primary hover:bg-surface-hover`}
       >
         {loading ? <Spinner /> : icon}
         {loading ? 'Processing…' : label}
@@ -355,7 +355,7 @@ function ActionButton({
     <button
       onClick={onClick}
       disabled={loading}
-      className={`${base} bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25`}
+      className={`${base} bg-gradient-to-r from-primary to-primary-dark text-white shadow-sm hover:shadow-lg `}
     >
       {loading ? <Spinner /> : icon}
       {loading ? 'Processing…' : label}

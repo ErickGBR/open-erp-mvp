@@ -114,15 +114,15 @@ export default function RhDashboardPage() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-[#e2e8f0]">Human Resources</h1>
-        <p className="mt-1 text-slate-400">Personnel and payroll management panel</p>
+        <h1 className="text-2xl font-bold text-text-primary">Human Resources</h1>
+        <p className="mt-1 text-text-secondary">Personnel and payroll management panel</p>
       </div>
 
       {/* Error state */}
       {error && (
         <div
           role="alert"
-          className="mb-6 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300"
+          className="mb-6 rounded-lg border border-danger/20 bg-danger-light px-4 py-3 text-sm text-danger"
         >
           {error}
         </div>
@@ -132,11 +132,11 @@ export default function RhDashboardPage() {
       {loading && (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="glass-card rounded-xl overflow-hidden">
-              <div className="h-1.5 animate-pulse bg-gradient-to-r from-cyan-500/30 to-blue-500/30" />
+            <div key={i} className="card overflow-hidden">
+              <div className="h-1.5 animate-pulse bg-gradient-to-r from-primary/30 to-primary-dark/30" />
               <div className="p-5">
-                <div className="mb-2 h-4 w-24 animate-pulse rounded bg-cyan-500/10" />
-                <div className="h-8 w-16 animate-pulse rounded bg-cyan-500/10" />
+                <div className="mb-2 h-4 w-24 animate-pulse rounded bg-surface-hover" />
+                <div className="h-8 w-16 animate-pulse rounded bg-surface-hover" />
               </div>
             </div>
           ))}
@@ -151,7 +151,7 @@ export default function RhDashboardPage() {
             value={stats ? String(stats.activeEmployees) : '—'}
             sub={stats ? `${stats.totalEmployees} total` : undefined}
             icon={<Users className="h-5 w-5" />}
-            gradient="from-cyan-400 to-blue-500"
+            gradient="from-primary to-primary-dark"
           />
           <StatCard
             label="Pending Leave"
@@ -163,34 +163,34 @@ export default function RhDashboardPage() {
             label="Pending Payroll"
             value={stats ? String(stats.pendingPayroll) : '—'}
             icon={<ClipboardList className="h-5 w-5" />}
-            gradient="from-blue-400 to-purple-500"
+            gradient="from-primary-light to-primary"
           />
           <StatCard
             label="Departments"
             value="—"
             icon={<Building2 className="h-5 w-5" />}
-            gradient="from-cyan-400 to-teal-500"
+            gradient="from-primary to-navy"
           />
         </div>
       )}
 
       {/* Quick links */}
-      <h2 className="mb-4 mt-10 text-lg font-semibold text-[#e2e8f0]">Modules</h2>
+      <h2 className="mb-4 mt-10 text-lg font-semibold text-text-primary">Modules</h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {quickLinks.map((link) => (
           <Link
             key={link.label}
             href={link.href}
-            className="glass-card-hover rounded-xl p-5 group"
+            className="card-hover p-5 group"
           >
             <div className="flex items-center justify-between mb-3">
-              <span className="text-cyan-400">{link.icon}</span>
-              <ArrowRight className="h-4 w-4 text-slate-500 group-hover:text-cyan-400 transition-colors" />
+              <span className="text-primary">{link.icon}</span>
+              <ArrowRight className="h-4 w-4 text-text-muted group-hover:text-primary transition-colors" />
             </div>
-            <h3 className="font-semibold text-[#e2e8f0] group-hover:text-cyan-300 transition-colors">
+            <h3 className="font-semibold text-text-primary group-hover:text-primary-dark transition-colors">
               {link.label}
             </h3>
-            <p className="mt-1 text-xs text-slate-500">{link.description}</p>
+            <p className="mt-1 text-xs text-text-muted">{link.description}</p>
           </Link>
         ))}
       </div>
@@ -215,15 +215,15 @@ function StatCard({
   gradient: string;
 }) {
   return (
-    <div className="glass-card rounded-xl overflow-hidden transition-all hover:glow-cyan-sm">
+    <div className="card overflow-hidden transition-all hover:shadow-md">
       <div className={`h-1.5 bg-gradient-to-r ${gradient}`} />
       <div className="p-5">
         <div className="flex items-center justify-between">
-          <p className="text-sm font-medium text-slate-400">{label}</p>
-          <span className="text-cyan-400">{icon}</span>
+          <p className="text-sm font-medium text-text-secondary">{label}</p>
+          <span className="text-primary">{icon}</span>
         </div>
-        <p className="mt-1 text-3xl font-bold text-[#e2e8f0]">{value}</p>
-        {sub && <p className="mt-1 text-xs text-slate-500">{sub}</p>}
+        <p className="mt-1 text-3xl font-bold text-text-primary">{value}</p>
+        {sub && <p className="mt-1 text-xs text-text-muted">{sub}</p>}
       </div>
     </div>
   );

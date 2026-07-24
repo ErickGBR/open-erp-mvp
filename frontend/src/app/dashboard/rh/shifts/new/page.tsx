@@ -67,28 +67,28 @@ export default function NewShiftPage() {
   };
 
   const inputClass = (field: keyof ShiftForm) =>
-    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm text-[#e2e8f0] transition-colors bg-[#1a1a2e] placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
+    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm text-text-primary transition-colors bg-surface-card placeholder:text-text-muted focus:outline-none focus:ring-1 ${
       errors[field]
         ? 'border-red-300 focus:border-red-500 focus:ring-red-500/50'
-        : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
+        : 'border-border focus:border-border focus:ring-primary/50'
     }`;
 
   return (
     <div className="max-w-lg mx-auto">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-[#e2e8f0]">New Shift</h1>
-        <p className="mt-1 text-sm text-slate-400">Create a new work shift</p>
+        <h1 className="text-2xl font-bold text-text-primary">New Shift</h1>
+        <p className="mt-1 text-sm text-text-secondary">Create a new work shift</p>
       </div>
 
       {submitError && (
-        <div role="alert" className="mb-6 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300">
+        <div role="alert" className="mb-6 rounded-lg border border-danger/20 bg-danger-light px-4 py-3 text-sm text-danger">
           {submitError}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} noValidate className="glass-card rounded-xl p-6 space-y-5">
+      <form onSubmit={handleSubmit} noValidate className="card p-6 space-y-5">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-slate-300">
+          <label htmlFor="name" className="block text-sm font-medium text-text-secondary">
             Name <span className="text-red-500">*</span>
           </label>
           <input id="name" name="name" type="text" required
@@ -96,53 +96,53 @@ export default function NewShiftPage() {
             placeholder="Morning Shift"
             aria-invalid={!!errors.name}
             className={inputClass('name')} />
-          {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name}</p>}
+          {errors.name && <p className="mt-1 text-xs text-danger">{errors.name}</p>}
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="startTime" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="startTime" className="block text-sm font-medium text-text-secondary">
               Start Time <span className="text-red-500">*</span>
             </label>
             <input id="startTime" name="startTime" type="time" required
               value={form.startTime} onChange={handleChange}
               aria-invalid={!!errors.startTime}
               className={inputClass('startTime')} />
-            {errors.startTime && <p className="mt-1 text-xs text-red-400">{errors.startTime}</p>}
+            {errors.startTime && <p className="mt-1 text-xs text-danger">{errors.startTime}</p>}
           </div>
           <div>
-            <label htmlFor="endTime" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="endTime" className="block text-sm font-medium text-text-secondary">
               End Time <span className="text-red-500">*</span>
             </label>
             <input id="endTime" name="endTime" type="time" required
               value={form.endTime} onChange={handleChange}
               aria-invalid={!!errors.endTime}
               className={inputClass('endTime')} />
-            {errors.endTime && <p className="mt-1 text-xs text-red-400">{errors.endTime}</p>}
+            {errors.endTime && <p className="mt-1 text-xs text-danger">{errors.endTime}</p>}
           </div>
         </div>
 
         <div className="flex items-center gap-3">
           <input id="isActive" name="isActive" type="checkbox"
             checked={form.isActive} onChange={handleChange}
-            className="h-4 w-4 rounded border-cyan-500/30 bg-[#1a1a2e] text-cyan-500 focus:ring-cyan-500/50" />
-          <label htmlFor="isActive" className="text-sm text-slate-300">
+            className="h-4 w-4 rounded border-border bg-surface-card text-primary focus:ring-primary/50" />
+          <label htmlFor="isActive" className="text-sm text-text-secondary">
             Active shift
           </label>
         </div>
 
-        <div className="flex gap-3 pt-4 border-t border-cyan-500/10">
+        <div className="flex gap-3 pt-4 border-t border-border">
           <button
             type="submit"
             disabled={submitting}
-            className="btn-cyan flex-1"
+            className="btn-primary flex-1"
           >
             {submitting ? 'Saving…' : 'Create Shift'}
           </button>
           <button
             type="button"
             onClick={() => router.push('/dashboard/rh/shifts')}
-            className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white transition-colors"
+            className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
           >
             Cancel
           </button>

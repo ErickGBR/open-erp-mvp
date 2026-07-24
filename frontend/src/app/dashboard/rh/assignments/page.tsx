@@ -68,10 +68,10 @@ export default function AssignmentsPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-white">Shift Assignments</h1>
+        <h1 className="text-2xl font-bold text-text-primary">Shift Assignments</h1>
         <Link
           href="/dashboard/rh/assignments/new"
-          className="btn-cyan text-sm flex items-center gap-1.5"
+          className="btn-primary text-sm flex items-center gap-1.5"
         >
           <Plus className="w-4 h-4" /> New Assignment
         </Link>
@@ -79,36 +79,36 @@ export default function AssignmentsPage() {
 
       <div className="flex gap-4 mb-6">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by employee name…"
-            className="w-full rounded-lg bg-white/5 border border-cyan-500/15 pl-9 pr-3 py-2 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-cyan-500/30"
+            className="w-full rounded-lg bg-surface-hover border border-border pl-9 pr-3 py-2 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary/30"
           />
         </div>
       </div>
 
       {error && (
-        <div className="rounded-lg bg-red-900/30 border border-red-500/30 p-3 text-sm text-red-300 mb-4" role="alert">
+        <div className="rounded-lg bg-danger-light border border-danger/30 p-3 text-sm text-danger mb-4" role="alert">
           {error}
         </div>
       )}
 
       {loading && (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
         </div>
       )}
 
       {!loading && !error && assignments.length === 0 && (
-        <div className="glass-card rounded-xl p-12 text-center">
-          <CalendarRange className="w-12 h-12 mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400 mb-2">No assignments found</p>
+        <div className="card p-12 text-center">
+          <CalendarRange className="w-12 h-12 mx-auto mb-3 text-text-muted" />
+          <p className="text-text-secondary mb-2">No assignments found</p>
           <Link
             href="/dashboard/rh/assignments/new"
-            className="text-cyan-400 hover:text-cyan-300 text-sm"
+            className="text-primary hover:text-primary-dark text-sm"
           >
             Create first assignment
           </Link>
@@ -116,39 +116,39 @@ export default function AssignmentsPage() {
       )}
 
       {!loading && assignments.length > 0 && (
-        <div className="overflow-x-auto rounded-xl border border-cyan-500/10">
+        <div className="overflow-x-auto rounded-xl border border-border">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-cyan-500/10 bg-white/5">
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Employee</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Branch</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Shift</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Day of Week</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">Start Date</th>
-                <th className="px-4 py-3 text-left font-medium text-slate-400">End Date</th>
-                <th className="px-4 py-3 text-center font-medium text-slate-400">Status</th>
-                <th className="px-4 py-3 text-right font-medium text-slate-400">Actions</th>
+              <tr className="border-b border-border bg-surface-hover">
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Employee</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Branch</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Shift</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Day of Week</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">Start Date</th>
+                <th className="px-4 py-3 text-left font-medium text-text-secondary">End Date</th>
+                <th className="px-4 py-3 text-center font-medium text-text-secondary">Status</th>
+                <th className="px-4 py-3 text-right font-medium text-text-secondary">Actions</th>
               </tr>
             </thead>
             <tbody>
               {assignments.map((a) => (
-                <tr key={a.id} className="border-b border-cyan-500/5 hover:bg-white/5 transition-colors">
-                  <td className="px-4 py-3 text-white whitespace-nowrap">
-                    {a.employee && <span className="text-xs text-cyan-400 font-mono mr-1.5">{a.employee.code}</span>}
+                <tr key={a.id} className="border-b border-border hover:bg-surface-hover transition-colors">
+                  <td className="px-4 py-3 text-text-primary whitespace-nowrap">
+                    {a.employee && <span className="text-xs text-primary font-mono mr-1.5">{a.employee.code}</span>}
                     {employeeName(a)}
                   </td>
-                  <td className="px-4 py-3 text-slate-300">{a.branch?.name || '—'}</td>
-                  <td className="px-4 py-3 text-slate-300">
+                  <td className="px-4 py-3 text-text-secondary">{a.branch?.name || '—'}</td>
+                  <td className="px-4 py-3 text-text-secondary">
                     {a.shift ? `${a.shift.name} (${a.shift.startTime} - ${a.shift.endTime})` : '—'}
                   </td>
-                  <td className="px-4 py-3 text-slate-300">{DAY_NAMES[a.dayOfWeek] || a.dayOfWeek}</td>
-                  <td className="px-4 py-3 text-slate-300">{formatDate(a.startDate)}</td>
-                  <td className="px-4 py-3 text-slate-300">{a.endDate ? formatDate(a.endDate) : '—'}</td>
+                  <td className="px-4 py-3 text-text-secondary">{DAY_NAMES[a.dayOfWeek] || a.dayOfWeek}</td>
+                  <td className="px-4 py-3 text-text-secondary">{formatDate(a.startDate)}</td>
+                  <td className="px-4 py-3 text-text-secondary">{a.endDate ? formatDate(a.endDate) : '—'}</td>
                   <td className="px-4 py-3 text-center">
                     <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${
                       a.isActive
-                        ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/20'
-                        : 'bg-slate-500/15 text-slate-400 border border-slate-500/20'
+                        ? 'bg-emerald-500/15 text-success border border-success/20'
+                        : 'bg-slate-500/15 text-text-secondary border border-slate-500/20'
                     }`}>
                       {a.isActive ? 'Active' : 'Inactive'}
                     </span>
@@ -156,14 +156,14 @@ export default function AssignmentsPage() {
                   <td className="px-4 py-3 text-right whitespace-nowrap">
                     <Link
                       href={`/dashboard/rh/assignments/${a.id}`}
-                      className="text-cyan-400 hover:text-cyan-300 mr-3 text-xs"
+                      className="text-primary hover:text-primary-dark mr-3 text-xs"
                     >
                       Edit
                     </Link>
                     <button
                       onClick={() => handleDelete(a.id, `${employeeName(a)} - ${DAY_NAMES[a.dayOfWeek]}`)}
                       disabled={deletingId === a.id}
-                      className="text-red-400 hover:text-red-300 text-xs disabled:opacity-50"
+                      className="text-danger hover:text-danger text-xs disabled:opacity-50"
                     >
                       {deletingId === a.id ? '…' : 'Delete'}
                     </button>

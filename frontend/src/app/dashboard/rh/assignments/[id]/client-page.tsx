@@ -183,34 +183,34 @@ export default function ClientPage() {
   };
 
   const inputClass = (field: keyof AssignmentForm) =>
-    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm text-[#e2e8f0] transition-colors bg-[#1a1a2e] placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
+    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm text-text-primary transition-colors bg-surface-card placeholder:text-text-muted focus:outline-none focus:ring-1 ${
       errors[field]
         ? 'border-red-300 focus:border-red-500 focus:ring-red-500/50'
-        : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
+        : 'border-border focus:border-border focus:ring-primary/50'
     }`;
 
   const selectClass = (field: keyof AssignmentForm) =>
-    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm transition-colors bg-[#1a1a2e] focus:outline-none focus:ring-1 ${
+    `mt-1 block w-full rounded-lg border px-3 py-2.5 text-sm transition-colors bg-surface-card focus:outline-none focus:ring-1 ${
       errors[field]
-        ? 'border-red-300 text-red-300 focus:border-red-500 focus:ring-red-500/50'
-        : 'border-cyan-500/15 text-slate-300 focus:border-cyan-500/40 focus:ring-cyan-500/50'
+        ? 'border-red-300 text-danger focus:border-red-500 focus:ring-red-500/50'
+        : 'border-border text-text-secondary focus:border-border focus:ring-primary/50'
     }`;
 
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
-        <span className="ml-3 text-sm text-slate-400">Loading assignment…</span>
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        <span className="ml-3 text-sm text-text-secondary">Loading assignment…</span>
       </div>
     );
   }
 
   if (notFound) {
     return (
-      <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center">
-        <p className="text-lg font-semibold text-[#e2e8f0]">Assignment not found</p>
-        <p className="mt-1 text-sm text-slate-400">The assignment you are looking for does not exist or was deleted.</p>
-        <Link href="/dashboard/rh/assignments" className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300">
+      <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center">
+        <p className="text-lg font-semibold text-text-primary">Assignment not found</p>
+        <p className="mt-1 text-sm text-text-secondary">The assignment you are looking for does not exist or was deleted.</p>
+        <Link href="/dashboard/rh/assignments" className="mt-4 inline-block text-sm font-medium text-primary hover:text-primary-dark">
           &larr; Back to assignments
         </Link>
       </div>
@@ -219,9 +219,9 @@ export default function ClientPage() {
 
   if (!form) {
     return (
-      <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center">
-        <p className="text-sm text-red-400">{submitError || 'Error loading assignment data.'}</p>
-        <Link href="/dashboard/rh/assignments" className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300">
+      <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center">
+        <p className="text-sm text-danger">{submitError || 'Error loading assignment data.'}</p>
+        <Link href="/dashboard/rh/assignments" className="mt-4 inline-block text-sm font-medium text-primary hover:text-primary-dark">
           &larr; Back to assignments
         </Link>
       </div>
@@ -232,28 +232,28 @@ export default function ClientPage() {
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-[#e2e8f0]">Edit Shift Assignment</h1>
-          <p className="mt-1 text-sm text-slate-400">Assignment #{assignmentId}</p>
+          <h1 className="text-2xl font-bold text-text-primary">Edit Shift Assignment</h1>
+          <p className="mt-1 text-sm text-text-secondary">Assignment #{assignmentId}</p>
         </div>
-        <Link href="/dashboard/rh/assignments" className="text-sm font-medium text-cyan-400 hover:text-cyan-300">
+        <Link href="/dashboard/rh/assignments" className="text-sm font-medium text-primary hover:text-primary-dark">
           &larr; Back
         </Link>
       </div>
 
       {submitError && (
-        <div role="alert" className="mb-6 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300">
+        <div role="alert" className="mb-6 rounded-lg border border-danger/20 bg-danger-light px-4 py-3 text-sm text-danger">
           {submitError}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} noValidate className="glass-card rounded-xl p-6 space-y-6">
+      <form onSubmit={handleSubmit} noValidate className="card p-6 space-y-6">
         <div>
-          <h2 className="text-sm font-semibold text-slate-300 mb-3 border-b border-cyan-500/10 pb-2">
+          <h2 className="text-sm font-semibold text-text-secondary mb-3 border-b border-border pb-2">
             Assignment Details
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="sm:col-span-2">
-              <label htmlFor="employeeId" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="employeeId" className="block text-sm font-medium text-text-secondary">
                 Employee <span className="text-red-500">*</span>
               </label>
               <select id="employeeId" name="employeeId"
@@ -264,10 +264,10 @@ export default function ClientPage() {
                   <option key={e.id} value={e.id}>{e.firstName} {e.lastName} ({e.code})</option>
                 ))}
               </select>
-              {errors.employeeId && <p className="mt-1 text-xs text-red-400">{errors.employeeId}</p>}
+              {errors.employeeId && <p className="mt-1 text-xs text-danger">{errors.employeeId}</p>}
             </div>
             <div>
-              <label htmlFor="branchId" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="branchId" className="block text-sm font-medium text-text-secondary">
                 Branch <span className="text-red-500">*</span>
               </label>
               <select id="branchId" name="branchId"
@@ -278,10 +278,10 @@ export default function ClientPage() {
                   <option key={b.id} value={b.id}>{b.name}</option>
                 ))}
               </select>
-              {errors.branchId && <p className="mt-1 text-xs text-red-400">{errors.branchId}</p>}
+              {errors.branchId && <p className="mt-1 text-xs text-danger">{errors.branchId}</p>}
             </div>
             <div>
-              <label htmlFor="shiftId" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="shiftId" className="block text-sm font-medium text-text-secondary">
                 Shift <span className="text-red-500">*</span>
               </label>
               <select id="shiftId" name="shiftId"
@@ -292,10 +292,10 @@ export default function ClientPage() {
                   <option key={s.id} value={s.id}>{s.name} ({s.startTime} - {s.endTime})</option>
                 ))}
               </select>
-              {errors.shiftId && <p className="mt-1 text-xs text-red-400">{errors.shiftId}</p>}
+              {errors.shiftId && <p className="mt-1 text-xs text-danger">{errors.shiftId}</p>}
             </div>
             <div>
-              <label htmlFor="dayOfWeek" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="dayOfWeek" className="block text-sm font-medium text-text-secondary">
                 Day of Week <span className="text-red-500">*</span>
               </label>
               <select id="dayOfWeek" name="dayOfWeek"
@@ -306,19 +306,19 @@ export default function ClientPage() {
                   <option key={d.value} value={d.value}>{d.label}</option>
                 ))}
               </select>
-              {errors.dayOfWeek && <p className="mt-1 text-xs text-red-400">{errors.dayOfWeek}</p>}
+              {errors.dayOfWeek && <p className="mt-1 text-xs text-danger">{errors.dayOfWeek}</p>}
             </div>
             <div>
-              <label htmlFor="startDate" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="startDate" className="block text-sm font-medium text-text-secondary">
                 Start Date <span className="text-red-500">*</span>
               </label>
               <input id="startDate" name="startDate" type="date" required
                 value={form.startDate} onChange={handleChange}
                 className={inputClass('startDate')} />
-              {errors.startDate && <p className="mt-1 text-xs text-red-400">{errors.startDate}</p>}
+              {errors.startDate && <p className="mt-1 text-xs text-danger">{errors.startDate}</p>}
             </div>
             <div>
-              <label htmlFor="endDate" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="endDate" className="block text-sm font-medium text-text-secondary">
                 End Date
               </label>
               <input id="endDate" name="endDate" type="date"
@@ -326,7 +326,7 @@ export default function ClientPage() {
                 className={inputClass('endDate')} />
             </div>
             <div>
-              <label htmlFor="isActive" className="block text-sm font-medium text-slate-300">
+              <label htmlFor="isActive" className="block text-sm font-medium text-text-secondary">
                 Status
               </label>
               <select id="isActive" name="isActive"
@@ -340,12 +340,12 @@ export default function ClientPage() {
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-4 border-t border-cyan-500/10">
+        <div className="flex items-center justify-between pt-4 border-t border-border">
           <button
             type="button"
             onClick={handleDelete}
             disabled={deleting}
-            className="rounded-lg border border-red-500/30 px-4 py-2 text-sm text-red-400 hover:bg-red-900/20 transition-colors disabled:opacity-50"
+            className="rounded-lg border border-danger/30 px-4 py-2 text-sm text-danger hover:bg-danger-light transition-colors disabled:opacity-50"
           >
             {deleting ? 'Deleting…' : 'Delete Assignment'}
           </button>
@@ -353,14 +353,14 @@ export default function ClientPage() {
             <button
               type="button"
               onClick={() => router.push('/dashboard/rh/assignments')}
-              className="rounded-lg border border-cyan-500/20 px-4 py-2 text-sm text-slate-400 hover:text-white transition-colors"
+              className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg hover:shadow-cyan-500/25 disabled:opacity-50 transition-all"
+              className="rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white shadow-sm hover:shadow-lg  disabled:opacity-50 transition-all"
             >
               {submitting ? 'Saving…' : 'Save Changes'}
             </button>
