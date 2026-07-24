@@ -201,7 +201,7 @@ export default function DashboardPage() {
             label="Total Revenue"
             value="$0.00"
             icon={<RevenueIcon />}
-            gradient="from-primary to-navy"
+            gradient="from-primary to-primary-dark"
           />
           <StatCard
             label="Sales"
@@ -285,7 +285,7 @@ export default function DashboardPage() {
           value={formatCurrency(stats!.totalRevenue)}
           sub={`${formatCurrency(stats!.paidRevenue)} paid`}
           icon={<RevenueIcon />}
-          gradient="from-primary to-navy"
+          gradient="from-primary to-primary-dark"
         />
         <StatCard
           label="Sales"

@@ -9,7 +9,7 @@ import DashboardHeader from '@/components/DashboardHeader';
 /**
  * Dashboard layout with collapsible sidebar, top header bar, and main content area.
  * Redirects to /auth?tab=login if the user is not authenticated (HR-13 auth guard).
- * Corporate Premium style — soft gray background, white sidebar, clean header.
+ * Vercel-inspired dark theme — dark background, indigo accents, premium effects.
  */
 export default function DashboardClientLayout({ children }: { children: ReactNode }) {
   const { user, isLoading, logout } = useAuth();
@@ -27,8 +27,8 @@ export default function DashboardClientLayout({ children }: { children: ReactNod
   // Loading state
   if (isLoading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-surface-card">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-navy border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-brand-base">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       </div>
     );
   }
@@ -50,7 +50,7 @@ export default function DashboardClientLayout({ children }: { children: ReactNod
   };
 
   return (
-    <div className="flex min-h-screen bg-surface-card">
+    <div className="flex min-h-screen bg-brand-base relative">
       {/* Sidebar */}
       <Sidebar
         open={sidebarOpen}
@@ -59,7 +59,7 @@ export default function DashboardClientLayout({ children }: { children: ReactNod
       />
 
       {/* Main area */}
-      <div className="flex flex-1 flex-col overflow-hidden">
+      <div className="flex flex-1 flex-col overflow-hidden relative z-10">
         {/* Header */}
         <DashboardHeader
           onMenuClick={() => setSidebarOpen(!sidebarOpen)}
@@ -69,7 +69,7 @@ export default function DashboardClientLayout({ children }: { children: ReactNod
         />
 
         {/* Page content */}
-        <main className="flex-1 overflow-y-auto bg-surface-card p-6 lg:p-8">
+        <main className="flex-1 overflow-y-auto bg-brand-base p-6 lg:p-8">
           {children}
         </main>
       </div>

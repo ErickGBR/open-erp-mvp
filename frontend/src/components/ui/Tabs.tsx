@@ -61,7 +61,7 @@ export default function Tabs({
                 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium
                 transition-all duration-150
                 ${isActive
-                  ? 'bg-navy text-white shadow-sm'
+                  ? 'bg-primary text-white shadow-sm shadow-primary/20'
                   : 'text-text-secondary hover:bg-surface-card hover:text-text-primary'
                 }
                 ${tab.disabled ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}

@@ -38,7 +38,7 @@ function useFeatures(): Feature[] {
       icon: Receipt,
       title: t('landing.features.pos.title'),
       description: t('landing.features.pos.description'),
-      color: 'from-primary to-navy',
+      color: 'from-primary to-primary-dark',
     },
     {
       icon: BarChart3,
@@ -85,25 +85,42 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-surface overflow-hidden">
 
-      {/* Floating orbs background with parallax scroll */}
+      {/* Animated background orbs — Vercel-inspired depth effect */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div
-          className="orb-cyan w-[500px] h-[500px] -top-48 -right-48 animate-[orbFloat_12s_ease-in-out_infinite]"
-          style={{ transform: `translateY(${scrollY * 0.15}px)` }}
-        />
-        <div
-          className="orb-blue w-[400px] h-[400px] -bottom-32 -left-32 animate-[orbFloat_15s_ease-in-out_infinite_reverse]"
-          style={{ transform: `translateY(${scrollY * -0.1}px)` }}
-        />
-        <div
-          className="orb-cyan w-[300px] h-[300px] top-1/2 left-1/3 animate-[orbFloat_10s_ease-in-out_infinite_2s]"
-          style={{ transform: `translateY(${scrollY * 0.05}px)` }}
-        />
-        {/* Light sweep that follows the scroll */}
-        <div
-          className="absolute inset-0 opacity-[0.04]"
+          className="orb"
           style={{
-            background: `linear-gradient(180deg, transparent 0%, rgba(34,211,238,1) ${50 + scrollY * 0.05}%, transparent 100%)`,
+            width: '500px', height: '500px',
+            top: '-200px', right: '-150px',
+            transform: `translateY(${scrollY * 0.15}px)`,
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent 70%)',
+          }}
+        />
+        <div
+          className="orb"
+          style={{
+            width: '400px', height: '400px',
+            bottom: '-150px', left: '-100px',
+            transform: `translateY(${scrollY * -0.1}px)`,
+            animationDelay: '-7s',
+            background: 'radial-gradient(circle, rgba(6, 182, 212, 0.15), transparent 70%)',
+          }}
+        />
+        <div
+          className="orb"
+          style={{
+            width: '300px', height: '300px',
+            top: '50%', left: '33%',
+            transform: `translateY(${scrollY * 0.05}px)`,
+            animationDelay: '-14s',
+            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%)',
+          }}
+        />
+        {/* Subtle gradient sweep */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            background: `linear-gradient(180deg, transparent 0%, rgba(99,102,241,1) ${50 + scrollY * 0.05}%, transparent 100%)`,
             transform: `translateY(${scrollY * -0.3}px)`,
           }}
         />
@@ -124,7 +141,7 @@ export default function LandingPage() {
             {/* Main heading with gradient sweep */}
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
               <span className="text-text-primary">{t('landing.hero.welcome')}</span>
-              <span className="bg-gradient-to-r from-primary via-primary-light to-navy bg-clip-text text-transparent gradient-sweep">
+              <span className="bg-gradient-to-r from-primary via-primary-light to-primary-dark bg-clip-text text-transparent gradient-sweep">
                 {t('landing.hero.title')}
               </span>
             </h1>
@@ -256,7 +273,7 @@ export default function LandingPage() {
               {/* Banner 3 */}
               <div className="card p-8 shadow-md group hover:shadow-md transition-all duration-500">
                 <div className="flex items-start gap-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-navy flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
                     <Zap className="w-7 h-7 text-white" />
                   </div>
                   <div>

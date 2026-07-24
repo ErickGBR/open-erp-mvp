@@ -28,7 +28,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-surface-card text-text-primary">
+      <body className="min-h-full bg-brand-base text-text-primary">
+        {/* Animated background orbs — Vercel-inspired depth effect */}
+        <div className="orb-container" aria-hidden="true">
+          <div className="orb" />
+          <div className="orb" />
+          <div className="orb" />
+        </div>
         <Providers>{children}</Providers>
       </body>
     </html>

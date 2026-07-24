@@ -169,7 +169,7 @@ export default function RhDashboardPage() {
             label="Departments"
             value="—"
             icon={<Building2 className="h-5 w-5" />}
-            gradient="from-primary to-navy"
+            gradient="from-primary to-primary-dark"
           />
         </div>
       )}

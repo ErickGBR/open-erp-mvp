@@ -23,11 +23,11 @@ import Footer from '@/components/Footer';
 export default function SalesPage() {
   return (
     <div className="min-h-screen bg-surface overflow-hidden">
-      {/* Floating orbs */}
+      {/* Animated background orbs */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="orb-cyan w-[500px] h-[500px] -top-48 -right-48 animate-[orbFloat_12s_ease-in-out_infinite]" />
-        <div className="orb-blue w-[400px] h-[400px] -bottom-32 -left-32 animate-[orbFloat_15s_ease-in-out_infinite_reverse]" />
-        <div className="orb-cyan w-[300px] h-[300px] top-1/2 left-2/3 animate-[orbFloat_10s_ease-in-out_infinite_2s]" />
+        <div className="orb" style={{ width: '500px', height: '500px', top: '-200px', right: '-150px', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.3), transparent 70%)' }} />
+        <div className="orb" style={{ width: '400px', height: '400px', bottom: '-150px', left: '-100px', animationDelay: '-7s', background: 'radial-gradient(circle, rgba(6, 182, 212, 0.15), transparent 70%)' }} />
+        <div className="orb" style={{ width: '300px', height: '300px', top: '50%', left: '66%', animationDelay: '-14s', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%)' }} />
       </div>
 
       <main className="relative z-10">
@@ -42,7 +42,7 @@ export default function SalesPage() {
             </div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6">
               <span className="text-white">Sales &amp; Invoicing </span>
-              <span className="bg-gradient-to-r from-primary via-primary-light to-navy bg-clip-text text-transparent gradient-sweep">
+              <span className="bg-gradient-to-r from-primary via-primary-light to-primary-dark bg-clip-text text-transparent gradient-sweep">
                 Made Simple
               </span>
             </h1>
@@ -119,7 +119,7 @@ export default function SalesPage() {
                   icon: Send,
                   title: 'Send to Customer',
                   desc: 'Email invoices directly to customers with a single click.',
-                  color: 'from-primary to-navy',
+                  color: 'from-primary to-primary-dark',
                 },
               ].map((feature) => {
                 const Icon = feature.icon;
@@ -162,7 +162,7 @@ export default function SalesPage() {
                   icon: FileText,
                   title: 'Invoice Management',
                   desc: 'View, search, and filter all invoices. Track status — draft, sent, paid, or overdue.',
-                  color: 'from-primary to-navy',
+                  color: 'from-primary to-primary-dark',
                 },
                 {
                   icon: Download,

@@ -31,7 +31,7 @@ import { HealthController } from './health.controller';
             type: 'postgres',
             url: databaseUrl,
             autoLoadEntities: true,
-            synchronize: process.env.NODE_ENV !== 'production',
+            synchronize: true,
             ssl: config.get('NODE_ENV') === 'production' ? { rejectUnauthorized: false } : false,
           };
         }

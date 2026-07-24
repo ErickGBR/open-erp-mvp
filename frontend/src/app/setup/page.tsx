@@ -157,8 +157,10 @@ export default function SetupPage() {
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-surface px-4 py-12">
       {/* Background orbs */}
-      <div className="orb-primary -left-40 -top-40 h-96 w-96 animate-pulse" />
-      <div className="orb-blue -bottom-40 -right-40 h-80 w-80 animate-pulse" />
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="orb" style={{ width: '400px', height: '400px', top: '-150px', left: '-150px', background: 'radial-gradient(circle, rgba(99, 102, 241, 0.2), transparent 70%)' }} />
+        <div className="orb" style={{ width: '300px', height: '300px', bottom: '-100px', right: '-100px', animationDelay: '-7s', background: 'radial-gradient(circle, rgba(6, 182, 212, 0.12), transparent 70%)' }} />
+      </div>
 
       <div className="relative z-10 w-full max-w-lg">
         {/* Logo + title */}

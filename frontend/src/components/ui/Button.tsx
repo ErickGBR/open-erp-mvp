@@ -30,15 +30,15 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
   primary:
-    'bg-navy text-white hover:bg-navy-light focus-visible:ring-2 focus-visible:ring-navy/30 disabled:opacity-50 disabled:cursor-not-allowed',
+    'bg-primary text-white hover:bg-primary-dark focus-visible:ring-2 focus-visible:ring-primary/30 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm shadow-primary/20',
   secondary:
-    'bg-primary text-white hover:bg-primary-dark focus-visible:ring-2 focus-visible:ring-primary/30 disabled:opacity-50 disabled:cursor-not-allowed',
+    'bg-surface-hover text-text-primary border border-border hover:bg-surface-elevated focus-visible:ring-2 focus-visible:ring-primary/30 disabled:opacity-50 disabled:cursor-not-allowed',
   outline:
-    'bg-transparent text-navy border border-border hover:bg-surface-card hover:border-slate-300 focus-visible:ring-2 focus-visible:ring-navy/30 disabled:opacity-50 disabled:cursor-not-allowed',
+    'bg-transparent text-text-primary border border-border hover:bg-primary-glow hover:border-primary/30 focus-visible:ring-2 focus-visible:ring-primary/30 disabled:opacity-50 disabled:cursor-not-allowed',
   danger:
     'bg-danger text-white hover:bg-red-700 focus-visible:ring-2 focus-visible:ring-danger/30 disabled:opacity-50 disabled:cursor-not-allowed',
   ghost:
-    'bg-transparent text-text-secondary hover:bg-surface-card hover:text-text-primary focus-visible:ring-2 focus-visible:ring-primary/30 disabled:opacity-50 disabled:cursor-not-allowed',
+    'bg-transparent text-text-secondary hover:bg-surface-hover hover:text-text-primary focus-visible:ring-2 focus-visible:ring-primary/30 disabled:opacity-50 disabled:cursor-not-allowed',
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
