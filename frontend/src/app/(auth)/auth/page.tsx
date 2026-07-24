@@ -17,8 +17,8 @@ interface SetupStatus {
  */
 function AuthFallback() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#0a0a12]">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+    <div className="flex min-h-screen items-center justify-center bg-surface">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
     </div>
   );
 }
@@ -61,14 +61,14 @@ function AuthPageContent() {
   // Show loader while checking setup
   if (checkingSetup) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0a0a12]">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
+      <div className="flex min-h-screen items-center justify-center bg-surface">
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#0a0a12]">
+    <div className="flex min-h-screen flex-col bg-surface">
       <main className="flex flex-1 items-center justify-center px-4 py-12">
         <AuthTabs />
       </main>
