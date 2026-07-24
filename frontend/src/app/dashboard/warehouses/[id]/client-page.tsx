@@ -184,10 +184,10 @@ export default function ClientPage() {
 
   /** Class for text / textarea inputs */
   const inputClass = (field: keyof WarehouseForm) =>
-    `mt-1 block w-full rounded-lg border px-3 py-2 text-sm text-[#e2e8f0] shadow-sm transition-colors bg-[#1a1a2e] placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
+    `mt-1 block w-full rounded-lg border px-3 py-2 text-sm text-text-primary shadow-sm transition-colors bg-surface-card placeholder:text-text-muted focus:outline-none focus:ring-1 ${
       errors[field]
         ? 'border-red-300 focus:border-red-500 focus:ring-red-500/50'
-        : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
+        : 'border-border focus:border-border focus:ring-primary/50'
     }`;
 
   // ── Loading state ──────────────────────────────────────────────────────
@@ -195,8 +195,8 @@ export default function ClientPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-cyan-400 border-t-transparent" />
-        <span className="ml-3 text-sm text-slate-400">Loading warehouse…</span>
+        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+        <span className="ml-3 text-sm text-text-secondary">Loading warehouse…</span>
       </div>
     );
   }
@@ -205,15 +205,15 @@ export default function ClientPage() {
 
   if (notFound) {
     return (
-      <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center shadow-sm">
-        <Warehouse className="mx-auto mb-3 h-12 w-12 text-slate-600" />
-        <h2 className="text-lg font-semibold text-[#e2e8f0]">Warehouse not found</h2>
-        <p className="mt-1 text-sm text-slate-400">
+      <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center shadow-sm">
+        <Warehouse className="mx-auto mb-3 h-12 w-12 text-text-muted" />
+        <h2 className="text-lg font-semibold text-text-primary">Warehouse not found</h2>
+        <p className="mt-1 text-sm text-text-secondary">
           The warehouse you are looking for does not exist or has been removed.
         </p>
         <Link
           href="/dashboard/warehouses"
-          className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300"
+          className="mt-4 inline-block text-sm font-medium text-primary hover:text-primary-dark"
         >
           &larr; Back to warehouses
         </Link>
@@ -225,11 +225,11 @@ export default function ClientPage() {
 
   if (!form) {
     return (
-      <div className="rounded-xl border border-dashed border-cyan-500/20 bg-[#12121e] px-6 py-16 text-center shadow-sm">
-        <p className="text-sm text-red-400">{submitError || 'Failed to load warehouse data.'}</p>
+      <div className="rounded-xl border border-dashed border-border bg-surface-card px-6 py-16 text-center shadow-sm">
+        <p className="text-sm text-danger">{submitError || 'Failed to load warehouse data.'}</p>
         <Link
           href="/dashboard/warehouses"
-          className="mt-4 inline-block text-sm font-medium text-cyan-400 hover:text-cyan-300"
+          className="mt-4 inline-block text-sm font-medium text-primary hover:text-primary-dark"
         >
           &larr; Back to warehouses
         </Link>
@@ -244,12 +244,12 @@ export default function ClientPage() {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#e2e8f0]">Edit Warehouse</h1>
-          <p className="mt-1 text-sm text-slate-400">Update warehouse information and manage locations.</p>
+          <h1 className="text-2xl font-bold text-text-primary">Edit Warehouse</h1>
+          <p className="mt-1 text-sm text-text-secondary">Update warehouse information and manage locations.</p>
         </div>
         <Link
           href="/dashboard/warehouses"
-          className="text-sm font-medium text-cyan-400 hover:text-cyan-300"
+          className="text-sm font-medium text-primary hover:text-primary-dark"
         >
           &larr; Back to warehouses
         </Link>
@@ -259,7 +259,7 @@ export default function ClientPage() {
       {submitError && (
         <div
           role="alert"
-          className="mb-6 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300"
+          className="mb-6 rounded-lg border border-danger/20 bg-danger-light px-4 py-3 text-sm text-danger"
         >
           {submitError}
         </div>
@@ -269,12 +269,12 @@ export default function ClientPage() {
       <form
         onSubmit={handleSubmit}
         noValidate
-        className="max-w-2xl rounded-xl border border-cyan-500/10 bg-[#12121e] p-6 shadow-sm"
+        className="max-w-2xl rounded-xl border border-border bg-surface-card p-6 shadow-sm"
       >
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {/* Name (required) */}
           <div className="sm:col-span-2">
-            <label htmlFor="name" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="name" className="block text-sm font-medium text-text-secondary">
               Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -289,7 +289,7 @@ export default function ClientPage() {
               className={inputClass('name')}
             />
             {errors.name && (
-              <p id="name-error" className="mt-1 text-xs text-red-400">
+              <p id="name-error" className="mt-1 text-xs text-danger">
                 {errors.name}
               </p>
             )}
@@ -297,7 +297,7 @@ export default function ClientPage() {
 
           {/* Description */}
           <div className="sm:col-span-2">
-            <label htmlFor="description" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="description" className="block text-sm font-medium text-text-secondary">
               Description
             </label>
             <textarea
@@ -312,7 +312,7 @@ export default function ClientPage() {
 
           {/* Country */}
           <div>
-            <label htmlFor="country" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="country" className="block text-sm font-medium text-text-secondary">
               Country
             </label>
             <input
@@ -327,7 +327,7 @@ export default function ClientPage() {
 
           {/* City */}
           <div>
-            <label htmlFor="city" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="city" className="block text-sm font-medium text-text-secondary">
               City
             </label>
             <input
@@ -342,7 +342,7 @@ export default function ClientPage() {
 
           {/* Locality */}
           <div>
-            <label htmlFor="locality" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="locality" className="block text-sm font-medium text-text-secondary">
               Locality
             </label>
             <input
@@ -357,7 +357,7 @@ export default function ClientPage() {
 
           {/* Address */}
           <div>
-            <label htmlFor="address" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="address" className="block text-sm font-medium text-text-secondary">
               Address
             </label>
             <input
@@ -372,27 +372,27 @@ export default function ClientPage() {
         </div>
 
         {/* ── Locations section ─────────────────────────────────────────── */}
-        <div className="mt-8 border-t border-cyan-500/10 pt-6">
-          <h2 className="mb-3 text-sm font-semibold text-slate-300">
+        <div className="mt-8 border-t border-border pt-6">
+          <h2 className="mb-3 text-sm font-semibold text-text-secondary">
             Locations
-            <span className="ml-2 text-xs font-normal text-slate-500">({locations.length})</span>
+            <span className="ml-2 text-xs font-normal text-text-muted">({locations.length})</span>
           </h2>
 
           {/* Existing locations */}
           {locations.length === 0 ? (
-            <p className="mb-4 text-xs text-slate-500">No locations yet. Add one below.</p>
+            <p className="mb-4 text-xs text-text-muted">No locations yet. Add one below.</p>
           ) : (
             <div className="mb-4 space-y-2">
               {locations.map((loc) => (
                 <div
                   key={loc.id}
-                  className="flex items-center justify-between rounded-lg border border-cyan-500/10 bg-[#1a1a2e] px-3 py-2"
+                  className="flex items-center justify-between rounded-lg border border-border bg-surface-card px-3 py-2"
                 >
                   <div className="flex items-center gap-2 text-sm">
-                    <MapPin className="h-3.5 w-3.5 shrink-0 text-cyan-400" />
-                    <span className="text-[#e2e8f0]">{loc.name}</span>
+                    <MapPin className="h-3.5 w-3.5 shrink-0 text-primary" />
+                    <span className="text-text-primary">{loc.name}</span>
                     {loc.section && (
-                      <span className="rounded bg-white/5 px-1.5 py-0.5 text-xs text-slate-400">
+                      <span className="rounded bg-surface-hover px-1.5 py-0.5 text-xs text-text-secondary">
                         {loc.section}
                       </span>
                     )}
@@ -400,7 +400,7 @@ export default function ClientPage() {
                   <button
                     type="button"
                     onClick={() => handleDeleteLocation(loc.id)}
-                    className="shrink-0 text-xs text-red-400 hover:text-red-300"
+                    className="shrink-0 text-xs text-danger hover:text-danger"
                     aria-label={`Delete location ${loc.name}`}
                   >
                     <Trash2 className="h-3.5 w-3.5" />
@@ -411,9 +411,9 @@ export default function ClientPage() {
           )}
 
           {/* Add new location */}
-          <div className="flex flex-wrap items-end gap-2 rounded-lg border border-dashed border-cyan-500/15 bg-[#1a1a2e]/50 p-3">
+          <div className="flex flex-wrap items-end gap-2 rounded-lg border border-dashed border-border bg-surface-card/50 p-3">
             <div className="min-w-0 flex-1">
-              <label htmlFor="new-location-name" className="block text-xs font-medium text-slate-400">
+              <label htmlFor="new-location-name" className="block text-xs font-medium text-text-secondary">
                 Location name <span className="text-red-500">*</span>
               </label>
               <input
@@ -422,11 +422,11 @@ export default function ClientPage() {
                 value={newLocationName}
                 onChange={(e) => setNewLocationName(e.target.value)}
                 placeholder="e.g. Rack A1"
-                className="mt-1 block w-full rounded border border-cyan-500/10 bg-[#12121e] px-2.5 py-1.5 text-sm text-[#e2e8f0] placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+                className="mt-1 block w-full rounded border border-border bg-surface-card px-2.5 py-1.5 text-sm text-text-primary placeholder:text-text-muted focus:border-border focus:outline-none focus:ring-1 focus:ring-primary/50"
               />
             </div>
             <div className="min-w-0 flex-1">
-              <label htmlFor="new-location-section" className="block text-xs font-medium text-slate-400">
+              <label htmlFor="new-location-section" className="block text-xs font-medium text-text-secondary">
                 Section
               </label>
               <input
@@ -435,14 +435,14 @@ export default function ClientPage() {
                 value={newLocationSection}
                 onChange={(e) => setNewLocationSection(e.target.value)}
                 placeholder="e.g. Aisle 1"
-                className="mt-1 block w-full rounded border border-cyan-500/10 bg-[#12121e] px-2.5 py-1.5 text-sm text-[#e2e8f0] placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+                className="mt-1 block w-full rounded border border-border bg-surface-card px-2.5 py-1.5 text-sm text-text-primary placeholder:text-text-muted focus:border-border focus:outline-none focus:ring-1 focus:ring-primary/50"
               />
             </div>
             <button
               type="button"
               disabled={addingLocation || !newLocationName.trim()}
               onClick={handleAddLocation}
-              className="flex shrink-0 items-center gap-1 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition-colors hover:shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 disabled:opacity-50"
+              className="flex shrink-0 items-center gap-1 rounded-lg bg-gradient-to-r from-primary to-primary-dark px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition-colors hover:shadow-lg  focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-50"
             >
               {addingLocation ? (
                 <>
@@ -459,17 +459,17 @@ export default function ClientPage() {
         </div>
 
         {/* ── Action buttons ─────────────────────────────────────────────── */}
-        <div className="mt-8 flex items-center justify-end gap-3 border-t border-cyan-500/5 pt-6">
+        <div className="mt-8 flex items-center justify-end gap-3 border-t border-border pt-6">
           <Link
             href="/dashboard/warehouses"
-            className="rounded-lg border border-cyan-500/15 bg-[#12121e] px-4 py-2 text-sm font-medium text-slate-300 shadow-sm transition-colors hover:bg-white/[0.02]"
+            className="rounded-lg border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text-secondary shadow-sm transition-colors hover:bg-white/[0.02]"
           >
             Cancel
           </Link>
           <button
             type="submit"
             disabled={submitting}
-            className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2 disabled:opacity-50"
+            className="rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:shadow-lg  focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 disabled:opacity-50"
           >
             {submitting ? 'Saving…' : 'Update Warehouse'}
           </button>

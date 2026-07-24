@@ -178,7 +178,7 @@ export default function ClientPage() {
     await loadStock();
   };
 
-  if (!product) return <div className="text-slate-400 p-8">Loading…</div>;
+  if (!product) return <div className="text-text-secondary p-8">Loading…</div>;
 
   const qrUrl = product.barcode
     ? `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(JSON.stringify({ id: product.id, name: product.name, barcode: product.barcode, code: product.sku }))}`
@@ -187,22 +187,22 @@ export default function ClientPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       {/* Header */}
-      <div className="glass-card rounded-xl p-6">
+      <div className="card p-6">
         <div className="flex gap-6">
           {/* Image */}
-          <div className="relative w-40 h-40 rounded-xl overflow-hidden bg-white/5 flex-shrink-0">
+          <div className="relative w-40 h-40 rounded-xl overflow-hidden bg-surface-hover flex-shrink-0">
             {product.imageUrl ? (
               <img src={product.imageUrl} alt={product.name} className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <Package className="w-12 h-12 text-slate-600" />
+                <Package className="w-12 h-12 text-text-muted" />
               </div>
             )}
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-cyan-500/80 flex items-center justify-center hover:bg-cyan-400 transition-colors"
+              className="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-primary/80 flex items-center justify-center hover:bg-primary transition-colors"
             >
-              <Camera className="w-4 h-4 text-white" />
+              <Camera className="w-4 h-4 text-text-primary" />
             </button>
             <input ref={fileInputRef} type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
           </div>
@@ -210,8 +210,8 @@ export default function ClientPage() {
           {/* Info */}
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between">
-              <h1 className="text-2xl font-bold text-white truncate">{product.name}</h1>
-              <button onClick={() => setEditMode(!editMode)} className="text-xs text-cyan-400 hover:text-cyan-300 shrink-0 ml-2">
+              <h1 className="text-2xl font-bold text-text-primary truncate">{product.name}</h1>
+              <button onClick={() => setEditMode(!editMode)} className="text-xs text-primary hover:text-primary-dark shrink-0 ml-2">
                 {editMode ? 'Cancel' : 'Edit'}
               </button>
             </div>
@@ -220,14 +220,14 @@ export default function ClientPage() {
             <div className="flex gap-4 mt-3">
               {product.barcode && (
                 <div className="text-center">
-                  <Barcode className="w-4 h-4 text-cyan-400 mx-auto mb-1" />
+                  <Barcode className="w-4 h-4 text-primary mx-auto mb-1" />
                   <svg ref={barcodeRef} className="h-16 mx-auto"></svg>
-                  <p className="text-[9px] text-slate-500 font-mono mt-0.5">{product.barcode}</p>
+                  <p className="text-[9px] text-text-muted font-mono mt-0.5">{product.barcode}</p>
                 </div>
               )}
               {qrUrl && (
                 <div className="text-center">
-                  <QrCode className="w-4 h-4 text-cyan-400 mx-auto mb-1" />
+                  <QrCode className="w-4 h-4 text-primary mx-auto mb-1" />
                   <img src={qrUrl} alt="QR" className="w-24 h-24" />
                 </div>
               )}
@@ -235,29 +235,29 @@ export default function ClientPage() {
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-3 mt-4">
-              <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">Price</p>
-                <p className="text-lg font-bold text-cyan-400">${Number(product.price).toFixed(2)}</p>
+              <div className="bg-surface-hover rounded-lg p-2.5 text-center">
+                <p className="text-xs text-text-secondary">Price</p>
+                <p className="text-lg font-bold text-primary">${Number(product.price).toFixed(2)}</p>
               </div>
-              <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">Cost</p>
-                <p className="text-lg font-bold text-emerald-400">${Number(product.cost).toFixed(2)}</p>
+              <div className="bg-surface-hover rounded-lg p-2.5 text-center">
+                <p className="text-xs text-text-secondary">Cost</p>
+                <p className="text-lg font-bold text-success">${Number(product.cost).toFixed(2)}</p>
               </div>
-              <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">Total Stock</p>
-                <p className={`text-lg font-bold ${product.stock > 0 ? 'text-white' : 'text-red-400'}`}>{product.stock}</p>
+              <div className="bg-surface-hover rounded-lg p-2.5 text-center">
+                <p className="text-xs text-text-secondary">Total Stock</p>
+                <p className={`text-lg font-bold ${product.stock > 0 ? 'text-text-primary' : 'text-danger'}`}>{product.stock}</p>
               </div>
-              <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">Unit</p>
-                <p className="text-sm font-bold text-white">{UNITS[product.unitOfMeasure] || product.unitOfMeasure}</p>
+              <div className="bg-surface-hover rounded-lg p-2.5 text-center">
+                <p className="text-xs text-text-secondary">Unit</p>
+                <p className="text-sm font-bold text-text-primary">{UNITS[product.unitOfMeasure] || product.unitOfMeasure}</p>
               </div>
-              <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">SKU</p>
-                <p className="text-sm font-mono text-white truncate">{product.sku || '—'}</p>
+              <div className="bg-surface-hover rounded-lg p-2.5 text-center">
+                <p className="text-xs text-text-secondary">SKU</p>
+                <p className="text-sm font-mono text-text-primary truncate">{product.sku || '—'}</p>
               </div>
-              <div className="bg-white/5 rounded-lg p-2.5 text-center">
-                <p className="text-xs text-slate-400">Avg. Cost</p>
-                <p className="text-sm font-bold text-emerald-400">${Number(avgCost).toFixed(2)}</p>
+              <div className="bg-surface-hover rounded-lg p-2.5 text-center">
+                <p className="text-xs text-text-secondary">Avg. Cost</p>
+                <p className="text-sm font-bold text-success">${Number(avgCost).toFixed(2)}</p>
               </div>
             </div>
           </div>
@@ -269,7 +269,7 @@ export default function ClientPage() {
         {(['info', 'stock', 'kardex'] as const).map(tab => (
           <button key={tab} onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 rounded-lg transition-colors ${
-              activeTab === tab ? 'bg-cyan-500/20 text-cyan-400' : 'text-slate-400 hover:text-white'
+              activeTab === tab ? 'bg-primary/20 text-primary' : 'text-text-secondary hover:text-text-primary'
             }`}>
             {tab === 'info' ? 'Info / Edit' : tab === 'stock' ? 'Warehouse Location' : 'Kardex'}
           </button>
@@ -278,66 +278,66 @@ export default function ClientPage() {
 
       {/* Tab: Info / Edit */}
       {activeTab === 'info' && (
-        <div className="glass-card rounded-xl p-6">
+        <div className="card p-6">
           {editMode ? (
             <div className="space-y-4 max-w-lg">
               <div>
-                <label className="text-xs text-slate-400 mb-1 block">Name</label>
+                <label className="text-xs text-text-secondary mb-1 block">Name</label>
                 <input value={form.name} onChange={e => setForm({...form, name: e.target.value})}
-                  className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+                  className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">Price</label>
+                  <label className="text-xs text-text-secondary mb-1 block">Price</label>
                   <input type="number" step="0.01" value={form.price} onChange={e => setForm({...form, price: Number(e.target.value) || 0})}
-                    className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+                    className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
                 </div>
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">Cost</label>
+                  <label className="text-xs text-text-secondary mb-1 block">Cost</label>
                   <input type="number" step="0.01" value={form.cost} onChange={e => setForm({...form, cost: Number(e.target.value) || 0})}
-                    className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+                    className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">SKU</label>
+                  <label className="text-xs text-text-secondary mb-1 block">SKU</label>
                   <input value={form.sku} onChange={e => setForm({...form, sku: e.target.value})}
-                    className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+                    className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
                 </div>
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">Barcode (EAN-8)</label>
+                  <label className="text-xs text-text-secondary mb-1 block">Barcode (EAN-8)</label>
                   <input value={form.barcode} onChange={e => setForm({...form, barcode: e.target.value})}
                     placeholder="E.g.: 12345670"
-                    className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+                    className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">Unit of Measure</label>
+                  <label className="text-xs text-text-secondary mb-1 block">Unit of Measure</label>
                   <select value={form.unitOfMeasure} onChange={e => setForm({...form, unitOfMeasure: e.target.value})}
-                    className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white">
+                    className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary">
                     {UNIT_OPTIONS.map(u => <option key={u} value={u}>{UNITS[u]}</option>)}
                   </select>
                 </div>
                 <div>
-                  <label className="text-xs text-slate-400 mb-1 block">Category</label>
+                  <label className="text-xs text-text-secondary mb-1 block">Category</label>
                   <input value={form.category} onChange={e => setForm({...form, category: e.target.value})}
-                    className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+                    className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
                 </div>
               </div>
               <div>
-                <label className="text-xs text-slate-400 mb-1 block">Description</label>
+                <label className="text-xs text-text-secondary mb-1 block">Description</label>
                 <textarea value={form.description} onChange={e => setForm({...form, description: e.target.value})} rows={3}
-                  className="w-full rounded-lg bg-white/5 border border-cyan-500/15 px-3 py-2 text-sm text-white" />
+                  className="w-full rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-primary" />
               </div>
-              <button onClick={handleSave} className="btn-cyan">Save Changes</button>
+              <button onClick={handleSave} className="btn-primary">Save Changes</button>
             </div>
           ) : (
-            <div className="text-sm text-slate-300 space-y-2">
-              <p><span className="text-slate-500">Description:</span> {product.description || 'No description'}</p>
-              <p><span className="text-slate-500">Category:</span> {product.category || 'No category'}</p>
-              <p><span className="text-slate-500">Barcode:</span> <span className="font-mono text-cyan-400">{product.barcode || '—'}</span></p>
-              <p><span className="text-slate-500">Unit of Measure:</span> {UNITS[product.unitOfMeasure] || product.unitOfMeasure}</p>
+            <div className="text-sm text-text-secondary space-y-2">
+              <p><span className="text-text-muted">Description:</span> {product.description || 'No description'}</p>
+              <p><span className="text-text-muted">Category:</span> {product.category || 'No category'}</p>
+              <p><span className="text-text-muted">Barcode:</span> <span className="font-mono text-primary">{product.barcode || '—'}</span></p>
+              <p><span className="text-text-muted">Unit of Measure:</span> {UNITS[product.unitOfMeasure] || product.unitOfMeasure}</p>
             </div>
           )}
         </div>
@@ -345,40 +345,40 @@ export default function ClientPage() {
 
       {/* Tab: Stock / Warehouse */}
       {activeTab === 'stock' && (
-        <div className="glass-card rounded-xl p-6">
+        <div className="card p-6">
           <div className="flex items-center gap-2 mb-4">
-            <Warehouse className="w-5 h-5 text-cyan-400" />
-            <h2 className="text-lg font-bold text-white">Warehouse Location</h2>
+            <Warehouse className="w-5 h-5 text-primary" />
+            <h2 className="text-lg font-bold text-text-primary">Warehouse Location</h2>
           </div>
 
           {warehouses.length === 0 && (
-            <p className="text-slate-500 text-sm">No warehouses configured.</p>
+            <p className="text-text-muted text-sm">No warehouses configured.</p>
           )}
 
           {warehouses.map(wh => (
             <div key={wh.id} className="mb-4 last:mb-0">
               <div className="flex items-center gap-2 mb-2">
-                <MapPin className="w-4 h-4 text-cyan-400" />
-                <h3 className="text-white font-semibold">{wh.name}</h3>
-                {wh.country && <span className="text-xs text-slate-500">| {wh.city}, {wh.country}</span>}
+                <MapPin className="w-4 h-4 text-primary" />
+                <h3 className="text-text-primary font-semibold">{wh.name}</h3>
+                {wh.country && <span className="text-xs text-text-muted">| {wh.city}, {wh.country}</span>}
               </div>
               <div className="space-y-2">
                 {wh.locations?.map(loc => {
                   const stockHere = stockLocations.find(s => s.location.id === loc.id);
                   return (
-                    <div key={loc.id} className="flex items-center justify-between bg-white/5 rounded-lg px-3 py-2">
+                    <div key={loc.id} className="flex items-center justify-between bg-surface-hover rounded-lg px-3 py-2">
                       <div>
-                        <p className="text-sm text-white">{loc.name}</p>
-                        {loc.section && <p className="text-xs text-slate-500">Section: {loc.section}</p>}
+                        <p className="text-sm text-text-primary">{loc.name}</p>
+                        {loc.section && <p className="text-xs text-text-muted">Section: {loc.section}</p>}
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className={`text-sm font-mono ${(stockHere?.quantity || 0) > 0 ? 'text-emerald-400' : 'text-slate-500'}`}>
+                        <span className={`text-sm font-mono ${(stockHere?.quantity || 0) > 0 ? 'text-success' : 'text-text-muted'}`}>
                           {stockHere?.quantity || 0} {UNITS[product.unitOfMeasure] || ''}
                         </span>
                         <button onClick={() => {
                           const q = prompt('Quantity:', String(stockHere?.quantity || 0));
                           if (q !== null) handleSetStock(loc.id, parseInt(q) || 0);
-                        }} className="text-xs text-cyan-400 hover:text-cyan-300">Change</button>
+                        }} className="text-xs text-primary hover:text-primary-dark">Change</button>
                       </div>
                     </div>
                   );
@@ -391,15 +391,15 @@ export default function ClientPage() {
 
       {/* Tab: Kardex */}
       {activeTab === 'kardex' && (
-        <div className="glass-card rounded-xl p-6">
-          <h2 className="text-lg font-bold text-white mb-4">Kardex / Movements</h2>
+        <div className="card p-6">
+          <h2 className="text-lg font-bold text-text-primary mb-4">Kardex / Movements</h2>
           {kardex.length === 0 ? (
-            <p className="text-slate-500 text-sm">No movements recorded.</p>
+            <p className="text-text-muted text-sm">No movements recorded.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="text-xs text-slate-400 border-b border-cyan-500/10">
+                  <tr className="text-xs text-text-secondary border-b border-border">
                     <th className="text-left py-2">Date</th>
                     <th className="text-left py-2">Type</th>
                     <th className="text-right py-2">Qty</th>
@@ -413,12 +413,12 @@ export default function ClientPage() {
                 </thead>
                 <tbody>
                   {kardex.map(entry => (
-                    <tr key={entry.id} className="border-b border-cyan-500/5">
-                      <td className="py-2 text-slate-300">{new Date(entry.createdAt).toLocaleDateString()}</td>
+                    <tr key={entry.id} className="border-b border-border">
+                      <td className="py-2 text-text-secondary">{new Date(entry.createdAt).toLocaleDateString()}</td>
                       <td className="py-2">
                         <span className={`px-1.5 py-0.5 rounded text-[10px] font-medium ${
-                          entry.type === 'entry' ? 'bg-emerald-500/20 text-emerald-400' :
-                          entry.type === 'exit' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'
+                          entry.type === 'entry' ? 'bg-success-light text-success' :
+                          entry.type === 'exit' ? 'bg-red-500/20 text-danger' : 'bg-yellow-500/20 text-yellow-400'
                         }`}>
                           {entry.type === 'entry' ? 'Entry' : entry.type === 'exit' ? 'Exit' : 'Adjustment'}
                         </span>
@@ -428,8 +428,8 @@ export default function ClientPage() {
                       <td className="py-2 text-right font-mono">${Number(entry.totalCost).toFixed(2)}</td>
                       <td className="py-2 text-right font-mono">{entry.previousStock}</td>
                       <td className="py-2 text-right font-mono">{entry.newStock}</td>
-                      <td className="py-2 text-right font-mono text-cyan-400">${Number(entry.newAvgCost).toFixed(2)}</td>
-                      <td className="py-2 text-xs text-slate-500">{entry.referenceType}</td>
+                      <td className="py-2 text-right font-mono text-primary">${Number(entry.newAvgCost).toFixed(2)}</td>
+                      <td className="py-2 text-xs text-text-muted">{entry.referenceType}</td>
                     </tr>
                   ))}
                 </tbody>

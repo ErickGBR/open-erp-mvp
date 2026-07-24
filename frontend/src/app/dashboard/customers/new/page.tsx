@@ -96,12 +96,12 @@ export default function NewCustomerPage() {
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#e2e8f0]">New Customer</h1>
-          <p className="mt-1 text-sm text-slate-400">Add a new customer to your directory.</p>
+          <h1 className="text-2xl font-bold text-text-primary">New Customer</h1>
+          <p className="mt-1 text-sm text-text-secondary">Add a new customer to your directory.</p>
         </div>
         <Link
           href="/dashboard/customers"
-          className="text-sm font-medium text-cyan-400 hover:text-cyan-300"
+          className="text-sm font-medium text-primary hover:text-primary-dark"
         >
           &larr; Back to customers
         </Link>
@@ -111,7 +111,7 @@ export default function NewCustomerPage() {
       {submitError && (
         <div
           role="alert"
-          className="mb-6 rounded-lg border border-red-500/20 bg-red-900/20 px-4 py-3 text-sm text-red-300"
+          className="mb-6 rounded-lg border border-danger/20 bg-danger-light px-4 py-3 text-sm text-danger"
         >
           {submitError}
         </div>
@@ -121,12 +121,12 @@ export default function NewCustomerPage() {
       <form
         onSubmit={handleSubmit}
         noValidate
-        className="max-w-2xl rounded-xl border border-cyan-500/10 bg-[#12121e] p-6 shadow-sm"
+        className="max-w-2xl rounded-xl border border-border bg-surface-card p-6 shadow-sm"
       >
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {/* Name (required) */}
           <div className="sm:col-span-2">
-            <label htmlFor="name" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="name" className="block text-sm font-medium text-text-secondary">
               Name <span className="text-red-500">*</span>
             </label>
             <input
@@ -138,15 +138,15 @@ export default function NewCustomerPage() {
               required
               aria-invalid={!!errors.name}
               aria-describedby={errors.name ? 'name-error' : undefined}
-              className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm text-[#e2e8f0] shadow-sm transition-colors placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
+              className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm text-text-primary shadow-sm transition-colors placeholder:text-text-muted focus:outline-none focus:ring-1 ${
                 errors.name
                   ? 'border-red-300 focus:border-red-500 focus:ring-red-500/50'
-                  : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
+                  : 'border-border focus:border-border focus:ring-primary/50'
               }`}
               placeholder="John Doe"
             />
             {errors.name && (
-              <p id="name-error" className="mt-1 text-xs text-red-400">
+              <p id="name-error" className="mt-1 text-xs text-danger">
                 {errors.name}
               </p>
             )}
@@ -154,7 +154,7 @@ export default function NewCustomerPage() {
 
           {/* Company */}
           <div>
-            <label htmlFor="company" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="company" className="block text-sm font-medium text-text-secondary">
               Company
             </label>
             <input
@@ -163,14 +163,14 @@ export default function NewCustomerPage() {
               name="company"
               value={form.company}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm transition-colors placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+              className="mt-1 block w-full rounded-lg border border-border px-3 py-2 text-sm bg-surface-card text-text-primary shadow-sm transition-colors placeholder:text-text-muted focus:border-border focus:outline-none focus:ring-1 focus:ring-primary/50"
               placeholder="Acme Inc."
             />
           </div>
 
           {/* Document */}
           <div>
-            <label htmlFor="document" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="document" className="block text-sm font-medium text-text-secondary">
               Document
             </label>
             <input
@@ -179,14 +179,14 @@ export default function NewCustomerPage() {
               name="document"
               value={form.document}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm transition-colors placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+              className="mt-1 block w-full rounded-lg border border-border px-3 py-2 text-sm bg-surface-card text-text-primary shadow-sm transition-colors placeholder:text-text-muted focus:border-border focus:outline-none focus:ring-1 focus:ring-primary/50"
               placeholder="CNPJ / CPF"
             />
           </div>
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="email" className="block text-sm font-medium text-text-secondary">
               Email
             </label>
             <input
@@ -197,15 +197,15 @@ export default function NewCustomerPage() {
               onChange={handleChange}
               aria-invalid={!!errors.email}
               aria-describedby={errors.email ? 'email-error' : undefined}
-              className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm text-[#e2e8f0] shadow-sm transition-colors placeholder:text-slate-500 focus:outline-none focus:ring-1 ${
+              className={`mt-1 block w-full rounded-lg border px-3 py-2 text-sm text-text-primary shadow-sm transition-colors placeholder:text-text-muted focus:outline-none focus:ring-1 ${
                 errors.email
                   ? 'border-red-300 focus:border-red-500 focus:ring-red-500/50'
-                  : 'border-cyan-500/15 focus:border-cyan-500/40 focus:ring-cyan-500/50'
+                  : 'border-border focus:border-border focus:ring-primary/50'
               }`}
               placeholder="john@example.com"
             />
             {errors.email && (
-              <p id="email-error" className="mt-1 text-xs text-red-400">
+              <p id="email-error" className="mt-1 text-xs text-danger">
                 {errors.email}
               </p>
             )}
@@ -213,7 +213,7 @@ export default function NewCustomerPage() {
 
           {/* Phone */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="phone" className="block text-sm font-medium text-text-secondary">
               Phone
             </label>
             <input
@@ -222,14 +222,14 @@ export default function NewCustomerPage() {
               name="phone"
               value={form.phone}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm transition-colors placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+              className="mt-1 block w-full rounded-lg border border-border px-3 py-2 text-sm bg-surface-card text-text-primary shadow-sm transition-colors placeholder:text-text-muted focus:border-border focus:outline-none focus:ring-1 focus:ring-primary/50"
               placeholder="+1 (555) 123-4567"
             />
           </div>
 
           {/* Address (full width) */}
           <div className="sm:col-span-2">
-            <label htmlFor="address" className="block text-sm font-medium text-slate-300">
+            <label htmlFor="address" className="block text-sm font-medium text-text-secondary">
               Address
             </label>
             <textarea
@@ -238,24 +238,24 @@ export default function NewCustomerPage() {
               rows={3}
               value={form.address}
               onChange={handleChange}
-              className="mt-1 block w-full rounded-lg border border-cyan-500/15 px-3 py-2 text-sm bg-[#1a1a2e] text-white shadow-sm transition-colors placeholder:text-slate-500 focus:border-cyan-500/40 focus:outline-none focus:ring-1 focus:ring-cyan-500/50"
+              className="mt-1 block w-full rounded-lg border border-border px-3 py-2 text-sm bg-surface-card text-text-primary shadow-sm transition-colors placeholder:text-text-muted focus:border-border focus:outline-none focus:ring-1 focus:ring-primary/50"
               placeholder="123 Main St, City, State, ZIP"
             />
           </div>
         </div>
 
         {/* Actions */}
-        <div className="mt-8 flex items-center justify-end gap-3 border-t border-cyan-500/5 pt-6">
+        <div className="mt-8 flex items-center justify-end gap-3 border-t border-border pt-6">
           <Link
             href="/dashboard/customers"
-            className="rounded-lg border border-cyan-500/15 bg-[#12121e] px-4 py-2 text-sm font-medium text-slate-300 shadow-sm transition-colors hover:bg-white/[0.02]"
+            className="rounded-lg border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text-secondary shadow-sm transition-colors hover:bg-white/[0.02]"
           >
             Cancel
           </Link>
           <button
             type="submit"
             disabled={submitting}
-            className="rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:shadow-lg hover:shadow-cyan-500/25 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2 disabled:opacity-50"
+            className="rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:shadow-lg  focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 disabled:opacity-50"
           >
             {submitting ? 'Saving…' : 'Save Customer'}
           </button>
