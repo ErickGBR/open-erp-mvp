@@ -63,7 +63,7 @@ export class AuthController {
   googleCallback(@Req() req: any, @Res() res: Response): void {
     const frontendUrl = this.configService.get('FRONTEND_URL', 'http://localhost:3000');
     const { access_token } = req.user;
-    res.redirect(`${frontendUrl}/auth?token=${access_token}`);
+    res.redirect(`${frontendUrl}/auth#token=${access_token}`);
   }
 
   /**
@@ -86,6 +86,6 @@ export class AuthController {
   microsoftCallback(@Req() req: any, @Res() res: Response): void {
     const frontendUrl = this.configService.get('FRONTEND_URL', 'http://localhost:3000');
     const { access_token } = req.user;
-    res.redirect(`${frontendUrl}/auth?token=${access_token}`);
+    res.redirect(`${frontendUrl}/auth#token=${access_token}`);
   }
 }
