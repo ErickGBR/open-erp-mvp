@@ -17,6 +17,11 @@ export class WarehouseController {
     return this.service.findAllWarehouses();
   }
 
+  @Get('warehouses/tree')
+  getWarehouseTree() {
+    return this.service.getTree();
+  }
+
   @Get('warehouses/:id')
   findWarehouse(@Param('id', ParseIntPipe) id: number) {
     return this.service.findWarehouseById(id);

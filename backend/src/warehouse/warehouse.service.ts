@@ -7,6 +7,7 @@ import { ProductStock } from './product-stock.entity';
 import { CreateWarehouseDto } from './dto/create-warehouse.dto';
 import { CreateLocationDto } from './dto/create-location.dto';
 import { UpdateStockDto } from './dto/update-stock.dto';
+import { WarehouseTreeItemDto, WarehouseTreeResponseDto } from './dto/warehouse-tree.dto';
 
 @Injectable()
 export class WarehouseService {
@@ -22,6 +23,15 @@ export class WarehouseService {
   // --- Warehouses ---
   async findAllWarehouses(): Promise<Warehouse[]> {
     return this.warehouseRepo.find({ where: { isActive: true }, relations: { locations: true } });
+  }
+
+  async getTree(): Promise<WarehouseTreeResponseDto> {
+    const warehouses = await this.warehouseRepo.find({
+      where: { isActive: true },
+      relations: { locations: true },
+    });
+    const data = warehouses.map(WarehouseTreeItemDto.fromEntity);
+    return { data };
   }
 
   async findWarehouseById(id: number): Promise<Warehouse> {
