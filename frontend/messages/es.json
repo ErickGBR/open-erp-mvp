@@ -156,8 +156,15 @@
       "microsoft": "Continuar con Microsoft 365"
     }
   },
+  "marcacion": {
+    "title": "Marcación de Empleados",
+    "kiosk": "Ir al Kiosko",
+    "summary": "Resumen del Día",
+    "demoTitle": "Bienvenido a Marcación"
+  },
   "sidebar": {
     "dashboard": "Panel",
+    "marcacion": "Marcación",
     "rh": {
       "title": "Recursos Humanos",
       "employees": "Empleados",

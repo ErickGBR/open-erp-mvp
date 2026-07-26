@@ -13,6 +13,7 @@ import {
   Building2,
   ChevronDown,
   Users2,
+  Clock,
   type LucideIcon,
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -100,6 +101,7 @@ const NAV_ITEMS: NavItem[] = [
       { tKey: 'sidebar.rh.branches', href: '/dashboard/rh/branches' },
       { tKey: 'sidebar.rh.shifts', href: '/dashboard/rh/shifts' },
       { tKey: 'sidebar.rh.assignments', href: '/dashboard/rh/assignments' },
+      { tKey: 'sidebar.marcacion', href: '/dashboard/rh/marcacion' },
       { tKey: 'sidebar.rh.attendance', href: '/dashboard/rh/attendance' },
       { tKey: 'sidebar.rh.leaves', href: '/dashboard/rh/leaves' },
       { tKey: 'sidebar.rh.bonuses', href: '/dashboard/rh/bonuses' },

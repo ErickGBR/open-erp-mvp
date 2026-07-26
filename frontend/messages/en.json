@@ -156,8 +156,15 @@
       "microsoft": "Continue with Microsoft 365"
     }
   },
+  "marcacion": {
+    "title": "Employee Time Tracking",
+    "kiosk": "Go to Kiosk",
+    "summary": "Today's Summary",
+    "demoTitle": "Welcome to Time Tracking"
+  },
   "sidebar": {
     "dashboard": "Dashboard",
+    "marcacion": "Time Tracking",
     "rh": {
       "title": "Human Resources",
       "employees": "Employees",

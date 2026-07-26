@@ -4,6 +4,8 @@ import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import { confirmDelete } from '@/lib/confirm';
+import { Table2, TreePine } from 'lucide-react';
+import AccountTree from '@/components/AccountTree';
 
 interface Account {
   id: number;
@@ -35,6 +37,7 @@ const TYPE_COLORS: Record<string, string> = {
 };
 
 export default function AccountsPage() {
+  const [view, setView] = useState<'table' | 'tree'>('table');
   const [accounts, setAccounts] = useState<Account[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -79,18 +82,46 @@ export default function AccountsPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="text-2xl font-bold text-text-primary">Chart of Accounts</h1>
-        <Link
-          href="/dashboard/accounts/new"
-          className="rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white transition-all hover:shadow-lg "
-        >
-          + New Account
-        </Link>
+        <div className="flex items-center gap-3">
+          <div className="flex rounded-lg border border-border overflow-hidden">
+            <button
+              onClick={() => setView('table')}
+              className={`px-3 py-2 text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                view === 'table'
+                  ? 'bg-primary text-white'
+                  : 'bg-surface-card text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              <Table2 className="w-3.5 h-3.5" /> Table
+            </button>
+            <button
+              onClick={() => setView('tree')}
+              className={`px-3 py-2 text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                view === 'tree'
+                  ? 'bg-primary text-white'
+                  : 'bg-surface-card text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              <TreePine className="w-3.5 h-3.5" /> Tree
+            </button>
+          </div>
+          <Link
+            href="/dashboard/accounts/new"
+            className="rounded-lg bg-gradient-to-r from-primary to-primary-dark px-4 py-2 text-sm font-semibold text-white transition-all hover:shadow-lg "
+          >
+            + New Account
+          </Link>
+        </div>
       </div>
 
+      {view === 'tree' ? (
+        <AccountTree />
+      ) : (
+        <>
       {/* Filters */}
-      <div className="flex gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
         <input
           type="text"
           value={search}
@@ -101,7 +132,7 @@ export default function AccountsPage() {
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30"
+          className="w-full sm:w-auto rounded-lg bg-surface-hover border border-border px-3 py-2 text-sm text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30"
         >
           <option value="">All Types</option>
           <option value="asset">Assets</option>
@@ -186,6 +217,8 @@ export default function AccountsPage() {
             </tbody>
           </table>
         </div>
+        )}
+        </>
       )}
     </div>
   );

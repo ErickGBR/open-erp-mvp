@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { api } from '@/lib/api';
 import { confirmDelete } from '@/lib/confirm';
-import { Warehouse, MapPin, Plus, Edit2, Trash2 } from 'lucide-react';
+import { Warehouse, MapPin, Plus, Edit2, Trash2, LayoutGrid, TreePine } from 'lucide-react';
+import WarehouseTree from '@/components/WarehouseTree';
 
 interface WarehouseType {
   id: number;
@@ -18,6 +19,7 @@ interface WarehouseType {
 }
 
 export default function WarehousesPage() {
+  const [view, setView] = useState<'cards' | 'tree'>('cards');
   const [warehouses, setWarehouses] = useState<WarehouseType[]>([]);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState<number | null>(null);
@@ -52,13 +54,41 @@ export default function WarehousesPage() {
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
         <h1 className="text-xl font-bold text-text-primary">Warehouses</h1>
-        <Link href="/dashboard/warehouses/new" className="btn-primary text-sm flex items-center gap-1.5">
-          <Plus className="w-4 h-4" /> New Warehouse
-        </Link>
+        <div className="flex items-center gap-3">
+          <div className="flex rounded-lg border border-border overflow-hidden">
+            <button
+              onClick={() => setView('cards')}
+              className={`px-3 py-2 text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                view === 'cards'
+                  ? 'bg-primary text-white'
+                  : 'bg-surface-card text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              <LayoutGrid className="w-3.5 h-3.5" /> Cards
+            </button>
+            <button
+              onClick={() => setView('tree')}
+              className={`px-3 py-2 text-xs font-medium transition-colors flex items-center gap-1.5 ${
+                view === 'tree'
+                  ? 'bg-primary text-white'
+                  : 'bg-surface-card text-text-secondary hover:text-text-primary'
+              }`}
+            >
+              <TreePine className="w-3.5 h-3.5" /> Tree
+            </button>
+          </div>
+          <Link href="/dashboard/warehouses/new" className="btn-primary text-sm flex items-center gap-1.5">
+            <Plus className="w-4 h-4" /> New Warehouse
+          </Link>
+        </div>
       </div>
 
+      {view === 'tree' ? (
+        <WarehouseTree />
+      ) : (
+        <>
       {error && (
         <div className="mb-4 p-3 bg-red-500/10 border border-danger/30 rounded-lg text-danger text-sm">{error}</div>
       )}
@@ -116,6 +146,8 @@ export default function WarehousesPage() {
             </div>
           ))}
         </div>
+      )}
+        </>
       )}
     </div>
   );
