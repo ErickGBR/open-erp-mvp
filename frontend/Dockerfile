@@ -9,6 +9,12 @@ COPY package.json pnpm-lock.yaml tsconfig*.json next.config.* ./
 
 RUN pnpm install --frozen-lockfile
 
+# Build-time args for Next.js rewrites and public vars
+ARG NEXT_PUBLIC_API_URL
+ARG BACKEND_INTERNAL_URL
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV BACKEND_INTERNAL_URL=$BACKEND_INTERNAL_URL
+
 COPY . .
 
 RUN pnpm run build
