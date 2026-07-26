@@ -220,9 +220,11 @@ export default function AttendancePage() {
         <div className="card p-12 text-center">
           <Clock className="w-12 h-12 mx-auto mb-3 text-text-muted" />
           <p className="text-text-secondary">No attendance records for this date</p>
-          <button onClick={openNew} className="text-primary hover:text-primary-dark text-sm mt-2">
-            Create record
-          </button>
+          {!showModal && (
+            <button onClick={openNew} className="text-primary hover:text-primary-dark text-sm mt-2">
+              Create record
+            </button>
+          )}
         </div>
       ) : (
         <div className="overflow-x-auto rounded-xl border border-border">
