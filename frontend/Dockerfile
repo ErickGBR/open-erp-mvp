@@ -1,28 +1,30 @@
-FROM node:22-alpine AS builder
+FROM node:22-alpine AS base
+RUN corepack enable && corepack prepare pnpm@9.15.4 --activate
+
+FROM base AS builder
 
 WORKDIR /app
 
-COPY package*.json tsconfig*.json next.config.* ./
+COPY package.json pnpm-lock.yaml tsconfig*.json next.config.* ./
 
-RUN npm ci
+RUN pnpm install --frozen-lockfile
 
 COPY . .
 
-RUN npm run build
+RUN pnpm run build
 
-FROM node:22-alpine AS runner
+FROM base AS runner
 
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-COPY package*.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --prod && pnpm store prune
 
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./
 COPY --from=builder /app/next.config.* ./
 
 USER nextjs
