@@ -291,8 +291,9 @@ export default function LoansPage() {
 
       {/* New Loan Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="card p-6 w-full max-w-md mx-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowModal(false)} aria-hidden="true" />
+          <div className="relative z-10 card p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-text-primary">New Loan / Advance</h2>
               <button onClick={() => setShowModal(false)} className="text-text-secondary hover:text-text-primary">
@@ -302,8 +303,9 @@ export default function LoansPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Employee *</label>
+                <label htmlFor="loan-employee" className="block text-sm font-medium text-text-secondary">Employee *</label>
                 <select
+                  id="loan-employee"
                   value={form.employeeId}
                   onChange={(e) => setForm({ ...form, employeeId: e.target.value })}
                   className={inputClass}
@@ -318,8 +320,9 @@ export default function LoansPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Type *</label>
+                <label htmlFor="loan-type" className="block text-sm font-medium text-text-secondary">Type *</label>
                 <select
+                  id="loan-type"
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value })}
                   className={inputClass}
@@ -332,15 +335,17 @@ export default function LoansPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary">Total Amount *</label>
+                  <label htmlFor="loan-total-amount" className="block text-sm font-medium text-text-secondary">Total Amount *</label>
                   <input
+                    id="loan-total-amount"
                     type="number" step="0.01" min="0" value={form.totalAmount}
                     onChange={(e) => setForm({ ...form, totalAmount: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary">Installment *</label>
+                  <label htmlFor="loan-installment-amount" className="block text-sm font-medium text-text-secondary">Installment *</label>
                   <input
+                    id="loan-installment-amount"
                     type="number" step="0.01" min="0" value={form.installmentAmount}
                     onChange={(e) => setForm({ ...form, installmentAmount: e.target.value })}
                     className={inputClass} />
@@ -348,16 +353,18 @@ export default function LoansPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Start Date *</label>
+                <label htmlFor="loan-start-date" className="block text-sm font-medium text-text-secondary">Start Date *</label>
                 <input
+                  id="loan-start-date"
                   type="date" value={form.startDate}
                   onChange={(e) => setForm({ ...form, startDate: e.target.value })}
                   className={inputClass} />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Reason</label>
+                <label htmlFor="loan-reason" className="block text-sm font-medium text-text-secondary">Reason</label>
                 <textarea
+                  id="loan-reason"
                   rows={2} value={form.reason}
                   onChange={(e) => setForm({ ...form, reason: e.target.value })}
                   className={inputClass} />
@@ -385,8 +392,9 @@ export default function LoansPage() {
 
       {/* Payments Modal */}
       {showPayments && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="card p-6 w-full max-w-lg mx-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowPayments(false)} aria-hidden="true" />
+          <div className="relative z-10 card p-6 w-full max-w-lg mx-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-text-primary">
                 Payment History {paymentsLoanId ? `#${paymentsLoanId}` : ''}
@@ -439,8 +447,9 @@ export default function LoansPage() {
 
       {/* Record Payment Modal */}
       {showPaymentForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="card p-6 w-full max-w-sm mx-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowPaymentForm(false)} aria-hidden="true" />
+          <div className="relative z-10 card p-6 w-full max-w-sm mx-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-text-primary">Record Payment</h2>
               <button onClick={() => setShowPaymentForm(false)} className="text-text-secondary hover:text-text-primary">
@@ -450,15 +459,17 @@ export default function LoansPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Amount *</label>
+                <label htmlFor="payment-amount" className="block text-sm font-medium text-text-secondary">Amount *</label>
                 <input
+                  id="payment-amount"
                   type="number" step="0.01" min="0" value={paymentAmount}
                   onChange={(e) => setPaymentAmount(e.target.value)}
                   className={inputClass} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Notes</label>
+                <label htmlFor="payment-notes" className="block text-sm font-medium text-text-secondary">Notes</label>
                 <textarea
+                  id="payment-notes"
                   rows={2} value={paymentNotes}
                   onChange={(e) => setPaymentNotes(e.target.value)}
                   className={inputClass} />

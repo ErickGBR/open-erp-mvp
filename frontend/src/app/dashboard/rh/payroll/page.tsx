@@ -158,8 +158,9 @@ export default function PayrollPage() {
 
       {/* New Period Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="card p-6 w-full max-w-md mx-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowModal(false)} aria-hidden="true" />
+          <div className="relative z-10 card p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-text-primary">New Payroll Period</h2>
               <button onClick={() => setShowModal(false)} className="text-text-secondary hover:text-text-primary">
@@ -169,8 +170,9 @@ export default function PayrollPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Period Name *</label>
+                <label htmlFor="period-name" className="block text-sm font-medium text-text-secondary">Period Name *</label>
                 <input
+                  id="period-name"
                   type="text" value={form.periodName}
                   onChange={(e) => setForm({ ...form, periodName: e.target.value })}
                   placeholder="E.g.: July 2026 - First Half"
@@ -179,15 +181,17 @@ export default function PayrollPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary">Start Date *</label>
+                  <label htmlFor="period-start-date" className="block text-sm font-medium text-text-secondary">Start Date *</label>
                   <input
+                    id="period-start-date"
                     type="date" value={form.startDate}
                     onChange={(e) => setForm({ ...form, startDate: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary">End Date *</label>
+                  <label htmlFor="period-end-date" className="block text-sm font-medium text-text-secondary">End Date *</label>
                   <input
+                    id="period-end-date"
                     type="date" value={form.endDate}
                     onChange={(e) => setForm({ ...form, endDate: e.target.value })}
                     className={inputClass} />

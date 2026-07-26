@@ -224,8 +224,9 @@ export default function BonusesPage() {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="card p-6 w-full max-w-md mx-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowModal(false)} aria-hidden="true" />
+          <div className="relative z-10 card p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-text-primary">
                 {editId ? 'Edit Bonus' : 'New Bonus'}
@@ -237,8 +238,9 @@ export default function BonusesPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Employee *</label>
+                <label htmlFor="bonus-employee" className="block text-sm font-medium text-text-secondary">Employee *</label>
                 <select
+                  id="bonus-employee"
                   value={form.employeeId}
                   onChange={(e) => setForm({ ...form, employeeId: e.target.value })}
                   className={inputClass}
@@ -254,8 +256,9 @@ export default function BonusesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Type *</label>
+                <label htmlFor="bonus-type" className="block text-sm font-medium text-text-secondary">Type *</label>
                 <select
+                  id="bonus-type"
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value })}
                   className={inputClass}
@@ -268,15 +271,17 @@ export default function BonusesPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary">Amount *</label>
+                  <label htmlFor="bonus-amount" className="block text-sm font-medium text-text-secondary">Amount *</label>
                   <input
+                    id="bonus-amount"
                     type="number" step="0.01" min="0" value={form.amount}
                     onChange={(e) => setForm({ ...form, amount: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary">Date *</label>
+                  <label htmlFor="bonus-date" className="block text-sm font-medium text-text-secondary">Date *</label>
                   <input
+                    id="bonus-date"
                     type="date" value={form.date}
                     onChange={(e) => setForm({ ...form, date: e.target.value })}
                     className={inputClass} />
@@ -284,8 +289,9 @@ export default function BonusesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Description</label>
+                <label htmlFor="bonus-description" className="block text-sm font-medium text-text-secondary">Description</label>
                 <textarea
+                  id="bonus-description"
                   rows={2} value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
                   className={inputClass} />

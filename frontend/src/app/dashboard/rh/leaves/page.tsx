@@ -231,8 +231,9 @@ export default function LeavesPage() {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="card p-6 w-full max-w-md mx-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60" onClick={() => setShowModal(false)} aria-hidden="true" />
+          <div className="relative z-10 card p-6 w-full max-w-md mx-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-text-primary">New Leave Request</h2>
               <button onClick={() => setShowModal(false)} className="text-text-secondary hover:text-text-primary">
@@ -242,8 +243,9 @@ export default function LeavesPage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Employee *</label>
+                <label htmlFor="leave-employee" className="block text-sm font-medium text-text-secondary">Employee *</label>
                 <select
+                  id="leave-employee"
                   value={form.employeeId}
                   onChange={(e) => setForm({ ...form, employeeId: e.target.value })}
                   className={inputClass}
@@ -258,8 +260,9 @@ export default function LeavesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Type *</label>
+                <label htmlFor="leave-type" className="block text-sm font-medium text-text-secondary">Type *</label>
                 <select
+                  id="leave-type"
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value })}
                   className={inputClass}
@@ -272,15 +275,17 @@ export default function LeavesPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary">Start Date *</label>
+                  <label htmlFor="leave-start-date" className="block text-sm font-medium text-text-secondary">Start Date *</label>
                   <input
+                    id="leave-start-date"
                     type="date" value={form.startDate}
                     onChange={(e) => setForm({ ...form, startDate: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary">End Date *</label>
+                  <label htmlFor="leave-end-date" className="block text-sm font-medium text-text-secondary">End Date *</label>
                   <input
+                    id="leave-end-date"
                     type="date" value={form.endDate}
                     onChange={(e) => setForm({ ...form, endDate: e.target.value })}
                     className={inputClass} />
@@ -288,8 +293,9 @@ export default function LeavesPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Reason</label>
+                <label htmlFor="leave-reason" className="block text-sm font-medium text-text-secondary">Reason</label>
                 <textarea
+                  id="leave-reason"
                   rows={3} value={form.reason}
                   onChange={(e) => setForm({ ...form, reason: e.target.value })}
                   className={inputClass}
