@@ -268,8 +268,15 @@ export default function AttendancePage() {
 
       {/* Modal */}
       {showModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="card p-6 w-full max-w-md mx-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Overlay backdrop — sibling of card to prevent pointer-event conflicts */}
+          <div
+            className="absolute inset-0 bg-black/60"
+            onClick={() => setShowModal(false)}
+            aria-hidden="true"
+          />
+          {/* Modal card — relative z-10 to stack above overlay */}
+          <div className="relative z-10 card p-6 w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-lg font-semibold text-text-primary">
                 {editId ? 'Edit Record' : 'New Record'}
@@ -281,8 +288,9 @@ export default function AttendancePage() {
 
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Employee *</label>
+                <label htmlFor="att-employee" className="block text-sm font-medium text-text-secondary">Employee *</label>
                 <select
+                  id="att-employee"
                   value={form.employeeId}
                   onChange={(e) => setForm({ ...form, employeeId: e.target.value })}
                   className={inputClass}
@@ -298,8 +306,9 @@ export default function AttendancePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Date *</label>
+                <label htmlFor="att-date" className="block text-sm font-medium text-text-secondary">Date *</label>
                 <input
+                  id="att-date"
                   type="date" value={form.date}
                   onChange={(e) => setForm({ ...form, date: e.target.value })}
                   className={inputClass} />
@@ -307,15 +316,17 @@ export default function AttendancePage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary">Check-in</label>
+                  <label htmlFor="att-clock-in" className="block text-sm font-medium text-text-secondary">Check-in</label>
                   <input
+                    id="att-clock-in"
                     type="time" value={form.clockIn}
                     onChange={(e) => setForm({ ...form, clockIn: e.target.value })}
                     className={inputClass} />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-text-secondary">Check-out</label>
+                  <label htmlFor="att-clock-out" className="block text-sm font-medium text-text-secondary">Check-out</label>
                   <input
+                    id="att-clock-out"
                     type="time" value={form.clockOut}
                     onChange={(e) => setForm({ ...form, clockOut: e.target.value })}
                     className={inputClass} />
@@ -323,16 +334,18 @@ export default function AttendancePage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Break Minutes</label>
+                <label htmlFor="att-break" className="block text-sm font-medium text-text-secondary">Break Minutes</label>
                 <input
+                  id="att-break"
                   type="number" value={form.breakMinutes}
                   onChange={(e) => setForm({ ...form, breakMinutes: e.target.value })}
                   className={inputClass} />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-text-secondary">Notes</label>
+                <label htmlFor="att-notes" className="block text-sm font-medium text-text-secondary">Notes</label>
                 <textarea
+                  id="att-notes"
                   rows={2} value={form.notes}
                   onChange={(e) => setForm({ ...form, notes: e.target.value })}
                   className={inputClass} />
