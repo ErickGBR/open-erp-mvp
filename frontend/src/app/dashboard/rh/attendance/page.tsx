@@ -350,22 +350,22 @@ export default function AttendancePage() {
                   onChange={(e) => setForm({ ...form, notes: e.target.value })}
                   className={inputClass} />
               </div>
-            </div>
 
-            <div className="flex gap-3 mt-6">
-              <button
-                onClick={handleSubmit}
-                disabled={saving || !form.employeeId || !form.date}
-                className="btn-primary flex-1 text-sm"
-              >
-                {saving ? 'Saving…' : editId ? 'Update' : 'Create'}
-              </button>
-              <button
-                onClick={() => setShowModal(false)}
-                className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary"
-              >
-                Cancel
-              </button>
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={handleSubmit}
+                  disabled={saving || !form.employeeId || !form.date}
+                  className="btn-primary flex-1 text-sm"
+                >
+                  {saving ? 'Saving…' : editId ? 'Update' : 'Create'}
+                </button>
+                <button
+                  onClick={() => setShowModal(false)}
+                  className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary"
+                >
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>
