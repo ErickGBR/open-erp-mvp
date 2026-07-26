@@ -1,0 +1,18 @@
+{
+  "name": "Open ERP",
+  "short_name": "OpenERP",
+  "description": "Open-source Enterprise Resource Planning system",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0F",
+  "theme_color": "#6366F1",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
